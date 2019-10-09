@@ -1,31 +1,27 @@
 <template>
 	<el-row
-		class="ResverationTable"
+		class="CarProductionTable"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
 		<div class="titleBox">
 			位置：
-			<span>微信商城／预约信息</span>
+			<span>微信商城／车辆信息</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="userName"></el-input>
+							<span>车类型：</span>
+							<el-input v-model="carType"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>电话：</span>
-							<el-input v-model="phoneNumber"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>车牌号：</span>
-							<el-input v-model="plateNumber"></el-input>
+							<span>车型号：</span>
+							<el-input v-model="carModel"></el-input>
 						</div>
 						<div class="dateBox">
-							<span class="topTitleTxt">预约时间：</span>
+							<span class="topTitleTxt">发布时间：</span>
 							<el-date-picker
 								v-model="beginTime"
 								type="datetime"
@@ -48,24 +44,24 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<!-- <el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button> -->
+				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="租赁人姓名"></el-table-column>
-				<el-table-column prop="name" label="租赁人电话"></el-table-column>
-				<el-table-column prop="province" label="余额"></el-table-column>
-				<el-table-column prop="city" label="车辆型号"></el-table-column>
-				<el-table-column prop="city" label="车座位数"></el-table-column>
-				<el-table-column prop="zip" label="预约日期"></el-table-column>
-				<el-table-column prop="zip" label="记录日期"></el-table-column>
-				<!-- <el-table-column label="操作">
+				<el-table-column prop="date" label="车型"></el-table-column>
+				<el-table-column prop="name" label="类型"></el-table-column>
+				<el-table-column prop="province" label="额定成员"></el-table-column>
+				<el-table-column prop="city" label="乘客座椅数"></el-table-column>
+				<el-table-column prop="city" label="容积"></el-table-column>
+				<el-table-column prop="zip" label="发布日期"></el-table-column>
+				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
-				</el-table-column> -->
+				</el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -83,10 +79,10 @@
 	</el-row>
 </template>
 <script>
-// import ResverationTableAdd from "@/components/ResverationTableAdd";
+// import CarProductionTableAdd from "@/components/CarProductionTableAdd";
 export default {
   components: {
-    // ResverationTableAdd
+    // CarProductionTableAdd
   },
   mounted: function() {},
   data: function() {
@@ -101,9 +97,9 @@ export default {
       operatorOptions: [],
       userName: null,
       stationOptions: [],
-      phoneNumber: null,
+      carType: null,
       mainScreenLoading: false,
-      plateNumber: null,
+      carModel: null,
       tableData: window.config.tableData
     };
   },
@@ -134,38 +130,38 @@ export default {
 };
 </script>
 <style>
-.ResverationTable .flex-sbw-item {
+.CarProductionTable .flex-sbw-item {
 	margin: 0 10px;
 }
-.ResverationTable .dateBox {
+.CarProductionTable .dateBox {
 	margin-left: 30px;
 }
-.ResverationTable .flex-sbw-item .el-input,
-.ResverationTable .flex-sbw-item .el-input__inner {
+.CarProductionTable .flex-sbw-item .el-input,
+.CarProductionTable .flex-sbw-item .el-input__inner {
 	width: 150px;
 	height: 32px;
 }
-.ResverationTable .el-date-editor.el-input,
-.ResverationTable .el-date-editor.el-input__inner {
+.CarProductionTable .el-date-editor.el-input,
+.CarProductionTable .el-date-editor.el-input__inner {
 	width: 180px;
 }
-.ResverationTable .el-input--suffix .el-input__inner {
+.CarProductionTable .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
 
 @media screen and (max-width: 1512px) {
-	.ResverationTable .flex-sbw-item {
+	.CarProductionTable .flex-sbw-item {
 		margin-right: 5px !important;
 	}
-	.ResverationTable .flex-sbw-item .el-input,
-	.ResverationTable .flex-sbw-item .el-input__inner {
+	.CarProductionTable .flex-sbw-item .el-input,
+	.CarProductionTable .flex-sbw-item .el-input__inner {
 		width: 120px;
 		height: 32px;
 	}
-	.ResverationTable .el-input--suffix .el-input__inner {
+	.CarProductionTable .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
 	}
-	.ResverationTable .dateBox {
+	.CarProductionTable .dateBox {
 		margin-left: 30px !important;
 	}
 }
@@ -173,7 +169,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.ResverationTable {
+.CarProductionTable {
 	text-align: center;
 	height: 100%;
 	.titleBox {
