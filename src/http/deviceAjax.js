@@ -14,7 +14,7 @@ export var DeviceAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      params: {cpIdList: xhr.toString()}
     });
   },
   addPile(xhr) {
@@ -56,8 +56,22 @@ export var DeviceAjax = {
     let url = `${RestApi.api.DeviceAjax.deleteChargeStation}`;
     return axios({
       method: "post",
+      headers: {
+        'content-type': 'application/json'
+      },
       url,
-      data: xhr
+      params: {csId: xhr.toString()}
+    });
+  },
+  getChargeStationListByOperatorId(xhr) {
+    let url = `${RestApi.api.DeviceAjax.getChargeStationListByOperatorId}`;
+    return axios({
+      method: "post",
+      headers: {
+        'content-type': 'application/json'
+      },
+      url,
+      params: {operatorId: xhr}
     });
   },
   getChargeStationList(xhr) {
@@ -93,6 +107,14 @@ export var DeviceAjax = {
       method: "post",
       url,
       data: xhr
+    });
+  },
+  getPileModelListById(xhr) {
+    let url = `${RestApi.api.DeviceAjax.getPileModelListById}`;
+    return axios({
+      method: "post",
+      url,
+      params: {mfrId: xhr}
     });
   },
   deletePileFactory(xhr) {

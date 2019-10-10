@@ -158,6 +158,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;
+            this.total = res.data.totalCount;
           } else {
             this.$message({ type: "warning", message: res.data.errMsg });
           }

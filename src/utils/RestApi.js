@@ -50,17 +50,19 @@ export default {
       updatePile: `${httpUrlHeader}/chargePile/update`,
       getPileOptions: `${httpUrlHeader}/chargePile/list`,
 
-      deleteChargeStation: `${httpUrlHeader}/charge/record/list-by-page`,
+      deleteChargeStation: `${httpUrlHeader}/charge/station/delete`,
       getChargeStationList: `${httpUrlHeader}/charge/station/list-by-page`,
       addChargeStation: `${httpUrlHeader}/charge/station/save`,
       editChargeStationOptions: `${httpUrlHeader}/charge/station/toEdit`,
       updateChargeStation: `${httpUrlHeader}/charge/station/update`,
+      getChargeStationListByOperatorId: `${httpUrlHeader}/charge/station/query-list-by-operatorId`,
 
       deletePileFactory: `${httpUrlHeader}/manufacturer/delete`,
       getPileFactoryList: `${httpUrlHeader}/manufacturer/list-by-page`,
       addPileFactory: `${httpUrlHeader}/manufacturer/save`,
       editPileFactoryOptions: `${httpUrlHeader}/manufacturer/toEdit`,
       updatePileFactory: `${httpUrlHeader}/manufacturer/update`,
+      getPileModelListById: `${httpUrlHeader}/manufacturer/query-model-by-mfrid`,
 
       // 省市区地址管理接口
       getProvince: `${httpUrlHeader}/address/province/list`,
@@ -101,9 +103,56 @@ export default {
        * 运营统计
        */
     StaticsAjax: {
-      getAppUser: `${httpUrlHeader}/statistics/user`
+      getAppUser: `${httpUrlHeader}/statistics/user`,
+      getOperator: `${httpUrlHeader}/statistics/operator`,
+      getChargeStation: `${httpUrlHeader}/statistics/chargeStation`,
+      getChargePile: `${httpUrlHeader}/statistics/chargePile`,
     },
 
+    /**
+     * 微信商城
+     */
+    ProductionAjax: {
+
+      getCarList: `${httpUrlHeader}/weChat/mall/car-list`,
+      addCar: `${httpUrlHeader}/weChat/mall/save-Car`,
+      deleteCar: `${httpUrlHeader}/weChat/mall/delete-Car`,
+      updateCar: `${httpUrlHeader}/weChat/mall/update-Car`,
+      detailCar: `${httpUrlHeader}/weChat/mall/queryCarById`,
+
+      getPileList: `${httpUrlHeader}/weChat/mall/pile-list`,
+      addPile: `${httpUrlHeader}/weChat/mall/pile-add`,
+      deletePile: `${httpUrlHeader}/weChat/mall/pile-delete`,
+      updatePile: `${httpUrlHeader}/weChat/mall/pile-update`,
+      detailPile: `${httpUrlHeader}/weChat/mall/pile-detail`,
+
+      getReservationList: `${httpUrlHeader}/weChat/mall/reservation-list`,
+      exportReservation: `${httpUrlHeader}/weChat/mall/reservation-export`,
+
+      getActivityList: `${httpUrlHeader}/weChat/mall/discount-list`,
+      addActivity: `${httpUrlHeader}/weChat/mall/discount-add`,
+      deleteActivity: `${httpUrlHeader}/weChat/mall/discount-delete`,
+      updateActivity: `${httpUrlHeader}/weChat/mall/discount-update`,
+      detailActivity: `${httpUrlHeader}/weChat/mall/discount-detail`,
+
+      getCaseList: `${httpUrlHeader}/weChat/mall/excellent-list`,
+      addCase: `${httpUrlHeader}/weChat/mall/excellent-add`,
+      deleteCase: `${httpUrlHeader}/weChat/mall/excellent-delete`,
+      updateCase: `${httpUrlHeader}/weChat/mall/excellent-update`,
+      detailCase: `${httpUrlHeader}/weChat/mall/excellent-detail`,
+
+      saveAlign: `${httpUrlHeader}/weChat/mall/league-update`,
+      detailAlign: `${httpUrlHeader}/weChat/mall/league-detail`,
+
+      getRentList: `${httpUrlHeader}/weChat/mall/rentScheme-list`,
+      addRent: `${httpUrlHeader}/weChat/mall/rentScheme-add`,
+      deleteRent: `${httpUrlHeader}/weChat/mall/rentScheme-delete`,
+      updateRent: `${httpUrlHeader}/weChat/mall/rentScheme-update`,
+      detailRent: `${httpUrlHeader}/weChat/mall/rentScheme-detail`,
+
+      updateImage: `${httpUrlHeader}/weChat/mall/upload`
+
+    },
     /**
      * 充电价格
      */

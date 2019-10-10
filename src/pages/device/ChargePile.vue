@@ -71,7 +71,13 @@
 				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
 				<el-button type="primary" @click="exportBtnAct">导出</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
+			<el-table
+				:data="tableData"
+				@selection-change="selectionChange"
+				stripe
+				border
+				style="width: 100%"
+			>
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="cpName" label="桩名"></el-table-column>
@@ -91,14 +97,6 @@
 				</el-table-column>
 			</el-table>
 			<div class="footer">
-				<!-- <el-pagination
-					background
-					layout="total, prev, pager, next, jumper"
-					:page-size="pageSize"
-					:current-page="currentPage"
-					@current-change="handleCurrentChange"
-					:total="total"
-				></el-pagination>-->
 				<el-pagination
 					@size-change="handleSizeChange"
 					@current-change="handleCurrentChange"
@@ -128,7 +126,7 @@ export default {
     return {
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
@@ -139,10 +137,19 @@ export default {
       operator: null,
       mainScreenLoading: false,
       rowData: null,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      checkedCpids: []
     };
   },
   methods: {
+    // checkBox多选
+    selectionChange(selection) {
+      console.log(selection);
+      this.checkedCpids = [];
+      selection.forEach(item => {
+        this.checkedCpids.push(item.cpId);
+      });
+    },
     initData() {
       var data = {
         model: {
@@ -162,6 +169,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;
+            this.total = res.data.totalCount;
           } else {
             this.$message({ type: "warning", message: res.data.errMsg });
           }
@@ -181,14 +189,18 @@ export default {
       this.rowData = {};
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    deleteBtnAct(data) {
+    deleteBtnAct() {
+      if (!this.checkedCpids) {
+        this.$message.warning('请选择要删除的桩');
+        return;
+      }
       this.$confirm("是否删除该条数据?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.deleteData(data);
+          this.deleteData();
         })
         .catch(() => {
           this.$message({
@@ -197,9 +209,9 @@ export default {
           });
         });
     },
-    deleteData(data) {
+    deleteData() {
       this.$deviceAjax
-        .deletePile()
+        .deletePile(this.checkedCpids)
         .then(res => {
           if (res.data.success) {
             this.initData();
@@ -212,13 +224,12 @@ export default {
     },
     exportBtnAct() {},
     handleClick(row) {
-      console.log(row);
-      this.rowData = row;
       this.$deviceAjax
-        .getEditOptions({cpId: row.cpId})
+        .getEditOptions({ cpId: row.cpId })
         .then(res => {
           if (res.data.success) {
             this.rowData = res.data.model;
+            Object.assign(this.rowData, row);
             this.isShowAddDialog = !this.isShowAddDialog;
           } else {
             this.$message.warning(res.data.errMsg);

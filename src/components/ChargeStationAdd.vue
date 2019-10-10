@@ -233,17 +233,10 @@ export default {
           { required: true, message: "运营商不能为空", trigger: "change" }
         ],
         provinceId: [
-          { required: true, message: "请选择省", trigger: "change" },
-          { min: 1, max: 6, message: "请选择省", trigger: "blur" }
+          { required: true, message: "请选择省", trigger: "change" }
         ],
-        cityId: [
-          { required: true, message: "请选择市", trigger: "change" },
-          { min: 1, max: 6, message: "请选择市", trigger: "blur" }
-        ],
-        areaId: [
-          { required: true, message: "请选择区/县", trigger: "change" },
-          { min: 1, max: 6, message: "请选择区/县", trigger: "blur" }
-        ],
+        cityId: [{ required: true, message: "请选择市", trigger: "change" }],
+        areaId: [{ required: true, message: "请选择区/县", trigger: "change" }],
         addressId: [
           { required: true, message: "地址不能为空", trigger: "change" }
         ]
@@ -378,6 +371,9 @@ export default {
         this.formLabelAlign.startTime = this.formLabelAlign.openTime.split(
           "-"
         )[0];
+        this.provinceChangeAct(this.formLabelAlign.provinceId);
+        this.cityChangeAct(this.formLabelAlign.cityId);
+        this.areaChangeAct(this.formLabelAlign.areaId);
       } else {
         this.formLabelAlign = {
           openTime: null,

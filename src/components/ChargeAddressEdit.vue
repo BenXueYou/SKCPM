@@ -155,7 +155,7 @@ export default {
       if (this.formLabelAlign.addressId) {
         this.updateChargeAddress(data);
       } else {
-        this.postChargeAddress(data);
+        this.addChargeAddress(data);
       }
     },
     updateChargeAddress(data) {

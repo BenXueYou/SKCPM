@@ -71,7 +71,7 @@
 				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
 				<el-button type="primary" @click="exportBtnAct">导出</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
+			<el-table :data="tableData" @selection-change='selectionChange' stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="csName" label="充电站"></el-table-column>
@@ -147,6 +147,7 @@ export default {
       mainScreenLoading: false,
       tableData: window.config.tableData,
       rowData: {},
+      checkedCSids: [],
     };
   },
   methods: {
@@ -184,14 +185,18 @@ export default {
         })
         .catch(() => {});
     },
-    deleteBtnAct(data) {
+    deleteBtnAct() {
+      if (!this.checkedCSids.length) {
+        this.$message.warning('请选择充电站');
+        return;
+      }
       this.$confirm("是否删除该条数据?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
-          this.deleteData(data);
+          this.deleteData();
         })
         .catch(() => {
           this.$message({
@@ -200,9 +205,9 @@ export default {
           });
         });
     },
-    deleteData(data) {
+    deleteData() {
       this.$deviceAjax
-        .deletePileFactory(data)
+        .deleteChargeStation(this.checkedCSids)
         .then(res => {
           if (res.data && res.data.succcess) {
             this.$message({ type: "success", message: "删除成功！" });
@@ -224,6 +229,14 @@ export default {
           this.$message.warning(res.data.errMsg);
         }
       }).catch(() => {});
+    },
+    // checkBox多选
+    selectionChange(selection) {
+      console.log(selection);
+      this.checkedCSids = [];
+      selection.forEach(item => {
+        this.checkedCSids.push(item.csId);
+      });
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

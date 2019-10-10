@@ -141,6 +141,10 @@ export default {
     "gmtModify": "2019-07-31 21:23:58",
     "isDeleted": 0
        */
+      this.$userAjax
+        .getOperatorList()
+        .then(res => {})
+        .catch(() => {});
     },
     setUseData() {},
     onClickCancel() {

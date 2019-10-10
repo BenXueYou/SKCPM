@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="580px"
-		:title="isAdd?`新增充电桩`:`修改充电桩`"
+		:title="!rowData.cpId?`新增充电桩`:`修改充电桩`"
 		class="dialog-pile-add"
 		center
 		:visible.sync="isCurrentShow"
@@ -27,6 +27,7 @@
 								size="small"
 								clearable
 								placeholder="请选择"
+								@change="operatorChangeAct"
 							>
 								<el-option
 									v-for="item in businessOptions"
@@ -58,10 +59,17 @@
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩名称：" prop="cpName">
+						<el-form-item label="桩别名：" prop="cpName">
 							<el-input class="time-interal" v-model="formLabelAlign.cpName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
+					<el-col :span="12">
+						<el-form-item label="充电桩ID：" prop="cpId">
+							<el-input class="time-interal" v-model="formLabelAlign.cpId" size="small"></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="桩厂商：" prop="mfrId">
 							<el-select
@@ -70,6 +78,7 @@
 								size="small"
 								clearable
 								placeholder="请选择"
+								@change="mfrIdChangeAct"
 							>
 								<el-option
 									v-for="item in chargePileFactoryOptions"
@@ -80,26 +89,21 @@
 							</el-select>
 						</el-form-item>
 					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩型号：" prop="chargePileModel">
+						<el-form-item label="桩型号：" prop="model">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargePileModel"
+								v-model="formLabelAlign.model"
 								size="small"
 								clearable
 								placeholder="请选择"
 							>
-								<el-option
-									v-for="item in chargePileModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
+								<el-option v-for="item in modelOptions" :key="item" :label="item" :value="item"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="计费模板：" prop="rateId">
 							<el-select
@@ -111,18 +115,6 @@
 							>
 								<el-option v-for="item in chargePriceModelOptions" :key="item" :label="item" :value="item"></el-option>
 							</el-select>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="批量增加:">
-							<el-switch v-model="formLabelAlign.bulk"></el-switch>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12" v-if="formLabelAlign.bulk">
-						<el-form-item label="设置个数：" prop="roomsType">
-							<el-input class="time-interal" v-model="formLabelAlign.bulkNumber" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -160,7 +152,7 @@ export default {
     return {
       chargePileFactoryOptions: [],
       chargePriceModelOptions: [],
-      chargePileModelOptions: [],
+      modelOptions: [],
       chargeStationOptions: [],
       businessOptions: [],
       isCurrentShow: false,
@@ -168,8 +160,8 @@ export default {
       formLabelAlign: {
         addressId: 0,
         cpId: null,
-        deviceId: "string",
-        model: "string",
+        deviceId: "",
+        model: "",
         operatorId: null,
         protocolId: 0,
         csId: null,
@@ -188,13 +180,16 @@ export default {
         csId: [
           { required: true, message: "充电站不能为空", trigger: "change" }
         ],
+        cpId: [
+          { required: true, message: "充电桩Id不能为空", trigger: "change" }
+        ],
         rateId: [
           { required: true, message: "计费模板不能为空", trigger: "change" }
         ],
         mfrId: [
           { required: true, message: "充电桩厂商不能为空", trigger: "change" }
         ],
-        chargePileModel: [
+        model: [
           { required: true, message: "充电桩型号不能为空", trigger: "change" }
         ],
         operatorId: [
@@ -217,6 +212,7 @@ export default {
       this.$deviceAjax
         .getAddOptions({ operatorLoginId: this.$store.state.home.OperatorId })
         .then(res => {
+          console.log(res.data);
           if (res.data.success) {
             this.chargePriceModelOptions = res.data.model.rateList;
           } else {
@@ -233,22 +229,23 @@ export default {
       this.$emit("onCancel");
     },
     onClickConfirm() {
+      console.log(this.formLabelAlign);
       this.$refs.addPileForm.validate(valid => {
         if (valid) {
           var data = {
             addressId: 0,
             cpId: "string",
             cpName: "string",
-            csId: 0,
-            deviceId: "string",
+            csId: this.formLabelAlign.csId,
+            deviceId: this.formLabelAlign.cpId,
             mfrId: 0,
-            model: "string",
+            model: "",
             operatorId: 0,
             protocolId: 0,
             rateId: 0
           };
+          this.formLabelAlign.deviceId = this.formLabelAlign.cpId;
           Object.assign(data, this.formLabelAlign);
-          console.log(data);
           if (this.rowData.cpId) {
             this.updatePile(data);
           } else {
@@ -284,6 +281,26 @@ export default {
           }
         })
         .catch(() => {});
+    },
+    operatorChangeAct() {
+      this.$deviceAjax
+        .getChargeStationListByOperatorId(this.formLabelAlign.operatorId)
+        .then(res => {
+          if (res.data.success) {
+            this.chargeStationOptions = res.data.model;
+          }
+        })
+        .catch(() => {});
+    },
+    mfrIdChangeAct() {
+      this.$deviceAjax
+        .getPileModelListById(this.formLabelAlign.mfrId)
+        .then(res => {
+          if (res.data.success) {
+            this.modelOptions = res.data.model;
+          }
+        })
+        .catch(() => {});
     }
   },
   watch: {
@@ -295,6 +312,23 @@ export default {
           this.formLabelAlign,
           this.formLabelAlign.chargeStationList[0]
         );
+        console.log(this.rowData);
+      } else {
+        this.formLabelAlign = {
+          addressId: 0,
+          cpId: null,
+          deviceId: "",
+          model: "",
+          operatorId: null,
+          protocolId: 0,
+          csId: null,
+          cpName: null,
+          mfrId: null,
+          rateId: null,
+          bulkNumber: null,
+          bulk: false
+        };
+        this.getAddOptions();
       }
     }
   },
