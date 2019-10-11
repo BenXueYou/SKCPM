@@ -1,5 +1,4 @@
 var User = {
-
 	//企业用户注册
 	CmpEmpRegist:function(url,cmpId,openId,phone,name,phoneCode,psw,signId){
 		var mask = mui.createMask();
@@ -14,9 +13,7 @@ var User = {
 			signId:""
 		};
 		ajaxBase(url,false,postData,function(returnData){
-
 			if (returnData) {
-				
 
 			} else {
 				callback(fasle);
@@ -65,7 +62,6 @@ var User = {
 		var postData = {
 			userId: userid,
 		};
-      
 		ajaxBase(url, false, postData, function(data) {
 			if(data) {
 				try {
@@ -121,7 +117,6 @@ var User = {
 							}, "div");
 
 					} else { //检测到离线
-
 						DataObj.on_off = true;
 						//未检测到离线
 						if(DataObj.finish == "finish") {
@@ -233,14 +228,12 @@ var User = {
 					var ts = min + h * 60;
 					var t = ts.toFixed(0);
 					dataInfo.chargeTimeSpan = t;
-
 				} else {
 					var t = chargeTimeSpan / 60;
 					t = t.toFixed(0);
 					dataInfo.chargeTimeSpan = t;
 				}
 				window.res = dataInfo;
-				console.log("-----------" + dataInfo);
 				callback(dataInfo);
 			} else if(data.returnCode == 1) {
 				alert("充电桩超时，订单将会以充电记录的形式出现");

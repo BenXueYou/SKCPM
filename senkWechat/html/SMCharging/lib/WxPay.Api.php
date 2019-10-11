@@ -56,7 +56,7 @@ class WxPayApi
 		
 		//签名
 		$inputObj->SetSign();
-		$xml = $inputObj-> ();
+		$xml = $inputObj->ToXml();
 		
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
@@ -64,11 +64,8 @@ class WxPayApi
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 		
         //var_dump($result);
-        
 		return $result;
 	}
-    
-    
     /**
 	 * 
 	 * 申请退款，WxPayRefund中out_trade_no、transaction_id至少填一个且
@@ -81,12 +78,7 @@ class WxPayApi
 	 */
 	public static function refund($inputObj, $timeOut = 6)
 	{
-        
-        
         //var_dump("开始调用");
-        
-        
-        
 		$url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 		//检测必填参数
 		if(!$inputObj->IsOut_trade_noSet() && !$inputObj->IsTransaction_idSet()) {
@@ -100,9 +92,7 @@ class WxPayApi
 		}else if(!$inputObj->IsOp_user_idSet()){
 			throw new WxPayException("退款申请接口中，缺少必填参数op_user_id！");
 		}
-        
         //var_dump("抛出异常之后");
-        
 		$inputObj->SetAppid(WxPayConfig::APPID);//公众账号ID
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
@@ -271,14 +261,11 @@ class WxPayApi
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 	
 		if($useCert == true){
-            
-            
 			//使用证书：cert 与 key 分别属于两个.pem文件
 			curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
 			curl_setopt($ch,CURLOPT_SSLCERT, dirname(dirname(__FILE__))."/certs/apiclient_cert.pem");
 			curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
 			curl_setopt($ch,CURLOPT_SSLKEY, dirname(dirname(__FILE__))."/certs/apiclient_key.pem");
-             
             echo "设置证书";
             
 		}

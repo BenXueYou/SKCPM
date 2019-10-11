@@ -9,9 +9,13 @@ var CONFIGS = {
 	},
 	/*	广西蓝创Server*/
 	LANCHUANG: function() {
-
 		return "https://gxbie.com/LanChuang/" //天翼云平台
-
+	},
+	URLManage:function(){
+		const URLObj = {
+			
+		};
+		return URLObj;
 	},
 	GETOUTTRADENO: function(cpid) {
 		var indexNo = cpid.substr(0, 6) + cpid.substr(-6, 6);

@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=8">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="Cache" content="no-cache">
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=8">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-control" content="no-cache">
+        <meta http-equiv="Cache" content="no-cache">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
 		<title>手动输入桩编号</title>
 	   	<link href="../../CSS/circle.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript" src="../JS/jquery-3.0.0.min.js" ></script>
         <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		<style type="text/css">
-		body{
-			background: white;
-		}
-		   div{
+		    body{
+			    background: white;
+		    }
+		    div{
 				text-align: center;
 			}
 			#logo{
 				margin: 10% auto;
 				width: 120px;
 				height: 120px;
-
 			}
 			#intext{
 				margin-top: 30px;
@@ -63,7 +62,6 @@
                 background-color:rgba(80,80,80,0.3);
             }
 		</style>
-
 	</head>
 	<body>
 		<div id="logo">
@@ -91,8 +89,7 @@
 	</body>
     <script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../JS/mui.js" type="text/javascript" charset="utf-8"></script>
-	  <script type="text/javascript">
-
+	<script type="text/javascript">
         //定义全局变量
        //var urlM = "http://116.236.237.244:8080/SuperBackManage/";
        var urlM = CONFIGF.LANCHUANG();
