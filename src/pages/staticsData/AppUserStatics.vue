@@ -10,71 +10,71 @@
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:5px">
-					<div class="flex-sbw">
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="userName"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户(卡)ID号：</span>
-							<el-input v-model="userId"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>充电方式：</span>
-							<el-select
-								class="left-space time-interal"
-								v-model="chargeWay"
-								clearable
-								placeholder="充电方式 "
-								size="small"
-							>
-								<el-option
-									v-for="item in chargeWayOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</div>
-						<div class="dateBox">
-							<span class="topTitleTxt">支付时间：</span>
-							<el-date-picker
-								v-model="beginTime"
-								type="datetime"
-								class="time-interal-date"
-								size="small"
-								placeholder="选择日期"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-							<span class="time-line">—</span>
-							<el-date-picker
-								v-model="endTime"
-								type="datetime"
-								class="time-interal-date"
-								placeholder="选择日期"
-								size="small"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-						</div>
+				<div class="flex-sbw">
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>用户名：</span>
+						<el-input v-model="userName"></el-input>
 					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>用户(卡)ID号：</span>
+						<el-input v-model="userId"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>充电方式：</span>
+						<el-select
+							class="left-space time-interal"
+							v-model="chargeWay"
+							clearable
+							placeholder="充电方式 "
+							size="small"
+						>
+							<el-option
+								v-for="item in chargeWayOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="dateBox">
+						<span class="topTitleTxt">支付时间：</span>
+						<el-date-picker
+							v-model="beginTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<span class="time-line">—</span>
+						<el-date-picker
+							v-model="endTime"
+							type="datetime"
+							class="time-interal-date"
+							placeholder="选择日期"
+							size="small"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+					</div>
+				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
 				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
-			<el-table :v-loading='mainScreenLoading' :data="tableData" stripe border style="width: 100%">
+			<el-table :v-loading="mainScreenLoading" :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="用户(卡)ID号"></el-table-column>
-				<el-table-column prop="date" label="用户名"></el-table-column>
-				<el-table-column prop="name" label="电话"></el-table-column>
-				<el-table-column prop="date" label="车牌号"></el-table-column>
-				<el-table-column prop="province" label="充电次数"></el-table-column>
-				<el-table-column prop="province" label="充电时长"></el-table-column>
-				<el-table-column prop="province" label="充电电量(kWh)"></el-table-column>
-				<el-table-column prop="province" label="服务费(元)"></el-table-column>
-				<el-table-column prop="province" label="基础电费(元)"></el-table-column>
-				<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
+				<el-table-column prop="userId" label="用户(卡)ID号"></el-table-column>
+				<el-table-column prop="userName" label="用户名"></el-table-column>
+				<el-table-column prop="telephone" label="电话"></el-table-column>
+				<!-- <el-table-column prop="date" label="车牌号"></el-table-column> -->
+				<el-table-column prop="chargeCount" label="充电次数"></el-table-column>
+				<el-table-column prop="chargeTimeSpan" label="充电时长"></el-table-column>
+				<el-table-column prop="chargeQuantity" label="充电电量(kWh)"></el-table-column>
+				<el-table-column prop="serviceTip" label="服务费(元)"></el-table-column>
+				<el-table-column prop="chargeMoney" label="基础电费(元)"></el-table-column>
+				<el-table-column prop="totalFee" label="充电总费用(元)"></el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -97,7 +97,12 @@ export default {
   components: {
     // appUserAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.chargeWay = this.chargeWayOptions[0].typeStr;
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -109,7 +114,12 @@ export default {
       endTime: null,
       operatorOptions: [],
       chargeWay: null,
-      chargeWayOptions: [],
+      chargeWayOptions: [
+        // { typeStr: 0, typeName: "APP充电" },
+        { typeStr: 1, typeName: "刷卡充电" },
+        { typeStr: 3, typeName: "微信充电" }
+        // { typeStr: 4, typeName: "全部充电" }
+      ],
       userName: null,
       userId: null,
       mainScreenLoading: false,
@@ -117,10 +127,37 @@ export default {
     };
   },
   methods: {
+    initData() {
+      let data = {
+        model: {
+          chargeMethodId: this.chargeWay,
+          endTime: this.endTime,
+          startTime: this.beginTime,
+          userId: null,
+          userName: this.userName
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$staticsAjax
+        .getAppUser(data)
+        .then(res => {
+          console.log(res.data);
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          }
+        })
+        .catch(() => {});
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -133,10 +170,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

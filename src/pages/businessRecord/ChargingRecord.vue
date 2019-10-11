@@ -98,8 +98,10 @@
 				<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
 				<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
 				<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="userName" label="用户姓名" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
+				<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
+				<el-table-column prop="timeSpan" label="充电时长" width="180">
+					<template slot-scope="scope">{{$common.formatSeconds(scope.row.timeSpan)}}</template>
+				</el-table-column>
 				<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
 				<el-table-column prop="chargeMoney" label="应扣金额" width="100"></el-table-column>
 				<el-table-column prop="beforeChargeBalance" label="充电前金额" width="100"></el-table-column>
@@ -188,9 +190,9 @@ export default {
     initData() {
       var data = {
         model: {
-          chargeEndTime: this.beginTime,
+          chargeStartTime: this.beginTime,
           chargeMothodId: this.chargeWay,
-          chargeStartTime: this.endTime,
+          chargeEndTime: this.endTime,
           deviceId: this.cpId,
           operatorId: this.operatorId,
           telephone: this.phoneNumber,

@@ -75,7 +75,7 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/AppUser">微信/APP用户</el-menu-item>
+						<el-menu-item index="/Main/AppUser">用户管理</el-menu-item>
 						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
 						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
 					</el-submenu>
@@ -116,7 +116,7 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/AppUserStatics">app用户统计</el-menu-item>
+						<el-menu-item index="/Main/AppUserStatics">用户统计</el-menu-item>
 						<el-menu-item index="/Main/ChargePileStatics">充电桩统计</el-menu-item>
 						<el-menu-item index="/Main/ChargeStationStatics">充电站统计</el-menu-item>
 						<el-menu-item index="/Main/OperatorStatics">运营商统计</el-menu-item>

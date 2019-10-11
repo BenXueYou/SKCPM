@@ -107,6 +107,30 @@ export default {
     };
   },
   methods: {
+    initData() {
+      let data = {
+        model: {
+          chargeMethodId: 0,
+          endTime: this.endTime,
+          startTime: this.beginTime,
+          userId: null,
+          userName: this.userName
+        },
+        pageIndex: 0,
+        pageSize: 0,
+        queryCount: true,
+        start: 0
+      };
+      this.$UserAjax
+        .getAppUserList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          }
+        })
+        .catch(() => {});
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },

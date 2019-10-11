@@ -1,6 +1,38 @@
 import store from "@/store/store.js";
 export var COMMON = {
   /**
+   *
+   * 时间秒转时分秒
+   */
+  formatSeconds(value) {
+    var secondTime = parseInt(value);// 秒
+    var minuteTime = 0;// 分
+    var hourTime = 0;// 小时
+    if (secondTime > 60) { // 如果秒数大于60，将秒数转换成整数
+      // 获取分钟，除以60取整数，得到整数分钟
+      minuteTime = parseInt(secondTime / 60);
+      // 获取秒数，秒数取佘，得到整数秒数
+      secondTime = parseInt(secondTime % 60);
+      // 如果分钟大于60，将分钟转换成小时
+      if (minuteTime > 60) {
+        // 获取小时，获取分钟除以60，得到整数小时
+        hourTime = parseInt(minuteTime / 60);
+        // 获取小时后取佘的分，获取分钟除以60取佘的分
+        minuteTime = parseInt(minuteTime % 60);
+      }
+    }
+    var result = "" + parseInt(secondTime) + "秒";
+
+    if (minuteTime > 0) {
+      result = "" + parseInt(minuteTime) + "分" + result;
+    }
+    if (hourTime > 0) {
+      result = "" + parseInt(hourTime) + "小时" + result;
+    }
+    return result;
+  },
+
+  /**
    * 通过年月获取当月天数
    */
   getDaysByMonth(year, month) {
@@ -358,14 +390,14 @@ export var COMMON = {
     xhr.open("GET", url, true); // 也可以使用POST方式，根据接口
     xhr.setRequestHeader("Authorization", store.state.home.Authorization);
     xhr.responseType = "blob"; // 返回类型blob
-    xhr.onload = function() {
+    xhr.onload = function () {
       // 请求完成
       if (this.status === 200) {
         // 返回200
         var blob = this.response;
         var reader = new FileReader();
         reader.readAsDataURL(blob); // 转换为base64，可以直接放入a标签
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           // 转换完成，创建一个a标签用于下载
           var a = document.createElement("a");
           a.download = name;
@@ -386,7 +418,7 @@ export var COMMON = {
     var previous = 0;
     if (!options) options = {};
 
-    var later = function() {
+    var later = function () {
       //
       previous = options.leading === false ? 0 : new Date().getTime();
       timeout = null;
@@ -394,7 +426,7 @@ export var COMMON = {
       if (!timeout) context = args = null;
     };
 
-    var throttled = function() {
+    var throttled = function () {
       // 记录当前时间
       var now = new Date().getTime();
       // 如果是第一次进来，并且leading等于false,设置previous等于now,可以阻止事件立即执行
@@ -418,7 +450,7 @@ export var COMMON = {
       }
     };
 
-    throttled.cancel = function() {
+    throttled.cancel = function () {
       clearTimeout(timeout);
       previous = 0;
       timeout = null;

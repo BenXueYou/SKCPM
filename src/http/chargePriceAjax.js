@@ -1,8 +1,8 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-export var staticsAjax = {
+export var priceAjax = {
   getChargePrice(xhr) {
-    let url = `${RestApi.api.RealAjax.getChargePrice}`;
+    let url = `${RestApi.api.ChargePriceAjax.getChargePrice}`;
     return axios({
       method: "post",
       url,
@@ -10,7 +10,7 @@ export var staticsAjax = {
     });
   },
   realAlarmData(xhr) {
-    let url = `${RestApi.api.RealAjax.realAlarmData}`;
+    let url = `${RestApi.api.ChargePriceAjax.realAlarmData}`;
     return axios({
       method: "post",
       url,
@@ -20,7 +20,7 @@ export var staticsAjax = {
 };
 
 function install(Vue) {
-  Vue.prototype.$staticsAjax = staticsAjax;
+  Vue.prototype.$PriceAjax = priceAjax;
 }
 
 export default install;

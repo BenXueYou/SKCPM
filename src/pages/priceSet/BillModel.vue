@@ -12,42 +12,30 @@
 			<div class="topMenu" style="padding-bottom:10px">
 				<div class="flex-sbw">
 					<div class="flex-sbw-div">
-						<span class="topTitleTxt">数据状态：</span>
+						<span class="topTitleTxt">运营商：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="operator"
+							v-model="operatorId"
 							clearable
-							placeholder="请选择确认状态"
+							placeholder="运营商"
 							size="small"
 						>
 							<el-option
 								v-for="item in operatorOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.operatorId"
+								:label="item.operatorName"
+								:value="item.operatorId"
 							></el-option>
 						</el-select>
 					</div>
-
 					<div class="flex-sbw-div">
-						<span class="topTitleTxt">桩类型：</span>
-						<el-select
-							class="left-space time-interal"
-							v-model="operator"
-							clearable
-							placeholder="桩类型"
-							size="small"
-						>
-							<el-option
-								v-for="item in operatorOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
-							></el-option>
+						<span class="topTitleTxt">费率模板：</span>
+						<el-select class="time-interal" v-model="rateId" size="small" clearable placeholder="请选择">
+							<el-option v-for="item in chargePriceModelOptions" :key="item" :label="item" :value="item"></el-option>
 						</el-select>
 					</div>
 					<div class="dateBox">
-						<span class="topTitleTxt">起始时间：</span>
+						<span class="topTitleTxt">时间：</span>
 						<el-date-picker
 							v-model="beginTime"
 							type="datetime"
@@ -69,40 +57,37 @@
 					<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 				</div>
 			</div>
-			<div class="topMenu flex-st" style="margin-bottom: 15px;"></div>
-			<div class="topMenu flex-st" style="margin-bottom: 5px;"></div>
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="id" label="生效时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="失效时间" width="180"></el-table-column>
-				<el-table-column prop="date" label="有效时段" width="120"></el-table-column>
-				<el-table-column prop="name" label=" 服务费" width="100"></el-table-column>
-				<el-table-column prop="zip" label="尖电价"></el-table-column>
-				<el-table-column prop="index" label="峰电价" width="100"></el-table-column>
-				<el-table-column prop="index" label="平电价" ></el-table-column>
-				<el-table-column prop="zip" label="谷电价" width="100"></el-table-column>
-				<el-table-column prop="zip" label="尖电价"></el-table-column>
-                <el-table-column prop="index" label="时段1起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段1类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段2起始时刻" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段2类型" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段3起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段3类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段4起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段4类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段5起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段5类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段6起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段6类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段7起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段7类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="时段8起始时刻" width="120"></el-table-column>
-				<el-table-column prop="index" label="时段8类型" width="120"></el-table-column>
-				<el-table-column prop="zip" label="确认模式" width="120"></el-table-column>
+				<el-table-column prop="validTime" label="生效时间" width="180"></el-table-column>
+				<el-table-column prop="invalidTime" label="失效时间" width="180"></el-table-column>
+				<el-table-column prop="timeIntervalCount" label="有效时段" width="120"></el-table-column>
+				<el-table-column prop="serviceTip" label=" 服务费" width="100"></el-table-column>
+				<el-table-column prop="jprice" label="尖电价"></el-table-column>
+				<el-table-column prop="fprice" label="峰电价" width="100"></el-table-column>
+				<el-table-column prop="pprice" label="平电价"></el-table-column>
+				<el-table-column prop="gprice" label="谷电价" width="100"></el-table-column>
+				<el-table-column prop="ti1Start" label="时段1起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti1Id" label="时段1类型" width="120"></el-table-column>
+				<el-table-column prop="ti2Start" label="时段2起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti2Id" label="时段2类型" width="120"></el-table-column>
+				<el-table-column prop="ti3Start" label="时段3起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti3Id" label="时段3类型" width="120"></el-table-column>
+				<el-table-column prop="ti4Start" label="时段4起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti4Id" label="时段4类型" width="120"></el-table-column>
+				<el-table-column prop="ti5Start" label="时段5起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti5Id" label="时段5类型" width="120"></el-table-column>
+				<el-table-column prop="ti6Start" label="时段6起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti6Id" label="时段6类型" width="120"></el-table-column>
+				<el-table-column prop="ti7Start" label="时段7起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti7Id" label="时段7类型" width="120"></el-table-column>
+				<el-table-column prop="ti8Start" label="时段8起始时刻" width="120"></el-table-column>
+				<el-table-column prop="ti8Id" label="时段8类型" width="120"></el-table-column>
+				<!-- <el-table-column prop="zip" label="确认模式" width="120"></el-table-column> -->
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">确认</el-button>
+						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -127,29 +112,71 @@ export default {
   components: {
     ChargeRecordDetail
   },
-  mounted: function() {},
+  mounted: function() {
+    this.operatorOptions = this.$store.state.home.operatorArr;
+    this.operatorId = this.operatorOptions[0].operatorId;
+    this.getAddOptions();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
-      stationOptions: [],
-      operator: null,
+      rateId: null,
+      chargePriceModelOptions: [],
+      operatorId: null,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };
   },
   methods: {
+    // 新增充电桩的时候Options
+    getAddOptions() {
+      this.$deviceAjax
+        .getAddOptions({ operatorLoginId: this.$store.state.home.OperatorId })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.success) {
+            this.chargePriceModelOptions = res.data.model.rateList;
+            this.rateId = this.chargePriceModelOptions[0];
+          } else {
+          }
+        })
+        .catch(() => {});
+    },
+    initData() {
+      let data = {
+        model: {
+          operatorId: this.operatorId,
+          rateId: this.rateId
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$PriceAjax
+        .getChargePrice(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          }
+        })
+        .catch(() => {});
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -162,10 +189,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

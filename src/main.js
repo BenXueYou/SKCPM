@@ -15,8 +15,10 @@ import userAjax from '@/http/userAjax.js';
 import staticsAjax from '@/http/staticsAjax.js';
 import realAjax from '@/http/realAjax.js';
 import mallAjax from '@/http/mallAjax.js';
+import chargePriceAjax from '@/http/chargePriceAjax.js';
 import Toast from "@/utils/Toast.js";
 import Common from '@/utils/Common.js';
+import bankCode from '@/utils/bank_code.js';
 import { EventBusPlugin as EventBus } from '@/utils/Eventbus';
 Vue.prototype.$echarts = echarts;
 Vue.use(Common);
@@ -24,6 +26,7 @@ Vue.use(ElementUI);
 Vue.use(loginAjax);
 Vue.use(mallAjax);
 Vue.use(businessAjax);
+Vue.use(chargePriceAjax);
 Vue.use(deviceAjax);
 Vue.use(homeAjax);
 Vue.use(userAjax);
@@ -32,6 +35,7 @@ Vue.use(realAjax);
 Vue.use(EventBus);
 Vue.config.productionTip = false;
 Vue.use(Toast);
+Vue.prototype.$bankCode = bankCode;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

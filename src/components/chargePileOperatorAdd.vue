@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="580px"
-		:title="isAdd?`新增运营商`:`修改运营商`"
+		:title="!rowData.operatorId?`新增运营商`:`修改运营商`"
 		class="dialog-factory-add"
 		center
 		:visible.sync="isCurrentShow"
@@ -123,29 +123,7 @@ export default {
     this.initData();
   },
   methods: {
-    initData() {
-      /**
-       *     "id": 2,
-    "operatorId": 34,
-    "operatorName": "尙宽",
-    "bossId": 0,
-    "telephone": "15251877737",
-    "email": "",
-    "address": "山西省太原市小店区尚宽电气集团",
-    "validFlag": 1,
-    "contactName": "tes",
-    "bankCard": "6222621020010875574",
-    "bankCode": "1020",
-    "cardUser": "赵文昌",
-    "gmtCreate": "2019-07-31 21:22:54",
-    "gmtModify": "2019-07-31 21:23:58",
-    "isDeleted": 0
-       */
-      this.$userAjax
-        .getOperatorList()
-        .then(res => {})
-        .catch(() => {});
-    },
+    initData() {},
     setUseData() {},
     onClickCancel() {
       this.$emit("onCancel");
@@ -189,7 +167,7 @@ export default {
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
-      if (val) {
+      if (val && this.rowData.operatorId) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
       } else {
         this.formLabelAlign = {
@@ -200,7 +178,7 @@ export default {
           cardUser: "",
           contactName: "",
           email: "",
-          operatorId: this.$store.state.home.OperatorId,
+          operatorId: '',
           operatorLoginId: this.$store.state.home.OperatorId,
           operatorName: "",
           telephone: "",
@@ -208,6 +186,7 @@ export default {
           bulk: false
         };
       }
+      this.formLabelAlign.operatorLoginId = this.$store.state.home.OperatorId;
     }
   },
   destroyed() {}

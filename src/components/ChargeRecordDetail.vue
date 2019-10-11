@@ -33,7 +33,7 @@
 						<p>{{rowData.chargeQuantity}}</p>
 						<p>{{rowData.beforeChargeBalance}}</p>
 						<p>{{rowData.beforeChargeBalance - rowData.chargeMoney - rowData.serviceTip}}</p>
-						<p>{{rowData.credentialNo}}</p>
+						<p>{{$common.formatSeconds(rowData.timeSpan)}}</p>
 					</el-col>
 					<el-col style="text-align:right;" :span="4">
 						<p>充电模式：</p>

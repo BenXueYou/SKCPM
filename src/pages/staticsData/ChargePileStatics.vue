@@ -28,9 +28,9 @@
 							>
 								<el-option
 									v-for="item in csOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									:key="item.csId"
+									:label="item.csName"
+									:value="item.csId"
 								></el-option>
 							</el-select>
 						</div>
@@ -41,18 +41,35 @@
 								class="left-space time-interal"
 								v-model="operator"
 								clearable
-								placeholder="处理状态"
+								placeholder="请选择运营商"
 								size="small"
 							>
 								<el-option
 									v-for="item in operatorOptions"
+									:key="item.operatorId"
+									:label="item.operatorName"
+									:value="item.operatorId"
+								></el-option>
+							</el-select>
+						</div>
+						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+							<span>充电方式：</span>
+							<el-select
+								class="left-space time-interal"
+								v-model="chargeWay"
+								clearable
+								placeholder="充电方式 "
+								size="small"
+							>
+								<el-option
+									v-for="item in chargeWayOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
 								></el-option>
 							</el-select>
 						</div>
-						<div class="dateBox">
+						<!-- <div class="dateBox">
 							<span class="topTitleTxt">查询时间：</span>
 							<el-date-picker
 								v-model="beginTime"
@@ -71,27 +88,49 @@
 								size="small"
 								value-format="yyyy-MM-dd HH:mm:ss"
 							></el-date-picker>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
+				<div class="dateBox" style="display:inline-block">
+					<span class="topTitleTxt">查询时间：</span>
+					<el-date-picker
+						v-model="beginTime"
+						type="datetime"
+						class="time-interal-date"
+						size="small"
+						placeholder="选择日期"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+					<span class="time-line">—</span>
+					<el-date-picker
+						v-model="endTime"
+						type="datetime"
+						class="time-interal-date"
+						placeholder="选择日期"
+						size="small"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+				</div>
+			</div>
+			<div class="topMenu" style="margin-bottom: 15px;">
+				<el-button type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="充电桩ID"></el-table-column>
-				<el-table-column prop="date" label="桩名"></el-table-column>
-				<el-table-column prop="date" label="运营商"></el-table-column>
-				<el-table-column prop="name" label="充电站"></el-table-column>
-				<el-table-column prop="province" label="充电次数"></el-table-column>
-				<el-table-column prop="province" label="充电时长"></el-table-column>
-				<el-table-column prop="province" label="充电电量(kWh)"></el-table-column>
-				<el-table-column prop="city" label="服务费(元)"></el-table-column>
-				<el-table-column prop="city" label="基础电费(元)"></el-table-column>
-				<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
+				<el-table-column prop="cpId" label="充电桩ID"></el-table-column>
+				<el-table-column prop="cpName" label="桩名"></el-table-column>
+				<el-table-column prop="operatorName" label="运营商"></el-table-column>
+				<el-table-column prop="csName" label="充电站"></el-table-column>
+				<el-table-column prop="chargeCount" label="充电次数"></el-table-column>
+				<el-table-column prop="chargeTimeSpan" label="充电时长"></el-table-column>
+				<el-table-column prop="chargeQuantity" label="充电电量(kWh)"></el-table-column>
+				<el-table-column prop="serviceTip" label="服务费(元)"></el-table-column>
+				<el-table-column prop="chargeMoney" label="基础电费(元)"></el-table-column>
+				<el-table-column prop="totalFee" label="充电总费用(元)"></el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -114,7 +153,16 @@ export default {
   components: {
     // appUserAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.operatorOptions = this.$store.state.home.operatorArr;
+    this.csOptions = this.$store.state.home.chargeStationArr;
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.operator = this.operatorOptions[0].operatorId;
+    this.csId = this.csOptions[0].csId;
+    this.chargeWay = this.chargeWayOptions[0].typeStr;
+    this.initData();
+  },
   data: function() {
     return {
       cpId: null,
@@ -130,14 +178,47 @@ export default {
       operatorOptions: [],
       operator: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      chargeWay: null,
+      chargeWayOptions: [
+        // { typeStr: 0, typeName: "APP充电" },
+        { typeStr: 1, typeName: "刷卡充电" },
+        { typeStr: 3, typeName: "微信充电" }
+        // { typeStr: 4, typeName: "全部充电" }
+      ]
     };
   },
   methods: {
+    initData() {
+      let data = {
+        model: {
+          endTime: this.endTime,
+          operatorId: this.operator,
+          startTime: this.beginTime,
+          csId: this.csId,
+          chargeMethodId: this.chargeWay
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$staticsAjax
+        .getChargePile(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          }
+        })
+        .catch(() => {});
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -150,10 +231,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}
@@ -161,10 +244,10 @@ export default {
 </script>
 <style>
 .ChargePileStatics .flex-sbw-item {
-	margin: 0 10px;
+	margin: 0 50px 0 10px;
 }
 .ChargePileStatics .dateBox {
-	margin-left: 30px;
+	margin-left: 10px;
 }
 .ChargePileStatics .flex-sbw-item .el-input,
 .ChargePileStatics .flex-sbw-item .el-input__inner {
@@ -181,7 +264,7 @@ export default {
 
 @media screen and (max-width: 1512px) {
 	.ChargePileStatics .flex-sbw-item {
-		margin-right: 5px !important;
+		margin-right: 25px !important;
 	}
 	.ChargePileStatics .flex-sbw-item .el-input,
 	.ChargePileStatics .flex-sbw-item .el-input__inner {
@@ -192,7 +275,7 @@ export default {
 		padding-right: 10px !important;
 	}
 	.ChargePileStatics .dateBox {
-		margin-left: 30px !important;
+		margin-left: 10px !important;
 	}
 }
 </style>

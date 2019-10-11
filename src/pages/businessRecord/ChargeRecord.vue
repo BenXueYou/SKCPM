@@ -98,8 +98,12 @@
 				<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
 				<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
 				<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
-				<el-table-column prop="userName" label="用户姓名" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
+				<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
+				<el-table-column prop="timeSpan" label="充电时长" width="180">
+					<template slot-scope="scope">
+						{{$common.formatSeconds(scope.row.timeSpan)}}
+					</template>
+				</el-table-column>
 				<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
 				<el-table-column prop="chargeMoney" label="充电总金额" width="100"></el-table-column>
 				<el-table-column label="操作">
@@ -145,17 +149,17 @@ export default {
     return {
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
       endTime: null,
       operatorOptions: [],
       chargeMethodOptions: [
-        { typeStr: 0, typeName: "APP充电" },
-        { typeStr: 2, typeName: "刷卡充电" },
+        // { typeStr: 0, typeName: "APP充电" },
+        { typeStr: 1, typeName: "刷卡充电" },
         { typeStr: 3, typeName: "微信充电" },
-        { typeStr: 4, typeName: "全部充电" }
+        // { typeStr: 4, typeName: "全部充电" }
       ],
       station: null,
       stationOptions: [],

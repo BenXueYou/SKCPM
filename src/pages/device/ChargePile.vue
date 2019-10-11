@@ -190,7 +190,7 @@ export default {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
     deleteBtnAct() {
-      if (!this.checkedCpids) {
+      if (!this.checkedCpids.length) {
         this.$message.warning('请选择要删除的桩');
         return;
       }

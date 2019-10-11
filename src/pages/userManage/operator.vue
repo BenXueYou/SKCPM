@@ -24,14 +24,20 @@
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
+			<el-table
+				:data="tableData"
+				@selection-change="selectionChange"
+				stripe
+				border
+				style="width: 100%"
+			>
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="operatorName" label="运营商" width="150"></el-table-column>
 				<el-table-column prop="contactName" label="联系人" width="150"></el-table-column>
 				<el-table-column prop="telephone" label="联系电话" width="180"></el-table-column>
 				<el-table-column prop="email" label="邮箱" width="180"></el-table-column>
-				<el-table-column prop="address" label="地址"></el-table-column>
+				<el-table-column prop="address" show-overflow-tooltip label="地址"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
@@ -71,7 +77,7 @@ export default {
     return {
       isShowEidtDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
@@ -82,10 +88,19 @@ export default {
       operator: null,
       mainScreenLoading: false,
       tableData: window.config.tableData,
-      rowData: {}
+      rowData: {},
+      operatorIds: []
     };
   },
   methods: {
+    // checkBox多选
+    selectionChange(selection) {
+      console.log(selection);
+      this.operatorIds = [];
+      selection.forEach(item => {
+        this.operatorIds.push(item.operatorId);
+      });
+    },
     close(is) {
       this.isShowEidtDialog = !this.isShowEidtDialog;
       if (is) {
@@ -94,10 +109,8 @@ export default {
       }
     },
     initData() {
-      console.log(this.$store.state.home.OperatorId);
       let data = {
         model: {
-          operatorId: this.$store.state.home.OperatorId,
           operatorName: this.operator,
           telephone: this.phoneNumber
         },
@@ -107,10 +120,11 @@ export default {
         start: 0
       };
       this.$userAjax
-        .getOperatorList(data)
+        .getOperatorListByPage(data)
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;
+            this.total = res.data.totalCount;
           } else {
             this.$message.wraning("请求失败");
           }
@@ -121,13 +135,46 @@ export default {
       this.initData();
     },
     addBtnAct() {
+      this.rowData = {};
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
-    deleteBtnAct() {},
+    deleteBtnAct() {
+      if (!this.operatorIds.length) {
+        this.$message.warning("请选择要删除的运营商");
+        return;
+      }
+      this.$confirm("是否删除该条数据?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.deleteData();
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    deleteData() {
+      this.$userAjax
+        .deleteOperator(this.operatorIds)
+        .then(res => {
+          if (res.data.success) {
+            this.initData();
+            this.$message.success(res.data.errMsg);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
     exportBtnAct() {},
     handleClick(row) {
       this.$userAjax
-        .editOperatorOptions({operatorId: row.operatorId})
+        .editOperatorOptions({ operatorId: row.operatorId })
         .then(res => {
           if (res.data.success) {
             this.isShowEidtDialog = !this.isShowEidtDialog;

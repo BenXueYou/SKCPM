@@ -5,8 +5,11 @@ export var userAjax = {
     let url = `${RestApi.api.UserAjax.deleteOperator}`;
     return axios({
       method: "post",
+      headers: {
+        'content-type': 'application/json'
+      },
       url,
-      data: xhr
+      params: { operatorIds: xhr.toString() }
     });
   },
   getOperatorListByPage(xhr) {

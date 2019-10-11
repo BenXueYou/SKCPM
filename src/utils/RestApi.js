@@ -98,6 +98,12 @@ export default {
       editOperatorOptions: `${httpUrlHeader}/operator/toEdit`,
       updateOperator: `${httpUrlHeader}/operator/update`,
       getOperatorOptions: `${httpUrlHeader}/operator/list`,
+
+      getAppUserList: `${httpUrlHeader}/user/list-by-page`,
+      addCompanyUser: `${httpUrlHeader}/user/companyUser-add`,
+      addAdminUser: `${httpUrlHeader}/user/save-manage`,
+      deleteUserList: `${httpUrlHeader}/user/delete`,
+      updateUserList: `${httpUrlHeader}/user/update`,
     },
     /**
        * 运营统计

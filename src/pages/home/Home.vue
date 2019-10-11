@@ -247,8 +247,8 @@ export default {
           color: "#666666"
         },
         grid: {
-          left: "4%",
-          right: "3%",
+          left: "10%",
+          right: "6%",
           top: "10",
           bottom: "20"
         },

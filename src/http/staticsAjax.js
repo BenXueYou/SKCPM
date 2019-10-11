@@ -6,7 +6,7 @@ export var staticsAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getOperator(xhr) {
@@ -14,7 +14,7 @@ export var staticsAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getChargeStation(xhr) {
@@ -22,7 +22,7 @@ export var staticsAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getChargePile(xhr) {
@@ -30,7 +30,7 @@ export var staticsAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
 };
