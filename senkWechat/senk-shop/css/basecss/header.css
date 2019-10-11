@@ -1,0 +1,40 @@
+
+* body {
+	padding: 0;
+	margin: 0;
+}
+
+.top{
+	width: 100%;
+	max-height: 380px;
+}
+
+.top img {
+	width: 100%;
+	max-height: 350px;
+	height: auto;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.head-wrap {
+	width: calc(100% - 16px);
+	max-width: 600px;
+	border: #0093DE solid 2px;
+	text-align: center;
+	font-weight: 700;
+	background-color: white;
+	margin: auto;
+	padding:auto 16px;
+	/*background-image: url(../../img/senklogo.jpg);*/
+}
+
+.head-wrap p {
+	text-align: center;
+	color: #0093DE;
+	font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+	
+}

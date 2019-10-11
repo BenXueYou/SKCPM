@@ -1,0 +1,81 @@
+*,div{
+    padding: 0;
+    margin: 0;
+}
+.middle{
+    width: 98%;
+    max-width: 600px;
+    margin: 3px auto;
+    text-align: center;
+}
+h3{
+    font-family: 'Microsoft Yahei',verdana;
+    text-align: left;
+    padding:10px 20px;
+    /* background-color: rgba(16, 224, 190, 0.473); */
+    background-image: url(../../img/slider1.png);
+    /* background-clip: content-box; */
+    /* background-origin: content-box; */
+    /* background-size:cover;  */
+}
+.cell{
+    /* background-color:rgba(90, 83, 83, 0.3); */
+    color: rgb(238, 223, 223);
+    width:96%;
+    font-size: 17px;
+    text-align: center;
+    margin: auto; 
+    padding: 10px;
+    font-family: 'yahei';
+    border-bottom:solid 1px gray;
+
+}
+.cell img{
+    width: 80%;
+    height: 160px;
+    max-width: 150px;
+    background-clip: content-box;
+    background-origin: content-box;
+    background-size: cover;
+    border-right: 1px solid gainsboro;
+}
+
+.float_M{
+    overflow: hidden;
+    color: rgb(28, 23, 23);
+    font-size: 13px;
+}
+.float_M .float-l{
+    float: left;
+
+
+}
+.float_M .float-r{
+    float: right;
+
+}
+
+.float_M .float_R{
+    width: 33%;
+    padding: 10px 20px 10px 0px;
+    text-align: left;
+}
+.float_M .float_L{
+    width: 59%;
+    
+}
+.float-r span{
+    color: royalblue;
+    font-size: 16px;
+}
+
+.float_L .float-l,p{
+	text-align: left;
+	vertical-align: middle;
+
+}
+
+.float-R .float-r,p{
+	text-align: left;
+	vertical-align: middle;
+}

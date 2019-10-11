@@ -1,0 +1,372 @@
+<!doctype html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>地图找桩</title>
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=d3a5c9286bb4f21b2cd3054951030da4&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+	<script type="text/javascript" src="../JS/jquery-3.0.0.min.js" ></script>
+    <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js" ></script>
+
+     <style type="text/css">
+        .info {
+            border: solid 1px silver;
+        }
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+        }
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+        div.info-middle {
+            font-size: 12px;
+            padding: 6px;
+            line-height: 20px;
+        }
+        div.info-bottom {
+            height: 0px;
+            width: 90%;
+            clear: both;
+            text-align: center;
+        }
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+        .info-middle img {
+       	 	width: 25%;
+            float: left;
+            margin-right: 6px;
+        } 
+  body,html,#container{
+        height: 100%;
+        margin: 0px;
+        font: 12px Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial;
+      }
+      .info-title{
+        color: white;
+        font-size: 14px;
+        background-color: rgba(0,155,255,0.8);
+        line-height: 26px;
+        padding: 0px 0 0 6px;
+        font-weight: lighter;
+        letter-spacing: 1px
+      }
+      .info-content{
+        padding: 4px;
+        color: #666666;
+        line-height: 23px;
+      }
+      .info-content img{
+        float: left;
+        margin: 3px;
+      }
+  
+      img,input{
+      	vertical-align: middle;
+      }
+      .cs_btn{
+        width:30px;
+        height:30px;
+      	font-size:15px;
+      	background-color:white;
+        background:url('home.png') 0 0/100% no-repeat;
+      }
+      #tipinput{
+      	height: 25px;
+      }
+    </style>
+    <link type="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+	
+<div id="container"></div>
+			
+	<div id="myPageTop">
+    <table>
+        <tr>
+          <td>
+        	<div class="cs_btn" onclick="csBtnFun()"></div>
+          </td>
+          <td>	
+            <input type="text" placeholder="请输入关键字进行搜索" id="tipinput">
+          </td>
+        </tr>
+    </table>
+</div> 
+<script type="text/javascript" src="../JS/CONFIG.js" ></script>
+<script type="text/javascript">
+    //全局变量
+    var lng = "";//经度
+    var lat = "";//纬度
+  	var urlM =CONFIGS.LANCHUANG();
+    var CSID;
+    var infwin;
+    var markerList = new Array();
+    var markers = new Array();
+    var flag = 0;
+    
+    //获取当前经纬度
+     var map, geolocation;
+    //加载地图，调用浏览器定位服务
+    map = new AMap.Map('container', {
+        resizeEnable: true,
+        
+    });
+  
+    //点击空白处关闭窗口
+    map.on('click',function(){
+	    	if(infwin)
+	    	var isOn = infwin.getIsOpen();
+	    window.closeInfoWindow();
+    })
+    
+    //搜索时间
+     var auto = new AMap.Autocomplete({
+        input: "tipinput"
+    });
+    AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+    function select(e) {
+        if (e.poi && e.poi.location) {
+            map.setZoom(10);
+            map.setCenter(e.poi.location);
+        }
+    }
+  
+   //定位获取经纬度
+    map.plugin('AMap.Geolocation', function() {   
+        geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+            buttonOffset: new AMap.Pixel(15, 130),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,      //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+            buttonPosition:'RB'
+        });
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition();
+        AMap.event.addListener(geolocation, 'complete', onComplete);//返回定位信息
+        AMap.event.addListener(geolocation, 'error', onError);      //返回定位出错信息
+    });
+    
+    //解析定位结果
+    function onComplete(data) {
+        lng = data.position.getLng();
+        lat = data.position.getLat();
+        getFindSMPByMap(lng,lat);       
+		console.log("经度："+lng+"纬度："+lat);
+    }
+    //解析定位错误信息
+    function onError(data) {
+        alert('定位失败');
+    }
+    
+    //点击跳转列表页
+    function csBtnFun(){
+    	 if(lng && lat) {location.href = "csList.html?longitude="+lng+"&latitude="+lat;}
+    }
+    //点击进入详情页
+    function stepToDetail(e){
+      	location.href = "csDetail.php?csid="+e+"&lng="+lng+"&lat="+lat;
+    }
+   
+    //根据经纬度请求站列表
+    function getFindSMPByMap(lg,la){
+        var ajax = $.ajax({
+        	type:"GET",
+        	url:urlM +"mapSearchPile/findSMPByMap",
+        	data:{
+            	longitude:lg,
+                latitude:la
+            },
+        	success: function(data) {	
+                if(data.returnCode == 0){     
+                    var detail = data.detail;
+                    var csList = detail.csList;
+                    console.log("长度："+csList.length);
+                    for(var h=0;h<csList.length;h++){
+                        var latitude = csList[h]['latitude'];//经纬度
+                        var longitude = csList[h]['longitude'];//地址
+                        var distance = csList[h]['distance'];//距离
+                        var csid = csList[h]['csid'];//站编号
+                        CSID = csid;
+                        //根据站列表循环创建大头针
+                        addMarker(latitude,longitude,csid,h);
+                    }
+                 }
+        	},
+        	error: function(jqXHR) {
+            	alert("没有找到附近的充电站"+JSON.stringify(jqXHR));
+        	},
+
+        });
+
+    }
+
+    //创建大头针
+    
+     function addMarker(lng,lat,csid,h) {
+         var icon = new AMap.Icon({
+            image:"point2s.png",
+    		//image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAhCAYAAAA74pBqAAADWElEQVRIiaXUf0jTeRzH8VcdRX8e908RFJ647776teluQ3e6RtPpfugfEdx/UUtoZEpSuTBrurWyfS9/zVY7Dfq36K+OIC5aUwskIzpLrDtoKz1F5yp1m5sz57s/IsGauX3vAw++8IXPE95/fN5AklPGB7fr+JBZz4f79HxkwsBH4p+/4X4dHzKX8cHtye6tOjLT0006x5xdz4eiBmecKtwJquwmqrxGVNlNVOFOkMEZJz0fiuocc3aZ6emmpKE91pkfdRdnH+g7Y1TRQ2S4traKHiJ9Z4y0jlmv1jr30+rSb7d+0LbMeHTOGBl6KGU6Z4y0LR8GOOvI5pVWuT1o1bbNk76b0qZtm6dye9AKAChtDGzVnJ+OlruXqLx7OX3uJdKcn46WNga2ouTcZL2mNUxlfywLpmkNk9o2aUaJbdJb2hWjUndCuK4YldgmvVA3jwfUrkVSX10SzrVI6qbxKagsY4k9Vz/S/6WyjCWgOusPq1xxUl1ZFM4Vp91n/CEoG31/KzsipHTFheuIkPK0bwhFDf84ix1B+vXygmDFjiAVN/x7GYUnXiqKLG+osCsmWJHlDRWeeKkAACjMI32KC1NU4IymTXFhihTmkb6V5ySvey4uODm8IG8PkbxzPnXtISo4Obwgr3suXr1+jg/Z5M1v6ZfOSMrkzW9JdnzI9s0KyjD2bpHXPfNLWwKU1xFel7QlQPK6Z/4MY++WpDstv3Zwr7ThFe1qD61L2vCK8msH935320prBj0S6yhxbXNrklhHSVr7+MF3QwCQW/1QklczkMhpnaW15NUMJHKrH0rWjQGA5MijG5zFR+ylmW9wFh9Jjjy6kVIIALhDnpxcU/+y6NIH+lquqX+ZO+TJSTkGANxh721xk5+yfn+/QtzkJ+6w93ZaIQDIrvJo2GNPKJN/v4I99oSyqzyatGMANrBV932Z9gn62fGOMu0TxFbd9wHYICQG5uBfTVn1L2inI0hZ9S+IMd5rFhQCAMZ4hxWZemnHxSCJTL3EGO+wgmMAIDpw9/XOc/+R6MDd10IbGzlgGwOwzL7rNzPMw8Tsu36TAVgO2AZgY8olBmBZQMYCMnGRuVq0/88Iozx19Ms/Bkh9XBGQ/eViMiIgW9CYHJDPAjIOyF9vzE8uNw+HKNGp6QAAAABJRU5ErkJggg==',
+    		size: new AMap.Size(24, 42)
+    	 });
+         var marker = new AMap.Marker({
+               icon:"point2s.png",
+               position: [lat, lng]
+          });
+         marker.setMap(map);
+         markers.push(marker);
+         //根据大头针循环创建信息窗口
+         getFindSMPInfoById(lng,lat,csid,marker,h);
+        
+     }
+
+    //创建信息窗口
+    function getFindSMPInfoById(lng,lat,csid,emarker,j){
+   	 	flag++;
+    		var ajax = $.ajax({
+    			type:"get",
+    			url:urlM+"mapSearchPile/findSMPInfoById",
+    			dataType:"json",
+	        	data:{
+	        		type:"cs",
+	        		id:csid,
+	            	longitude:lng,
+	            	latitude:lat
+	            },
+	        	success: function(data) {
+	            if(data.returnCode == 0){
+					var detail = data.detail;
+					var cs = detail.cs;					
+	                for(var h=0;h<cs.length;h++){
+	                    var name = cs[h]['name'];//站名
+	                    var address = cs[h]['location'];//地址
+	                    var distance = cs[h]['distance'];//距离
+	            		var dcnum = cs[h]['dcnum'];//直流桩数
+	            		var acnum = cs[h]['acnum'];//交流桩数
+	            		var chargefee = cs[h]['chargefee']//充电电价
+	            		var appiontfee = cs[h]['appiontfee']//预约费
+	            		var servicefee = cs[h]['serviceTip']//服务费
+	            		var parkfee = cs[h]['parkfee']//停车费
+	            		var dcisnum = cs[h]['dcisnum']
+	            		var acisnum = cs[h]['acisnum']
+	            		var operatorid = cs[h]['operatorid']
+	            		var rateid = cs[h]['rateid']
+	            		var validflag = cs[h]['validflag']
+	            		var opentime = cs[h]['opentime']
+	            		CSID = csid;
+
+						//实例化信息窗体
+					    var title = name+"<button style='margin:0 0 0 30vw; background-color:white;outline:none;border:0px solid #299dff; border-radius:5px;color:#299dff' value = "+j+" class='navBtn'} >导航</button>",
+					    content = [];
+					    content.push("<img src='http://tpc.googlesyndication.com/simgad/5843493769827749134'>地址："+address);
+					    content.push("直流桩："+dcisnum+"/"+dcnum+'&nbsp&nbsp&nbsp'+"交流桩："+acisnum+"/"+acnum);
+					    content.push("充电费:"+(chargefee==null?0.8:chargefee)+'元/度&nbsp&nbsp&nbsp'+"服务费:"+(servicefee==undefined?0.8:servicefee)+'元/度&nbsp&nbsp&nbsp'+"停车费:"+(parkfee==undefined?0:parkfee)+'元/小时'+"<button style='font-size:10px;color:#299DFF;bordr:0px; margin:auto 5vw;' onclick='stepToDetail("+csid+")'>详细信息</button>");
+					   
+					 	markerList.push(name);
+					    var infoWindow = new AMap.InfoWindow({
+					        isCustom: true,  //使用自定义窗体
+					        content: createInfoWindow(title, content.join("<br/>")),
+					        offset: new AMap.Pixel(35,-50)
+					    });
+	                    AMap.event.addListener(emarker, 'click', function() {
+				            infoWindow.open(map, emarker.getPosition());
+				        }); 
+	            	}
+	        	}
+	        },
+	        	error:function(jqXHR) {
+                    console.log(JSON.stringify(jqXHR));
+	        	},
+    		});
+    }
+    
+   listen();
+    function listen(){
+    		$(document).on('click', '.navBtn', function(e) {
+			var j = $(this).val();
+			var emarker = markers[j];
+			console.log(markers[j] + '===name======='+markerList[j]);                
+		   	emarker.markOnAMAP({
+				position: emarker.getPosition(),
+				name:markerList[j]//name属性在移动端有效
+		   })
+		});      
+    	
+    }
+
+    //构建自定义信息窗体
+    function createInfoWindow(title, content) {
+        var info = document.createElement("div");
+        info.className = "info";
+        //可以通过下面的方式修改自定义窗体的宽高
+
+        // 定义顶部标题
+        var top = document.createElement("div");
+        var titleD = document.createElement("div");
+        var closeX = document.createElement("img");
+        top.className = "info-top";
+        titleD.innerHTML = title;
+        closeX.src = "http://webapi.amap.com/images/close2.gif";
+        closeX.onclick = closeInfoWindow;
+
+        top.appendChild(titleD);
+        top.appendChild(closeX);
+        info.appendChild(top);
+
+        // 定义中部内容
+        var middle = document.createElement("div");
+        middle.className = "info-middle";
+        middle.style.backgroundColor = 'white';
+        middle.innerHTML = content;
+        info.appendChild(middle);
+
+        // 定义底部内容
+        var bottom = document.createElement("div");
+        bottom.className = "info-bottom";
+        bottom.style.position = 'relative';
+        bottom.style.top = '0px';
+        bottom.style.margin = '0 auto';
+        var sharp = document.createElement("img");
+        sharp.src = "http://webapi.amap.com/images/sharp.png";
+        bottom.appendChild(sharp);
+        info.appendChild(bottom);
+        return info;
+    }
+
+    //关闭信息窗体
+    function closeInfoWindow() {
+        map.clearInfoWindow();
+    } 
+</script>
+</body>
+</html> 

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>优秀案例</title>
+		<link rel="stylesheet" href="../css/my-css/detail_car.css">
+		<link rel="stylesheet" type="text/css" href="../css/basecss/basebtn.css" />
+		<link rel="stylesheet" type="text/css" href="../css/basecss/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my-css/base-cell.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my-css/car-cell.css" />
+		<script src="../../JS/jquery-3.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<style type="text/css">
+			.menu {
+				width: 100%;
+				margin: auto;
+				text-align: center;
+				padding: 0;
+				background-color: white;
+			}
+			
+			.menu-btn {
+				width: 49%;
+				padding: 8px;
+				border: 0px;
+				font-family: "微软雅黑";
+				font-size: 18px;
+				margin: 5px auto;
+				color: white;
+				background-color: #299DFF;
+			}
+			
+			.active_btn {
+				background-color: white;
+				color: #333333;
+			}
+			
+			.bgtxt {
+				background-color: white;
+			}
+			
+			.bgtxt p {
+				color: #363636;
+				font-size: 14px;
+				text-indent: 28px;
+				padding: auto 5px;
+			}
+			.list-img{
+				width: 100%;
+				height: auto;
+			}
+			#ul-con1 li,
+			#ul-con2 li{
+				background-color: white;
+				margin: 5px auto;
+				padding: 8px 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+	<div id="contain">
+		
+	</div>
+		<div class="wrap base-wrap">
+			<div id="header" style="max-width: 600px; background-color: white;margin: auto;"></div>
+			<script>
+				$("#header").load("../html/header.html");
+			</script>
+			<div class="menu">
+				<button value="0" class="menu-btn active_btn">充电桩合作案例</button><button value="1" class="menu-btn">车辆合作案例</button>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$(".menu-btn").on("click", function() {
+						var index = $(this).attr("value");
+						$(this).addClass("active_btn").siblings().removeClass("active_btn");
+						$(".li").each(function(i, e) {
+							$(this).addClass("hidden");
+							if(index == i) {
+								$(this).removeClass("hidden");
+								$(this).addClass("active_div");
+							} else {}
+						});
+					});
+				});
+			</script>
+
+			<div class="list-c">
+				<ul class="" id="ul-con">
+					<li class="li active_div">
+						<div class="bgtxt">
+							<p>公司充电桩系列产品，性能优异，应用到公交、客运、出租车、物流园等各种应用场景。例如：晋城客运站、出租车东客站、物流武宿充电站</p>
+						</div>
+						<ul id="ul-con1">
+
+						</ul>
+					</li>
+					<li class=" li hidden">
+						<div class="bgtxt">
+							<p>2017年尚宽紧响应国家“环境保护，节能减排”的号召与行业内宅急送，菜鸟物流，中铁快运等合作，，未来尚宽计划招入800台新能源车加入物流运营</p>
+						</div>
+						<ul id="ul-con2">
+
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<script src="../js/my-js/getExcellentCase.js" type="text/javascript" charset="utf-8"></script>
+			<script type="text/javascript" src="../js/my-js/CONFIG.js"></script>
+			<script type="text/javascript">
+				var CONF = new IMGSrcHead();
+				var contain1 = $("#ul-con1");
+				var contain2 = $("#ul-con2");
+				var content1 = "";
+				var content2 = "";
+				var excellentCase = new getExcellentCaseList("ul-con");
+				console.log(JSON.stringify(excellentCase));
+
+				try {
+					var length = excellentCase.length;
+					console.log(length);
+					if(length < 1) {
+						var content = "<div style='text-align: center!important;'><br><br>抱歉<br>没有加载到相关数据，无效页面<br><br>T _ T</div>";
+						con.html(content);
+					}
+
+				} catch(e) {
+					console.log("捕获到异常，数据为空");
+
+				}
+
+				for(var i = 0; i < excellentCase.length; i++) {
+
+					var cases = excellentCase[i];
+					if(cases.type == 1 || cases.type == "1"){//车辆合作案例
+						content2 += '<li>' +
+						'<div class="index-headline-pic" id="' + i + '" >' +
+						'<img class="list-img" src="' + CONF.imgSrcHead() + cases.picpath + '" alt="">' +
+						'<div class="index-headline-text">' +
+						'<p style="text-align:center;">' + cases.title + '</p>' +
+						'</div>' +
+						'</div>' +
+						'</li>';
+					}else{
+						content1 += '<li>' +
+						'<div class="index-headline-pic" id="' + i + '" >' +
+						'<img class="list-img" src="' + CONF.imgSrcHead() + cases.picpath + '" alt="">' +
+						'<div class="index-headline-text">' +
+						'<p style="text-align:center;">' + cases.title + '</p>' +
+						'</div>' +
+						'</div>' +
+						'</li>';
+						
+					}
+				}
+				contain1.html(content1);
+				contain2.html(content2);
+				$(".index-headline-pic").on("click", function() {
+					console.log($(this));
+					var obj = $(this)[0];
+					console.log(obj); //获取主题
+					console.log(obj.id); //获取id
+					var index = obj.id;
+					var htmlObj = excellentCase[index];
+					console.log(JSON.stringify(htmlObj));
+					localStorage.setItem("tmp", JSON.stringify(htmlObj));
+					window.location.href = "execellent_detail.html?theme=" + obj.innerText;
+				});
+			</script>
+			<div id="footer" style="max-width: 600px; background-color: white;margin: auto;"></div>
+			<script>
+				$("#footer").load("../html/bottom.html");
+			</script>
+			<div class="footer-b settings-footer_text_color">
+				联系电话：0351-7111110-817 <br /><br /> © 2017 senk.net.cn All rights reserved.Powered by Senk.
+			</div>
+		</div>
+	</body>
+
+</html>
