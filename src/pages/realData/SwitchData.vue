@@ -15,13 +15,13 @@
 						<span class="topTitleTxt">数据状态：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="operator"
+							v-model="type"
 							clearable
 							placeholder="请选择确认状态"
 							size="small"
 						>
 							<el-option
-								v-for="item in operatorOptions"
+								v-for="item in typeOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -33,13 +33,13 @@
 						<span class="topTitleTxt">桩类型：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="operator"
+							v-model="cpType"
 							clearable
 							placeholder="桩类型"
 							size="small"
 						>
 							<el-option
-								v-for="item in operatorOptions"
+								v-for="item in cpTypeOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -79,7 +79,7 @@
 				<el-table-column prop="zip" label="新值含义"></el-table-column>
 				<el-table-column prop="id" label="新值记录时间" width="180"></el-table-column>
 				<el-table-column prop="index" label="旧值" width="100"></el-table-column>
-				<el-table-column prop="index" label="旧值含义" ></el-table-column>
+				<el-table-column prop="index" label="旧值含义"></el-table-column>
 				<el-table-column prop="zip" label="旧值记录时间" width="180"></el-table-column>
 				<el-table-column prop="zip" label="确认状态" width="100"></el-table-column>
 				<el-table-column prop="zip" label="确认模式" width="100"></el-table-column>
@@ -120,10 +120,30 @@ export default {
       total: 10,
       beginTime: null,
       endTime: null,
-      operatorOptions: [],
+      typeOptions: [
+        {
+          typeStr: 1,
+          typeName: "确认"
+        },
+        {
+          typeStr: 0,
+          typeName: "未确认"
+        }
+      ],
+      cpTypeOptions: [
+        {
+          typeStr: 0,
+          typeName: "直流"
+        },
+        {
+          typeStr: 1,
+          typeName: "交流"
+        }
+      ],
+      cpType: null,
       station: null,
       stationOptions: [],
-      operator: null,
+      type: null,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };
@@ -132,7 +152,34 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
+    initData() {
+      let data = {
+        model: {
+          checkState: 0,
+          endTime: this.endTime,
+          startTime: this.beginTime,
+          cpType: this.cpType,
+          type: this.type
+        },
+        pageIndex: 1,
+        pageSize: 10,
+        queryCount: true,
+        start: 0
+      };
+      this.$realAjax
+        .realSwitchData(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          } else {
+          }
+        })
+        .catch(() => {});
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },

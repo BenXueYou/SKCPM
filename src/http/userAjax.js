@@ -52,6 +52,14 @@ export var userAjax = {
       data: xhr
     });
   },
+  getAppUserList(xhr) {
+    let url = `${RestApi.api.UserAjax.getAppUserList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
 };
 
 function install(Vue) {

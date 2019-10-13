@@ -33,8 +33,24 @@ export var businessAjax = {
       data: xhr
     });
   },
-  appLogin(xhr) {
-    let url = `${RestApi.api.appLogin}`;
+  getRechargeRecord(xhr) {
+    let url = `${RestApi.api.BusinessAjax.getRechargeRecord}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  exportRechargeRecord(xhr) {
+    let url = `${RestApi.api.BusinessAjax.exportRechargeRecord}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  getRefrundRecord(xhr) {
+    let url = `${RestApi.api.BusinessAjax.getRefrundRecord}`;
     return axios({
       method: "post",
       url,

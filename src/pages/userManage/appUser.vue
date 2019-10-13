@@ -13,8 +13,8 @@
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="userName"></el-input>
+							<span>用户ID：</span>
+							<el-input v-model="userId"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>电话：</span>
@@ -54,17 +54,19 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="用户名"></el-table-column>
-				<el-table-column prop="name" label="电话"></el-table-column>
-				<el-table-column prop="province" label="余额"></el-table-column>
-				<el-table-column prop="city" label="车牌号"></el-table-column>
-				<el-table-column prop="city" label="邮箱"></el-table-column>
-				<el-table-column prop="zip" label="注册日期"></el-table-column>
-				<el-table-column label="操作">
+				<el-table-column prop="userId" label="用户ID" width="150"></el-table-column>
+				<el-table-column prop="userName" label="用户名" width="150"></el-table-column>
+				<el-table-column prop="telephone" label="电话" width="180"></el-table-column>
+				<el-table-column prop="userType" label="用户类型"></el-table-column>
+				<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
+				<el-table-column prop="chargeState" show-overflow-tooltip label="状态"></el-table-column>
+				<el-table-column prop="gmtCreate" show-overflow-tooltip label="注册时间"></el-table-column>
+				<el-table-column prop="gmtModify" show-overflow-tooltip label="更新时间"></el-table-column>
+				<!-- <el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
-				</el-table-column>
+				</el-table-column>-->
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -87,7 +89,11 @@ export default {
   components: {
     appUserAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -103,25 +109,25 @@ export default {
       phoneNumber: null,
       mainScreenLoading: false,
       plateNumber: null,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      userId: null
     };
   },
   methods: {
     initData() {
       let data = {
         model: {
-          chargeMethodId: 0,
           endTime: this.endTime,
           startTime: this.beginTime,
-          userId: null,
-          userName: this.userName
+          userId: this.userId,
+          telephone: this.phoneNumber
         },
-        pageIndex: 0,
-        pageSize: 0,
+        pageIndex: 1,
+        pageSize: 10,
         queryCount: true,
         start: 0
       };
-      this.$UserAjax
+      this.$userAjax
         .getAppUserList(data)
         .then(res => {
           if (res.data.success) {
@@ -134,7 +140,9 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -147,10 +155,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

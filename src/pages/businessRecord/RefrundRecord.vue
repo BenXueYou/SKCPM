@@ -12,17 +12,17 @@
 			<div class="topMenu" style="padding-bottom:5px">
 				<div class="flex-sbw">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-						<span>用户名：</span>
-						<el-input v-model="userName"></el-input>
+						<span>用户ID：</span>
+						<el-input v-model="userId"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>订单流水号：</span>
 						<el-input v-model="transationNum"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-						<span>退款状态：</span>
-						<!-- <el-input v-model="station"></el-input> -->
-						<el-select
+						<span>提现金额：</span>
+						<el-input v-model="Money"></el-input>
+						<!-- <el-select
 							class="left-space time-interal"
 							v-model="refundStatus"
 							clearable
@@ -35,7 +35,7 @@
 								:label="item.typeName"
 								:value="item.typeStr"
 							></el-option>
-						</el-select>
+						</el-select>-->
 					</div>
 					<div class="dateBox">
 						<span class="topTitleTxt">支付时间：</span>
@@ -66,15 +66,16 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="订单号"></el-table-column>
-				<el-table-column prop="date" label="用户ID"></el-table-column>
-				<el-table-column prop="date" label="用户名"></el-table-column>
-				<el-table-column prop="name" label="电话"></el-table-column>
-				<el-table-column prop="province" label="退款金额"></el-table-column>
-				<el-table-column prop="province" label="退款前金额"></el-table-column>
-				<el-table-column prop="province" label="退款后金额"></el-table-column>
-				<el-table-column prop="city" label="退款时间"></el-table-column>
-				<el-table-column prop="city" label="退款状态"></el-table-column>
+				<el-table-column prop="orderId" label="订单号"></el-table-column>
+				<el-table-column prop="userId" label="用户ID"></el-table-column>
+				<!-- <el-table-column prop="date" label="用户名"></el-table-column> -->
+				<!-- <el-table-column prop="name" label="电话"></el-table-column> -->
+				<el-table-column prop="depositMoney" label="退款金额"></el-table-column>
+				<el-table-column prop="beforeBalance" label="退款前金额"></el-table-column>
+				<el-table-column prop="balance" label="退款后金额"></el-table-column>
+				<el-table-column prop="gmtCreate" label="退款时间"></el-table-column>
+				<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
+				<el-table-column prop="flag" label="退款状态"></el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -97,22 +98,26 @@ export default {
   components: {
     // appUserAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
+      Money: null,
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
-      userName: null,
+      userId: null,
       transationNum: null,
       refundStatus: null,
       refundStatusOptions: [],
@@ -123,7 +128,31 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
+    initData() {
+      let data = {
+        model: {
+          endTime: this.endTime,
+          openId: this.userId,
+          startTime: this.beginTime
+        },
+        pageIndex: 1,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$businessAjax
+        .getRefrundRecord(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          }
+        })
+        .catch(() => {});
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -136,10 +165,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

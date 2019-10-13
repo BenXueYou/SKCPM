@@ -17,6 +17,14 @@ export var realAjax = {
       data: xhr
     });
   },
+  realSwitchData(xhr) {
+    let url = `${RestApi.api.RealAjax.switchDataRecord}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
 };
 
 function install(Vue) {

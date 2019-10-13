@@ -20,9 +20,9 @@
 						<el-input v-model="transationNum"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-						<span>支付状态：</span>
-						<!-- <el-input v-model="station"></el-input> -->
-						<el-select
+						<span>支付金额：</span>
+						<el-input v-model="money"></el-input>
+						<!-- <el-select
 							class="left-space time-interal"
 							v-model="payStatus"
 							clearable
@@ -35,7 +35,7 @@
 								:label="item.typeName"
 								:value="item.typeStr"
 							></el-option>
-						</el-select>
+						</el-select> -->
 					</div>
 					<div class="dateBox">
 						<span class="topTitleTxt">支付时间：</span>
@@ -65,16 +65,17 @@
 			</div>
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
+				<el-table-column type="orderId" width="55" label="序号"></el-table-column>
 				<el-table-column prop="date" label="订单号"></el-table-column>
-				<el-table-column prop="date" label="用户ID"></el-table-column>
-				<el-table-column prop="date" label="用户名"></el-table-column>
-				<el-table-column prop="name" label="电话"></el-table-column>
-				<el-table-column prop="province" label="充值金额"></el-table-column>
-				<el-table-column prop="province" label="充值前金额"></el-table-column>
-				<el-table-column prop="province" label="充值后金额"></el-table-column>
-				<el-table-column prop="city" label="支付时间"></el-table-column>
-				<el-table-column prop="city" label="交易状态"></el-table-column>
+				<el-table-column prop="userId" label="用户ID"></el-table-column>
+				<el-table-column prop="userName" label="用户名"></el-table-column>
+				<el-table-column prop="telephone" label="电话"></el-table-column>
+				<el-table-column prop="depositMoney" label="充值金额"></el-table-column>
+				<el-table-column prop="beforeBalance" label="充值前金额"></el-table-column>
+				<el-table-column prop="balance" label="充值后金额"></el-table-column>
+				<el-table-column prop="gmtCreate" label="支付时间"></el-table-column>
+				<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
+				<el-table-column prop="flag" label="交易状态"></el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -114,13 +115,12 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
-      stationOptions: [],
+      money: null,
       operator: null,
       mainScreenLoading: false,
       payStatus: null,
       payStatusOptions: [],
-      tableData: window.config.tableData
+      tableData: []
     };
   },
   methods: {
@@ -133,7 +133,37 @@ export default {
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    initData() {},
+    initData() {
+      let data = {
+        model: {
+          balance: 0,
+          depositEndTime: this.endTime,
+          depositMoney: this.money,
+          depositStartTime: this.beginTime,
+          gmtCreate: null,
+          gmtModify: null,
+          id: 0,
+          isDeleted: 0,
+          openId: null,
+          telephone: null,
+          userId: null,
+          userName: this.userName
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$businessAjax
+        .getRechargeRecord(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          }
+        })
+        .catch(() => {});
+    },
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {

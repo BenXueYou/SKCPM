@@ -35,7 +35,8 @@ export default {
       realPileData: `${httpUrlHeader}/chargePile/real/time/data`,
       realAlarmData: `${httpUrlHeader}/webAlarm/list-by-page`,
       // 告警记录
-      getAlarmRecord: `${httpUrlHeader}/webAlarm/list-by-page`
+      getAlarmRecord: `${httpUrlHeader}/webAlarm/list-by-page`,
+      switchDataRecord: `${httpUrlHeader}/displacement/list-by-page`
     },
 
     /**
@@ -86,6 +87,12 @@ export default {
       exportChargeRecord: `${httpUrlHeader}/charge/record/export`,
       getChargeRecordList: `${httpUrlHeader}/charge/record/list-by-page`,
       deductRecordList: `${httpUrlHeader}/deduct/record/list`,
+
+      getRechargeRecord: `${httpUrlHeader}/weChat/deposit/record`,
+      exportRechargeRecord: `${httpUrlHeader}/weChat/export/deposit-record`,
+
+      getRefrundRecord: `${httpUrlHeader}/weChat/withdraw-list-by-page`,
+
     },
 
     /**
@@ -99,11 +106,13 @@ export default {
       updateOperator: `${httpUrlHeader}/operator/update`,
       getOperatorOptions: `${httpUrlHeader}/operator/list`,
 
-      getAppUserList: `${httpUrlHeader}/user/list-by-page`,
+      getAccountUserList: `${httpUrlHeader}/user/list-by-page`,
       addCompanyUser: `${httpUrlHeader}/user/companyUser-add`,
       addAdminUser: `${httpUrlHeader}/user/save-manage`,
       deleteUserList: `${httpUrlHeader}/user/delete`,
       updateUserList: `${httpUrlHeader}/user/update`,
+
+      getAppUserList: `${httpUrlHeader}/weChat/list-by-page`,
     },
     /**
        * 运营统计
