@@ -92,7 +92,11 @@
 				<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
 				<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
 				<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="chargeMethodId" label="充电类型" width="100"></el-table-column>
+				<el-table-column prop="chargeMethodId" label="充电类型" width="100">
+					<template slot-scope="scope">
+						{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}
+					</template>
+				</el-table-column>
 				<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
 				<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
 				<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
@@ -174,6 +178,7 @@ export default {
     };
   },
   methods: {
+
     /**
 	   *   {
       "cellStyleMap": {},
@@ -242,7 +247,7 @@ export default {
       var data = {
         model: {
           chargeEndTime: this.endTime,
-          chargeMethodId: null,
+          chargeMethodId: this.chargeMethodId,
           chargeStartTime: this.beginTime,
           deviceId: this.cpId,
           operatorId: this.operatorId,

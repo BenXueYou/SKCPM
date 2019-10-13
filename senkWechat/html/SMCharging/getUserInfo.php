@@ -84,15 +84,3 @@ echo json_encode($allUserInfo);
         //echo var_dump($access_token);
         return $access_token;
     }
-
-
-	
-
-
-
-
-
-
-
-
-?>

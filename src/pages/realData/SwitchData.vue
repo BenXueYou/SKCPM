@@ -33,7 +33,7 @@
 						<span class="topTitleTxt">桩类型：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="cpType"
+							v-model="cpTypeOptions"
 							clearable
 							placeholder="桩类型"
 							size="small"
@@ -110,7 +110,11 @@ export default {
   components: {
     ChargeRecordDetail
   },
-  mounted: function() {},
+  mounted: function() {
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -140,7 +144,7 @@ export default {
           typeName: "交流"
         }
       ],
-      cpType: null,
+      cpType: 0,
       station: null,
       stationOptions: [],
       type: null,
