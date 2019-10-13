@@ -1,0 +1,36 @@
+.box-wrap {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px 8px;
+	background-color: white;
+}
+
+.bottom-wrap {
+	width: 22%;
+	height: auto;
+}
+
+.bottom-radius img {
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+.bottom-radius p {
+	/*background-color: red;*/
+	width: 100%;
+	height: auto;
+	font-size: 14px;
+	font-family: 'Arial Negreta', 'Arial Normal', 'Arial';
+	text-align: center;
+	vertical-align: middle;
+}
+
+.bottom-radius a {
+	text-decoration: none;
+}
+
+#footer p {
+	text-align: center;
+	font-size: 14px;
+}

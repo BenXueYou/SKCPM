@@ -1,0 +1,52 @@
+.xy-cell {
+	/*background-color: white;*/
+	margin: 8px auto;
+}
+
+.cell-left {
+	width: 40%;
+	text-align: right;
+	/*display: flex;*/
+	/*justify-content: center;*/
+	/*align-content: flex-end ;*/
+	position: relative;
+	/*height: 100%;*/
+}
+
+.cell-right {
+	width: 60%;
+	text-align: left;
+}
+
+.cell-left img {
+	width: 100%;
+	height: auto;
+	max-height: 90%;
+	position: absolute;
+	right: 0px;
+	bottom: 10%;
+}
+
+.xy-cell button {
+	border: 1px #299DFF solid;
+	color: #299DFF;
+	padding: 5px 10%;
+	margin: auto;
+	font-size: 14px;
+}
+
+.xy-cell #title-txt h3 {
+	margin: auto;
+	vertical-align: middle;
+	margin: 6% auto;
+}
+
+#txt p {
+	color: #939393;
+	font: "微软雅黑";
+	font-size: 14px;
+}
+
+.hidden {
+	display: none;
+}

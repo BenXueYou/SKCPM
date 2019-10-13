@@ -1,0 +1,56 @@
+【2017-11-21 09:37:55:000000】
+【2017-11-21 10:17:58:000000】数据库服务器连接错误The user specified as a definer ('admin'@'116.236.237.242') does not exist
+【2017-11-21 10:17:59:000000】数据库访问错误The user specified as a definer ('admin'@'116.236.237.242') does not exist
+【2017-11-21 10:18:01:000000】数据库服务器连接错误The user specified as a definer ('admin'@'116.236.237.242') does not exist
+【2017-11-21 10:18:01:000000】数据库访问错误The user specified as a definer ('admin'@'116.236.237.242') does not exist
+【2017-11-21 10:18:01:000000】数据操作错误：====select * from excellentcase
+【2017-11-21 10:18:15:000000】数据库服务器连接错误The user specified as a definer ('admin'@'116.236.237.242') does not exist
+【2017-11-21 10:18:15:000000】数据库访问错误The user specified as a definer ('admin'@'116.236.237.242') does not exist
+【2017-11-21 13:18:45:000000】数据库服务器连接错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:18:45:000000】数据库访问错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:18:56:000000】数据库服务器连接错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:18:56:000000】数据库访问错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:18:56:000000】数据操作错误：====select * from pilelist
+【2017-11-21 13:19:01:000000】数据库服务器连接错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:19:01:000000】数据库访问错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:19:01:000000】数据库服务器连接错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 13:19:01:000000】数据库访问错误Access denied for user 'root_sxsk'@'116.236.237.242' (using password: YES)
+【2017-11-21 17:39:57:000000】数据操作错误：Table 'cpm.league' doesn't exist====select * from league
+【2017-11-27 10:21:49:000000】数据操作错误：Unknown column 'rent_scheme.cartype' in 'where clause'====select * from carlist,rent_scheme where carlist.cartype=rent_scheme.cartype
+【2017-11-27 10:22:56:000000】数据操作错误：Unknown column 'carlist.rentid' in 'where clause'====select * from carlist,rent_scheme where carlist.rentid=rent_scheme.rentid
+【2017-11-27 10:25:17:000000】数据操作错误：Table 'carlist' already exists====create table carlist(
+carid         int(2) primary key,
+cartype       varchar(20) not null,
+carengytype   varchar(20),
+carx         int(4),
+cary         int(4),
+carz         int(4),
+cardrivetype  varchar(10),
+wheelbase     int(4),
+frontoverhang int(4),
+rearoverhang  int(4),
+trackfront    int(4),
+rearfront     int(4),
+minspace      int(4),
+midspace      int(4),
+ratednum      int(2),
+ratedchair    int(2)
+)
+【2017-11-27 10:25:53:000000】数据操作错误：Table 'carlist' already exists====create table carlist(
+carid         int(2) primary key,
+cartype       varchar(20) not null,
+carengytype   varchar(20),
+carx         int(4),
+cary         int(4),
+carz         int(4),
+cardrivetype  varchar(10),
+wheelbase     int(4),
+frontoverhang int(4),
+rearoverhang  int(4),
+trackfront    int(4),
+rearfront     int(4),
+minspace      int(4),
+midspace      int(4),
+ratednum      int(2),
+ratedchair    int(2)
+)

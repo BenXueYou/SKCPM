@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>电动车</title>
+		<link rel="stylesheet" href="../css/basecss/base.css" />
+		<link rel="stylesheet" href="../css/basecss/basebtn.css" />
+		<link rel="stylesheet" type="text/css" href="../css/basecss/header.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my-css/car-cell.css" />
+		<script src="../../JS/jquery-3.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../JS/swiper-3.3.1.min.js"></script>
+		<style type="text/css">
+			
+		</style>
+		<script type="text/javascript" src="../js/my-js/carlist.js"></script>
+		<script type="text/javascript" src="../js/my-js/logs.js"></script>
+	</head>
+
+	<body>
+		<div id="contain" style="text-align: left!important;">
+		</div>
+		<div class="wrap hidden base-wrap">
+			<div id="header" style="max-width: 600px; background-color: white;margin: auto;"></div>
+			<script src="../../JS/jquery-3.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+			<script>
+				$("#header").load("../html/header.html");
+			</script>
+			<div class="middle">
+				<div id="cellcon">
+						<!--<div class="xy-cell box-wrap">
+							<div class="cell-left">
+								<img src="../img/car.jpeg" />
+							</div>
+							<div class="cell-right box-flow">
+								<div id="title-txt" class="row">
+									<h3>舒驰5040</h3>
+								</div>
+								<div id="txt" class="row">
+									<p>70kWh</p>
+									<p>285KM</p>
+								</div>
+								<div id="" class="row">
+									<button>查看详情</button>
+								</div>
+							</div>
+						</div>-->
+
+				</div>
+
+				<div class="xy-cell box-wrap">
+					<div class="cell-left">
+						<img src="../img/images/充电车产品/u904.png" />
+					</div>
+					<div class="cell-right box-flow">
+						<div id="title-txt" class="row">
+							<h3>售后服务</h3>
+						</div>
+						<div id="txt" class="row">
+							<p>3h到达*24h解决</p>
+							<p>备用车/拖车服务</p>
+						</div>
+						<div id="sale-service" class="row">
+							<button>查看详情</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="footer" style="max-width: 600px; background-color: white;margin: auto;"></div>
+			<script>
+				$("#footer").load("../html/bottom.html");
+			</script>
+			<div class="footer-b settings-footer_text_color">
+				联系电话：0351-7111110-817 <br /><br /> © 2017 senk.net.cn All rights reserved.Powered by Senk.
+			</div>
+
+		</div>
+		<script src="../js/my-js/CONFIG.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var data = new getCarList("contain");
+			var CONF = new IMGSrcHead();
+			if(data.length && data) {
+				$(".wrap").removeClass("hidden");
+				var con = $("#cellcon");
+				var content = "";
+				for(var i = 0; i < data.length; i++) {
+					var car = data[i];
+					var des = car.cardes == '1' ? "是" : "否";
+					var equip = car.carequip == '1' ? "是" : "否";
+					console.log("http://192.168.8.66:80/img/" + car.picpath);
+					content += '	<div class="xy-cell box-wrap">'+
+								'<div class = "cell-left" >'+
+									'<img src = "'+CONF.imgSrcHead()+car.picpath+'"/>'+
+								'</div>'+
+								'<div class = "cell-right box-flow" >'+
+									'<div id = "title-txt"class = "row" >'+
+										'<h3 >'+car.cartype+'</h3>'+
+									'</div>'+
+									'<div id = "txt" class = "row" >'+
+										'<p> '+car.batterycapacity+'&nbsp;kwh</p>'+ 
+										'<p> '+car.cargo+'&nbsp;KM</p>'+
+									'</div>'+ 
+									'<div id ="'+i+'" class="row detail-btn" >'+
+										'<button> 查看详情 </button>'+
+									'</div>'+
+								'</div></div>';
+				}
+				con.html(content);
+
+			} else {
+				$(".wrap").addClass("hidden");
+//				$(".wrap").removeClass("hidden");
+				$("#contain").html('没找着到数据');
+			}
+
+			$("#cellcon").on("click", ".detail-btn", function(e) {
+
+				console.log($(this));
+				var obj = $(this);
+				var index = obj[0].id;
+				console.log(index);
+				var htmlObj = data[index];
+//				console.log("参数======="+htmlObj);
+				window.location.href = "detailCar.html?id=" + escape(JSON.stringify(htmlObj));
+
+			});
+			$("#sale-service").on("click", function(e) {
+				var i = $(this).val();
+				location.href = "SaleService.html";
+			});
+		</script>
+	</body>
+
+</html>
