@@ -7,9 +7,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<meta http-equiv="Access-Control-Allow-Origin" content="">
 	<meta http-equiv="content-security-policy">
-	<!--<link rel="stylesheet" type="text/css" href="../../css/my-css/mui.min.css" />-->
 	<link rel="stylesheet" type="text/css" href="../../CSS/mui.min.css" />
-	<!--<link rel="stylesheet" type="text/css" href="../../css/module.css/app.css"/>-->
 	<style type="text/css">
 		.box {
 			display: flex;
@@ -40,7 +38,6 @@
 		}
 	</style>
 </head>
-
 <body>
 	<header class="mui-bar mui-bar-nav">
 		<h1 class="mui-title">设置充电模型</h1>
@@ -180,13 +177,9 @@
 		var cptype = 0 //默认交流桩
 		function plusReady() {
 			var deviceId = getQueryString("cpid");
-			console.log("deviceId:" + deviceId);
 			var user = User.userIsLogin();
-
-			document.getElementById("mode4").innerHTML = user.accountSum;
-			//alert(user.accountSum);
+			document.getElementById("mode4").innerHTML = user.balance;
 			Pile.pileState(CONFIGS.LANCHUANG(), deviceId, function(pileState) {
-				//alert("---" + pileState);
 				if (pileState) {
 					var cp = pileState.cp;
 					var cpObj = cp[0]; //充电桩对象
@@ -234,17 +227,14 @@
 		//菜单滑动事件
 		document.getElementById('slider').addEventListener('slide', function(e) {
 			chargeWay = e.detail.slideNumber + 1;
-
 			if (chargeWay == 4) {
 				chargeWay = 0;
 			}
-
 		});
 		mui(document.body).on('tap', '#setmode-btn', function(e) {
 			mui(this).button('loading');
 			setTimeout(function() {
 				mui(this).button('reset');
-				//mui.fire(plus.webview.all()[0],"appoint",{sn:window.sn});			  
 				var chargeValue = getParams(chargeWay);
 				var dcChargeMode = getCheckRadioValue("radio");
 				var out_trade_no = CONFIGS.GETOUTTRADENO(getQueryString("cpid"));
@@ -253,22 +243,18 @@
 					return
 				}
 				var user = User.userIsLogin();
-				if (user == null || user == "" || user == {} || user == "{}") { //判断用户是否登录
+				if (user.chargeState) { //判断用户是否登录
 					//没有登录
 					mui.openWindow('../MY/getPhone.html', 'login.html', {}, 'slide-in-bottom', 200);
 					return;
 				}
-				console.log("余额=====" + user.accountSum);
-
-				if (user.accountSum <= 0) {
+				if (user.balance <= 0) {
 					mui.alert("账户余额不足");
 					mui.openWindow('../MY/My_account.html?openId=' + user.cpUserId, 'pay.html', {}, 'slide-in-bottom', 200);
 					return;
 				}
-
 				var userid = user.cpUserId;
 				var userAcccountSum = user.accountSum;
-
 				Order.setMode(CONFIGS.LANCHUANG(), getQueryString("cpid"), userid, chargeValue, chargeWay, out_trade_no, dcChargeMode, userAcccountSum, function(e) {
 					if (e) {
 						mui.openWindow("charging.php?cpid=" + getQueryString("cpid") + "&cptype=" + cptype, "charging.html", {}, "slide-in-right", 200);

@@ -5,7 +5,7 @@ const CONFIGS = {
   ALIPAYSERVER: function () {
     return "https://gxbie.com/LanChuang/wechatPay/alipayUnifiedOrder?payid=";
   },
-  /*	广西蓝创Server */
+  /* Server */
   LANCHUANG: function () {
     return "https://gxbie.com/LanChuang/"; // 天翼云平台
   },

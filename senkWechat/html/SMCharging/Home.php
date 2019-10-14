@@ -36,7 +36,6 @@
 	}
 	$jssdk = new JSSDK("wx031732af628faee0", "5e8ccf52a81d427752241374212af303");
 	$signPackage = $jssdk->GetSignPackage();
-
 	?>
   <!DOCTYPE html>
   <html>
@@ -56,7 +55,6 @@
   	<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
   	<title>扫码充电</title>
   	<style type="text/css">
-
   	</style>
   </head>
 
@@ -65,8 +63,8 @@
   	<button style="background-color:white;"></button>
   	<p class="middle_input">或<a style="color: blue; text-decoration: underline;" onclick="hrefBtn()">输入桩编号</a></p>
   	<h5 style="width:100%;text-align:center;margn:auto;">扫描桩上的二维码启动充电</h5>
-  	<script type="text/javascript" src="../JS/CONFIG.js"></script>
   	<script type="text/javascript" src="../JS/mui.js"></script>
+  	<script type="text/javascript" src="../JS/CONFIG.js"></script>
   	<script type="text/javascript" src="../JS/Order.js"></script>
   	<script type="text/javascript" src="../JS/Pile.js"></script>
   	<script type="text/javascript" src="../JS/User.js"></script>
@@ -74,8 +72,7 @@
   		//定义全局变量
   		var urlM = CONFIGS.LANCHUANG();
   		var openId = '<?php echo $openid; ?>';
-  		// var userid = openId = "1832785020180122";//oR9d21lZxSloF2iQtPHjdRAdy-2o
-  		// var userid = openId = "oR9d21lZxSloF2iQtPHjdRAdy-2o";
+  		var userid = openId = "oR9d21lZxSloF2iQtPHjdRAdy-2o";
   		var userid = openId;
   		var deviceId, cpid;
   		deviceId = cpid;
@@ -86,14 +83,13 @@
   		//监听扫码按钮
   		$("button").click(function() {
   			//验证用户信息
-  			User.UserState(CONFIGS.LANCHUANG(), userid, function(user_state) {
-  				console.log("user_state===" + user_state);
-  				if (user_state == 0) {
+  			User.getUserState(CONFIGS.URLManage().getUserInfoApi, userid, function(user) {
+  				if (user.chargeState === 0) {
   					//用户空闲状态可以扫码
   					wxScanAPI();
-  				} else if (user_state == 1) {
+  				} else if (user.chargeState === 1) {
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-  					Pile.pileMsg(CONFIGS.LANCHUANG(), userid, function(e) {
+  					Pile.pileMsg(CONFIGS.URLManage().getCpileBaseInfoApi, userid, function(e) {
   						if (e != null && e != "null") {
   							location.href = 'charging.php?cpid=' + e.cpid + "&cptype=" + e.cptype;
   						} else {
@@ -102,24 +98,6 @@
   								type: 'div'
   							});
   						}
-  					});
-  				} else if (user_state == 201) {
-  					mui.toast('请完善信息', {
-  						duration: 'long',
-  						type: 'div'
-  					});
-
-  					location.href = '../MY/getPhone.html?openId=' + openId;
-  				} else if (user_state == 99 || user_state == 100) { //账号异常
-  					mui.toast('账号异常', {
-  						duration: 'long',
-  						type: 'div'
-  					});
-  					location.href = '../../MY/getPhone.html?userId=' + openId;
-  				} else if (user_state == 101) { //网络信号不稳定，服务器未响应
-  					mui.toast('网络信号不稳定，服务器未响应', {
-  						duration: 'long',
-  						type: 'div'
   					});
   				} else {
 
