@@ -89,18 +89,9 @@
   					wxScanAPI();
   				} else if (user.chargeState === 1) {
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-  					Pile.pileMsg(CONFIGS.URLManage().getCpileBaseInfoApi, userid, function(e) {
-  						if (e != null && e != "null") {
-  							location.href = 'charging.php?cpid=' + e.cpid + "&cptype=" + e.cptype;
-  						} else {
-  							mui.toast('账号异常', {
-  								duration: 'long',
-  								type: 'div'
-  							});
-  						}
-  					});
+  					location.href = 'charging.php?obj='+JSON.stringify(user);
   				} else {
-
+					alert('无法使用');
   				}
   			});
   		});
@@ -112,7 +103,7 @@
   				timestamp: '<?php echo $signPackage["timestamp"]; ?>',
   				nonceStr: '<?php echo $signPackage["nonceStr"]; ?>',
   				signature: '<?php echo $signPackage["signature"]; ?>',
-  				jsApiList: ["scanQRCode", ] //// 所有要调用的 API 都要加到这个列表中     
+  				jsApiList: ["scanQRCode", ] // 所有要调用的 API 都要加到这个列表中     
   			});
   			wx.ready(function() {
   				wx.scanQRCode({
@@ -122,9 +113,7 @@
   						// 当needResult 为 1 时，扫码返回的结果
   						var result = res.resultStr;
   						//设备号添加两个0
-  						deviceId = result;
-  						//判断设备号长度是否符合
-  						location.href = "chargePay.php?cpid=" + result;
+  						getPileBaseInfo(result);
   					}
   				});
   			});
@@ -132,36 +121,37 @@
   				alert("扫码错误" + JSON.stringify(res));
   			});
   		}
+  		/**
+		   *    "cpId": "4101220000000002",
+				"location": "中牟县张家庄镇吕坡村",
+				"cpType": 0,
+				"cpPhase": 0,
+				"cpName": "2#双枪直流桩",
+				"rateId": 1,
+				"chargeFee": 2
+		   */
+  		function getPileBaseInfo(deviceId) {
+  			Pile.pileMsg(CONFIGS.URLManage().getCpileStateoApi, deviceId, function(data) {
+  				if (data) {
+  					location.href = "chargePay.php?obj=" + JSON.stringify(data);
+  				} else {
+  					console.log('请求错误');
+  				}
+  			});
+  		}
   		//输入设备号界面跳转
   		function hrefBtn() {
-  			User.UserState(CONFIGS.LANCHUANG(), userid, function(user_state) {
+  			User.getUserState(CONFIGS.LANCHUANG(), userid, function(user) {
   				//alert("输入设备号user_state===" + user_state);
-  				if (user_state == 0) { //空闲状态
+  				if (user.chargeState == 0) { //空闲状态
   					//用户空闲状态可以扫码
   					location.href = "scanCode.php?openId=" + userid;
-  				} else if (user_state == 99 || user_state == 201) { //账号异常
-  					mui.toast('账号异常', {
-  						duration: 'long',
-  						type: 'div'
-  					});
-
-  					location.href = '../MY/getPhone.html?openId=' + openId;
-
-  				} else if (user_state == 101) { //网络信号不稳定，服务器未响应
-  					mui.toast('网络信号不稳定，服务器未响应', {
-  						duration: 'long',
-  						type: 'div'
-  					});
-  				} else { //
+  				} else if (user.chargeState === 1) {
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-  					Pile.pileMsg(CONFIGS.LANCHUANG(), userid, function(e) {
-  						if (e != null && e != "null") {
-  							location.href = 'charging.php?cpid=' + e.cpid + "&cptype=" + e.cptype;
-  						} else {
-
-  						}
-  					});
-  				}
+  					location.href = 'charging.php?obj='+JSON.stringify(user);
+  				} else {
+					alert('无法使用');
+  				} 
   			});
   		}
   		//日志

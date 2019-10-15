@@ -38,6 +38,7 @@
 		}
 	</style>
 </head>
+
 <body>
 	<header class="mui-bar mui-bar-nav">
 		<h1 class="mui-title">设置充电模型</h1>
@@ -179,28 +180,20 @@
 			var deviceId = getQueryString("cpid");
 			var user = User.userIsLogin();
 			document.getElementById("mode4").innerHTML = user.balance;
-			Pile.pileState(CONFIGS.LANCHUANG(), deviceId, function(pileState) {
-				if (pileState) {
-					var cp = pileState.cp;
-					var cpObj = cp[0]; //充电桩对象
-					mui(".card-title")[0].innerText = "充电桩：" + cpObj.cpname;
-					mui(".mui-card-content-left")[0].innerText = "桩类型:" + cpObj.cpphase + cpObj.cptype;
-					//cpObj.cptype = "直流桩";
-					if (cpObj.cptype == "直流桩") {
-						mui(".dc-box")[0].classList.remove("hidden");
-						cptype = 1;
-					} else {
-						cptype = 0;
-						mui(".dc-box")[0].classList.add("hidden");
-					}
-					mui(".mui-card-content-right")[0].innerText = "桩费率:" + cpObj.chargefee + "元/度";
-					mui(".mui-card-footer")[0].innerText = "地址：" + cpObj.location;
-				} else {
-					console.log("桩的状态是：" + JSON.stringify(pileState));
-					mui.back();
-				}
-			});
-
+			let objStr = getQueryString(obj);
+			let objData = JSON.parse(objStr);
+			mui(".card-title")[0].innerText = "充电桩：" + objData.cpname;
+			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase + objData.cptype;
+			//cpObj.cptype = "直流桩";
+			if (objData.cptype == "直流桩") {
+				mui(".dc-box")[0].classList.remove("hidden");
+				cptype = 1;
+			} else {
+				cptype = 0;
+				mui(".dc-box")[0].classList.add("hidden");
+			}
+			mui(".mui-card-content-right")[0].innerText = "桩费率:" + objData.chargefee + "元/度";
+			mui(".mui-card-footer")[0].innerText = "地址：" + objData.location;
 		}
 		var cpTyeVolage = 0;
 		var dcChargeMode = 0;

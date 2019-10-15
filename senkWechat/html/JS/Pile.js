@@ -72,11 +72,13 @@ var Pile = {
         if (data.success) {
           callack(data.model);
         } else {
+          alert(data.errorMessage);
           callack();
         }
       },
       error: function (xhr) {
         console.log(xhr);
+        alert('请求错误');
         callack();
       }
     });

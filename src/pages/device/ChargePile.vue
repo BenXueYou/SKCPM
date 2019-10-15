@@ -136,7 +136,7 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
-      rowData: null,
+      rowData: {},
       tableData: window.config.tableData,
       checkedCpids: []
     };

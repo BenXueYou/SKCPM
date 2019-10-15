@@ -68,7 +68,6 @@ var Order = {
   },
   // 生成后台订单，并记录充电信息
   setMode: function (url, cpid, openid, money, payMode, out_trade_no, dcChargeMode, userAcccountSum, callback) {
-    console.log(cpid + "======" + payMode + "====" + openid + "====" + dcChargeMode + "====" + out_trade_no + "=====" + money + "===" + userAcccountSum);
     url = url + "scanCharge/setChargeMode";
     var setModeRes = 0;
     mui.ajax(url, {
