@@ -14,25 +14,21 @@
 			justify-content: space-between;
 			padding: 10px 20px;
 		}
-
 		.content-txt-center {
 			/*text-align: center!important;*/
 			margin: 5px auto;
 			padding: 5px 8px;
 		}
-
 		.tips-txt {
 			color: dodgerblue;
 			font-size: 12px;
 			text-indent: 12px;
 		}
-
 		.card-title,
 		.card-address {
 			width: 100%;
 			text-align: center;
 		}
-
 		.hidden {
 			display: none;
 		}
@@ -126,7 +122,6 @@
 								<div class="mui-card">
 									<div class="mui-card-content">
 										<div class="mui-card-content-inner">
-
 											<label>充电金额(元)：</label>
 											<div class="mui-numbox" data-numbox-min='1'>
 												<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
@@ -134,7 +129,6 @@
 												<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
 											</div>
 											<!--<div class="mui-input-row">-->
-
 										</div>
 									</div>
 								</div>
@@ -182,8 +176,8 @@
 			document.getElementById("mode4").innerHTML = user.balance;
 			let objStr = getQueryString(obj);
 			let objData = JSON.parse(objStr);
-			mui(".card-title")[0].innerText = "充电桩：" + objData.cpname;
-			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase + objData.cptype;
+			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
+			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase==1?'三相':'单相'+ objData.cptype==1?'交流':'直流';
 			//cpObj.cptype = "直流桩";
 			if (objData.cptype == "直流桩") {
 				mui(".dc-box")[0].classList.remove("hidden");
