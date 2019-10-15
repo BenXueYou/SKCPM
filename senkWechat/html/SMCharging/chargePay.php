@@ -170,12 +170,13 @@
 		//  直流桩类型默认为0，当直流桩为24V时，则为1
 		var dcChargeMode = 0;
 		var cptype = 0 //默认交流桩
+		var deviceId;
 		function plusReady() {
-			var deviceId = getQueryString("cpid");
 			var user = User.userIsLogin();
 			document.getElementById("mode4").innerHTML = user.balance;
 			let objStr = getQueryString(obj);
 			let objData = JSON.parse(objStr);
+			deviceId  = objData.cpId;
 			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
 			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase==1?'三相':'单相'+ objData.cptype==1?'交流':'直流';
 			//cpObj.cptype = "直流桩";
@@ -242,7 +243,19 @@
 				}
 				var userid = user.cpUserId;
 				var userAcccountSum = user.accountSum;
-				Order.setMode(CONFIGS.LANCHUANG(), getQueryString("cpid"), userid, chargeValue, chargeWay, out_trade_no, dcChargeMode, userAcccountSum, function(e) {
+				var data = {
+  					"dcChargeMode": dcChargeMode,
+  					"deviceId": deviceId,
+  					"endChargeFlag": 0,
+  					"gun": deviceId,
+  					"payMode": 0,
+  					"payValue": 0,
+  					"remainSum": 0,
+  					"startChargeFailDesp": "string",
+  					"startChargeFlag": 0,
+  					"userId": "string"
+				};
+				Order.setMode(CONFIGS.URLManage().postPayOrderApi, getQueryString("cpid"), userid, chargeValue, chargeWay, out_trade_no, dcChargeMode, userAcccountSum, function(e) {
 					if (e) {
 						mui.openWindow("charging.php?cpid=" + getQueryString("cpid") + "&cptype=" + cptype, "charging.html", {}, "slide-in-right", 200);
 					} else {
