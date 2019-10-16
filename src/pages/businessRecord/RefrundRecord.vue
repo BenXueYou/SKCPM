@@ -70,7 +70,7 @@
 				<el-table-column prop="userId" label="用户ID"></el-table-column>
 				<!-- <el-table-column prop="date" label="用户名"></el-table-column> -->
 				<!-- <el-table-column prop="name" label="电话"></el-table-column> -->
-				<el-table-column prop="depositMoney" label="退款金额"></el-table-column>
+				<el-table-column prop="withdrawMoney" label="退款金额"></el-table-column>
 				<el-table-column prop="beforeBalance" label="退款前金额"></el-table-column>
 				<el-table-column prop="balance" label="退款后金额"></el-table-column>
 				<el-table-column prop="gmtCreate" label="退款时间"></el-table-column>

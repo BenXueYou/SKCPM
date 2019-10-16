@@ -28,7 +28,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<div></div>
 				<div></div>
 				<div></div>
-				<div></div>   
+				<div></div>
 				<div></div>
 			</div>
 			<div class="circlebg"></div>
@@ -188,17 +188,13 @@ $signPackage = $jssdk->GetSignPackage();
 			return null;
 		}
 		var user = User.userIsLogin();
-
-		//alert("===="+JSON.stringify(user));
-		//alert(user+"==="+JSON.stringify(user));
-		var userid = user.cpUserId;
+		var userid = user.userId;
 		var flag = null;
 		var flagCount = 0;
 		var t, deviceId, cptype = 0;
 		document.getElementById("cpid").innerHTML = "充电桩：" + getQueryString("cpid");
 		deviceId = getQueryString("cpid");
 		cptype = getQueryString("cptype");
-
 		//alert("deviceId==" + deviceId + "===cptype====" + cptype);
 		if (cptype == 1 || cptype == "1") { //直流桩
 			console.log("直流桩");
@@ -209,30 +205,25 @@ $signPackage = $jssdk->GetSignPackage();
 		} else { //交流桩
 			console.log("这是交流桩");
 		}
-
+		plusReady();
 		function plusReady() {
 			if (!window.plus) {
 				return;
 			}
-			//判断用户当前状态，预防用户状态未及时更新，在该界面重新检查用户状态
-			User.UserState(CONFIGS.LANCHUANG(), userid, function(e) {
-				if (e == "1") {
-					//开启动画，开始刷新数据
-					flag = true;
-					actiondo(true);
-					getChargeData();
-					getData();
-					document.getElementById("chargeSwitch").innerHTML = "结束充电";
-					document.getElementById("MSG").innerHTML = "正在充电";
-				} else {
-					//等待充电状态
-					flag = false;
-				}
-			});
+			var user = User.userIsLogin();
+			var userid = user.userId;
+			if (user.chargeState) {
+				//开启动画，开始刷新数据
+				flag = true;
+				actiondo(true);
+				getChargeData();
+				getData();
+				document.getElementById("chargeSwitch").innerHTML = "结束充电";
+				document.getElementById("MSG").innerHTML = "正在充电";
+			} else {
+				flag = false;
+			}
 		}
-
-		plusReady();
-
 		function chargeSwitch() {
 			flag = !flag;
 			if (flag) {
@@ -304,8 +295,7 @@ $signPackage = $jssdk->GetSignPackage();
 		}
 		//获取实时数据
 		function getChargeData() {
-			User.getPileChargeData(CONFIGS.LANCHUANG(), userid, function(e) {
-				console.log(JSON.stringify(e) + "=====" + e + "=====" + e.on_off);
+			User.getPileChargeData(CONFIGS.URLManage().getRealTimeData, user.openId, function(e) {
 				DataInfo = e;
 				if (e.on_off == 0 || e.on_off == "0") {
 					//检测到离线，强制退出

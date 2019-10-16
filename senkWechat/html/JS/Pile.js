@@ -84,13 +84,10 @@ var Pile = {
     });
   },
 
-  pileStart: function (url, openid, deviceId, callback) {
+  pileStart: function (url, data, callback) {
     var mask = mui.createMask();
     mui.ajax(url, {
-      data: {
-        userId: openid,
-        deviceId: deviceId,
-      },
+      data: data,
       dataType: "JSON",
       crossDomain: true,
       timeout: 35000,
@@ -104,7 +101,7 @@ var Pile = {
         if (data.success) {
           callback(data.model);
         } else {
-          callback(result);
+          callback();
         }
       },
       error: function (xhr, type, error) {

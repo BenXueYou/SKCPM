@@ -37,48 +37,6 @@
 						<el-menu-item index="/Main/SwitchData">变位监控</el-menu-item>
 						<el-menu-item index="/Main/FaultAlarmData">故障监控</el-menu-item>
 					</el-submenu>
-					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
-						<template slot="title">
-							<i class="el-icon-price-tag"></i>
-							<span>设备管理</span>
-							<img
-								v-show="menuTitle === '3'"
-								class="left_menu_box_right_icon"
-								src="@/assets/images/select-down.png"
-							/>
-							<img
-								v-show="menuTitle !== '3'"
-								class="left_menu_box_right_icon"
-								src="@/assets/images/leftMenu/left_menu_down_icon.png"
-								alt
-							/>
-						</template>
-						<el-menu-item index="/Main/ChargePile">充电桩</el-menu-item>
-						<el-menu-item index="/Main/ChargeStation">充电站</el-menu-item>
-						<el-menu-item index="/Main/ChargeAddress">充电桩地址</el-menu-item>
-						<el-menu-item index="/Main/ChargeFactory">充电桩厂商</el-menu-item>
-					</el-submenu>
-					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
-						<template slot="title">
-							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
-							<i class="el-icon-s-custom"></i>
-							<span slot="title">用户管理</span>
-							<img
-								v-show="menuTitle === '4'"
-								class="left_menu_box_right_icon"
-								src="@/assets/images/select-down.png"
-							/>
-							<img
-								v-show="menuTitle !== '4'"
-								class="left_menu_box_right_icon"
-								src="@/assets/images/leftMenu/left_menu_down_icon.png"
-								alt
-							/>
-						</template>
-						<el-menu-item index="/Main/AppUser">用户管理</el-menu-item>
-						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
-						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
-					</el-submenu>
 					<el-submenu index="5" :class="menuTitle === '5'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<i class="el-icon-notebook-2"></i>
@@ -121,6 +79,54 @@
 						<el-menu-item index="/Main/ChargeStationStatics">充电站统计</el-menu-item>
 						<el-menu-item index="/Main/OperatorStatics">运营商统计</el-menu-item>
 					</el-submenu>
+
+					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
+						<template slot="title">
+							<i class="el-icon-price-tag"></i>
+							<span>设备管理</span>
+							<img
+								v-show="menuTitle === '3'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/select-down.png"
+							/>
+							<img
+								v-show="menuTitle !== '3'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
+								alt
+							/>
+						</template>
+						<el-menu-item index="/Main/ChargePile">充电桩</el-menu-item>
+						<el-menu-item index="/Main/ChargeStation">充电站</el-menu-item>
+						<el-menu-item index="/Main/ChargeAddress">充电桩地址</el-menu-item>
+						<el-menu-item index="/Main/ChargeFactory">充电桩厂商</el-menu-item>
+					</el-submenu>
+					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
+						<template slot="title">
+							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
+							<i class="el-icon-s-custom"></i>
+							<span slot="title">用户管理</span>
+							<img
+								v-show="menuTitle === '4'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/select-down.png"
+							/>
+							<img
+								v-show="menuTitle !== '4'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
+								alt
+							/>
+						</template>
+						<el-menu-item index="/Main/AppUser">用户管理</el-menu-item>
+						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
+						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
+					</el-submenu>
+
+					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
+						<i class="el-icon-money"></i>
+						计费模型
+					</el-menu-item>
 					<el-submenu index="7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<i class="el-icon-menu"></i>
@@ -145,10 +151,6 @@
 						<el-menu-item index="/Main/CaseProductionTable">优秀案例</el-menu-item>
 						<el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item>
 					</el-submenu>
-					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
-						<i class="el-icon-money"></i>
-						计费模型
-					</el-menu-item>
 				</el-menu>
 			</el-col>
 		</el-row>

@@ -12,7 +12,7 @@ var User = {
       psw: psw,
       signId: ""
     };
-    ajaxBase(url, false, postData, function (returnData) {
+    ajaxBase("POST", url, false, postData, function (returnData) {
       //   if (returnData) {
       //   } else {
       //     callback(fasle);
@@ -23,14 +23,10 @@ var User = {
   getUserState: function (url, userid, callback) {
     var postData = {
       openId: userid,
-      signId: ""
     };
-    ajaxBase(url, false, postData, function (data) {
+    ajaxBase("GET", url, false, postData, function (data) {
       if (data.model) {
         var user = data.model;
-        // var users = JSON.parse(localStorage.getItem('$users') || '[]');
-        // users.splice(0, users.length);
-        // users.push(user);
         localStorage.setItem('$users', JSON.stringify(user));
         callback(user);
       } else {
@@ -40,9 +36,7 @@ var User = {
   },
   // 改变用户状态，取消用户标记
   UserChange: function (url, userid, callback) {
-    var mask = mui.createMask();
     url = url + "scanCharge/resetUser";
-    var result = "0";
     var postData = {
       userId: userid,
     };
@@ -66,20 +60,30 @@ var User = {
   },
 
   getPileChargeData: function (url, userid, callback) {
-    var mask = mui.createMask();
-    url = url + "/scanCharge/getChargeStatus";
     window.chargeData = false;
     var data = {
-      userId: userid
+      openId: userid
     };
-    ajaxBase(url, false, data, function (data) {
-      console.log(userid + "====获取刷新的数据" + JSON.stringify(data));
-      if (data) {
+    ajaxBase("GET", url, false, data, function (res) {
+      if (res.success) {
         var detail = data.detail;
         var chargeInfo = detail.chargeInfo;
         if (data.returnCode == 0) {
           var dataInfo = chargeInfo[0];
-          var DataObj = new Object();
+          var DataObj = {
+            on_off: 0,
+            va: 0,
+            vb: 0,
+            vc: 0,
+            aa: 0,
+            ab: 0,
+            ac: 0,
+            chargeDuration: 0,
+            quantity: 0,
+            price: 0,
+            fee: 0,
+            dateTime = "----.--.-- --:--";
+          };
           DataObj.finish = dataInfo.command;
           if (dataInfo.voltageA == '0') { // 电压都为零，桩离线
             mui.confirm("是否退出，强制退出则取消对本次充电的监控，同时可重新扫码开启", "检测到桩离线", ["是", "否"],
@@ -96,7 +100,6 @@ var User = {
                 DataObj.price = 0;
                 DataObj.fee = 0;
                 DataObj.dateTime = "----.--.-- --:--";
-                console.log("检测到离线===" + DataObj.on_off);
                 callback(DataObj);
               }, "div");
           } else { // 检测到离线
@@ -184,7 +187,8 @@ var User = {
       userid: userid,
       serialNo: serialNo
     };
-    ajaxBase(url, false, postData, function (data) {
+    const method = "GET";
+    ajaxBase(method, url, false, postData, function (data) {
       if (!data) {
         callback();
         return;
@@ -247,7 +251,7 @@ var User = {
       plateNumber: user.platform
     };
     // 上传基本信息
-    ajaxBase(url, true, data, function (e) {
+    ajaxBase("POST", url, true, data, function (e) {
       var data = e;
       //			console.log("修改个人资料：" + user.cpUserId + "====" + JSON.stringify(e));
       if (data == null) {
@@ -280,38 +284,38 @@ function uploaderHeadImg(fileSrc, userId) {
     overwrite: true,
     quality: 20
   },
-  function (event) {
-    console.log("Compress success:" + event.target);
-    appendFile(dstname); // 添加图片
-    var urlStr = CONFIGS.LANCHUANG() + "userManager/uploadPortrait";
-    var task = plus.uploader.createUpload(urlStr, {
-      method: "POST"
-    },
-    function (t, status) { // 上传完成
-      if (status == 200) {
-        console.log(t.responseText);
-        var result = JSON.parse(t.responseText);
-        mui.toast(result.message);
-      } else {
-        console.log("上传失败：" + status);
-      }
-    }
-    );
+    function (event) {
+      console.log("Compress success:" + event.target);
+      appendFile(dstname); // 添加图片
+      var urlStr = CONFIGS.LANCHUANG() + "userManager/uploadPortrait";
+      var task = plus.uploader.createUpload(urlStr, {
+        method: "POST"
+      },
+        function (t, status) { // 上传完成
+          if (status == 200) {
+            console.log(t.responseText);
+            var result = JSON.parse(t.responseText);
+            mui.toast(result.message);
+          } else {
+            console.log("上传失败：" + status);
+          }
+        }
+      );
 
-    for (var i = 0; i < files.length; i++) {
-      var f = files[i];
-      task.addFile(f.path, {
-        key: f.name
-      });
-      console.log(JSON.stringify(files[i]));
-    }
-    task.addData('userId', "78503239");
-    task.start();
-  },
-  function (error) {
-    console.log(error);
-    return src;
-  });
+      for (var i = 0; i < files.length; i++) {
+        var f = files[i];
+        task.addFile(f.path, {
+          key: f.name
+        });
+        console.log(JSON.stringify(files[i]));
+      }
+      task.addData('userId', "78503239");
+      task.start();
+    },
+    function (error) {
+      console.log(error);
+      return src;
+    });
 }
 
 // 向文件数组中添加图片
@@ -326,11 +330,11 @@ function appendFile(p) {
 function getUid() {
   return Math.floor(Math.random() * 100000000 + 10000000).toString();
 }
-function ajaxBase(url, asyn, data, callback) {
+function ajaxBase(method, url, asyn, data, callback) {
   var mask = mui.createMask();
   mui.ajax(url, {
     data: data,
-    type: 'POST',
+    type: method,
     timeout: 10000,
     crossDomain: true,
     beforeSend: function () {

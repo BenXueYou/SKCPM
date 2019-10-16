@@ -241,27 +241,24 @@
 					mui.openWindow('../MY/My_account.html?openId=' + user.cpUserId, 'pay.html', {}, 'slide-in-bottom', 200);
 					return;
 				}
-				var userid = user.cpUserId;
-				var userAcccountSum = user.accountSum;
 				var data = {
   					"dcChargeMode": dcChargeMode,
   					"deviceId": deviceId,
   					"endChargeFlag": 0,
-  					"gun": deviceId,
-  					"payMode": 0,
-  					"payValue": 0,
-  					"remainSum": 0,
-  					"startChargeFailDesp": "string",
+  					"gun": deviceId.substr(deviceId.length-2,2),
+  					"payMode": chargeWay,
+  					"payValue": chargeValue,
+  					"remainSum": user.balance,
+  					"startChargeFailDesp": "",
   					"startChargeFlag": 0,
-  					"userId": "string"
+  					"userId": user.userId,
 				};
-				Order.setMode(CONFIGS.URLManage().postPayOrderApi, getQueryString("cpid"), userid, chargeValue, chargeWay, out_trade_no, dcChargeMode, userAcccountSum, function(e) {
+				Pile.pileStart(CONFIGS.URLManage().startChargeApi, data, function(e) {
 					if (e) {
 						mui.openWindow("charging.php?cpid=" + getQueryString("cpid") + "&cptype=" + cptype, "charging.html", {}, "slide-in-right", 200);
 					} else {
 						mui.alert("订单提交失败,请重试" + res);
 						mui.openWindow("charging.php?cpid=" + getQueryString("cpid") + "&cptype=" + cptype, "charging.html", {}, "slide-in-right", 200);
-
 					}
 				});
 			}.bind(this), 2000);
@@ -294,5 +291,4 @@
 		}
 	</script>
 </body>
-
 </html>
