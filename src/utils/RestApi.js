@@ -106,12 +106,6 @@ export default {
       updateOperator: `${httpUrlHeader}/operator/update`,
       getOperatorOptions: `${httpUrlHeader}/operator/list`,
 
-      getAccountUserList: `${httpUrlHeader}/user/list-by-page`,
-      addCompanyUser: `${httpUrlHeader}/user/companyUser-add`,
-      addAdminUser: `${httpUrlHeader}/user/save-manage`,
-      deleteUserList: `${httpUrlHeader}/user/delete`,
-      updateUserList: `${httpUrlHeader}/user/update`,
-
       getAppUserList: `${httpUrlHeader}/weChat/list-by-page`,
     },
     /**
@@ -173,6 +167,14 @@ export default {
      */
     ChargePriceAjax: {
       getChargePrice: `${httpUrlHeader}/bill/model/list-by-page`
+    },
+    AuthorityAccount: {
+      getAuthorityAccount: `${httpUrlHeader}/user/list-by-page`,
+      getAccountUserList: `${httpUrlHeader}/user/list-by-page`,
+      addCompanyUser: `${httpUrlHeader}/user/companyUser-add`,
+      addAdminUser: `${httpUrlHeader}/user/save-manage`,
+      deleteUserList: `${httpUrlHeader}/user/delete`,
+      updateUserList: `${httpUrlHeader}/user/update`,
     },
     // 人脸图片质量检测
     faceQualityDetection: `/sppc-iacapp-service-v1/image/isQualified`,

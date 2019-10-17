@@ -60,6 +60,46 @@ export var userAjax = {
       data: xhr
     });
   },
+  getAccountUserList(xhr) {
+    let url = `${RestApi.api.AuthorityAccount.getAccountUserList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  addCompanyUser(xhr) {
+    let url = `${RestApi.api.AuthorityAccount.addCompanyUser}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  addAdminUser(xhr) {
+    let url = `${RestApi.api.AuthorityAccount.addAdminUser}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  deleteUserList(xhr) {
+    let url = `${RestApi.api.AuthorityAccount.deleteUserList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  updateUserList(xhr) {
+    let url = `${RestApi.api.AuthorityAccount.updateUserList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
 };
 
 function install(Vue) {

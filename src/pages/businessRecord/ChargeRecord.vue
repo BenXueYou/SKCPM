@@ -371,7 +371,7 @@ export default {
 			justify-content: flex-start;
 			padding-bottom: 15px;
 			.flex-sbw-div {
-				margin: 0 10px;
+				margin-right: 20px;
 			}
 			.el-button {
 				color: #ffffff;

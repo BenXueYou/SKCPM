@@ -1,32 +1,32 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 // import Home from '@/pages/home/Home';
-const Login = () => import(/* webpackChunkName: "group-foo" */ '@/pages/login/Login');
-const Main = () => import(/* webpackChunkName: "group-foo" */ '@/pages/main/Main');
-const ChargePile = () => import(/* webpackChunkName: "group-foo" */ '@/pages/device/ChargePile');
-const ChargeAddress = () => import(/* webpackChunkName: "group-foo" */ '@/pages/device/ChargeAddress');
-const ChargeFactory = () => import(/* webpackChunkName: "group-foo" */ '@/pages/device/ChargeFactory');
-const ChargeStation = () => import(/* webpackChunkName: "group-foo" */ '@/pages/device/ChargeStation');
-const AppUser = () => import(/* webpackChunkName: "group-foo" */ '@/pages/userManage/appUser');
-const Operator = () => import(/* webpackChunkName: "group-foo" */ '@/pages/userManage/operator');
-const CardUser = () => import(/* webpackChunkName: "group-foo" */ '@/pages/userManage/cardUser');
+const Login = () => import(/* webpackChunkName: "login" */ '@/pages/login/Login');
+const Main = () => import(/* webpackChunkName: "main" */ '@/pages/main/Main');
+const ChargePile = () => import(/* webpackChunkName: "gdevice" */ '@/pages/device/ChargePile');
+const ChargeAddress = () => import(/* webpackChunkName: "device" */ '@/pages/device/ChargeAddress');
+const ChargeFactory = () => import(/* webpackChunkName: "device" */ '@/pages/device/ChargeFactory');
+const ChargeStation = () => import(/* webpackChunkName: "device" */ '@/pages/device/ChargeStation');
+const AppUser = () => import(/* webpackChunkName: "userManage" */ '@/pages/userManage/appUser');
+const Operator = () => import(/* webpackChunkName: "userManage" */ '@/pages/userManage/operator');
+const CardUser = () => import(/* webpackChunkName: "userManage" */ '@/pages/userManage/cardUser');
 
-const RechargeRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/RechargeRecord');
-const ChargeRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/ChargeRecord');
-const RefrundRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/RefrundRecord');
-const ChargingRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/ChargingRecord');
+const RechargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RechargeRecord');
+const ChargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargeRecord');
+const RefrundRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RefrundRecord');
+const ChargingRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargingRecord');
 
-const AppUserStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/AppUserStatics');
-const ChargePileStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargePileStatics');
-const ChargeStationStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargeStationStatics');
-const OperatorStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/OperatorStatics');
+const AppUserStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/AppUserStatics');
+const ChargePileStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/ChargePileStatics');
+const ChargeStationStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/ChargeStationStatics');
+const OperatorStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/OperatorStatics');
 
-const PileRealData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/PileRealData');
-const FaultAlarmData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/FaultAlarmData');
-const SwitchData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/SwitchData');
+const PileRealData = () => import(/* webpackChunkName: "realData" */ '@/pages/realData/PileRealData');
+const FaultAlarmData = () => import(/* webpackChunkName: "realData" */ '@/pages/realData/FaultAlarmData');
+const SwitchData = () => import(/* webpackChunkName: "realData" */ '@/pages/realData/SwitchData');
 
-const BillModel = () => import(/* webpackChunkName: "group-foo" */ '@/pages/priceSet/BillModel');
-const Home = () => import(/* webpackChunkName: "group-foo" */ '@/pages/home/Home');
+const BillModel = () => import(/* webpackChunkName: "priceSet" */ '@/pages/priceSet/BillModel');
+const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home/Home');
 
 const CaseProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/CaseProductionTable');
 const ReservationTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/ReservationTable');
@@ -35,6 +35,8 @@ const PileProductionTable = () => import(/* webpackChunkName: "production" */ '@
 const AlignProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/AlignProductionTable');
 const ActivityProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/ActivityProductionTable');
 const CarProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/CarProductionTable');
+// 账号管理
+const AuthorityAccount = () => import(/* webpackChunkName: "systemSet" */ '@/pages/systemSet/AuthorityAccount');
 
 Vue.use(Router);
 
@@ -215,6 +217,12 @@ export default new Router({
           name: "BillModel",
           component: BillModel,
           title: "计费模型"
+        },
+        {
+          path: "AuthorityAccount",
+          name: "AuthorityAccount",
+          component: AuthorityAccount,
+          title: "账号管理"
         },
       ]
     }

@@ -127,6 +127,10 @@
 						<i class="el-icon-money"></i>
 						计费模型
 					</el-menu-item>
+					<el-menu-item index="/main/AuthorityAccount" style="padding-left:20px;background-color:rgb(53,64,84)">
+						<i class="el-icon-coordinate"></i>
+						账号管理
+					</el-menu-item>
 					<el-submenu index="7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<i class="el-icon-menu"></i>
