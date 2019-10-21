@@ -93,9 +93,9 @@
 
 		function plusReady() {
 			var user = User.userIsLogin();
-			var userid = user.cpUserId;
+			var userid = user.userId;
 			console.log("++++++++" + serialNo);
-			User.getUserChargeData(CONFIGS.LANCHUANG(), userid, serialNo, function(e) {
+			User.getUserChargeData(CONFIGS.URLManage().getOrderBySerialNoApi, userid, serialNo, function(e) {
 				var dataInfo = e;
 				console.log(e);
 				console.log("-----------" + JSON.stringify(e));

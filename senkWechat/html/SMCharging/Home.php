@@ -12,6 +12,7 @@
 		/***************************************************************************/
 		//echo $_SERVER['HTTP_HOST'];
 		$REDIRECT_URI = urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
+		alert($REDIRECT_URI);
 		//$REDIRECT_URI = urlencode('https://www.gxbie.com/LanChangWechat/html/SMCharging/Home.php');
 		/***************************************************************************/
 		//$scope='snsapi_base';
