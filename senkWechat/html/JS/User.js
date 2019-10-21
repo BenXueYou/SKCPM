@@ -25,7 +25,7 @@ var User = {
       openId: userid,
     };
     ajaxBase("GET", url, false, postData, function (data) {
-      if (data.model) {
+      if (data && data.model) {
         var user = data.model;
         localStorage.setItem('$users', JSON.stringify(user));
         callback(user);
@@ -279,6 +279,7 @@ function ajaxBase(method, url, asyn, data, callback) {
       if (e.success) {
         callback(e);
       } else {
+        alert(e.errorMessage);
         callback();
       }
     },

@@ -31,6 +31,7 @@ const CONFIGS = {
 
       postPayOrderApi: `${URLHeader}/weChat/deposit/save`,
       getPayOrderAPi: `${URLHeader}/weChat/deposit/record`,
+      getChargeRecordApi:`${URLHeader}/charge/record/list-by-page`,
       getRefrundOrderAPi: `${URLHeader}/weChat/withdraw-list-by-page`,
 
     };
@@ -53,4 +54,3 @@ const CONFIGS = {
     return ("lc" + indexNo + ty + tm + td + th + tmin + tsd);
   }
 };
-export default CONFIGS;

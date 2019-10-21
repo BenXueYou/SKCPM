@@ -34,7 +34,6 @@ var Pile = {
       data: {
         deviceId: cpid
       },
-      dataType: "JSON",
       type: "GET",
       crossDomain: true,
       timeout: 10000, // 超时时间：10秒
@@ -61,7 +60,7 @@ var Pile = {
   pileMsg: function (url, openid, callack) {
     mui.ajax(url, {
       data: {
-        userId: openid,
+        deviceId: openid,
         platform: 1
       },
       dataType: "JSON",
@@ -69,6 +68,7 @@ var Pile = {
       crossDomain: true,
       timeout: 10000, // 超时时间：10秒
       success: function (data) {
+        debugger;
         if (data.success) {
           callack(data.model);
         } else {
@@ -87,8 +87,10 @@ var Pile = {
   pileStart: function (url, data, callback) {
     var mask = mui.createMask();
     mui.ajax(url, {
+      type:"POST",
+      headers:{'Content-Type':'application/json'},
+      dataType:'json',
       data: data,
-      dataType: "JSON",
       crossDomain: true,
       timeout: 35000,
       beforeSend: function () {
@@ -101,6 +103,7 @@ var Pile = {
         if (data.success) {
           callback(data.model);
         } else {
+          mui.alert(data.errorMessage);
           callback();
         }
       },

@@ -179,11 +179,12 @@
 		function plusReady() {
 			var user = User.userIsLogin();
 			document.getElementById("mode4").innerHTML = user.balance;
-			let objStr = getQueryString(obj);
+			let objStr = getQueryString('obj');
+			console.log(objStr);
 			let objData = JSON.parse(objStr);
-			deviceId = objData.cpId;
+			deviceId = objData.deviceId;
 			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
-			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase == 1 ? '三相' : '单相' + objData.cptype == 1 ? '交流' : '直流';
+			mui(".mui-card-content-left")[0].innerText = "桩类型：" + (objData.cpPhase == 1 ? '三相' : '单相') + (objData.cpType == 1 ? '交流' : '直流');
 			//cpObj.cptype = "直流桩";
 			if (objData.cptype == "直流桩") {
 				mui(".dc-box")[0].classList.remove("hidden");
@@ -192,7 +193,7 @@
 				cptype = 0;
 				mui(".dc-box")[0].classList.add("hidden");
 			}
-			mui(".mui-card-content-right")[0].innerText = "桩费率:" + objData.chargefee + "元/度";
+			mui(".mui-card-content-right")[0].innerText = "桩费率：" + objData.chargeFee + "元/度";
 			mui(".mui-card-footer")[0].innerText = "地址：" + objData.location;
 		}
 		var cpTyeVolage = 0;
@@ -230,7 +231,7 @@
 				mui(this).button('reset');
 				var chargeValue = getParams(chargeWay);
 				var dcChargeMode = getCheckRadioValue("radio");
-				var out_trade_no = CONFIGS.GETOUTTRADENO(getQueryString("cpid"));
+				var out_trade_no = CONFIGS.GETOUTTRADENO(deviceId);
 				if (chargeValue <= 0) {
 					mui.alert("您设置的充电参数有误");
 					return
@@ -261,9 +262,10 @@
 				};
 				Pile.pileStart(CONFIGS.URLManage().startChargeApi, data, function(e) {
 					if (e) {
-						mui.openWindow("charging.php?cpObj=" + JSON.stringify(data), "charging.php", {}, "slide-in-right", 200);
+						mui.openWindow("charging.php?cpObj="+
+							encodeURIComponent(JSON.stringify(data)), "charging.php", {}, "slide-in-right", 200);
 					} else {
-						mui.alert("订单提交失败,请重试" + res);
+						mui.alert("订单提交失败,请重试");
 					}
 				});
 			}.bind(this), 2000);

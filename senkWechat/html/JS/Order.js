@@ -206,5 +206,3 @@ function ajaxBase(url, asyn, data, callback) {
     }
   });
 }
-
-export default Order;
