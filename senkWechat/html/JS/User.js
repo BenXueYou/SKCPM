@@ -64,91 +64,39 @@ var User = {
     var data = {
       openId: userid
     };
+    var DataObj = {
+      voltageA: 0,
+      voltageB: 0,
+      voltageC: 0,
+      currentA: 0,
+      currentB: 0,
+      currentC: 0,
+      chargeDuration: 0,
+      quantity: 0,
+      price: 0,
+      fee: 0,
+      dateTime: "----.--.-- --:--",
+      deviceId: 0,
+      gun: 0,
+      cpType: 0
+    };
     ajaxBase("GET", url, false, data, function (res) {
       if (res.success) {
-        var detail = data.detail;
-        var chargeInfo = detail.chargeInfo;
-        if (data.returnCode == 0) {
-          var dataInfo = chargeInfo[0];
-          var DataObj = {
-            on_off: 0,
-            va: 0,
-            vb: 0,
-            vc: 0,
-            aa: 0,
-            ab: 0,
-            ac: 0,
-            chargeDuration: 0,
-            quantity: 0,
-            price: 0,
-            fee: 0,
-            dateTime = "----.--.-- --:--";
-          };
-          DataObj.finish = dataInfo.command;
-          if (dataInfo.voltageA == '0') { // 电压都为零，桩离线
-            mui.confirm("是否退出，强制退出则取消对本次充电的监控，同时可重新扫码开启", "检测到桩离线", ["是", "否"],
-              function (e) {
-                DataObj.on_off = e.index;
-                DataObj.va = 0;
-                DataObj.vb = 0;
-                DataObj.vc = 0;
-                DataObj.aa = 0;
-                DataObj.ab = 0;
-                DataObj.ac = 0;
-                DataObj.chargeDuration = 0;
-                DataObj.quantity = 0;
-                DataObj.price = 0;
-                DataObj.fee = 0;
-                DataObj.dateTime = "----.--.-- --:--";
-                callback(DataObj);
-              }, "div");
-          } else { // 检测到离线
-            DataObj.on_off = true;
-            // 未检测到离线
-            if (DataObj.finish == "finish") {
-              // 检测到充电结束
-              DataObj.serialNo = dataInfo.serialNo;
-              location.href = "chargeFinish.html?serialNo=" + DataObj.serialNo;
-            } else {
-              // 检测到充电未结束
-              DataObj.va = dataInfo.voltageA || 0;
-              DataObj.vb = dataInfo.voltageB || 0;
-              DataObj.vc = dataInfo.voltageC || 0;
-              DataObj.aa = dataInfo.currentA || 0;
-              DataObj.ab = dataInfo.currentB || 0;
-              DataObj.ac = dataInfo.currentC || 0;
-              DataObj.chargeDuration = dataInfo.chargeDuration || 0;
-              DataObj.quantity = dataInfo.quantity || 0;
-              DataObj.price = dataInfo.price || 0;
-              DataObj.fee = dataInfo.fee || 0;
-              DataObj.dateTime = getDateString() || 0;
-            }
-            callback(DataObj);
-          }
-        } else if (data.returnCode == 1) {
-          plus.nativeUI.toast("数据未更新", {
-            'verticalAlign': 'center'
-          });
-          callback(false);
-        } else if (data.returnCode == 2) {
-          //					plus.nativeUI.toast("您登录的账号异常");
-          plus.nativeUI.toast("您登录的账号异常", {
-            'verticalAlign': 'center'
-          });
-          callback(false);
-        } else if (data.returnCode = 13) {
-          plus.nativeUI.toast("充电桩设备号有误", {
-            'verticalAlign': 'center'
-          });
-          callback(false);
+        let dataInfo = res.model;
+        // 未检测到离线
+        if (dataInfo.serialNo) {
+          // 检测到充电结束
+          location.href = "finishCharge.php?serialNo=" + dataInfo.serialNo;
+          callback();
         } else {
-          plus.nativeUI.toast("充电桩通信数据异常", {
-            'verticalAlign': 'center'
-          });
-          callback(false);
+          DataObj.dateTime = getDateString() || 0;
+          Object.assign(DataObj, dataInfo);
+          callback(DataObj);
         }
       } else {
-        callback(false);
+        const msg = '未检测到桩数据信号,强制退出则取消对本次充电的监控，重新扫码充电';
+        mui.alert(msg);
+        callback();
       }
     });
   },
@@ -180,38 +128,23 @@ var User = {
   },
   // 获取用户本次充电账单结算信息
   getUserChargeData: function (url, userid, serialNo, callback) {
-    window.res = false;
-    var mydate = new Date();
-    url = url + "/scanCharge/chargeRecorder";
     var postData = {
       userid: userid,
       serialNo: serialNo
     };
     const method = "GET";
+    var dataInfo = {};
     ajaxBase(method, url, false, postData, function (data) {
-      if (!data) {
-        callback();
-        return;
-      }
-      if (data.returnCode == 0) {
-        var dto = data.dto;
-        var dataInfo = dto;
-        dataInfo.cpId = dto.cpId;
+      if (data.success) {
+        var dto = data.model;
         dataInfo.chargeStartTime = dto.chargeStartTime;
-        dataInfo.chargeTimeSpan = dto.chargeTimeSpan;
+        dataInfo.chargeTimeSpan = dto.timeSpan;
         dataInfo.chargeQuantity = dto.chargeQuantity;
         dataInfo.chargeMoney = dto.chargeMoney;
-        dataInfo.transationId = dto.transationId;
-        dataInfo.totalfee = dto.totalFee;
+        dataInfo.transationId = dto.transactionId;
+        dataInfo.totalfee = dto.chargeMoney + dto.serviceTip;
         dataInfo.serviceTip = dto.serviceTip;
-        var chargeMoney = parseFloat(dataInfo.chargeMoney) + parseFloat(dataInfo.serviceTip);
-        var refund = parseFloat(dataInfo.totalfee) - chargeMoney;
-        if (parseFloat(refund) > 0) {
-          dataInfo.refund = refund.toFixed(2);
-        } else {
-          dataInfo.refund = 0;
-        }
-        var chargeTimeSpan = dataInfo.chargeTimeSpan;
+        let chargeTimeSpan = dataInfo.chargeTimeSpan;
         if (chargeTimeSpan > 60) {
           var min = chargeTimeSpan / 60;
           var h = 0;
@@ -220,16 +153,15 @@ var User = {
             h = min / 60;
             h = h.toFixed(0);
           }
-          var s = chargeTimeSpan % 60;
-          var ts = min + h * 60;
-          var t = ts.toFixed(0);
+          // var s = chargeTimeSpan % 60;
+          let ts = min + h * 60;
+          let t = ts.toFixed(0);
           dataInfo.chargeTimeSpan = t;
         } else {
-          var t = chargeTimeSpan / 60;
+          let t = chargeTimeSpan / 60;
           t = t.toFixed(0);
           dataInfo.chargeTimeSpan = t;
         }
-        window.res = dataInfo;
         callback(dataInfo);
       } else if (data.returnCode == 1) {
         alert("充电桩超时，订单将会以充电记录的形式出现");
@@ -240,7 +172,7 @@ var User = {
     });
   },
   UploadUserMsg: function (url, user, callback) {
-    // var mask = mui.createMask();
+  // var mask = mui.createMask();
     url = url + "userManager/updateProfile";
     var data = {
       name: user.cpUserName,
@@ -284,38 +216,38 @@ function uploaderHeadImg(fileSrc, userId) {
     overwrite: true,
     quality: 20
   },
-    function (event) {
-      console.log("Compress success:" + event.target);
-      appendFile(dstname); // 添加图片
-      var urlStr = CONFIGS.LANCHUANG() + "userManager/uploadPortrait";
-      var task = plus.uploader.createUpload(urlStr, {
-        method: "POST"
-      },
-        function (t, status) { // 上传完成
-          if (status == 200) {
-            console.log(t.responseText);
-            var result = JSON.parse(t.responseText);
-            mui.toast(result.message);
-          } else {
-            console.log("上传失败：" + status);
-          }
-        }
-      );
-
-      for (var i = 0; i < files.length; i++) {
-        var f = files[i];
-        task.addFile(f.path, {
-          key: f.name
-        });
-        console.log(JSON.stringify(files[i]));
-      }
-      task.addData('userId', "78503239");
-      task.start();
+  function (event) {
+    console.log("Compress success:" + event.target);
+    appendFile(dstname); // 添加图片
+    var urlStr = CONFIGS.LANCHUANG() + "userManager/uploadPortrait";
+    var task = plus.uploader.createUpload(urlStr, {
+      method: "POST"
     },
-    function (error) {
-      console.log(error);
-      return src;
-    });
+    function (t, status) { // 上传完成
+      if (status == 200) {
+        console.log(t.responseText);
+        var result = JSON.parse(t.responseText);
+        mui.toast(result.message);
+      } else {
+        console.log("上传失败：" + status);
+      }
+    }
+    );
+
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i];
+      task.addFile(f.path, {
+        key: f.name
+      });
+      console.log(JSON.stringify(files[i]));
+    }
+    task.addData('userId', "78503239");
+    task.start();
+  },
+  function (error) {
+    console.log(error);
+    return src;
+  });
 }
 
 // 向文件数组中添加图片

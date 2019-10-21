@@ -57,6 +57,7 @@
 				<el-table-column prop="userId" label="用户ID" width="150"></el-table-column>
 				<el-table-column prop="userName" label="用户名" width="150"></el-table-column>
 				<el-table-column prop="telephone" label="电话" width="180"></el-table-column>
+				<el-table-column prop="openId" label="用户openID" width="180"></el-table-column>
 				<el-table-column prop="userType" label="用户类型"></el-table-column>
 				<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
 				<el-table-column prop="chargeState" show-overflow-tooltip label="状态"></el-table-column>

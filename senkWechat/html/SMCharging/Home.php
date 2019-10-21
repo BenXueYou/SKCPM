@@ -83,7 +83,7 @@
   		//监听扫码按钮
   		$("button").click(function() {
   			//验证用户信息
-  			User.getUserState(CONFIGS.URLManage().getUserInfoApi, userid, function(user) {
+  			User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
   				if (user.chargeState === 0) {
   					//用户空闲状态可以扫码
   					wxScanAPI();

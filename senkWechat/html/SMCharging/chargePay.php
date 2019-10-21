@@ -14,21 +14,25 @@
 			justify-content: space-between;
 			padding: 10px 20px;
 		}
+
 		.content-txt-center {
 			/*text-align: center!important;*/
 			margin: 5px auto;
 			padding: 5px 8px;
 		}
+
 		.tips-txt {
 			color: dodgerblue;
 			font-size: 12px;
 			text-indent: 12px;
 		}
+
 		.card-title,
 		.card-address {
 			width: 100%;
 			text-align: center;
 		}
+
 		.hidden {
 			display: none;
 		}
@@ -171,14 +175,15 @@
 		var dcChargeMode = 0;
 		var cptype = 0 //默认交流桩
 		var deviceId;
+
 		function plusReady() {
 			var user = User.userIsLogin();
 			document.getElementById("mode4").innerHTML = user.balance;
 			let objStr = getQueryString(obj);
 			let objData = JSON.parse(objStr);
-			deviceId  = objData.cpId;
+			deviceId = objData.cpId;
 			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
-			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase==1?'三相':'单相'+ objData.cptype==1?'交流':'直流';
+			mui(".mui-card-content-left")[0].innerText = "桩类型:" + objData.cpphase == 1 ? '三相' : '单相' + objData.cptype == 1 ? '交流' : '直流';
 			//cpObj.cptype = "直流桩";
 			if (objData.cptype == "直流桩") {
 				mui(".dc-box")[0].classList.remove("hidden");
@@ -242,23 +247,23 @@
 					return;
 				}
 				var data = {
-  					"dcChargeMode": dcChargeMode,
-  					"deviceId": deviceId,
-  					"endChargeFlag": 0,
-  					"gun": deviceId.substr(deviceId.length-2,2),
-  					"payMode": chargeWay,
-  					"payValue": chargeValue,
-  					"remainSum": user.balance,
-  					"startChargeFailDesp": "",
-  					"startChargeFlag": 0,
-  					"userId": user.userId,
+					"dcChargeMode": dcChargeMode,
+					"deviceId": deviceId,
+					"endChargeFlag": 0,
+					"gun": deviceId.substr(deviceId.length - 2, 2),
+					"payMode": chargeWay,
+					"payValue": chargeValue,
+					"remainSum": user.balance,
+					"startChargeFailDesp": "",
+					"startChargeFlag": 0,
+					"userId": user.userId,
+					"cptype": cptype
 				};
 				Pile.pileStart(CONFIGS.URLManage().startChargeApi, data, function(e) {
 					if (e) {
-						mui.openWindow("charging.php?cpid=" + getQueryString("cpid") + "&cptype=" + cptype, "charging.html", {}, "slide-in-right", 200);
+						mui.openWindow("charging.php?cpObj=" + JSON.stringify(data), "charging.php", {}, "slide-in-right", 200);
 					} else {
 						mui.alert("订单提交失败,请重试" + res);
-						mui.openWindow("charging.php?cpid=" + getQueryString("cpid") + "&cptype=" + cptype, "charging.html", {}, "slide-in-right", 200);
 					}
 				});
 			}.bind(this), 2000);
@@ -291,4 +296,5 @@
 		}
 	</script>
 </body>
+
 </html>

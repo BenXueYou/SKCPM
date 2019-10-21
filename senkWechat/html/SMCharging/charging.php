@@ -192,10 +192,11 @@ $signPackage = $jssdk->GetSignPackage();
 		var flag = null;
 		var flagCount = 0;
 		var t, deviceId, cptype = 0;
-		document.getElementById("cpid").innerHTML = "充电桩：" + getQueryString("cpid");
-		deviceId = getQueryString("cpid");
-		cptype = getQueryString("cptype");
-		//alert("deviceId==" + deviceId + "===cptype====" + cptype);
+		let objStr = getQueryString(cpObj);
+		let objData = JSON.parse(objStr);
+		deviceId = objData.deviceId;
+		document.getElementById("cpid").innerHTML = "充电桩：" + deviceId;
+		cptype = objData.cptype;
 		if (cptype == 1 || cptype == "1") { //直流桩
 			console.log("直流桩");
 			var tmp = mui(".cptype");
@@ -206,30 +207,37 @@ $signPackage = $jssdk->GetSignPackage();
 			console.log("这是交流桩");
 		}
 		plusReady();
+
 		function plusReady() {
 			if (!window.plus) {
 				return;
 			}
 			var user = User.userIsLogin();
-			var userid = user.userId;
-			if (user.chargeState) {
-				//开启动画，开始刷新数据
-				flag = true;
-				actiondo(true);
-				getChargeData();
-				getData();
-				document.getElementById("chargeSwitch").innerHTML = "结束充电";
-				document.getElementById("MSG").innerHTML = "正在充电";
-			} else {
-				flag = false;
-			}
+			var userid = user.openId;
+			User.getUserState(CONFIGS.URLManage().getUserInfoApi, userid, function(user) {
+				if (user.chargeState === 0) {
+					//用户空闲状态可以扫码
+					flag = false;
+				} else if (user.chargeState === 1) {
+					//开启动画，开始刷新数据
+					flag = true;
+					actiondo(true);
+					getChargeData();
+					getData();
+					document.getElementById("chargeSwitch").innerHTML = "结束充电";
+					document.getElementById("MSG").innerHTML = "正在充电";
+				} else {
+					alert('无法使用');
+				}
+			});
 		}
+
 		function chargeSwitch() {
 			flag = !flag;
 			if (flag) {
 				$("#mask").removeClass("hidden");
 				$("#chargeSwitch").addClass("disabled");
-				Pile.pileStart(CONFIGS.LANCHUANG(), userid, deviceId, function(e) {
+				Pile.pileStart(CONFIGS.URLManage().startChargeApi, userid, deviceId, function(res) {
 					$("#mask").addClass("hidden");
 					$("#chargeSwitch").removeClass("disabled");
 					if (e) {
@@ -251,7 +259,9 @@ $signPackage = $jssdk->GetSignPackage();
 					} //点击了否
 					$("#mask").removeClass("hidden");
 					$("#chargeSwitch").addClass("disabled");
-					Pile.pileStop(CONFIGS.LANCHUANG(), userid, function(res) {
+					var user = User.userIsLogin();
+					var userid = user.openId;
+					Pile.pileStop(CONFIGS.URLManage().stopChargeApi, userid, function(res) {
 						console.log(res);
 						$("#mask").addClass("hidden");
 						$("#chargeSwitch").removeClass("disabled");
@@ -260,14 +270,14 @@ $signPackage = $jssdk->GetSignPackage();
 							document.getElementById("chargeSwitch").innerHTML = "开始充电";
 							document.getElementById("MSG").innerHTML = "开始充电";
 							//获取流水号
-							//								Pile.getSerialNo(CONFIGS.SCATESTURL(), userid, function(res) {
-							if (res) {
-								location.href = "finishCharge.php?serialNo=" + res;
-							} else {
-								alert("获取流水号失败");
-								WeixinJSBridge.call('closeWindow');
-							}
-							//								});
+							Pile.getSerialNo(CONFIGS.URLManage().getSerialNoApi, user.userId, function(res) {
+								if (res) {
+									location.href = "finishCharge.php?serialNo=" + res;
+								} else {
+									alert("获取流水号失败");
+									WeixinJSBridge.call('closeWindow');
+								}
+							});
 						} else {
 							flag = !flag; //停止失败/没有获取到流水号，标记位回位
 							flagCount++;
@@ -295,31 +305,19 @@ $signPackage = $jssdk->GetSignPackage();
 		}
 		//获取实时数据
 		function getChargeData() {
-			User.getPileChargeData(CONFIGS.URLManage().getRealTimeData, user.openId, function(e) {
-				DataInfo = e;
-				if (e.on_off == 0 || e.on_off == "0") {
-					//检测到离线，强制退出
-					console.log("离线,退出监控");
-					clearTimeout(t);
-					userChange();
-				} else {
-					if (DataInfo.finish == "finish") {
-						console.log("流水号：" + DataInfo.serialNo);
-						//检测到自动结束
-						location.href = "finishCharge.php?serialNo=" + DataInfo.serialNo;
-					} else {
-						document.getElementById("V").innerHTML = DataInfo.va;
-						document.getElementById("V1").innerHTML = DataInfo.vb;
-						document.getElementById("V2").innerHTML = DataInfo.vc;
-						document.getElementById("A").innerHTML = DataInfo.aa;
-						document.getElementById("A1").innerHTML = DataInfo.ab;
-						document.getElementById("A2").innerHTML = DataInfo.ac;
-						document.getElementById("fee").innerHTML = DataInfo.fee;
-						document.getElementById("time").innerHTML = DataInfo.chargeDuration;
-						document.getElementById("quantity").innerHTML = DataInfo.quantity;
-						document.getElementById("price").innerHTML = DataInfo.price;
-						document.getElementById("date").innerHTML = DataInfo.dateTime;
-					}
+			User.getPileChargeData(CONFIGS.URLManage().getRealTimeData, user.openId, function(res) {
+				if (res) {
+					document.getElementById("V").innerHTML = DataInfo.voltageA;
+					document.getElementById("V1").innerHTML = DataInfo.voltageB;
+					document.getElementById("V2").innerHTML = DataInfo.voltageC;
+					document.getElementById("A").innerHTML = DataInfo.currentA;
+					document.getElementById("A1").innerHTML = DataInfo.currentB;
+					document.getElementById("A2").innerHTML = DataInfo.currentC;
+					document.getElementById("fee").innerHTML = DataInfo.fee;
+					document.getElementById("time").innerHTML = DataInfo.chargeDuration;
+					document.getElementById("quantity").innerHTML = DataInfo.quantity;
+					document.getElementById("price").innerHTML = DataInfo.price;
+					document.getElementById("date").innerHTML = DataInfo.dateTime;
 				}
 			});
 		}
