@@ -1,8 +1,8 @@
 <template>
 	<el-dialog
 		width="480px"
-		:title="!formLabelAlign.addressId?`新增充电桩地址`:`修改充电桩地址`"
-		class="dialog-address-edit"
+		:title="isAdd?`新增账号`:`修改账号`"
+		class="dialog-account-edit"
 		center
 		:visible.sync="isCurrentShow"
 		:before-close="onClickCancel"
@@ -19,64 +19,76 @@
 				class="info-form"
 			>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="省：" prop="provinceId">
+					<el-form-item label="运营商：" prop="operatorId">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.provinceId"
+							v-model="formLabelAlign.operatorId"
 							size="small"
 							clearable
-							placeholder="请选择省"
-							@change="provinceChangeAct"
+							placeholder="请选择运营商"
 						>
 							<el-option
-								v-for="item in provinceOptions"
-								:key="item.provinceId"
-								:label="item.province"
-								:value="item.provinceId"
+								v-for="item in operatorOptions"
+								:key="item.operatorId"
+								:label="item.operatorName"
+								:value="item.operatorId"
 							></el-option>
 						</el-select>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="市：" prop="cityId">
+					<el-form-item label="用户名：" prop="userName">
+						<el-input style="width:auto" v-model="formLabelAlign.userName"></el-input>
+					</el-form-item>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-form-item label="密码：" prop="password">
+						<el-input style="width:auto" v-model="formLabelAlign.password"></el-input>
+					</el-form-item>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-form-item label="企业用户：">
+						<el-radio-group v-model="radio">
+							<el-radio :label="1">是</el-radio>
+							<el-radio :label="0">否</el-radio>
+						</el-radio-group>
+					</el-form-item>
+				</el-row>
+				<el-row v-if="radio" type="flex" justify="space-between">
+					<el-form-item label="企业名称：" prop="userName">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.cityId"
+							v-model="formLabelAlign.userId"
 							size="small"
 							clearable
-							placeholder="请选择市"
+							placeholder="请选择企业名称"
 							@change="cityChangeAct"
 						>
 							<el-option
 								v-for="item in cityOptions"
-								:key="item.cityId"
+								:key="item.userId"
 								:label="item.cityName"
-								:value="item.cityId"
+								:value="item.userId"
 							></el-option>
 						</el-select>
 					</el-form-item>
 				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="区：" prop="areaId">
+				<el-row type="flex" v-if="!radio" justify="space-between">
+					<el-form-item label="权限：" prop="roleId">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.areaId"
+							v-model="formLabelAlign.roleId"
 							size="small"
 							clearable
-							placeholder="请选择区/县"
+							placeholder="请选择权限"
 						>
 							<el-option
-								v-for="item in areaOptions"
-								:key="item.areaId"
-								:label="item.areaName"
-								:value="item.areaId"
+								v-for="item in accountRoleOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
 							></el-option>
 						</el-select>
-					</el-form-item>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="地址：" prop="addressName">
-						<el-input style="width:auto" v-model="formLabelAlign.addressName"></el-input>
 					</el-form-item>
 				</el-row>
 			</el-form>
@@ -87,11 +99,10 @@
 		</div>
 	</el-dialog>
 </template>
-
 <script>
 export default {
   components: {
-    // PopoverTreeForBottom,
+    // AuthorityAccount,
   },
   props: {
     isAdd: {
@@ -109,32 +120,58 @@ export default {
   },
   data() {
     return {
-      provinceOptions: [],
+      radio: 0,
+      accountRoleOptions: [
+        {
+          typeStr: 0,
+          typeName: "超级管理员",
+          desc: "有且仅有一个，拥有一切权限"
+        },
+        {
+          typeStr: 1,
+          typeName: "系统操作员",
+          desc: "浏览一切权限"
+        },
+        {
+          typeStr: 2,
+          typeName: "运营管理员",
+          desc: "运营者一切权限"
+        },
+        {
+          typeStr: 3,
+          typeName: "普通操作员",
+          desc: "浏览运营权限"
+        }
+      ],
+      operatorOptions: [],
       cityOptions: [],
       areaOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        provinceId: null,
-        cityId: null,
-        areaId: null,
-        addressName: null
+        operatorId: null,
+        userId: null,
+        roleId: null,
+        userName: null,
+        password: null
       },
       rules: {
-        provinceId: [
-          { required: true, message: "省份不能为空", trigger: "change" }
+        operatorId: [
+          { required: true, message: "运营商不能为空", trigger: "change" }
         ],
-        cityId: [{ required: true, message: "市不能为空", trigger: "change" }],
-        addressName: [
+        password: [
+          { required: true, message: "市不能为空", trigger: "change" }
+        ],
+        userName: [
           { required: true, message: "地址不能为空", trigger: "change" }
         ],
-        areaId: [{ required: true, message: "区域不能为空", trigger: "change" }]
+        roleId: [{ required: true, message: "区域不能为空", trigger: "change" }]
       }
     };
   },
   created() {},
   mounted() {
-    this.provinceOptions = this.$store.state.home.provinceArr;
+    this.operatorOptions = this.$store.state.home.operatorArr;
   },
   methods: {
     onClickCancel() {
@@ -143,24 +180,23 @@ export default {
     onClickConfirm() {
       console.log(this.formLabelAlign);
       let data = {
-        addressId: 0,
-        addressName: "string",
-        areaId: 0,
-        cityId: this.formLabelAlign.cityId,
-        latitude: 0,
-        longitude: 0,
-        provinceId: this.formLabelAlign.provinceId
+        loginId: this.$store.state.loginId,
+        roleId: this.formLabelAlign.roleId,
+        userId: this.formLabelAlign.userId,
+        userName: this.formLabelAlign.userName,
+        password: this.formLabelAlign.password,
+        operatorId: this.formLabelAlign.operatorId
       };
       Object.assign(data, this.formLabelAlign);
-      if (this.formLabelAlign.addressId) {
-        this.updateChargeAddress(data);
+      if (this.formLabelAlign.id) {
+        this.updateAuthorityAccount(data);
       } else {
-        this.addChargeAddress(data);
+        this.addAuthorityAccount(data);
       }
     },
-    updateChargeAddress(data) {
-      this.$deviceAjax
-        .updateChargeAddress(data)
+    updateAuthorityAccount(data) {
+      this.$userAjax
+        .updateUserList(data)
         .then(res => {
           if (res.data.success) {
             this.$emit("onCancel", true);
@@ -171,9 +207,9 @@ export default {
         })
         .catch(() => {});
     },
-    addChargeAddress(data) {
-      this.$deviceAjax
-        .postChargeAddress(data)
+    addAuthorityAccount(data) {
+      this.$userAjax
+        .addAdminUser(data)
         .then(res => {
           if (res.data.success) {
             this.$emit("onCancel", true);
@@ -184,13 +220,13 @@ export default {
         })
         .catch(() => {});
     },
-    provinceChangeAct() {
+    operatorChangeAct() {
       this.$deviceAjax
-        .getCityByProvinceId({ provinceId: this.formLabelAlign.provinceId })
+        .getCityByoperatorId({ operatorId: this.formLabelAlign.operatorId })
         .then(res => {
           if (res.data.success) {
             this.cityOptions = res.data.model;
-            this.formLabelAlign.cityId = this.cityOptions[0].cityId;
+            this.formLabelAlign.password = this.cityOptions[0].password;
             this.formLabelAlign.areaId = null;
           } else {
             this.$message({ type: "warning", message: res.data.errMsg });
@@ -200,7 +236,7 @@ export default {
     },
     cityChangeAct() {
       this.$deviceAjax
-        .getAreaListByCityId({ cityId: this.formLabelAlign.cityId })
+        .getAreaListBypassword({ password: this.formLabelAlign.password })
         .then(res => {
           if (res.data.success) {
             this.areaOptions = res.data.model;
@@ -228,30 +264,30 @@ export default {
 };
 </script>
 <style>
-.dialog-address-edit .el-dialog__header {
+.dialog-account-edit .el-dialog__header {
 	border-bottom: 1px solid #eeeeee;
 }
-.dialog-address-edit .el-dialog--center .el-dialog__body {
+.dialog-account-edit .el-dialog--center .el-dialog__body {
 	text-align: initial;
 	padding: 25px 35px 5px 35px;
 }
-.dialog-address-edit .timePickerClass {
+.dialog-account-edit .timePickerClass {
 	width: 100%;
 	height: 32px;
 	line-height: 32px;
 }
-.dialog-address-edit .el-input .el-input__inner {
+.dialog-account-edit .el-input .el-input__inner {
 	width: 100%;
 }
-.dialog-address-edit .timePickerClass .el-input__icon,
-.dialog-address-edit .timePickerClass .el-input__inner {
+.dialog-account-edit .timePickerClass .el-input__icon,
+.dialog-account-edit .timePickerClass .el-input__inner {
 	height: 32px;
 	line-height: 32px;
 	width: 100%;
 }
 </style>
 <style lang="scss" scoped>
-.dialog-address-edit {
+.dialog-account-edit {
 	.dialog-content {
 		box-sizing: border-box;
 	}

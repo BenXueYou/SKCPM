@@ -10,11 +10,10 @@ const home = {
     chargeFactoryArr: Storage.readSession("chargeFactoryArr") || [],
     Authorization: Storage.readSession("Authorization") || "",
     OperatorId: Storage.readSession("OperatorId") || "",
-    localTag: Storage.readSession("localTag") || "Home",
-    localEnums: Storage.read("localEnums") || {},
-    projectUuid: Storage.readSession("projectUuid") || "",
+    loginId: Storage.readSession("loginId") || "",
     account: Storage.read("account") || "",
     userUuid: Storage.read("userUuid") || "",
+    roleId: Storage.read("roleId") || "",
     projectList: Storage.read("projectList") || [],
     // username: localStorage.getItem("username") || ""
   },
@@ -22,6 +21,10 @@ const home = {
     SET_OPERATOR_ARR: (state, operatorArr) => {
       state.operatorArr = operatorArr;
       Storage.saveSession("operatorArr", operatorArr);
+    },
+    SET_ROLE_ID: (state, roleId) => {
+      state.roleId = roleId;
+      Storage.saveSession("roleId", roleId);
     },
     SET_CHARGE_STATION_ARR: (state, chargeStationArr) => {
       state.chargeStationArr = chargeStationArr;
@@ -35,15 +38,6 @@ const home = {
       state.chargeFactoryArr = chargeFactoryArr;
       Storage.saveSession("chargeFactoryArr", chargeFactoryArr);
     },
-    SET_LOCAL_TAG: (state, localTag) => {
-      state.localTag = localTag;
-      Storage.saveSession("localTag", localTag);
-    },
-    SET_LOCAL_ENUMS: (state, localEnums) => {
-      state.localEnums = localEnums;
-
-      Storage.save("localEnums", localEnums);
-    },
     SET_AUTHORIZATION: (state, Authorization) => {
       state.Authorization = Authorization;
       Storage.saveSession("Authorization", Authorization);
@@ -52,9 +46,9 @@ const home = {
       state.OperatorId = OperatorId;
       Storage.saveSession("OperatorId", OperatorId);
     },
-    SET_PROJECT_LIST: (state, projectList) => {
-      state.projectList = projectList;
-      Storage.save("projectList", projectList);
+    SET_LOGIN_ID: (state, loginId) => {
+      state.loginId = loginId;
+      Storage.save("loginId", loginId);
     },
     SET_ACCOUNT: (state, account) => {
       state.account = account;
@@ -78,8 +72,8 @@ const home = {
     setChargeFactoryArr({ commit }, chargeFactoryArr) {
       commit("SET_CHARGE_FACTORY_ARR", chargeFactoryArr);
     },
-    setLocalTag({ commit }, localTag) {
-      commit("SET_LOCAL_TAG", localTag);
+    setLoginId({ commit }, loginId) {
+      commit("SET_LOGIN_ID", loginId);
     },
     setAuthorization({ commit }, Authorization) {
       commit("SET_AUTHORIZATION", Authorization);
@@ -92,6 +86,9 @@ const home = {
     },
     SET_USERUUID({ commit }, userUuid) {
       commit("SET_USERUUID", userUuid);
+    },
+    setRoleId({ commit }, roleId) {
+      commit("SET_ROLE_ID", roleId);
     }
   }
 };

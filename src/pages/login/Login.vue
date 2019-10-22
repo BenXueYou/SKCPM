@@ -163,7 +163,7 @@ export default {
       if (body) {
         if (this.isRembAccount) {
           this.$store.dispatch("setAccount", this.formLabelAlign.username);
-          this.$store.dispatch("SET_USERUUID", this.formLabelAlign.useruuid);
+          this.$store.dispatch("SET_USERUUID", this.formLabelAlign.password);
         } else {
           this.$store.dispatch("setAccount", "");
           this.$store.dispatch("SET_USERUUID", "");
@@ -172,6 +172,8 @@ export default {
         this.$store.dispatch("setOperatorId", operatorId);
         let Authorization = body.model.token;
         this.$store.dispatch("setAuthorization", Authorization);
+        this.$store.dispatch("setRoleId", body.model.roleId);
+        this.$store.dispatch("setLoginId", body.model.loginId);
         // 刷新页面以便于更新projectUuid
         this.$nextTick(() => {
           window.location.reload();

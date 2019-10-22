@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary" @click="exportBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<el-table :data="tableData" stripe border style="width: 100%">
@@ -109,14 +109,14 @@
 				></el-pagination>
 			</div>
 		</div>
-		<!-- <app-user-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+		<authority-account-add :isShow="isShowAddDialog" :rowData='rowData' @onCancel="close()" />
 	</el-row>
 </template>
 <script>
-// import appUserAdd from "@/components/appUserAdd";
+import AuthorityAccountAdd from "@/components/AuthorityAccountAdd";
 export default {
   components: {
-    // appUserAdd
+    AuthorityAccountAdd
   },
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
@@ -129,6 +129,7 @@ export default {
   },
   data: function() {
     return {
+      rowData: {},
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       accountRoleOptions: [
@@ -209,6 +210,7 @@ export default {
       this.initData();
     },
     addBtnAct() {
+      this.rowData = {};
       this.isShowAddDialog = !this.isShowAddDialog;
     },
     deleteBtnAct() {},
