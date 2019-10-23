@@ -122,6 +122,27 @@
 						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
 						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
 					</el-submenu>
+					<el-submenu index="8" :class="menuTitle === '8'? 'submenuActiveClass' : ''">
+						<template slot="title">
+							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
+							<i class="el-icon-s-custom"></i>
+							<span slot="title">企业用户</span>
+							<img
+								v-show="menuTitle === '8'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/select-down.png"
+							/>
+							<img
+								v-show="menuTitle !== '8'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
+								alt
+							/>
+						</template>
+						<el-menu-item index="/Main/EnterpriseUser">企业用户</el-menu-item>
+						<el-menu-item index="/Main/EnterpriseStaff">企业员工</el-menu-item>
+						<el-menu-item index="/Main/EnterpriseReportData">充电记录</el-menu-item>
+					</el-submenu>
 
 					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
 						<i class="el-icon-money"></i>

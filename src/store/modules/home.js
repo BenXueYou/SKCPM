@@ -48,15 +48,15 @@ const home = {
     },
     SET_LOGIN_ID: (state, loginId) => {
       state.loginId = loginId;
-      Storage.save("loginId", loginId);
+      Storage.saveSession("loginId", loginId);
     },
     SET_ACCOUNT: (state, account) => {
       state.account = account;
-      Storage.save("account", account);
+      Storage.saveSession("account", account);
     },
     SET_USERUUID: (state, userUuid) => {
       state.userUuid = userUuid;
-      Storage.save("userUuid", userUuid);
+      Storage.saveSession("userUuid", userUuid);
     }
   },
   actions: {

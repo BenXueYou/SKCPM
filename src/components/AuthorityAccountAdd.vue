@@ -180,7 +180,7 @@ export default {
     onClickConfirm() {
       console.log(this.formLabelAlign);
       let data = {
-        loginId: this.$store.state.loginId,
+        loginId: this.$store.state.home.loginId,
         roleId: this.formLabelAlign.roleId,
         userId: this.formLabelAlign.userId,
         userName: this.formLabelAlign.userName,
@@ -188,6 +188,7 @@ export default {
         operatorId: this.formLabelAlign.operatorId
       };
       Object.assign(data, this.formLabelAlign);
+      console.log(data);
       if (this.formLabelAlign.id) {
         this.updateAuthorityAccount(data);
       } else {

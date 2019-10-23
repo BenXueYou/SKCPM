@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8" />
 	<title></title>
@@ -14,19 +13,16 @@
 			justify-content: space-between;
 			padding: 10px 20px;
 		}
-
 		.content-txt-center {
 			/*text-align: center!important;*/
 			margin: 5px auto;
 			padding: 5px 8px;
 		}
-
 		.tips-txt {
 			color: dodgerblue;
 			font-size: 12px;
 			text-indent: 12px;
 		}
-
 		.card-title,
 		.card-address {
 			width: 100%;

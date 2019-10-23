@@ -54,10 +54,10 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="userId" label="用户ID" width="150"></el-table-column>
-				<el-table-column prop="userName" label="用户名" width="150"></el-table-column>
-				<el-table-column prop="telephone" label="电话" width="180"></el-table-column>
-				<el-table-column prop="openId" label="用户openID" width="180"></el-table-column>
+				<el-table-column prop="userId" label="用户ID" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="userName" label="用户名" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="telephone" label="电话" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="openId" label="用户openID" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="userType" label="用户类型"></el-table-column>
 				<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
 				<el-table-column prop="chargeState" show-overflow-tooltip label="状态"></el-table-column>

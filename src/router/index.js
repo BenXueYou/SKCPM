@@ -37,6 +37,10 @@ const ActivityProductionTable = () => import(/* webpackChunkName: "production" *
 const CarProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/CarProductionTable');
 // 账号管理
 const AuthorityAccount = () => import(/* webpackChunkName: "systemSet" */ '@/pages/systemSet/AuthorityAccount');
+const EnterpriseUser = () => import(/* webpackChunkName: "enterpriseManage" */ '@/pages/enterpriseManage/EnterpriseUser');
+const EnterpriseStaff = () => import(/* webpackChunkName: "enterpriseManage" */ '@/pages/enterpriseManage/EnterpriseStaff');
+const EnterpriseChargeRecord = () => import(/* webpackChunkName: "enterpriseManage" */ '@/pages/enterpriseManage/EnterpriseChargeRecord');
+const EnterpriseReportData = () => import(/* webpackChunkName: "enterpriseManage" */ '@/pages/enterpriseManage/EnterpriseReportData');
 
 Vue.use(Router);
 
@@ -223,6 +227,30 @@ export default new Router({
           name: "AuthorityAccount",
           component: AuthorityAccount,
           title: "账号管理"
+        },
+        {
+          path: "EnterpriseUser",
+          name: "EnterpriseUser",
+          component: EnterpriseUser,
+          title: "企业用户"
+        },
+        {
+          path: "EnterpriseStaff",
+          name: "EnterpriseStaff",
+          component: EnterpriseStaff,
+          title: "企业员工"
+        },
+        {
+          path: "EnterpriseChargeRecord",
+          name: "EnterpriseChargeRecord",
+          component: EnterpriseChargeRecord,
+          title: "充电记录"
+        },
+        {
+          path: "EnterpriseReportData",
+          name: "EnterpriseReportData",
+          component: EnterpriseReportData,
+          title: "充电报表"
         },
       ]
     }
