@@ -57,7 +57,7 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-pile-operator-add
+		<enterprise-user-add
 			:isShow="isShowEidtDialog"
 			:rowData="rowData"
 			@onCancel="close"
@@ -120,8 +120,8 @@ export default {
         queryCount: true,
         start: 0
       };
-      this.$userAjax
-        .getOperatorListByPage(data)
+      this.$EnterpriseAjax
+        .getEnterPriseUserApi(data)
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;
@@ -160,7 +160,7 @@ export default {
         });
     },
     deleteData() {
-      this.$userAjax
+      this.$EnterpriseAjax
         .deleteOperator(this.operatorIds)
         .then(res => {
           if (res.data.success) {
@@ -174,7 +174,7 @@ export default {
     },
     exportBtnAct() {},
     handleClick(row) {
-      this.$userAjax
+      this.$EnterpriseAjax
         .editOperatorOptions({ operatorId: row.operatorId })
         .then(res => {
           if (res.data.success) {

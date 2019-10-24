@@ -1,66 +1,71 @@
 <template>
-	<el-dialog
-		width="580px"
-		:title="!rowData.operatorId?`新增企业用户`:`修改企业用户`"
-		class="dialog-enterprise-add"
-		center
-		:visible.sync="isCurrentShow"
-		:before-close="onClickCancel"
-		:close-on-click-modal="false"
-	>
-		<div class="dialog-content">
-			<!--内容-->
-			<el-form
-				:rules="rules"
-				ref="addHouseForm"
-				:label-position="labelPosition"
-				label-width="120px"
-				:model="formLabelAlign"
-				class="info-form"
-			>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="企业用户：" prop="operatorName">
-							<el-input class="time-interal" v-model="formLabelAlign.operatorName" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="联系人：" prop="contactName">
-							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="电话：" prop="telephone">
-							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="邮箱：" prop="email">
-							<el-input class="time-interal" v-model="formLabelAlign.email" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="24">
-						<el-form-item label="地址：" prop="address">
-							<el-input
-								style="width:96.5%"
-								class="time-interal"
-								v-model="formLabelAlign.address"
-								size="small"
-							></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-			</el-form>
-		</div>
-		<div slot="footer" class="dialog-footer">
-			<el-button type="primary" @click="onClickConfirm" size="small">确定</el-button>
-			<el-button type="primary" @click="onClickCancel" size="small">取消</el-button>
-		</div>
-	</el-dialog>
+  <el-dialog
+    width="580px"
+    :title="!rowData.operatorId?`新增企业用户`:`修改企业用户`"
+    class="dialog-enterprise-add"
+    center
+    :visible.sync="isCurrentShow"
+    :before-close="onClickCancel"
+    :close-on-click-modal="false"
+  >
+    <div class="dialog-content">
+      <!--内容-->
+      <el-form
+        :rules="rules"
+        ref="addHouseForm"
+        :label-position="labelPosition"
+        label-width="120px"
+        :model="formLabelAlign"
+        class="info-form"
+      >
+        <el-row type="flex" justify="space-between">
+          <el-col :span="12">
+            <el-form-item label="企业名称：" prop="companyName">
+              <el-input class="time-interal" v-model="formLabelAlign.companyName" size="small"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系人：" prop="contactName">
+              <el-input class="time-interal" v-model="formLabelAlign.contactName" size="small"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="space-between">
+          <el-col :span="12">
+            <el-form-item label="电话：" prop="telephone">
+              <el-input class="time-interal" v-model="formLabelAlign.telephone" size="small"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="余额：" prop="balance">
+              <el-input
+                style="width:96.5%"
+                class="time-interal"
+                v-model="formLabelAlign.balance"
+                size="small"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" justify="space-between">
+          <el-col :span="24">
+            <el-form-item label="地址：" prop="companyAddress">
+              <el-input
+                style="width:96.5%"
+                class="time-interal"
+                v-model="formLabelAlign.companyAddress"
+                size="small"
+              ></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </div>
+    <div slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="onClickConfirm" size="small">确定</el-button>
+      <el-button type="primary" @click="onClickCancel" size="small">取消</el-button>
+    </div>
+  </el-dialog>
 </template>
 
 <script>
@@ -89,7 +94,7 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        address: "",
+        companyAddress: "",
         bankCard: "",
         bankCode: "",
         bossId: 0,
@@ -98,13 +103,13 @@ export default {
         email: "",
         operatorId: 0,
         operatorLoginId: 0,
-        operatorName: "",
+        companyName: "",
         telephone: "",
         validFlag: 0,
-        bulk: false
+        balance: 0
       },
       rules: {
-        operatorName: [
+        companyName: [
           { required: true, message: "企业用户名称不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
@@ -171,16 +176,16 @@ export default {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
       } else {
         this.formLabelAlign = {
-          address: "",
+          companyAddress: "",
           bankCard: "",
           bankCode: "",
           bossId: 0,
           cardUser: "",
           contactName: "",
           email: "",
-          operatorId: '',
+          operatorId: "",
           operatorLoginId: this.$store.state.home.OperatorId,
-          operatorName: "",
+          companyName: "",
           telephone: "",
           validFlag: 0,
           bulk: false
@@ -194,39 +199,39 @@ export default {
 </script>
 <style>
 .dialog-enterprise-add .el-dialog__header {
-	border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 .dialog-enterprise-add .el-dialog--center .el-dialog__body {
-	text-align: initial;
-	padding: 25px 35px 20px 5px;
+  text-align: initial;
+  padding: 25px 35px 20px 5px;
 }
 </style>
 <style lang="scss" scoped>
 .dialog-enterprise-add {
-	.dialog-content {
-		box-sizing: border-box;
-	}
-	.dialog-footer {
-		padding: 0 0 4% 0;
-		box-sizing: border-box;
-	}
-	.topTitleTxt {
-		font-family: "PingFangSC-Regular";
-		font-size: 14px;
-		color: #cccccc;
-	}
-	.time-interal {
-		width: 90%;
-	}
-	.info-form {
-		// width: 85%;
-		margin: 0 auto;
-	}
-	.el-form-item {
-		margin-bottom: 12px;
-	}
+  .dialog-content {
+    box-sizing: border-box;
+  }
+  .dialog-footer {
+    padding: 0 0 4% 0;
+    box-sizing: border-box;
+  }
+  .topTitleTxt {
+    font-family: "PingFangSC-Regular";
+    font-size: 14px;
+    color: #cccccc;
+  }
+  .time-interal {
+    width: 90%;
+  }
+  .info-form {
+    // width: 85%;
+    margin: 0 auto;
+  }
+  .el-form-item {
+    margin-bottom: 12px;
+  }
 }
 .el-dialog__header {
-	background-color: red;
+  background-color: red;
 }
 </style>
