@@ -108,7 +108,7 @@
         ></el-pagination>
       </div>
     </div>
-    <authority-account-add :isShow="isShowAddDialog" :rowData="rowData" @onCancel="close()" />
+    <authority-account-add :isShow="isShowAddDialog" :rowData="rowData" @onCancel="close" />
   </el-row>
 </template>
 <script>
@@ -202,8 +202,11 @@ export default {
         })
         .catch(() => {});
     },
-    close() {
+    close(is) {
       this.isShowAddDialog = !this.isShowAddDialog;
+      if (is) {
+        this.initData();
+      }
     },
     queryBtnAct() {
       this.initData();
@@ -212,11 +215,38 @@ export default {
       this.rowData = {};
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    deleteBtnAct() {},
+    deleteBtnAct(rowData) {
+      this.$confirm("是否删除该条数据?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.deleteData(rowData);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    deleteData(rowData) {
+      this.$userAjax.deleteUserList({id: rowData.id}).then(res => {
+        if (res.data.success) {
+          this.$message({
+            type: "success",
+            message: "删除成功"
+          });
+          this.initData();
+        }
+      }).catch(() => {});
+    },
     exportBtnAct() {},
     handleClick(row) {
       console.log(row);
       this.isShowAddDialog = !this.isShowAddDialog;
+      this.rowData = row;
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

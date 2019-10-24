@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="480px"
-		:title="isAdd?`新增账号`:`修改账号`"
+		:title="!formLabelAlign.id?`新增账号`:`修改账号`"
 		class="dialog-account-edit"
 		center
 		:visible.sync="isCurrentShow"
@@ -39,6 +39,11 @@
 				<el-row type="flex" justify="space-between">
 					<el-form-item label="用户名：" prop="userName">
 						<el-input style="width:auto" v-model="formLabelAlign.userName"></el-input>
+					</el-form-item>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-form-item label="账号：" prop="loginId">
+						<el-input style="width:auto" v-model="formLabelAlign.loginId"></el-input>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
@@ -153,19 +158,23 @@ export default {
         userId: null,
         roleId: null,
         userName: null,
-        password: null
+        password: null,
+        loginId: null
       },
       rules: {
         operatorId: [
           { required: true, message: "运营商不能为空", trigger: "change" }
         ],
         password: [
-          { required: true, message: "市不能为空", trigger: "change" }
+          { required: true, message: "密码不能为空", trigger: "change" }
+        ],
+        loginId: [
+          { required: true, message: "账号不能为空", trigger: "change" }
         ],
         userName: [
-          { required: true, message: "地址不能为空", trigger: "change" }
+          { required: true, message: "用户名不能为空", trigger: "change" }
         ],
-        roleId: [{ required: true, message: "区域不能为空", trigger: "change" }]
+        roleId: [{ required: true, message: "角色不能为空", trigger: "change" }]
       }
     };
   },
@@ -180,7 +189,7 @@ export default {
     onClickConfirm() {
       console.log(this.formLabelAlign);
       let data = {
-        loginId: this.$store.state.home.loginId,
+        loginId: this.formLabelAlign.loginId,
         roleId: this.formLabelAlign.roleId,
         userId: this.formLabelAlign.userId,
         userName: this.formLabelAlign.userName,
@@ -255,7 +264,6 @@ export default {
     },
     rowData(val) {
       this.formLabelAlign = JSON.parse(JSON.stringify(val));
-      Object.assign(this.formLabelAlign, this.formLabelAlign.address);
       console.log("formLabelAlign", this.formLabelAlign);
       this.cityOptions = val.cityList;
       this.areaOptions = val.areaList;

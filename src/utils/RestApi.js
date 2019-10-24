@@ -176,9 +176,22 @@ export default {
       deleteUserList: `${httpUrlHeader}/user/delete`,
       updateUserList: `${httpUrlHeader}/user/update`,
     },
-    // 人脸图片质量检测
-    faceQualityDetection: `/sppc-iacapp-service-v1/image/isQualified`,
 
+    /**
+     * 企业用户
+     */
+    EnterpriseManageApi: {
+      // 企业用户
+      getEnterPriseUserApi: `${httpUrlHeader}/company/user/list-by-page`,
+      postEnterPriseUserApi: `${httpUrlHeader}/company/user/save`,
+      updateEnterPriseUserApi: `${httpUrlHeader}/company/user/update`,
+      deleteEnterPriseUserApi: `${httpUrlHeader}/company/user/delete`,
+      // 企业员工
+      getEnterPriseStaffApi: `${httpUrlHeader}/employee/list-by-page`,
+      deleteEnterPriseStaffApi: `${httpUrlHeader}/employee/delete`,
+      checkEnterPriseStaffApi: `${httpUrlHeader}/employee/check`,
+
+    },
     // 测试APP登陆接口
     appLogin: `http://139.129.194.195:8080/SuperBackManage/userManager/loginUser`
   }
