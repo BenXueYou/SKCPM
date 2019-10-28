@@ -1,57 +1,57 @@
 <template>
-  <el-row
-    class="EnterpriseStaff"
-    v-loading="mainScreenLoading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-  >
-    <div class="titleBox">
-      位置：
-      <span>企业用户／员工管理</span>
-    </div>
-    <div class="bodyBox">
-      <div class="topMenu flex-sbw" style="padding-bottom:5px">
-        <div class="flex-sbw-div">
-          <div class="flex-sbw">
-            <div class="flex-sbw-div topTitleTxt flex-sbw-item">
-              <span>用户姓名：</span>
-              <el-input v-model="userName"></el-input>
-            </div>
-            <div class="flex-sbw-div topTitleTxt flex-sbw-item">
-              <span>企业名称：</span>
-              <!-- <el-input v-model="station"></el-input> -->
-              <el-select
-                class="left-space time-interal"
-                v-model="companyId"
-                clearable
-                placeholder="请选择企业名称"
-                size="small"
-              >
-                <el-option
-                  v-for="item in companyOptions"
-                  :key="item.companyId"
-                  :label="item.companyName"
-                  :value="item.companyId"
-                ></el-option>
-              </el-select>
-            </div>
-            <div class="flex-sbw-div topTitleTxt flex-sbw-item">
-              <span>当前状态：</span>
-              <el-select
-                class="left-space time-interal"
-                v-model="status"
-                clearable
-                placeholder="充电方式 "
-                size="small"
-              >
-                <el-option
-                  v-for="item in statusOptions"
-                  :key="item.typeStr"
-                  :label="item.typeName"
-                  :value="item.typeStr"
-                ></el-option>
-              </el-select>
-            </div>
-            <!-- <div class="dateBox">
+	<el-row
+		class="EnterpriseStaff"
+		v-loading="mainScreenLoading"
+		element-loading-background="rgba(0, 0, 0, 0.8)"
+	>
+		<div class="titleBox">
+			位置：
+			<span>企业用户／员工管理</span>
+		</div>
+		<div class="bodyBox">
+			<div class="topMenu flex-sbw" style="padding-bottom:5px">
+				<div class="flex-sbw-div">
+					<div class="flex-sbw">
+						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+							<span>用户姓名：</span>
+							<el-input v-model="userName"></el-input>
+						</div>
+						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+							<span>企业名称：</span>
+							<!-- <el-input v-model="station"></el-input> -->
+							<el-select
+								class="left-space time-interal"
+								v-model="companyId"
+								clearable
+								placeholder="请选择企业名称"
+								size="small"
+							>
+								<el-option
+									v-for="item in companyOptions"
+									:key="item.companyId"
+									:label="item.companyName"
+									:value="item.companyId"
+								></el-option>
+							</el-select>
+						</div>
+						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+							<span>当前状态：</span>
+							<el-select
+								class="left-space time-interal"
+								v-model="status"
+								clearable
+								placeholder="充电方式 "
+								size="small"
+							>
+								<el-option
+									v-for="item in statusOptions"
+									:key="item.typeStr"
+									:label="item.typeName"
+									:value="item.typeStr"
+								></el-option>
+							</el-select>
+						</div>
+						<!-- <div class="dateBox">
 							<span class="topTitleTxt">查询时间：</span>
 							<el-date-picker
 								v-model="beginTime"
@@ -70,90 +70,90 @@
 								size="small"
 								value-format="yyyy-MM-dd HH:mm:ss"
 							></el-date-picker>
-            </div>-->
-          </div>
-        </div>
-      </div>
-      <div class="topMenu" style="margin-bottom: 15px;">
-        <div class="dateBox" style="display:inline-block">
-          <span class="topTitleTxt">申请时间：</span>
-          <el-date-picker
-            v-model="applyBeginTime"
-            type="datetime"
-            class="time-interal-date"
-            size="small"
-            placeholder="选择日期"
-            value-format="yyyy-MM-dd HH:mm:ss"
-          ></el-date-picker>
-          <span class="time-line">—</span>
-          <el-date-picker
-            v-model="applyEndTime"
-            type="datetime"
-            class="time-interal-date"
-            placeholder="选择日期"
-            size="small"
-            value-format="yyyy-MM-dd HH:mm:ss"
-          ></el-date-picker>
-        </div>
-        <div class="dateBox" style="display:inline-block">
-          <span class="topTitleTxt">确认时间：</span>
-          <el-date-picker
-            v-model="affirmBeginTime"
-            type="datetime"
-            class="time-interal-date"
-            size="small"
-            placeholder="选择日期"
-            value-format="yyyy-MM-dd HH:mm:ss"
-          ></el-date-picker>
-          <span class="time-line">—</span>
-          <el-date-picker
-            v-model="affirmEndTime"
-            type="datetime"
-            class="time-interal-date"
-            placeholder="选择日期"
-            size="small"
-            value-format="yyyy-MM-dd HH:mm:ss"
-          ></el-date-picker>
-        </div>
-      </div>
-      <div class="topMenu" style="margin-bottom: 15px;">
-        <el-button type="primary" @click="exportBtnAct" style="margin:0 0 0 10px;">通过</el-button>
-        <el-button type="primary" @click="exportBtnAct" style="margin:0 2px;">拒绝</el-button>
-        <el-button type="primary" @click="exportBtnAct" style="margin:0;">删除</el-button>
-        <el-button type="primary" @click="queryBtnAct" style="margin:0 2px;">查询</el-button>
-        <el-button type="primary" @click="exportBtnAct" style="margin:0 10px 0 0;">导出</el-button>
-      </div>
-      <el-table
-        :data="tableData"
-        @selection-change="selectionChange"
-        stripe
-        border
-        style="width: 100%"
-      >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column type="index" width="55" label="序号"></el-table-column>
-        <el-table-column prop="cpId" label="用户姓名"></el-table-column>
-        <el-table-column prop="cpName" label="联系电话"></el-table-column>
-        <el-table-column prop="companyName" label="企业名称"></el-table-column>
-        <el-table-column prop="csName" label="车牌号"></el-table-column>
-        <el-table-column prop="chargeCount" show-overflow-tooltip label="申请时间"></el-table-column>
-        <el-table-column prop="chargeTimeSpan" show-overflow-tooltip label="确认时间"></el-table-column>
-        <el-table-column prop="chargeQuantity" label="状态"></el-table-column>
-      </el-table>
-      <div class="footer">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="pageSizeArr"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        ></el-pagination>
-      </div>
-    </div>
-    <!-- <app-user-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
-  </el-row>
+						</div>-->
+					</div>
+				</div>
+			</div>
+			<div class="topMenu" style="margin-bottom: 15px;">
+				<div class="dateBox" style="display:inline-block">
+					<span class="topTitleTxt">申请时间：</span>
+					<el-date-picker
+						v-model="applyBeginTime"
+						type="datetime"
+						class="time-interal-date"
+						size="small"
+						placeholder="选择日期"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+					<span class="time-line">—</span>
+					<el-date-picker
+						v-model="applyEndTime"
+						type="datetime"
+						class="time-interal-date"
+						placeholder="选择日期"
+						size="small"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+				</div>
+				<div class="dateBox" style="display:inline-block">
+					<span class="topTitleTxt">确认时间：</span>
+					<el-date-picker
+						v-model="affirmBeginTime"
+						type="datetime"
+						class="time-interal-date"
+						size="small"
+						placeholder="选择日期"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+					<span class="time-line">—</span>
+					<el-date-picker
+						v-model="affirmEndTime"
+						type="datetime"
+						class="time-interal-date"
+						placeholder="选择日期"
+						size="small"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+				</div>
+			</div>
+			<div class="topMenu" style="margin-bottom: 15px;">
+				<el-button type="primary" @click="resoveBtnAct" style="margin:0 0 0 10px;">通过</el-button>
+				<el-button type="primary" @click="refuseBtnAct" style="margin:0 2px;">拒绝</el-button>
+				<el-button type="primary" @click="deleteBtnAct" style="margin:0;">删除</el-button>
+				<el-button type="primary" @click="queryBtnAct" style="margin:0 2px;">查询</el-button>
+				<el-button type="primary" @click="exportBtnAct" style="margin:0 10px 0 0;">导出</el-button>
+			</div>
+			<el-table
+				:data="tableData"
+				@selection-change="selectionChange"
+				stripe
+				border
+				style="width: 100%"
+			>
+				<el-table-column type="selection" width="55"></el-table-column>
+				<el-table-column type="index" width="55" label="序号"></el-table-column>
+				<el-table-column prop="cpId" label="用户姓名"></el-table-column>
+				<el-table-column prop="cpName" label="联系电话"></el-table-column>
+				<el-table-column prop="companyName" label="企业名称"></el-table-column>
+				<el-table-column prop="csName" label="车牌号"></el-table-column>
+				<el-table-column prop="chargeCount" show-overflow-tooltip label="申请时间"></el-table-column>
+				<el-table-column prop="chargeTimeSpan" show-overflow-tooltip label="确认时间"></el-table-column>
+				<el-table-column prop="chargeQuantity" label="状态"></el-table-column>
+			</el-table>
+			<div class="footer">
+				<el-pagination
+					@size-change="handleSizeChange"
+					@current-change="handleCurrentChange"
+					:current-page="currentPage"
+					:page-sizes="pageSizeArr"
+					:page-size="pageSize"
+					layout="total, sizes, prev, pager, next, jumper"
+					:total="total"
+				></el-pagination>
+			</div>
+		</div>
+		<!-- <app-user-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+	</el-row>
 </template>
 <script>
 // import appUserAdd from "@/components/appUserAdd";
@@ -162,12 +162,14 @@ export default {
     // appUserAdd
   },
   mounted: function() {
-    this.companyOptions = this.$store.state.home.operatorArr;
-    this.csOptions = this.$store.state.home.chargeStationArr;
+    this.companyOptions = this.$store.state.home.enterpriseUser;
+    this.companyOptions.unshift({
+      companyId: null,
+      companyName: "全部"
+    });
     this.beginTime = this.$common.getStartTime();
     this.endTime = this.$common.getCurrentTime();
     this.operator = this.companyOptions[0].operatorId;
-    this.csId = this.csOptions[0].csId;
     this.status = this.statusOptions[0].typeStr;
     this.initData();
   },
@@ -255,6 +257,31 @@ export default {
           });
         });
     },
+    // 通过审核
+    resoveBtnAct() {
+      this.checkStaffAuthority(1);
+    },
+    // 拒绝审核
+    refuseBtnAct() {
+      this.checkStaffAuthority(0);
+    },
+    // 审核员工
+    checkStaffAuthority(status) {
+      let data = {
+        affirmDate: this.$common.getCurrentTime(),
+        employeeId: this.checkedStaffUuids,
+        status: 0
+      };
+      this.$EnterpriseAjax
+        .checkEnterPriseStaffApi(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("操作成功");
+            this.initData();
+          }
+        })
+        .catch(() => {});
+    },
     deleteData() {
       this.$deviceAjax
         .deletePile({ employeeId: this.checkedStaffUuids })
@@ -289,76 +316,76 @@ export default {
 </script>
 <style>
 .EnterpriseStaff .flex-sbw-item {
-  margin: 0 50px 0 10px;
+	margin: 0 50px 0 10px;
 }
 .EnterpriseStaff .dateBox {
-  margin-left: 10px;
+	margin-left: 10px;
 }
 .EnterpriseStaff .flex-sbw-item .el-input,
 .EnterpriseStaff .flex-sbw-item .el-input__inner {
-  width: 150px;
-  height: 32px;
+	width: 150px;
+	height: 32px;
 }
 .EnterpriseStaff .el-date-editor.el-input,
 .EnterpriseStaff .el-date-editor.el-input__inner {
-  width: 180px;
+	width: 180px;
 }
 .EnterpriseStaff .el-input--suffix .el-input__inner {
-  padding-right: 10px;
+	padding-right: 10px;
 }
 
 @media screen and (max-width: 1512px) {
-  .EnterpriseStaff .flex-sbw-item {
-    margin-right: 25px !important;
-  }
-  .EnterpriseStaff .flex-sbw-item .el-input,
-  .EnterpriseStaff .flex-sbw-item .el-input__inner {
-    width: 120px;
-    height: 32px;
-  }
-  .EnterpriseStaff .el-input--suffix .el-input__inner {
-    padding-right: 10px !important;
-  }
-  .EnterpriseStaff .dateBox {
-    margin-left: 10px !important;
-  }
+	.EnterpriseStaff .flex-sbw-item {
+		margin-right: 25px !important;
+	}
+	.EnterpriseStaff .flex-sbw-item .el-input,
+	.EnterpriseStaff .flex-sbw-item .el-input__inner {
+		width: 120px;
+		height: 32px;
+	}
+	.EnterpriseStaff .el-input--suffix .el-input__inner {
+		padding-right: 10px !important;
+	}
+	.EnterpriseStaff .dateBox {
+		margin-left: 10px !important;
+	}
 }
 </style>
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
 .EnterpriseStaff {
-  text-align: center;
-  height: 100%;
-  .titleBox {
-    text-align: left;
-    color: $--color-title-txt;
-    padding: 3px 15px 13px;
-  }
-  .bodyBox {
-    background-color: #ffffff;
-    padding: 25px 32px;
-    border-radius: 5px;
-    .topMenu {
-      text-align: left;
-      .topTitleTxt {
-        color: #999999;
-      }
-    }
-    .flex-sbw {
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 15px;
-      .el-button {
-        color: #ffffff;
-        background-color: #5b9cf8;
-        border-color: #5b9cf8;
-      }
-    }
-    .footer {
-      margin-top: 30px;
-      text-align: right;
-    }
-  }
+	text-align: center;
+	height: 100%;
+	.titleBox {
+		text-align: left;
+		color: $--color-title-txt;
+		padding: 3px 15px 13px;
+	}
+	.bodyBox {
+		background-color: #ffffff;
+		padding: 25px 32px;
+		border-radius: 5px;
+		.topMenu {
+			text-align: left;
+			.topTitleTxt {
+				color: #999999;
+			}
+		}
+		.flex-sbw {
+			display: flex;
+			justify-content: space-between;
+			padding-bottom: 15px;
+			.el-button {
+				color: #ffffff;
+				background-color: #5b9cf8;
+				border-color: #5b9cf8;
+			}
+		}
+		.footer {
+			margin-top: 30px;
+			text-align: right;
+		}
+	}
 }
 </style>

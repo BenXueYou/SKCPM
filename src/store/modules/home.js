@@ -3,7 +3,6 @@ import { Storage } from "@/utils/Storage";
 
 const home = {
   state: {
-    // localTag: Cookies.get('localTag') || 'Home',
     operatorArr: Storage.readSession("operatorArr") || [],
     chargeStationArr: Storage.readSession("chargeStationArr") || [],
     provinceArr: Storage.readSession("provinceArr") || [],
@@ -15,9 +14,13 @@ const home = {
     userUuid: Storage.read("userUuid") || "",
     roleId: Storage.read("roleId") || "",
     projectList: Storage.read("projectList") || [],
-    // username: localStorage.getItem("username") || ""
+    enterpriseUser: localStorage.getItem("enterpriseUser") || ""
   },
   mutations: {
+    SET_ENTERPRISE_USER: (state, enterpriseUser) => {
+      state.enterpriseUser = enterpriseUser;
+      Storage.saveSession("enterpriseUser", enterpriseUser);
+    },
     SET_OPERATOR_ARR: (state, operatorArr) => {
       state.operatorArr = operatorArr;
       Storage.saveSession("operatorArr", operatorArr);
@@ -60,6 +63,9 @@ const home = {
     }
   },
   actions: {
+    setEnterpriseUser({ commit }, enterpriseUser) {
+      commit("SET_ENTERPRISE_USER", enterpriseUser);
+    },
     setOperatorArr({ commit }, operatorArr) {
       commit("SET_OPERATOR_ARR", operatorArr);
     },

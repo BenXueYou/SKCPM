@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="580px"
-		:title="!rowData.operatorId?`新增企业用户`:`修改企业用户`"
+		:title="!rowData.id?`新增企业用户`:`修改企业用户`"
 		class="dialog-enterprise-add"
 		center
 		:visible.sync="isCurrentShow"
@@ -130,7 +130,7 @@ export default {
     onClickConfirm() {
       this.$refs.addHouseForm.validate(valid => {
         if (valid) {
-          if (this.formLabelAlign.operatorId) {
+          if (this.formLabelAlign.id) {
             this.updateOperator(this.formLabelAlign);
           } else {
             this.addOperator(this.formLabelAlign);
@@ -166,7 +166,7 @@ export default {
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
-      if (val && this.rowData.operatorId) {
+      if (val && this.rowData.id) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
       } else {
         this.formLabelAlign = {
@@ -179,7 +179,6 @@ export default {
           telephone: null
         };
       }
-      this.formLabelAlign.operatorLoginId = this.$store.state.home.OperatorId;
     }
   },
   destroyed() {}

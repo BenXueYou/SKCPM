@@ -90,16 +90,16 @@ export default {
       mainScreenLoading: false,
       tableData: window.config.tableData,
       rowData: {},
-      operatorIds: []
+      enterpriseUserIds: []
     };
   },
   methods: {
     // checkBox多选
     selectionChange(selection) {
       console.log(selection);
-      this.operatorIds = [];
+      this.enterpriseUserIds = [];
       selection.forEach(item => {
-        this.operatorIds.push(item.operatorId);
+        this.enterpriseUserIds.push(item.id);
       });
     },
     close(is) {
@@ -125,6 +125,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;
+            this.$store.dispatch('setEnterpriseUser', this.tableData);
             this.total = res.data.totalCount;
           } else {
             this.$message.wraning("请求失败");
@@ -140,7 +141,7 @@ export default {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
     deleteBtnAct() {
-      if (!this.operatorIds.length) {
+      if (!this.enterpriseUserIds.length) {
         this.$message.warning("请选择要删除的企业名称");
         return;
       }
@@ -161,7 +162,7 @@ export default {
     },
     deleteData() {
       this.$EnterpriseAjax
-        .deleteOperator(this.operatorIds)
+        .deleteEnterPriseUserApi(this.enterpriseUserIds)
         .then(res => {
           if (res.data.success) {
             this.initData();
@@ -174,17 +175,9 @@ export default {
     },
     exportBtnAct() {},
     handleClick(row) {
-      this.$EnterpriseAjax
-        .editOperatorOptions({ operatorId: row.operatorId })
-        .then(res => {
-          if (res.data.success) {
-            this.isShowEidtDialog = !this.isShowEidtDialog;
-            this.rowData = res.data.model;
-          } else {
-            this.$message.wraning("请求数据失败");
-          }
-        })
-        .catch(() => {});
+      console.log(row);
+      this.isShowEidtDialog = !this.isShowEidtDialog;
+      this.rowData = row;
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

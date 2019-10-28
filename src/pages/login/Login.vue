@@ -179,9 +179,7 @@ export default {
         this.$store.dispatch("setAuthorization", Authorization);
         this.$store.dispatch("setRoleId", body.model.roleId);
         console.log(body.model.loginId);
-        debugger;
         this.$store.dispatch("setLoginId", body.model.loginId);
-        debugger;
         // 刷新页面以便于更新projectUuid
         this.$nextTick(() => {
           window.location.reload();

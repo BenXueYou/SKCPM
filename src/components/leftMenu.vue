@@ -141,7 +141,8 @@
 						</template>
 						<el-menu-item index="/Main/EnterpriseUser">企业用户</el-menu-item>
 						<el-menu-item index="/Main/EnterpriseStaff">企业员工</el-menu-item>
-						<el-menu-item index="/Main/EnterpriseReportData">充电记录</el-menu-item>
+						<el-menu-item index="/Main/EnterpriseChargeRecord">充电记录</el-menu-item>
+						<!-- <el-menu-item index="/Main/EnterpriseReportData">充电报表</el-menu-item> -->
 					</el-submenu>
 
 					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
