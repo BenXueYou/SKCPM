@@ -105,7 +105,7 @@ export default {
     close(is) {
       this.isShowEidtDialog = !this.isShowEidtDialog;
       if (is) {
-        this.$bus.$emit("getOperatorList");
+        // this.$bus.$emit("getOperatorList");
         this.initData();
       }
     },

@@ -89,7 +89,7 @@
 						></el-row>
 					</div>
 				</el-main>
-				<el-aside width="200px">
+				<!-- <el-aside width="200px">
 					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="province" label="充电总电量(kWh)"></el-table-column>
 					</el-table>
@@ -105,16 +105,28 @@
 					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
 					</el-table>
-				</el-aside>
+				</el-aside> -->
 			</el-container>
 		</div>
 	</el-row>
 </template>
 <script>
 // import appUserAdd from "@/components/appUserAdd";
+import { mapState } from "vuex";
 export default {
   components: {
     // appUserAdd
+  },
+  watch: {},
+  computed: {
+    ...mapState({
+      operatorOptions: state => {
+        return state.home.operatorArr;
+      },
+      CSOptions: state => {
+        return state.home.chargeStationArr;
+      }
+    })
   },
   mounted: function() {
     console.log(this.$common.getStartTime());
@@ -137,7 +149,6 @@ export default {
       total: 10,
       beginTime: this.$common.getStartTime(),
       endTime: this.$common.getCurrentTime(),
-      operatorOptions: [],
       operatorId: 34,
       stationOptions: [],
       type: 3,
@@ -178,7 +189,7 @@ export default {
             this.dayArr = [];
             this.trendLineDataList = [];
             if (!arr.length) {
-              this.$message({type: 'warning', message: '查询结果为空'});
+              this.$message({ type: "warning", message: "查询结果为空" });
               return;
             }
             for (let i = 0; i < arr.length; i++) {
@@ -339,8 +350,7 @@ export default {
         // myChart.resize();
       }
     }
-  },
-  watch: {}
+  }
 };
 </script>
 <style>
