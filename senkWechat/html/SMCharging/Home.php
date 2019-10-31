@@ -4,8 +4,8 @@
 	header("content-type:text/HTML;charset=utf-8");
 	require_once "../../php/jssdk.php";
 	require_once "../../php/wechatUserInfo.php";
-	$appid = "wx031732af628faee0";
-	$secret = "5e8ccf52a81d427752241374212af303";
+	$appid = "wxe76a06a63e687acb";
+	$secret = "a594e4f4526e2b61863fc4b059b88a59";
 
 	// if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 	// 	$APPID = 'wx031732af628faee0';
