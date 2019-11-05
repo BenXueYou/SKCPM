@@ -84,7 +84,7 @@
 			display: block;
 			margin: 0px;
 			position: absolute;
-			top:-8px;
+			top: -8px;
 		}
 
 		.location span {
@@ -110,7 +110,7 @@
 			float: left;
 			background-color: blue;
 			position: relative;
-			width: 60%;
+			width: 65%;
 			margin: 10px 0;
 		}
 
@@ -127,7 +127,7 @@
 
 		.ACdiv {
 			top: -5px;
-			right: 0px;
+			left: 100px;
 		}
 
 		.ButtonBorderClass {
@@ -275,7 +275,7 @@
 			div_3l_spanl.innerHTML = '交流桩：' + (csList[i].acisnum || 0) + ' / ';
 			div_pile_div2.appendChild(div_3l_spanl);
 			var span_qtl = document.createElement('span');
-			span_qtl.innerHTML = csList[i].acCount;
+			span_qtl.innerHTML = csList[i].acCount || 0;
 			div_3l_spanl.appendChild(span_qtl);
 			//直流桩数据
 			var div_pile_div = document.createElement('div');
@@ -286,14 +286,14 @@
 			div_3_spanl.innerHTML = '直流桩：' + (csList[i].dcisnum || 0) + ' / ';
 			div_pile_div.appendChild(div_3_spanl);
 			var span_qt = document.createElement('span');
-			span_qt.innerHTML = csList[i].dcCount;
+			span_qt.innerHTML = csList[i].dcCount || 0;
 			div_3_spanl.appendChild(span_qt);
 			//地址
 			var div_address = document.createElement('div');
 			div_address.setAttribute('id', 'address');
 			div_address.innerHTML = csList[i].location;
 			li.appendChild(div_address);
-			//				div_div.appendChild(document.createElement("br"));
+			div_div.appendChild(document.createElement("br"));
 		}
 	}
 
