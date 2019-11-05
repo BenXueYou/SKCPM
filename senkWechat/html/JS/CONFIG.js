@@ -31,8 +31,12 @@ const CONFIGS = {
 
       postPayOrderApi: `${URLHeader}/weChat/deposit/save`,
       getPayOrderAPi: `${URLHeader}/weChat/deposit/record`,
-      getChargeRecordApi:`${URLHeader}/charge/record/list-by-page`,
+      getChargeRecordApi: `${URLHeader}/charge/record/list-by-page`,
       getRefrundOrderAPi: `${URLHeader}/weChat/withdraw-list-by-page`,
+
+      getCSList: `${URLHeader}/map/query/near/list`,
+      getCSDetail: `${URLHeader}/map/query/station/detail`,
+      getPileList: `${URLHeader}/map/query/station/list`,
 
     };
     return URLObj;

@@ -1,65 +1,64 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		<link rel="stylesheet" href="../../CSS/mui.min.css">
-	</head>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-	<body>
-		<div class="mui-content"></div>
-	</body>
+	<link rel="stylesheet" href="../../CSS/mui.min.css">
+</head>
 
-	<script src="../JS/mui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="../JS/common.js"></script>
-	<script src="../JS/Pile.js" type="text/javascript" charset="utf-8"></script>
+<body>
+	<div class="mui-content"></div>
+</body>
 
-	<script type="text/javascript">
+<script src="../JS/mui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../JS/common.js"></script>
+<script src="../JS/Pile.js" type="text/javascript" charset="utf-8"></script>
 
-		var h5pullDown=true;
-		var lng;
-		var lat;
-		var cslist;
-		var marketArr = new Array();
+<script type="text/javascript">
 
-		//启用双击监听
+	var h5pullDown = true;
+	var lng;
+	var lat;
+	var cslist;
+	var marketArr = new Array();
 
-		mui.init({
-			gestureConfig:{
-				doubletap:true
-			},
-			subpages:[{
-				url:'csListSub.html',
-				id:'csListSub',
-				styles:{
-					top: '0px',
-					bottom: '0px',
-				}
-			}]
-		});
-
-
-		function getQueryString(name) {
-			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-			var r = window.location.search.substr(1).match(reg);
-			if(r != null) return unescape(r[2]);
-			return null;
-		}
-
-		lng = getQueryString("longitude");
-		lat = getQueryString("latitude");
-	var contentWebview = null;
-		document.querySelector('header').addEventListener('doubletap',function () {
-			if(contentWebview==null){
-				contentWebview = plus.webview.currentWebview().children()[0];
+	//启用双击监听
+	lng = getQueryString("longitude");
+	lat = getQueryString("latitude");
+	mui.init({
+		gestureConfig: {
+			doubletap: true
+		},
+		subpages: [{
+			url: 'csListSub.html?longitude='+lng+"&latitude="+lat,
+			id: 'csListSub',
+			styles: {
+				top: '0px',
+				bottom: '0px',
 			}
-			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
-		});
-	</script>
+		}]
+	});
+
+
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]);
+		return null;
+	}
+	var contentWebview = null;
+	document.querySelector('.mui-content').addEventListener('doubletap', function () {
+		if (contentWebview == null) {
+			contentWebview = plus.webview.currentWebview().children()[0];
+		}
+		contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+	});
+</script>
 
 </html>

@@ -1,15 +1,11 @@
 var Pile = {
   // 获取所有充电站信息
-  getPileList: function (url, callback) {
-    url = url + "mapSearchPile/findSMPByList";
+  getCSList: function (url, data, callback) {
     mui.ajax(url, {
-      data: {
-        longitude: 121,
-        latitude: 31,
-      },
-      type: "GET",
+      data: data,
+      type: "POST",
       timeout: 10000,
-      dataType: "json",
+      headers: {'Content-Type': 'application/json'},
       crossDomain: true,
       success: function (data) {
         console.log(JSON.stringify(data));
@@ -87,9 +83,9 @@ var Pile = {
   pileStart: function (url, data, callback) {
     var mask = mui.createMask();
     mui.ajax(url, {
-      type:"POST",
-      headers:{'Content-Type':'application/json'},
-      dataType:'json',
+      type: "POST",
+      headers: {'Content-Type': 'application/json'},
+      dataType: 'json',
       data: data,
       crossDomain: true,
       timeout: 35000,
