@@ -77,7 +77,8 @@
         <el-button type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
         <el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
       </div>
-      <el-table :data="tableData" stripe border style="width: 100%">
+      <div class="tableBox">
+      <el-table :data="tableData" stripe border  style="width: 100%">
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column type="index" width="55" label="序号"></el-table-column>
         <el-table-column prop="operatorName" label="运营商"></el-table-column>
@@ -96,6 +97,7 @@
           </template>
         </el-table-column>
       </el-table>
+      </div>
       <div class="footer">
         <el-pagination
           @size-change="handleSizeChange"

@@ -10,7 +10,7 @@
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:5px">
-				<el-table :data="[tableData[0]]" stripe border style="width: 100%">
+				<el-table :data="[tableData[0]]" stripe border  style="width: 100%">
 					<el-table-column prop="chargeStationCount" label="充电站总数"></el-table-column>
 					<el-table-column prop="chargePileCount" label="充电桩总数"></el-table-column>
 					<el-table-column prop="chargePileDcCount" label="直流桩总数"></el-table-column>
@@ -90,22 +90,22 @@
 					</div>
 				</el-main>
 				<!-- <el-aside width="200px">
-					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border  style="width: 100%">
 						<el-table-column prop="province" label="充电总电量(kWh)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border  style="width: 100%">
 						<el-table-column prop="province" label="服务费(元)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border  style="width: 100%">
 						<el-table-column prop="province" label="基础电费(元)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border  style="width: 100%">
 						<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border  style="width: 100%">
 						<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
 					</el-table>
-				</el-aside> -->
+				</el-aside>-->
 			</el-container>
 		</div>
 	</el-row>
@@ -117,11 +117,20 @@ export default {
   components: {
     // appUserAdd
   },
-  watch: {},
+  watch: {
+    operatorArr(arr) {
+      this.operatorOptions = arr;
+    }
+  },
   computed: {
     ...mapState({
-      operatorOptions: state => {
-        return state.home.operatorArr;
+      operatorArr: {
+        get: function(state) {
+          return state.home.operatorArr;
+        },
+        set: function(val) {
+          this.$store.dispatch("setOperatorArr", val);
+        }
       },
       CSOptions: state => {
         return state.home.chargeStationArr;
@@ -131,9 +140,8 @@ export default {
   mounted: function() {
     console.log(this.$common.getStartTime());
     this.operatorOptions = this.$store.state.home.operatorArr;
-    this.initData();
-    this.initLineData();
     let day = new Date();
+    // 设置当前月的某一天
     day.setDate(1);
     let firstdate = this.$common.timestampToFormatter(day, "yyyy-mm-dd");
     let enddate = this.$common.timestampToFormatter(
@@ -142,9 +150,12 @@ export default {
     );
     this.beginTime = firstdate + " " + "00:00:00";
     this.endTime = enddate + " " + "23:59:59";
+    this.initData();
+    this.initLineData();
   },
   data: function() {
     return {
+      operatorOptions: [],
       fullscreenLoading: false,
       total: 10,
       beginTime: this.$common.getStartTime(),
@@ -433,7 +444,7 @@ export default {
 			}
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

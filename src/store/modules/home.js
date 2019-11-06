@@ -14,7 +14,7 @@ const home = {
     userUuid: Storage.read("userUuid") || "",
     roleId: Storage.read("roleId") || "",
     projectList: Storage.read("projectList") || [],
-    enterpriseUser: localStorage.getItem("enterpriseUser") || ""
+    enterpriseUser: localStorage.getItem("enterpriseUser") || []
   },
   mutations: {
     SET_ENTERPRISE_USER: (state, enterpriseUser) => {

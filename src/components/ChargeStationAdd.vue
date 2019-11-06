@@ -403,7 +403,7 @@ export default {
 	padding: 25px 35px 5px 5px;
 }
 .dialog-station-add .timePickerClass {
-	width: 100%;
+	width: 100% !important;
 	height: 32px;
 	line-height: 32px;
 }

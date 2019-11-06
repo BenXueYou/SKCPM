@@ -283,11 +283,23 @@ export default {
 	position: relative;
 }
 .left_menu_box {
+	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
 	text-align: left;
 }
+.left_menu_box .el-col-24 {
+    width: 100%;
+    height: 100%;
+}
+.left_menu_box .el-row {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+}
 .el-menu {
+	height: 100%;
 	background: rgba(39, 42, 45, 0.9);
 	border: none;
 }

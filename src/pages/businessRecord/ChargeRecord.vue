@@ -85,37 +85,35 @@
 				<el-button type="primary" @click="deleteBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
-				<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
-				<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
-				<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="chargeMethodId" label="充电类型" width="100">
-					<template slot-scope="scope">
-						{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}
-					</template>
-				</el-table-column>
-				<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
-				<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
-				<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
-				<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
-				<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
-				<el-table-column prop="timeSpan" label="充电时长" width="180">
-					<template slot-scope="scope">
-						{{$common.formatSeconds(scope.row.timeSpan)}}
-					</template>
-				</el-table-column>
-				<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
-				<el-table-column prop="chargeMoney" label="充电总金额" width="100"></el-table-column>
-				<el-table-column label="操作">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table :data="tableData" stripe border  style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
+					<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
+					<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
+					<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
+					<el-table-column prop="chargeMethodId" label="充电类型" width="100">
+						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}</template>
+					</el-table-column>
+					<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
+					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
+					<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
+					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
+					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
+					<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
+					<el-table-column prop="timeSpan" label="充电时长" width="180">
+						<template slot-scope="scope">{{$common.formatSeconds(scope.row.timeSpan)}}</template>
+					</el-table-column>
+					<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
+					<el-table-column prop="chargeMoney" label="充电总金额" width="100"></el-table-column>
+					<el-table-column label="操作">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -162,7 +160,7 @@ export default {
       chargeMethodOptions: [
         // { typeStr: 0, typeName: "APP充电" },
         { typeStr: 1, typeName: "刷卡充电" },
-        { typeStr: 3, typeName: "微信充电" },
+        { typeStr: 3, typeName: "微信充电" }
         // { typeStr: 4, typeName: "全部充电" }
       ],
       station: null,
@@ -178,7 +176,6 @@ export default {
     };
   },
   methods: {
-
     /**
 	   *   {
       "cellStyleMap": {},
@@ -381,8 +378,11 @@ export default {
 				// line-height: 32px;
 			}
 		}
+		.tableBox{
+			height: calc(100% - 200px);
+		}
 		.footer {
-			margin-top: 30px;
+			// padding-top: 30px;
 			text-align: right;
 		}
 	}

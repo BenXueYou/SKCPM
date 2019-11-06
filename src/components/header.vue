@@ -89,6 +89,8 @@ export default {
 	flex-flow: row nowrap;
 	-ms-flex-align: center;
 	align-items: center;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
 	.headLeft {
 		width: 20%;
 		height: 100%;

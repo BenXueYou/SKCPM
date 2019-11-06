@@ -1,5 +1,15 @@
 import store from "@/store/store.js";
 export var COMMON = {
+  // 获取当前时间的前移或后移几天
+  getSpaceDate(a) {
+    var date1 = new Date();
+    // time1 = date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate();
+    var date2 = new Date(date1);
+    date2.setDate(date1.getDate() + a);
+    var time2 = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate();
+    return time2;
+  },
+
   /**
    *
    * 时间秒转时分秒
@@ -76,7 +86,6 @@ export var COMMON = {
   change(t) {
     return ("0" + t).slice(-2);
   },
-
   // 变量的重置
   getStartTime() {
     var MyDate = new Date();

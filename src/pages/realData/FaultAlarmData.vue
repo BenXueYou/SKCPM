@@ -51,33 +51,35 @@
 					<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 				</div>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="cpId" label="充电桩" width="180"></el-table-column>
-				<el-table-column prop="gun" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="cardNum" label="APP/卡号" width="180"></el-table-column>
-				<el-table-column prop="gmtModify" label="记录时间" width="180"></el-table-column>
-				<el-table-column prop="chargeType" label="充电方式" width="100"></el-table-column>
-				<el-table-column prop="alarmType" label="告警描述" width="300"></el-table-column>
-				<el-table-column prop="checkState" label="确认状态" width="120">
-					<template slot-scope="scope">{{scope.row.checkState===0?'未确认':'已确认'}}</template>
-				</el-table-column>
-				<el-table-column prop="checkMode" label="确认模式" width="180">
-					<template slot-scope="scope">{{scope.row.checkMode===0?'自动':'手动'}}</template>
-				</el-table-column>
-				<el-table-column label="操作">
-					<template slot-scope="scope">
-						<el-button
-							v-if="!scope.row.checkState"
-							@click="handleClick(scope.row)"
-							type="text"
-							size="small"
-						>确认</el-button>
-						<el-button v-else type="text" size="small">已确认</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table :data="tableData" stripe border  style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="cpId" label="充电桩" width="180"></el-table-column>
+					<el-table-column prop="gun" label="枪号" width="60"></el-table-column>
+					<el-table-column prop="cardNum" label="APP/卡号" width="180"></el-table-column>
+					<el-table-column prop="gmtModify" label="记录时间" width="180"></el-table-column>
+					<el-table-column prop="chargeType" label="充电方式" width="100"></el-table-column>
+					<el-table-column prop="alarmType" label="告警描述" width="300"></el-table-column>
+					<el-table-column prop="checkState" label="确认状态" width="120">
+						<template slot-scope="scope">{{scope.row.checkState===0?'未确认':'已确认'}}</template>
+					</el-table-column>
+					<el-table-column prop="checkMode" label="确认模式" width="180">
+						<template slot-scope="scope">{{scope.row.checkMode===0?'自动':'手动'}}</template>
+					</el-table-column>
+					<el-table-column label="操作">
+						<template slot-scope="scope">
+							<el-button
+								v-if="!scope.row.checkState"
+								@click="handleClick(scope.row)"
+								type="text"
+								size="small"
+							>确认</el-button>
+							<el-button v-else type="text" size="small">已确认</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -255,7 +257,7 @@ export default {
 			}
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

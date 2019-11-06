@@ -123,23 +123,27 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 2px;">查询</el-button>
 				<el-button type="primary" @click="exportBtnAct" style="margin:0 10px 0 0;">导出</el-button>
 			</div>
-			<el-table
-				:data="tableData"
-				@selection-change="selectionChange"
-				stripe
-				border
-				style="width: 100%"
-			>
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="cpId" label="用户姓名"></el-table-column>
-				<el-table-column prop="cpName" label="联系电话"></el-table-column>
-				<el-table-column prop="companyName" label="企业名称"></el-table-column>
-				<el-table-column prop="csName" label="车牌号"></el-table-column>
-				<el-table-column prop="chargeCount" show-overflow-tooltip label="申请时间"></el-table-column>
-				<el-table-column prop="chargeTimeSpan" show-overflow-tooltip label="确认时间"></el-table-column>
-				<el-table-column prop="chargeQuantity" label="状态"></el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table
+					:data="tableData"
+					@selection-change="selectionChange"
+					stripe
+					border
+					style="width: 100%"
+				>
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="employeeName" label="用户姓名"></el-table-column>
+					<el-table-column prop="telephone" label="联系电话"></el-table-column>
+					<el-table-column prop="companyName" label="企业名称"></el-table-column>
+					<el-table-column prop="plateNum" label="车牌号"></el-table-column>
+					<el-table-column prop="applyDate" show-overflow-tooltip label="申请时间"></el-table-column>
+					<el-table-column prop="affirmDate" show-overflow-tooltip label="确认时间"></el-table-column>
+					<el-table-column prop="status" label="状态">
+						<template slot-scope="scope">{{scope.row.status?"通过":"不通过"}}</template>
+					</el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -259,18 +263,26 @@ export default {
     },
     // 通过审核
     resoveBtnAct() {
-      this.checkStaffAuthority(1);
+      if (this.checkedStaffUuids) {
+        this.checkStaffAuthority(1);
+      } else {
+        this.$message.warning("请选择要审核的员工");
+      }
     },
     // 拒绝审核
     refuseBtnAct() {
-      this.checkStaffAuthority(0);
+      if (this.checkedStaffUuids) {
+        this.checkStaffAuthority(0);
+      } else {
+        this.$message.warning("请选择要审核的员工");
+      }
     },
     // 审核员工
     checkStaffAuthority(status) {
       let data = {
         affirmDate: this.$common.getCurrentTime(),
         employeeId: this.checkedStaffUuids,
-        status: 0
+        status: status
       };
       this.$EnterpriseAjax
         .checkEnterPriseStaffApi(data)
@@ -382,8 +394,11 @@ export default {
 				border-color: #5b9cf8;
 			}
 		}
+		.tableBox {
+			height: calc(100% - 200px);
+		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

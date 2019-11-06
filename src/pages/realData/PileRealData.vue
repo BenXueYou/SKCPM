@@ -80,7 +80,8 @@
 				</div> -->
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
+			<div class="tableBox">
+			<el-table :data="tableData" stripe border  style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="cpId" label="桩序列号" width="180"></el-table-column>
@@ -110,6 +111,7 @@
 					</template>
 				</el-table-column>
 			</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -291,7 +293,7 @@ export default {
 			}
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

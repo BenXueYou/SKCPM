@@ -28,27 +28,29 @@
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
 			</div>
-			<el-table
-				:data="tableData"
-				stripe
-				border
-				style="width: 100%"
-				@selection-change="handleSelectionChange"
-			>
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="mfrName" label="桩厂商"></el-table-column>
-				<el-table-column prop="model" label="桩型号"></el-table-column>
-				<el-table-column prop="cpType" label="桩类型"></el-table-column>
-				<el-table-column prop="cpPhase" label="桩相数"></el-table-column>
-				<el-table-column prop="interfaceCount" label="桩枪数"></el-table-column>
-				<el-table-column label="操作" width="100">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-						<el-button @click="deleteBtnAct(scope.row)" type="text" size="small">删除</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table
+					:data="tableData"
+					stripe
+					border
+					style="width: 100%"
+					@selection-change="handleSelectionChange"
+				>
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="mfrName" label="桩厂商"></el-table-column>
+					<el-table-column prop="model" label="桩型号"></el-table-column>
+					<el-table-column prop="cpType" label="桩类型"></el-table-column>
+					<el-table-column prop="cpPhase" label="桩相数"></el-table-column>
+					<el-table-column prop="interfaceCount" label="桩枪数"></el-table-column>
+					<el-table-column label="操作" width="100">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+							<el-button @click="deleteBtnAct(scope.row)" type="text" size="small">删除</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -228,8 +230,11 @@ export default {
 				border-color: #5b9cf8;
 			}
 		}
+		.tableBox {
+			height: calc(100% - 100px);
+		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

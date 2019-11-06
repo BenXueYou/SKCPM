@@ -35,7 +35,7 @@
 								:label="item.typeName"
 								:value="item.typeStr"
 							></el-option>
-						</el-select> -->
+						</el-select>-->
 					</div>
 					<div class="dateBox">
 						<span class="topTitleTxt">支付时间：</span>
@@ -63,20 +63,22 @@
 				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="orderId" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="订单号"></el-table-column>
-				<el-table-column prop="userId" label="用户ID"></el-table-column>
-				<el-table-column prop="userName" label="用户名"></el-table-column>
-				<el-table-column prop="telephone" label="电话"></el-table-column>
-				<el-table-column prop="depositMoney" label="充值金额"></el-table-column>
-				<el-table-column prop="beforeBalance" label="充值前金额"></el-table-column>
-				<el-table-column prop="balance" label="充值后金额"></el-table-column>
-				<el-table-column prop="gmtCreate" label="支付时间"></el-table-column>
-				<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
-				<el-table-column prop="flag" label="交易状态"></el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table :data="tableData" stripe border  style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="orderId" width="55" label="序号"></el-table-column>
+					<el-table-column prop="date" label="订单号"></el-table-column>
+					<el-table-column prop="userId" label="用户ID"></el-table-column>
+					<el-table-column prop="userName" label="用户名"></el-table-column>
+					<el-table-column prop="telephone" label="电话"></el-table-column>
+					<el-table-column prop="depositMoney" label="充值金额"></el-table-column>
+					<el-table-column prop="beforeBalance" label="充值前金额"></el-table-column>
+					<el-table-column prop="balance" label="充值后金额"></el-table-column>
+					<el-table-column prop="gmtCreate" label="支付时间"></el-table-column>
+					<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
+					<el-table-column prop="flag" label="交易状态"></el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -242,7 +244,7 @@ export default {
 			}
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

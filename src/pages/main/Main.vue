@@ -8,7 +8,9 @@
 				<left-menu class="left-menu"></left-menu>
 				<el-main>
 					<keep-alive>
-						<router-view></router-view>
+						<transition :name="fade">
+							<router-view class="Router"></router-view>
+						</transition>
 					</keep-alive>
 				</el-main>
 			</el-container>
@@ -23,14 +25,16 @@ export default {
   components: { leftMenu, skHeader },
   props: {},
   data() {
-    return {};
+    return {
+      fade: "slide-right" // 默认动态路由变化为slide-right
+    };
   },
   created() {},
   mounted() {
     this.getOperatorList();
     this.getChargeStationList({ pageIndex: 1, pageSize: 100000 });
     this.getPileFactoryList({ pageIndex: 1, pageSize: 100000 });
-    this.getProvinceList({pageIndex: 1, pageSize: 100000});
+    this.getProvinceList({ pageIndex: 1, pageSize: 100000 });
   },
   methods: {
     registerEventbus() {
@@ -101,15 +105,98 @@ export default {
         .catch(() => {});
     }
   },
-  watch: {},
+  watch: {
+    $route(to, from) {
+      let isBack = this.$router.isBack; //  监听路由变化时的状态为前进还是后退
+      if (isBack) {
+        this.fade = "slide-right";
+      } else {
+        this.fade = "slide-left";
+      }
+      this.$router.isBack = false;
+    }
+  },
   destroyed() {
     this.unRegisterEventbus();
   }
 };
 </script>
 <style>
-.box .el-table {
+.box .tableBox {
 	overflow: auto !important;
+	height: calc(100% - 150px);
+	padding-bottom: 30px;
+	box-sizing: border-box;
+}
+.box .tableBox .el-table {
+	overflow: auto !important;
+	max-height: 100%;
+}
+/**渐进动画 */
+/* .fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave {
+	opacity: 0;
+} */
+/**移动移入动画 */
+/* .slide-right-enter-active,
+.slide-right-leave-active,
+.slide-left-enter-active,
+.slide-left-leave-active {
+  will-change: transform;
+  transition: all 1000ms;
+  position: absolute;
+}
+.slide-right-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.slide-left-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+} */
+
+.slide-left-enter-active {
+  transition: all .3s ease;
+}
+.slide-left-leave-active {
+  transition: all .8s ease  ;
+}
+.slide-left-enter,
+.slide-fade-leave-active{
+  transform: translateX(100%);
+  opacity: 0;
+}
+.slide-left-leave-to{
+ transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-right-enter-active {
+  transition: all .3s ease;
+}
+.slide-right-leave-active {
+  transition: all .8s ease  ;
+}
+.slide-fade-leave-active,
+.slide-right-enter {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.slide-right-leave-to{
+    transform: translateX(100%);
+    opacity: 0;
 }
 </style>
 
@@ -135,6 +222,8 @@ export default {
 	.el-container,
 	.container {
 		width: 100%;
+		height: 100%;
+		overflow: auto;
 		.el-header {
 			padding: 0;
 		}
@@ -142,6 +231,7 @@ export default {
 			// width: 20%;
 			max-width: 200px;
 			background: $--color-left-menu;
+			height: 100%;
 		}
 		.el-main {
 			background-color: rgba(245, 245, 245, 0.8);

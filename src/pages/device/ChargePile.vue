@@ -71,6 +71,7 @@
 				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
 				<el-button type="primary" @click="exportBtnAct">导出</el-button>
 			</div>
+			<div class="tableBox">
 			<el-table
 				:data="tableData"
 				@selection-change="selectionChange"
@@ -91,11 +92,12 @@
 				<el-table-column prop="location" label="详细地址" show-overflow-tooltip></el-table-column>
 				<el-table-column label="操作" width="100">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-						<el-button type="text" size="small">编辑</el-button>
+						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+						<!-- <el-button type="text" size="small">编辑</el-button> -->
 					</template>
 				</el-table-column>
 			</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -282,7 +284,7 @@ export default {
 			}
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

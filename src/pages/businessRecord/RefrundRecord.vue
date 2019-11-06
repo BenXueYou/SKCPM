@@ -63,20 +63,22 @@
 				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="orderId" label="订单号"></el-table-column>
-				<el-table-column prop="userId" label="用户ID"></el-table-column>
-				<!-- <el-table-column prop="date" label="用户名"></el-table-column> -->
-				<!-- <el-table-column prop="name" label="电话"></el-table-column> -->
-				<el-table-column prop="withdrawMoney" label="退款金额"></el-table-column>
-				<el-table-column prop="beforeBalance" label="退款前金额"></el-table-column>
-				<el-table-column prop="balance" label="退款后金额"></el-table-column>
-				<el-table-column prop="gmtCreate" label="退款时间"></el-table-column>
-				<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
-				<el-table-column prop="flag" label="退款状态"></el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table :data="tableData" stripe border  style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="orderId" label="订单号"></el-table-column>
+					<el-table-column prop="userId" label="用户ID"></el-table-column>
+					<!-- <el-table-column prop="date" label="用户名"></el-table-column> -->
+					<!-- <el-table-column prop="name" label="电话"></el-table-column> -->
+					<el-table-column prop="withdrawMoney" label="退款金额"></el-table-column>
+					<el-table-column prop="beforeBalance" label="退款前金额"></el-table-column>
+					<el-table-column prop="balance" label="退款后金额"></el-table-column>
+					<el-table-column prop="gmtCreate" label="退款时间"></el-table-column>
+					<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
+					<el-table-column prop="flag" label="退款状态"></el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -236,7 +238,7 @@ export default {
 			}
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

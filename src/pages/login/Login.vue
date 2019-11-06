@@ -2,6 +2,7 @@
   <div class="login-div">
     <div class="login-head">
       <div style="width: 10%">
+        <!-- <img src="@/assets/images/login/login_sk_logo.png" width="100%" /> -->
         <img src="@/assets/images/login/login_sk_logo.png" width="100%" />
       </div>
     </div>
@@ -271,14 +272,15 @@ export default {
   .login-main {
     height: 74%;
     width: 100%;
-    background: url("../../assets/login_bg.jpg") no-repeat;
+    // background: url("../../assets/login_bg.jpg") no-repeat;
+    background: url("../../assets/webbg.jpg") no-repeat;
     background-size: 100% 100%;
-    padding: 0 0 0 75%;
+    padding: 0 0 0 65%;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     .main-block {
-      width: 86%;
+      width: 75%;
       min-width: 300px;
       height: 400px;
       background: #ffffff;

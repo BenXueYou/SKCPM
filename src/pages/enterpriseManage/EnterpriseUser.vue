@@ -24,11 +24,11 @@
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
 			</div>
+      <div class="tableBox">
 			<el-table
 				:data="tableData"
 				@selection-change="selectionChange"
-				stripe
-				border
+stripe border
 				style="width: 100%"
 			>
 				<el-table-column type="selection" width="55"></el-table-column>
@@ -45,6 +45,7 @@
 					</template>
 				</el-table-column>
 			</el-table>
+      </div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -222,9 +223,12 @@ export default {
 				background-color: #5b9cf8;
 				border-color: #5b9cf8;
 			}
+    }
+    .tableBox{
+			height: calc(100% - 100px);
 		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

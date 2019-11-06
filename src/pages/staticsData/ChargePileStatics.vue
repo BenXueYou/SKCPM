@@ -118,7 +118,8 @@
 				<el-button type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
+			<div class="tableBox">
+			<el-table :data="tableData" stripe border  style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="cpId" label="充电桩ID"></el-table-column>
@@ -132,6 +133,7 @@
 				<el-table-column prop="chargeMoney" label="基础电费(元)"></el-table-column>
 				<el-table-column prop="totalFee" label="充电总费用(元)"></el-table-column>
 			</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -310,8 +312,11 @@ export default {
 				border-color: #5b9cf8;
 			}
 		}
+		.tableBox{
+			height: calc(100% - 200px);
+		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

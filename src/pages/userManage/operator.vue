@@ -24,26 +24,28 @@
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
 			</div>
-			<el-table
-				:data="tableData"
-				@selection-change="selectionChange"
-				stripe
-				border
-				style="width: 100%"
-			>
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="operatorName" label="运营商" width="150"></el-table-column>
-				<el-table-column prop="contactName" label="联系人" width="150"></el-table-column>
-				<el-table-column prop="telephone" label="联系电话" width="180"></el-table-column>
-				<el-table-column prop="email" label="邮箱" width="180"></el-table-column>
-				<el-table-column prop="address" show-overflow-tooltip label="地址"></el-table-column>
-				<el-table-column label="操作">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table
+					:data="tableData"
+					@selection-change="selectionChange"
+					stripe
+					border
+					style="width: 100%"
+				>
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="operatorName" label="运营商" width="150"></el-table-column>
+					<el-table-column prop="contactName" label="联系人" width="150"></el-table-column>
+					<el-table-column prop="telephone" label="联系电话" width="180"></el-table-column>
+					<el-table-column prop="email" label="邮箱" width="180"></el-table-column>
+					<el-table-column prop="address" show-overflow-tooltip label="地址"></el-table-column>
+					<el-table-column label="操作">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -125,6 +127,7 @@ export default {
           if (res.data.success) {
             this.tableData = res.data.model;
             this.total = res.data.totalCount;
+            this.$bus.$emit("getOperatorList");
           } else {
             this.$message.wraning("请求失败");
           }
@@ -229,8 +232,11 @@ export default {
 				border-color: #5b9cf8;
 			}
 		}
+		.tableBox {
+			height: calc(100% - 100px);
+		}
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}

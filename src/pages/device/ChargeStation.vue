@@ -71,21 +71,29 @@
 				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
 				<el-button type="primary" @click="exportBtnAct">导出</el-button>
 			</div>
-			<el-table :data="tableData" @selection-change='selectionChange' stripe border style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="csName" label="充电站"></el-table-column>
-				<el-table-column prop="operatorName" width="180" label="运营商"></el-table-column>
-				<el-table-column prop="openTime" width="120" label="开放时间"></el-table-column>
-				<el-table-column prop="location" show-overflow-tooltip label="地址"></el-table-column>
-				<el-table-column prop="gmtCreate" label="建站日期"></el-table-column>
-				<el-table-column label="操作">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+			<div class="tableBox">
+				<el-table
+					:data="tableData"
+					@selection-change="selectionChange"
+					stripe
+					border
+					style="width: 100%"
+				>
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="csName" label="充电站"></el-table-column>
+					<el-table-column prop="operatorName" width="180" label="运营商"></el-table-column>
+					<el-table-column prop="openTime" width="120" label="开放时间"></el-table-column>
+					<el-table-column prop="location" show-overflow-tooltip label="地址"></el-table-column>
+					<el-table-column prop="gmtCreate" label="建站日期"></el-table-column>
+					<el-table-column label="操作">
+						<template slot-scope="scope">
+							<!-- <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> -->
+							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
+			</div>
 			<div class="footer">
 				<el-pagination
 					@size-change="handleSizeChange"
@@ -98,7 +106,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-station-add :isShow="isShowAddDialog" :rowData='rowData' @onCancel="close" ref="houseTable" />
+		<charge-station-add
+			:isShow="isShowAddDialog"
+			:rowData="rowData"
+			@onCancel="close"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -147,7 +160,7 @@ export default {
       mainScreenLoading: false,
       tableData: window.config.tableData,
       rowData: {},
-      checkedCSids: [],
+      checkedCSids: []
     };
   },
   methods: {
@@ -181,13 +194,14 @@ export default {
           if (res.data.success) {
             this.tableData = res.data.model;
             this.total = res.data.totalCount;
+            this.$bus.$emit("getChargeStationList");
           }
         })
         .catch(() => {});
     },
     deleteBtnAct() {
       if (!this.checkedCSids.length) {
-        this.$message.warning('请选择充电站');
+        this.$message.warning("请选择充电站");
         return;
       }
       this.$confirm("是否删除该条数据?", "提示", {
@@ -221,14 +235,17 @@ export default {
     exportBtnAct() {},
     handleClick(row) {
       console.log(row);
-      this.$deviceAjax.editChargeStationOptions(row.csId).then(res => {
-        if (res.data.success) {
-          this.rowData = res.data.model;
-          this.isShowAddDialog = !this.isShowAddDialog;
-        } else {
-          this.$message.warning(res.data.errMsg);
-        }
-      }).catch(() => {});
+      this.$deviceAjax
+        .editChargeStationOptions(row.csId)
+        .then(res => {
+          if (res.data.success) {
+            this.rowData = res.data.model;
+            this.isShowAddDialog = !this.isShowAddDialog;
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
     },
     // checkBox多选
     selectionChange(selection) {
@@ -282,8 +299,11 @@ export default {
 				border-color: #5b9cf8;
 			}
 		}
+		// .tableBox {
+		// 	height: calc(100% - 100px);
+		// }
 		.footer {
-			margin-top: 30px;
+			// margin-top: 30px;
 			text-align: right;
 		}
 	}
