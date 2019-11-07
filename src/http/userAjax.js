@@ -100,6 +100,23 @@ export var userAjax = {
       data: xhr
     });
   },
+  getCardUserList(xhr) {
+    let url = `${RestApi.api.UserAjax.getCardUserList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  saveCardUserDeposit(xhr) {
+    let url = `${RestApi.api.UserAjax.saveCardUserDeposit}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+
 };
 
 function install(Vue) {

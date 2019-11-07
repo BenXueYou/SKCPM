@@ -107,6 +107,9 @@ export default {
       getOperatorOptions: `${httpUrlHeader}/operator/list`,
 
       getAppUserList: `${httpUrlHeader}/weChat/list-by-page`,
+
+      getCardUserList: `${httpUrlHeader}/card/deposit/list-by-page`,
+      saveCardUserDeposit: `${httpUrlHeader}/card/deposit/save`,
     },
     /**
        * 运营统计

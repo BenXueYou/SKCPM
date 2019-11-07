@@ -90,7 +90,8 @@ export default {
 	-ms-flex-align: center;
 	align-items: center;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-
+	// background-image: linear-gradient(-90deg, , yellow);
+	background-image: linear-gradient(60deg,#354054,#ffffff);
 	.headLeft {
 		width: 20%;
 		height: 100%;

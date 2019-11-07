@@ -120,7 +120,7 @@
 						</template>
 						<el-menu-item index="/Main/AppUser">用户管理</el-menu-item>
 						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
-						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
+						<el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item>
 					</el-submenu>
 					<el-submenu index="8" :class="menuTitle === '8'? 'submenuActiveClass' : ''">
 						<template slot="title">

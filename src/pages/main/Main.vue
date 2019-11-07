@@ -168,35 +168,35 @@ export default {
 } */
 
 .slide-left-enter-active {
-  transition: all .3s ease;
+	transition: all 0.3s ease;
 }
 .slide-left-leave-active {
-  transition: all .8s ease  ;
+	transition: all 0.8s ease;
 }
 .slide-left-enter,
-.slide-fade-leave-active{
-  transform: translateX(100%);
-  opacity: 0;
+.slide-fade-leave-active {
+	transform: translateX(100%);
+	opacity: 0;
 }
-.slide-left-leave-to{
- transform: translateX(-100%);
-  opacity: 0;
+.slide-left-leave-to {
+	transform: translateX(-100%);
+	opacity: 0;
 }
 
 .slide-right-enter-active {
-  transition: all .3s ease;
+	transition: all 0.3s ease;
 }
 .slide-right-leave-active {
-  transition: all .8s ease  ;
+	transition: all 0.8s ease;
 }
 .slide-fade-leave-active,
 .slide-right-enter {
-  transform: translateX(-100%);
-  opacity: 0;
+	transform: translateX(-100%);
+	opacity: 0;
 }
-.slide-right-leave-to{
-    transform: translateX(100%);
-    opacity: 0;
+.slide-right-leave-to {
+	transform: translateX(100%);
+	opacity: 0;
 }
 </style>
 
