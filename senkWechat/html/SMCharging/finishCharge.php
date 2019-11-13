@@ -44,7 +44,6 @@
 		</div>
 	</div>
 	<script src="../JS/mui.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../JS/Order.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../JS/Pile.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../JS/User.js" type="text/javascript" charset="utf-8"></script>
@@ -57,11 +56,8 @@
 
 		var starIndex = 5,
 			serialNo = getQueryString("serialNo");
-		if (window.plus) {
 			plusReady();
-		} else {
-			document.addEventListener('plusready', plusReady, false);
-		}
+		
 
 		function getQueryString(name) {
 			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

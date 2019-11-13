@@ -171,6 +171,7 @@
 		var dcChargeMode = 0;
 		var cptype = 0 //默认交流桩
 		var deviceId;
+		var openId;
 
 		function plusReady() {
 			var user = User.userIsLogin();
@@ -179,6 +180,7 @@
 			console.log(objStr);
 			let objData = JSON.parse(objStr);
 			deviceId = objData.deviceId;
+			openId = objData.openId;
 			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
 			mui(".mui-card-content-left")[0].innerText = "桩类型：" + (objData.cpPhase == 1 ? '三相' : '单相') + (objData.cpType == 1 ? '交流' : '直流');
 			//cpObj.cptype = "直流桩";
@@ -254,10 +256,13 @@
 					"startChargeFailDesp": "",
 					"startChargeFlag": 0,
 					"userId": user.userId,
-					"cptype": cptype
+					"cptype": cptype,
+					"openId":openId,
+					"chargeWay":3
 				};
+				debugger;
 				Pile.pileStart(CONFIGS.URLManage().startChargeApi, data, function(e) {
-					if (e) {
+					if (true) {
 						mui.openWindow("charging.php?cpObj="+
 							encodeURIComponent(JSON.stringify(data)), "charging.php", {}, "slide-in-right", 200);
 					} else {

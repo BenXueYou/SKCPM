@@ -64,7 +64,6 @@ var Pile = {
       crossDomain: true,
       timeout: 10000, // 超时时间：10秒
       success: function (data) {
-        debugger;
         if (data.success) {
           callack(data.model);
         } else {
@@ -97,9 +96,8 @@ var Pile = {
       },
       success: function (data) {
         if (data.success) {
-          callback(data.model);
+          callback(data.success);
         } else {
-          mui.alert(data.errorMessage);
           callback();
         }
       },
@@ -111,12 +109,10 @@ var Pile = {
 
   pileStop: function (url, openid, callback) {
     var mask = mui.createMask();
+    url = url+"?userId="+openid;
     mui.ajax(url, {
-      data: {
-        userId: openid,
-        platform: 1
-      },
-      dataType: "JSON",
+      dataType: "json",
+      headers: {'Content-Type': 'application/json'},
       type: "GET",
       crossDomain: true,
       timeout: 15000,
@@ -127,14 +123,15 @@ var Pile = {
         mask.close(); // 关闭遮罩层
       },
       success: function (data) {
-        if (data.success === 0) {
-          callback(data.model);
+        if (data.success) {
+          callback(data.success);
         } else {
           callback();
         }
       },
       error: function (xhr, type, error) {
         callback();
+        console.log(xhr)
         mask.close();
       }
     });

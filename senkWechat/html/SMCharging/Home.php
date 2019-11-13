@@ -89,8 +89,9 @@
   					//用户空闲状态可以扫码
   					wxScanAPI();
   				} else if (user.chargeState === 1) {
+					  debugger;
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-  					location.href = 'charging.php?obj=' + JSON.stringify(user);
+  					location.href = 'charging.php?cpObj=' + JSON.stringify(user);
   				} else {
   					alert('无法使用');
   				}
@@ -98,7 +99,7 @@
   		});
   		//调起微信扫码接口    
   		function wxScanAPI() {
-  			getPileBaseInfo('411302000000000200');
+  			getPileBaseInfo('140105000000014600');
   			wx.config({
   				debug: false,
   				appId: '<?php echo $signPackage["appId"]; ?>',
@@ -137,7 +138,7 @@
   				if (data) {
 					console.log(data);
 					data.deviceId = deviceId;
-					debugger;
+					data.openId = openId;
   					location.href = "chargePay.php?obj=" + encodeURIComponent(JSON.stringify(data));
   				} else {
   					console.log('请求错误');

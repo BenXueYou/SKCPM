@@ -1,7 +1,7 @@
 <?php
-require_once "../../php/jssdk.php";
-$jssdk = new JSSDK("wx031732af628faee0", "5e8ccf52a81d427752241374212af303");
-$signPackage = $jssdk->GetSignPackage();
+// require_once "../../php/jssdk.php";
+// $jssdk = new JSSDK("wx031732af628faee0", "5e8ccf52a81d427752241374212af303");
+// $signPackage = $jssdk->GetSignPackage();
 ?>
 <!doctype html>
 <html lang="en">
@@ -192,12 +192,13 @@ $signPackage = $jssdk->GetSignPackage();
 		var flag = null;
 		var flagCount = 0;
 		var t, deviceId, cptype = 0;
-		let objStr = getQueryString(cpObj);
+		let objStr = getQueryString("cpObj");
 		let objData = JSON.parse(objStr);
+		console.log(objData);
 		deviceId = objData.deviceId;
 		document.getElementById("cpid").innerHTML = "充电桩：" + deviceId;
 		cptype = objData.cptype;
-		if (cptype == 1 || cptype == "1") { //直流桩
+		if (!cptype) { //直流桩
 			console.log("直流桩");
 			var tmp = mui(".cptype");
 			for (var i = 0; i < tmp.length; i++) {
@@ -209,12 +210,9 @@ $signPackage = $jssdk->GetSignPackage();
 		plusReady();
 
 		function plusReady() {
-			if (!window.plus) {
-				return;
-			}
 			var user = User.userIsLogin();
-			var userid = user.openId;
-			User.getUserState(CONFIGS.URLManage().getUserInfoApi, userid, function(user) {
+			var openId = user.openId;
+			User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
 				if (user.chargeState === 0) {
 					//用户空闲状态可以扫码
 					flag = false;
@@ -260,7 +258,7 @@ $signPackage = $jssdk->GetSignPackage();
 					$("#mask").removeClass("hidden");
 					$("#chargeSwitch").addClass("disabled");
 					var user = User.userIsLogin();
-					var userid = user.openId;
+					var userid = user.userId;
 					Pile.pileStop(CONFIGS.URLManage().stopChargeApi, userid, function(res) {
 						console.log(res);
 						$("#mask").addClass("hidden");
@@ -283,6 +281,8 @@ $signPackage = $jssdk->GetSignPackage();
 							flagCount++;
 							if (flagCount > 2) {
 								userChange();
+							}else{
+								alert("停止失败");
 							}
 						}
 					});
@@ -305,8 +305,8 @@ $signPackage = $jssdk->GetSignPackage();
 		}
 		//获取实时数据
 		function getChargeData() {
-			User.getPileChargeData(CONFIGS.URLManage().getRealTimeData, user.openId, function(res) {
-				if (res) {
+			User.getPileChargeData(CONFIGS.URLManage().getRealTimeData, user.userId, function(DataInfo) {
+				if (DataInfo) {
 					document.getElementById("V").innerHTML = DataInfo.voltageA;
 					document.getElementById("V1").innerHTML = DataInfo.voltageB;
 					document.getElementById("V2").innerHTML = DataInfo.voltageC;

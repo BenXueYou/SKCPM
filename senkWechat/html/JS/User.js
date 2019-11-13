@@ -62,7 +62,7 @@ var User = {
   getPileChargeData: function (url, userid, callback) {
     window.chargeData = false;
     var data = {
-      openId: userid
+      userId: userid
     };
     var DataObj = {
       voltageA: 0,
@@ -81,10 +81,11 @@ var User = {
       cpType: 0
     };
     ajaxBase("GET", url, false, data, function (res) {
-      if (res.success) {
+      if (res && res.success) {
         let dataInfo = res.model;
         // 未检测到离线
         if (dataInfo.serialNo) {
+          debugger;
           // 检测到充电结束
           location.href = "finishCharge.php?serialNo=" + dataInfo.serialNo;
           callback();

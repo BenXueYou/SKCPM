@@ -68,7 +68,6 @@ function AjaxBase(url, asyn, data, callback) {
 		type: 'get',
 		timeout: 30000,
 		beforeSend: function() {
-			plus.nativeUI.showWaiting("加载中...", {});
 			mask.show(); //显示遮罩层  
 		},
 		complete: function() {
