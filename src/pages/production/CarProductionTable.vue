@@ -44,8 +44,8 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
-				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
+				<el-button type="primary"  v-if="$store.state.home.roleId" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary"  v-if="$store.state.home.roleId" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
@@ -58,7 +58,7 @@
 				<el-table-column prop="city" label="乘客座椅数"></el-table-column>
 				<el-table-column prop="city" label="容积"></el-table-column>
 				<el-table-column prop="zip" label="发布日期"></el-table-column>
-				<el-table-column label="操作">
+				<el-table-column  v-if="$store.state.home.roleId" label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>

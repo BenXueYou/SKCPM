@@ -174,8 +174,14 @@ export default {
         this.$store.dispatch("setOperatorId", operatorId);
         let Authorization = body.model.token;
         this.$store.dispatch("setAuthorization", Authorization);
-        this.$store.dispatch("setRoleId", body.model.roleId);
-        console.log(body.model.loginId);
+        // 角色ID 0 || 2 时 读写权限
+        // 角色ID 1 || 3 时 读权限
+        if (body.model.roleId % 2) {
+          this.$store.dispatch("setRoleId", false);
+        } else {
+          this.$store.dispatch("setRoleId", true);
+        }
+        console.log(body.model);
         this.$store.dispatch("setLoginId", body.model.loginId);
         // 刷新页面以便于更新projectUuid
         this.$nextTick(() => {

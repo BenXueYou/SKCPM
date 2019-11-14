@@ -46,6 +46,16 @@ export default {
       this.$store.dispatch("setAuthorization", "");
       this.$store.dispatch("setOperatorId", []);
       this.$store.dispatch("SET_USERUUID", "");
+      this.$store.dispatch("setOperatorArr", []);
+      this.$store.dispatch("setChargeStationArr", []);
+      this.$store.dispatch("setProvinceArr", []);
+      this.$store.dispatch("setChargeFactoryArr", []);
+      this.$store.dispatch("setChargeFactoryArr", []);
+      this.$store.dispatch("setRoleId", "");
+      this.$store.dispatch("setAccount", "");
+      this.$store.dispatch("setEnterpriseUser", "");
+      this.$store.dispatch("setLoginId", "");
+
       this.$router.push({
         name: "Login"
       });
@@ -91,7 +101,7 @@ export default {
 	align-items: center;
 	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
 	// background-image: linear-gradient(-90deg, , yellow);
-	background-image: linear-gradient(60deg,#354054,#ffffff);
+	background-image: linear-gradient(60deg, #354054, #ffffff);
 	.headLeft {
 		width: 20%;
 		height: 100%;

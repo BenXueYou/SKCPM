@@ -67,9 +67,9 @@
 				<el-button type="mini" @click="queryBtnAct">查询</el-button>
 			</div>
 			<div class="topMenu">
-				<el-button type="primary" @click="addBtnAct" style="margin-bottom:10px;">新增</el-button>
-				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
-				<el-button type="primary" @click="exportBtnAct">导出</el-button>
+				<el-button type="primary"  v-if="$store.state.home.roleId" @click="addBtnAct" style="margin-bottom:10px;">新增</el-button>
+				<el-button type="primary"  v-if="$store.state.home.roleId" @click="deleteBtnAct">删除</el-button>
+				<el-button type="primary"  v-if="$store.state.home.roleId" @click="exportBtnAct">导出</el-button>
 			</div>
 			<div class="tableBox">
 				<el-table

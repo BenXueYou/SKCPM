@@ -11,7 +11,7 @@
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
 				<div class="flex-sbw">
-					<el-button type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
+					<el-button type="primary"  v-if="$store.state.home.roleId" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 					<!-- <el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button> -->
 					<!-- <div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>运营商：</span>
@@ -43,7 +43,7 @@
 					<el-table-column prop="cpType" label="桩类型"></el-table-column>
 					<el-table-column prop="cpPhase" label="桩相数"></el-table-column>
 					<el-table-column prop="interfaceCount" label="桩枪数"></el-table-column>
-					<el-table-column label="操作" width="100">
+					<el-table-column  v-if="$store.state.home.roleId" label="操作" width="100">
 						<template slot-scope="scope">
 							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 							<el-button @click="deleteBtnAct(scope.row)" type="text" size="small">删除</el-button>

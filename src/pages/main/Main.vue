@@ -32,7 +32,13 @@ export default {
   created() {},
   mounted() {
     this.getOperatorList();
-    this.getChargeStationList({ pageIndex: 1, pageSize: 100000 });
+    this.getChargeStationList({
+      model: {},
+      pageIndex: 1,
+      pageSize: 100000,
+      queryCount: true,
+      start: 0
+    });
     this.getPileFactoryList({ pageIndex: 1, pageSize: 100000 });
     this.getProvinceList({ pageIndex: 1, pageSize: 100000 });
   },
