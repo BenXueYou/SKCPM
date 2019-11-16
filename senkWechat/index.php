@@ -1,4 +1,6 @@
 <?php
+
+// PZpArI7RrSJsUru2J1amYag3jjpci55U0DaW6misew9
 header('Content-type:text');
 
 define("TOKEN", "senkwechat");
@@ -35,7 +37,6 @@ class wechatCallbackapiTest
     {
         // $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         $postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"])?$GLOBALS["HTTP_RAW_POST_DATA"]:file_get_contents("php://input");
-        //echo "123".$postStr;
         if (!empty($postStr)){
             $this->logger("R \r\n".$postStr);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);

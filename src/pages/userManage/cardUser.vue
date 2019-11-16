@@ -16,14 +16,36 @@
 						<el-input v-model="cardNum"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<div class="dateBox">
+							<span class="topTitleTxt">开卡时间：</span>
+							<el-date-picker
+								v-model="beginTime"
+								type="datetime"
+								class="time-interal-date"
+								size="small"
+								placeholder="选择日期"
+								value-format="yyyy-MM-dd HH:mm:ss"
+							></el-date-picker>
+							<span class="time-line">—</span>
+							<el-date-picker
+								v-model="endTime"
+								type="datetime"
+								class="time-interal-date"
+								placeholder="选择日期"
+								size="small"
+								value-format="yyyy-MM-dd HH:mm:ss"
+							></el-date-picker>
+						</div>
+					</div>
+					<!-- <div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>用户名：</span>
 						<el-input v-model="userName"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
 						<el-input v-model="phoneNumber"></el-input>
-					</div>
-					<div class="flex-sbw-div">
+					</div>-->
+					<!-- <div class="flex-sbw-div">
 						<span class="topTitleTxt">运营商：</span>
 						<el-select
 							class="left-space time-interal"
@@ -39,31 +61,7 @@
 								:value="item.operatorId"
 							></el-option>
 						</el-select>
-					</div>
-				</div>
-			</div>
-			<div class="topMenu flex-st" style="margin-bottom: 15px;">
-				<div class="flex-sbw-div">
-					<div class="dateBox">
-						<span class="topTitleTxt">开卡时间：</span>
-						<el-date-picker
-							v-model="beginTime"
-							type="datetime"
-							class="time-interal-date"
-							size="small"
-							placeholder="选择日期"
-							value-format="yyyy-MM-dd HH:mm:ss"
-						></el-date-picker>
-						<span class="time-line">—</span>
-						<el-date-picker
-							v-model="endTime"
-							type="datetime"
-							class="time-interal-date"
-							placeholder="选择日期"
-							size="small"
-							value-format="yyyy-MM-dd HH:mm:ss"
-						></el-date-picker>
-					</div>
+					</div>-->
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
@@ -118,7 +116,7 @@ export default {
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.stationOptions = this.$store.state.home.chargeStationArr;
-    this.beginTime = this.$common.getStartTime();
+    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.initData();
   },
@@ -301,7 +299,7 @@ export default {
 			}
 		}
 		.tableBox {
-			height: calc(100% - 200px);
+			height: calc(100% - 150px);
 		}
 		.footer {
 			// padding-top: 30px;

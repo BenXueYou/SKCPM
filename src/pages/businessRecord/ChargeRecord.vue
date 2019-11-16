@@ -86,7 +86,7 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
-				<el-table :data="tableData" stripe border  style="width: 100%">
+				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
@@ -100,9 +100,7 @@
 					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
 					<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
 					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100">
-						<template slot-scope="scope">
-							{{scope.row.chargeFinishedFlag>0?"成功":'失败'}}
-						</template>
+						<template slot-scope="scope">{{scope.row.chargeFinishedFlag>0?"成功":'失败'}}</template>
 					</el-table-column>
 					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
 					<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
@@ -147,7 +145,7 @@ export default {
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.stationOptions = this.$store.state.home.chargeStationArr;
-    this.beginTime = this.$common.getStartTime();
+    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.initData();
   },
@@ -176,8 +174,7 @@ export default {
       userName: null,
       phoneNumber: null,
       chargeMethodId: null,
-	  rowData: {},
-	  
+      rowData: {}
     };
   },
   methods: {
@@ -383,7 +380,7 @@ export default {
 				// line-height: 32px;
 			}
 		}
-		.tableBox{
+		.tableBox {
 			height: calc(100% - 200px);
 		}
 		.footer {

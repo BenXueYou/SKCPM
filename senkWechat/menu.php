@@ -1,6 +1,6 @@
 <?php
-$appid = "wx0a766465ad74001e";
-$appsecret = "49b67f9262e29328f83da924b68c1982";
+$appid = "wxe76a06a63e687acb";
+$appsecret = "a594e4f4526e2b61863fc4b059b88a59";
 $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
 
 $output = https_request($url);
@@ -17,31 +17,31 @@ $jsonmenu = '{
             {
                "type":"view",
                "name":"扫码充电",
-               "url":"http://pxywechat.applinzi.com/html/SMCharging/scanCode.php"
+               "url":"http://47.104.204.250/senkWechat/html/SMCharging/scanCode.php"
             },
             {
                "type":"view",
                "name":"预约充电",
-               "url":"http://pxywechat.applinzi.com/html/SMCharging/appointCharge.html"
+               "url":"http://47.104.204.250/senkWechat/html/SMCharging/appointCharge.html"
             },
            {
                 "type":"view",
                 "name":"地图找桩",
-                "url":"http://pxywechat.applinzi.com/html/SMCharging/webMap.html"
+                "url":"http://47.104.204.250/senkWechat/html/SMCharging/webMap.html"
             }]
        },
        {
-           "name":"热点资讯",
+           "name":"我的商城",
            "sub_button":[
             {
                "type":"view",
                "name":"最新动态",
-               "url":"http://pxywechat.applinzi.com/html/shopHome/shopHome.html"
+               "url":"http://47.104.204.250/senkWechat/html/shopHome/shopHome.html"
             },
             {
                "type":"view",
                "name":"产品资讯",
-               "url":"http://pxywechat.applinzi.com/html/shopHome/ProductMsg.html"
+               "url":"http://47.104.204.250/senkWechat/html/shopHome/ProductMsg.html"
             },
             {
                 "type":"click",
@@ -50,17 +50,17 @@ $jsonmenu = '{
             }]
        },
        {
-            "name":"个人中心",
+            "name":"关于尚宽",
             "sub_button":[
             {
                 "type":"view",
                 "name":"我的账户",
-                "url":"http://pxywechat.applinzi.com/html/MY/My.html"
+                "url":"http://47.104.204.250/senkWechat/html/MY/My.html"
             },
             {
                 "type":"view",
                 "name":"技术支持",
-                "url":"http://a105583.atobo.com.cn"
+                "url":"http://47.104.204.250/senkWechat/"
             },
             {
                 "type":"view",
