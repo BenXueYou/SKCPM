@@ -61,7 +61,7 @@
 
   <body>
   	<div class="middle_image"></div>
-  	<button style="background-color:white;"></button>
+  	<button class="scanBtnClass"></button>
   	<p class="middle_input">或<a style="color: blue; text-decoration: underline;" onclick="hrefBtn()">输入桩编号</a></p>
   	<h5 style="width:100%;text-align:center;margn:auto;">扫描桩上的二维码启动充电</h5>
   	<script type="text/javascript" src="../JS/mui.js"></script>
@@ -74,6 +74,7 @@
   		var openId = '<?php echo $openid; ?>';
   		var userid = openId = "oR9d21lZxSloF2iQtPHjdRAdy-2o";
   		var userid = openId = "safasjfdnsakm2322";
+  		var userid = openId = "safasjfdnsakm2322";
   		var userid = openId;
   		var deviceId, cpid;
   		deviceId = cpid;
@@ -85,21 +86,19 @@
   		$("button").click(function() {
   			//验证用户信息
   			User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
-  				if (user.chargeState === 0) {
+  				if (user && user.chargeState === 0) {
   					//用户空闲状态可以扫码
   					wxScanAPI();
-  				} else if (user.chargeState === 1) {
-					  debugger;
+  				} else if (user && user.chargeState === 1) {
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
   					location.href = 'charging.php?cpObj=' + JSON.stringify(user);
   				} else {
-  					alert('无法使用');
+  					location.href = "../MY/getPhone.html?openId=" + openId;
   				}
   			});
   		});
   		//调起微信扫码接口    
   		function wxScanAPI() {
-  			getPileBaseInfo('140105000000014600');
   			wx.config({
   				debug: false,
   				appId: '<?php echo $signPackage["appId"]; ?>',
@@ -135,10 +134,12 @@
 		   */
   		function getPileBaseInfo(deviceId) {
   			Pile.pileState(CONFIGS.URLManage().getCpileStateoApi, deviceId, function(data) {
-  				if (data) {
-					console.log(data);
-					data.deviceId = deviceId;
-					data.openId = openId;
+				debugger;  
+				if (data) {
+					debugger;
+  					console.log(data);
+  					data.deviceId = deviceId;
+  					data.openId = openId;
   					location.href = "chargePay.php?obj=" + encodeURIComponent(JSON.stringify(data));
   				} else {
   					console.log('请求错误');
@@ -147,33 +148,22 @@
   		}
   		//输入设备号界面跳转
   		function hrefBtn() {
-  			User.getUserState(CONFIGS.LANCHUANG(), userid, function(user) {
+  			User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
   				//alert("输入设备号user_state===" + user_state);
   				if (user.chargeState == 0) { //空闲状态
   					//用户空闲状态可以扫码
-  					location.href = "scanCode.php?openId=" + userid;
+  					mui.prompt('输入设备号', '设备号+枪号"0*"', '提示', ['确定', "取消"], function(data) {
+  						if (!data.index) {
+  							deviceId = data.value;
+  							deviceId = "140105000000014300";
+  							getPileBaseInfo(deviceId);
+  						}
+  					}, 'div');
   				} else if (user.chargeState === 1) {
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-  					location.href = 'charging.php?obj=' + JSON.stringify(user);
+  					location.href = 'charging.php?cpObj=' + JSON.stringify(user);
   				} else {
   					alert('无法使用');
-  				}
-  			});
-  		}
-  		//日志
-  		function Loggert(t) {
-  			var ajax = $.ajax({
-  				type: "GET",
-  				url: urlM + "wechatUserManager/logger",
-  				dataType: "json",
-  				data: {
-  					content: "returnWechatLogger" + openId + "====" + t
-  				},
-  				success: function(data) {
-  					console.log("成功");
-  				},
-  				error: function(jqXHR) {
-  					console.log("失败");
   				}
   			});
   		}

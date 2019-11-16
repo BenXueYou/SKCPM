@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8" />
 	<title></title>
@@ -13,16 +14,19 @@
 			justify-content: space-between;
 			padding: 10px 20px;
 		}
+
 		.content-txt-center {
 			/*text-align: center!important;*/
 			margin: 5px auto;
 			padding: 5px 8px;
 		}
+
 		.tips-txt {
 			color: dodgerblue;
 			font-size: 12px;
 			text-indent: 12px;
 		}
+
 		.card-title,
 		.card-address {
 			width: 100%;
@@ -257,16 +261,15 @@
 					"startChargeFlag": 0,
 					"userId": user.userId,
 					"cptype": cptype,
-					"openId":openId,
-					"chargeWay":3
+					"openId": openId,
+					"chargeWay": 0
 				};
-				debugger;
 				Pile.pileStart(CONFIGS.URLManage().startChargeApi, data, function(e) {
-					if (true) {
-						mui.openWindow("charging.php?cpObj="+
+					if (e && e.success) {
+						mui.openWindow("charging.php?cpObj=" +
 							encodeURIComponent(JSON.stringify(data)), "charging.php", {}, "slide-in-right", 200);
 					} else {
-						mui.alert("订单提交失败,请重试");
+						mui.alert(data.errorMessage);
 					}
 				});
 			}.bind(this), 2000);

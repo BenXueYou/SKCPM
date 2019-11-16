@@ -269,9 +269,11 @@
 							document.getElementById("MSG").innerHTML = "开始充电";
 							//获取流水号
 							Pile.getSerialNo(CONFIGS.URLManage().getSerialNoApi, user.userId, function(res) {
+								debugger;
 								if (res) {
 									location.href = "finishCharge.php?serialNo=" + res;
 								} else {
+									debugger
 									alert("获取流水号失败");
 									WeixinJSBridge.call('closeWindow');
 								}
@@ -281,7 +283,7 @@
 							flagCount++;
 							if (flagCount > 2) {
 								userChange();
-							}else{
+							} else {
 								alert("停止失败");
 							}
 						}
@@ -318,6 +320,11 @@
 					document.getElementById("quantity").innerHTML = DataInfo.quantity;
 					document.getElementById("price").innerHTML = DataInfo.price;
 					document.getElementById("date").innerHTML = DataInfo.dateTime;
+					if (!deviceId) {
+						deviceId = DataInfo.deviceId;
+						document.getElementById("cpid").innerHTML = "充电桩：" + deviceId;
+					}
+
 				}
 			});
 		}

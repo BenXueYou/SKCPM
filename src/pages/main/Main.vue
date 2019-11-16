@@ -135,8 +135,7 @@ export default {
 	box-sizing: border-box;
 }
 .box .tableBox .el-table {
-	overflow: auto !important;
-	max-height: 100%;
+	height: 100%;
 }
 /**渐进动画 */
 /* .fade-enter-active,

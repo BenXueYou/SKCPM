@@ -96,7 +96,7 @@ var Pile = {
       },
       success: function (data) {
         if (data.success) {
-          callback(data.success);
+          callback(data);
         } else {
           callback();
         }
@@ -109,7 +109,7 @@ var Pile = {
 
   pileStop: function (url, openid, callback) {
     var mask = mui.createMask();
-    url = url+"?userId="+openid;
+    url = url + "?userId=" + openid;
     mui.ajax(url, {
       dataType: "json",
       headers: {'Content-Type': 'application/json'},
@@ -124,14 +124,14 @@ var Pile = {
       },
       success: function (data) {
         if (data.success) {
-          callback(data.success);
+          callback(data);
         } else {
           callback();
         }
       },
       error: function (xhr, type, error) {
         callback();
-        console.log(xhr)
+        console.log(xhr);
         mask.close();
       }
     });
@@ -143,9 +143,8 @@ var Pile = {
     mui.ajax(url, {
       data: {
         userId: openid,
-        platform: 1
       },
-      dataType: "JSON",
+      dataType: "json",
       type: "GET",
       crossDomain: true,
       timeout: 15000,
@@ -159,7 +158,6 @@ var Pile = {
       success: function (data) {
         // data就是返回的json数据
         if (data.success) {
-          result = data.model;
           callback(data.model);
         } else {
           mui.alert("网络延迟，账单请查看充电记录");
