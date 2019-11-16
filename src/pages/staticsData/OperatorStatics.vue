@@ -71,7 +71,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
+				<el-button v-if="$store.state.home.roleId" type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
@@ -112,7 +112,7 @@ export default {
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.csOptions = this.$store.state.home.chargeStationArr;
-    this.beginTime = this.$common.getStartTime();
+    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.operator = this.operatorOptions[0].operatorId;
     this.csId = this.csOptions[0].csId;

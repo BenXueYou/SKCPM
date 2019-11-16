@@ -6,7 +6,9 @@ export var COMMON = {
     // time1 = date1.getFullYear() + "-" + (date1.getMonth() + 1) + "-" + date1.getDate();
     var date2 = new Date(date1);
     date2.setDate(date1.getDate() + a);
-    var time2 = date2.getFullYear() + "-" + (date2.getMonth() + 1) + "-" + date2.getDate();
+    let month = date2.getMonth() + 1 > 9 ? date2.getMonth() + 1 : "0" + date2.getMonth() + 1;
+    let day = date2.getDate() > 9 ? date2.getDate() : "0" + date2.getDate();
+    var time2 = date2.getFullYear() + "-" + month + "-" + day;
     return time2;
   },
 
@@ -226,10 +228,7 @@ export var COMMON = {
     } else {
       imgUrlReturn =
         window.config.protocolHeader +
-        window.config.ip +
-        `/fileforward-server-v1/project/${
-          store.state.home.projectUuid
-        }/fileforward/fileByUrl?fileUrl=` +
+        window.config.ip + `/fileforward-server-v1/project/${store.state.home.projectUuid}/fileforward/fileByUrl?fileUrl=` +
         imgUrl;
     }
     return imgUrlReturn;

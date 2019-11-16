@@ -99,7 +99,11 @@
 					<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
 					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
 					<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
-					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
+					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100">
+						<template slot-scope="scope">
+							{{scope.row.chargeFinishedFlag>0?"成功":'失败'}}
+						</template>
+					</el-table-column>
 					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
 					<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
 					<el-table-column prop="timeSpan" label="充电时长" width="180">
@@ -172,7 +176,8 @@ export default {
       userName: null,
       phoneNumber: null,
       chargeMethodId: null,
-      rowData: {}
+	  rowData: {},
+	  
     };
   },
   methods: {

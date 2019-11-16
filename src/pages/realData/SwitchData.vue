@@ -33,7 +33,7 @@
 						<span class="topTitleTxt">桩类型：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="cpTypeOptions"
+							v-model="cpType"
 							clearable
 							placeholder="桩类型"
 							size="small"
@@ -149,7 +149,7 @@ export default {
       cpType: 0,
       station: null,
       stationOptions: [],
-      type: null,
+      type: 0,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };
