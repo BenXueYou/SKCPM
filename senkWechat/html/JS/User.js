@@ -85,7 +85,6 @@ var User = {
         let dataInfo = res.model;
         // 未检测到离线
         if (dataInfo.serialNo) {
-          debugger;
           // 检测到充电结束
           location.href = "finishCharge.php?serialNo=" + dataInfo.serialNo;
           callback();

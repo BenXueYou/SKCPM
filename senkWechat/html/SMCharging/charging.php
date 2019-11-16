@@ -269,11 +269,9 @@
 							document.getElementById("MSG").innerHTML = "开始充电";
 							//获取流水号
 							Pile.getSerialNo(CONFIGS.URLManage().getSerialNoApi, user.userId, function(res) {
-								debugger;
 								if (res) {
 									location.href = "finishCharge.php?serialNo=" + res;
 								} else {
-									debugger
 									alert("获取流水号失败");
 									WeixinJSBridge.call('closeWindow');
 								}

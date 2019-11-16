@@ -134,9 +134,7 @@
 		   */
   		function getPileBaseInfo(deviceId) {
   			Pile.pileState(CONFIGS.URLManage().getCpileStateoApi, deviceId, function(data) {
-				debugger;  
 				if (data) {
-					debugger;
   					console.log(data);
   					data.deviceId = deviceId;
   					data.openId = openId;
@@ -152,10 +150,10 @@
   				//alert("输入设备号user_state===" + user_state);
   				if (user.chargeState == 0) { //空闲状态
   					//用户空闲状态可以扫码
-  					mui.prompt('输入设备号', '设备号+枪号"0*"', '提示', ['确定', "取消"], function(data) {
+  					mui.prompt('输入设备号', '设备号+枪号"0*"', '提示', ["取消","确定"], function(data) {
   						if (!data.index) {
   							deviceId = data.value;
-  							deviceId = "140105000000014300";
+  							// deviceId = "140105000000014300";
   							getPileBaseInfo(deviceId);
   						}
   					}, 'div');
