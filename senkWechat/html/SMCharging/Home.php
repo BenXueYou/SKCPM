@@ -134,6 +134,7 @@
 		   */
   		function getPileBaseInfo(deviceId) {
   			Pile.pileState(CONFIGS.URLManage().getCpileStateoApi, deviceId, function(data) {
+				debugger;  
 				if (data) {
   					console.log(data);
   					data.deviceId = deviceId;
@@ -147,21 +148,21 @@
   		//输入设备号界面跳转
   		function hrefBtn() {
   			User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
-  				//alert("输入设备号user_state===" + user_state);
-  				if (user.chargeState == 0) { //空闲状态
+
+  				if (user && user.chargeState === 0) {
   					//用户空闲状态可以扫码
-  					mui.prompt('输入设备号', '设备号+枪号"0*"', '提示', ["取消","确定"], function(data) {
-  						if (!data.index) {
+  					mui.prompt('输入设备号', '设备号+枪号"0*"', '提示', ["取消", "确定"], function(data) {
+  						if (data.index) {
   							deviceId = data.value;
   							// deviceId = "140105000000014300";
   							getPileBaseInfo(deviceId);
   						}
   					}, 'div');
-  				} else if (user.chargeState === 1) {
+  				} else if (user && user.chargeState === 1) {
   					//用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
   					location.href = 'charging.php?cpObj=' + JSON.stringify(user);
   				} else {
-  					alert('无法使用');
+  					location.href = "../MY/getPhone.html?openId=" + openId;
   				}
   			});
   		}

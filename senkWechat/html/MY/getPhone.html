@@ -144,31 +144,32 @@
 					mui.toast('验证码不能为空');
 					return;
 				}
-				if (txtId == "oauthLogin") {
+				if (txtId === "oauthLogin") {
 					openId = getQueryString("openId");
 					var userInfo = {
 						"balance": 0,
 						"chargeState": 0,
-						"companyCode": "string",
-						"gmtCreate": "2019-11-16T08:24:48.239Z",
-						"gmtModify": "2019-11-16T08:24:48.239Z",
+						"companyCode": "",
+						"gmtCreate": "",
+						"gmtModify": "",
 						"id": 0,
-						"imgUrl": "string",
-						"isDeleted": "2019-11-16T08:24:48.239Z",
-						"nickName": "string",
+						"imgUrl": "",
+						"isDeleted": "",
+						"nickName": "",
 						"openId": openId,
-						"telephone": "",
+						"telephone": phoneBox.value,
 						"userId": "",
 						"userName": "",
+						"password": pw.value,
+						"msgCode": u_code.value,
 						"userType": 0
 					};
-
-					sendAjaxOauth(userInfo, u_code.value, pw.value);
+					regUserInfoAjax(userInfo, u_code.value, pw.value);
 				} else {
 					sendAjaxPassword(phoneBox.value, pw.value, u_code.value);
 				}
 			}, false);
-			function
+
 			var get_codeBtn = doc.getElementById("get_code");
 			get_codeBtn.addEventListener('tap', function (event) {
 				console.log("点击获取验证码");
@@ -180,7 +181,7 @@
 					var passwordConfirm = pw_confirm.value;
 					if (phoneObj.value != "") {
 						var phoneVal = phoneObj.value;
-						var p1 = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+						var p1 = /^1[3456789]\d{9}$/;
 						var me = false;
 						if (p1.test(phoneVal)) me = true;
 						if (!me) {
@@ -193,32 +194,22 @@
 							return false;
 						} else {
 							url = CONFIGS.URLManage().getMsgCodeApi;
+							issend = false;
 							mui.ajax(url, {
-								data: {
-									phone: phoneObj.value,
-									codeFlag: codeFlag
-								},
-								dataType: "text",
-								type: "POST",
+								data: { telephone: phoneObj.value },
+								dataType: "json",
+								type: "get",
 								success: function (data) {
-									data = JSON.parse(data);
-									console.log(data.returnCode + "==" + codeFlag + "====" + JSON.stringify(data));
-									if (data.returnCode == '1') {
-										mui.toast('用户已存在！', {
-											verticalAlign: 'center'
-										});
-									}
-									if (data.returnCode == '0') {
+									console.log(data);
+									if (data && data.success) {
 										mui.toast('验证码发送成功！', {
 											verticalAlign: 'center'
 										});
+										for (i = 1; i <= t; i++) {
+											window.setTimeout("update_a(" + i + "," + t + ")", i * 1000);
+										}
 									} else {
-										mui.toast('验证码发送失败！', {
-											verticalAlign: 'center'
-										});
-									}
-									for (i = 1; i <= t; i++) {
-										window.setTimeout("update_a(" + i + "," + t + ")", i * 1000);
+										issend = true;
 									}
 								},
 								error: function (error) {
@@ -240,14 +231,13 @@
 
 		}(mui, document));
 		//电话号码登记
-		function sendAjaxOauth(userInfo, code, pw) {
-			app.OAuth(userInfo, code, pw, CONFIGS.LANCHUANG(), function (err) {
-				if (err) { //登录失败
-					mui.toast(err);
-					return;
-				} else { //登录成功，则关闭当前页面
-
+		function regUserInfoAjax(userInfo) {
+			app.reg(userInfo, CONFIGS.URLManage().registerWechatApi, function (data) {
+				if (data && data.success) {
 					mui.back();
+				} else {
+					mui.toast("注册失败");
+					return;
 				}
 			});
 		}

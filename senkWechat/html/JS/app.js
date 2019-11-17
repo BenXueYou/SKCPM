@@ -61,11 +61,8 @@
 	 *第三方登录的注册
 	 * */
   owner.OAuth = function (userInfo, code, pw, url, callback) {
-    allback = callback || $.noop;
+    callback = callback || $.noop;
     userInfo = userInfo || {};
-    userInfo.cpUserName = userInfo.cpUserName || '';
-    userInfo.cpUserId = userInfo.cpUserId || '';
-    url = url + "userManager/weChatLogin";
     var data = {
       openId: userInfo.cpUserId,
       cpUserName: userInfo.cpUserName,
@@ -141,35 +138,33 @@
 	 * 新用户注册
 	 **/
   owner.reg = function (regInfo, url, callback) {
-    url = url + "userManager/registerUser";
     callback = callback || $.noop;
     regInfo = regInfo || {};
-    regInfo.account = regInfo.account || '';
-    regInfo.password = regInfo.password || '';
-    if (regInfo.account.length < 5) {
-      return callback('用户名最短需要 5 个字符');
-    }
     if (regInfo.password.length < 6) {
       return callback('密码最短需要 6 个字符');
     }
     mui.ajax(url, {
       data: {
-        phone: regInfo.account,
-        password: regInfo.password,
-        code: regInfo.code
+        "openId": regInfo.openId,
+        "telephone": regInfo.telephone,
+        "password": regInfo.password,
+        "code": regInfo.msgCode,
       },
+      dataType: 'json',
       type: "POST",
       async: false,
       timeout: 10000,
+      headers: { 'Content-Type': 'application/json' },
       success: function (data) {
-        if (data.returnCode == 0) {
-          callback();
+        if (data && data.success) {
+          callback(data);
         } else {
-          callback("验证码错误");
+          mui.alert(data.errorMessage);
+          callback();
         }
       },
       error: function (xhr, type, error) {
-        callback("服务器响应异常");
+        callback();
       }
     });
   };

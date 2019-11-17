@@ -43,6 +43,7 @@ var Pile = {
         if (data.success) {
           callback(data.model);
         } else {
+          mui.alert(data.errorMessage);
           callback();
         }
       },

@@ -20,7 +20,7 @@
 	</style>
 </head>
 
-<body>
+<body style="background-color: rgba(0,0,0,1);">
 	<div class="hidden" id="mask">
 		<div class="m-load2">
 			<div class="line">
