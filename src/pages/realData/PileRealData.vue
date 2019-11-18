@@ -1,67 +1,71 @@
 <template>
-  <el-row
-    class="ChargeRecord"
-    v-loading="mainScreenLoading"
-    element-loading-background="rgba(0, 0, 0, 0.8)"
-  >
-    <div class="titleBox">
-      位置：
-      <span>设备监控／充电监控</span>
-    </div>
-    <div class="bodyBox">
-      <div class="topMenu flex-st" style="margin-bottom: 15px;">
-        <div class="flex-sbw-div">
-          <span class="topTitleTxt">运营商：</span>
-          <el-select
-            class="left-space time-interal"
-            v-model="operator"
-            clearable
-            placeholder="运营商"
-            size="small"
-          >
-            <el-option
-              v-for="item in operatorOptions"
-              :key="item.operatorId"
-              :label="item.operatorName"
-              :value="item.operatorId"
-            ></el-option>
-          </el-select>
-        </div>
-        <div class="flex-sbw-div">
-          <span class="topTitleTxt">充电站：</span>
-          <el-select
-            class="left-space time-interal"
-            v-model="station"
-            clearable
-            placeholder="充电站"
-            size="small"
-          >
-            <el-option
-              v-for="item in stationOptions"
-              :key="item.csId"
-              :label="item.csName"
-              :value="item.csId"
-            ></el-option>
-          </el-select>
-        </div>
-        <div class="flex-sbw-div">
-          <span class="topTitleTxt">充电桩类型：</span>
-          <el-select
-            class="left-space time-interal"
-            v-model="cpType"
-            clearable
-            placeholder="充电桩类型"
-            size="small"
-          >
-            <el-option
-              v-for="item in cpTypeOptions"
-              :key="item.typeStr"
-              :label="item.typeName"
-              :value="item.typeStr"
-            ></el-option>
-          </el-select>
-        </div>
-        <!-- <div class="flex-sbw-div">
+	<el-row
+		class="ChargeRecord"
+		v-loading="mainScreenLoading"
+		element-loading-background="rgba(0, 0, 0, 0.8)"
+	>
+		<div class="titleBox">
+			位置：
+			<span>设备监控／充电监控</span>
+		</div>
+		<div class="bodyBox">
+			<div class="topMenu flex-st" style="margin-bottom: 15px;">
+				<div class="flex-sbw-div">
+					<span class="topTitleTxt">充电桩：</span>
+					<el-input v-model="cpId" />
+				</div>
+				<div class="flex-sbw-div">
+					<span class="topTitleTxt">运营商：</span>
+					<el-select
+						class="left-space time-interal"
+						v-model="operatorId"
+						clearable
+						placeholder="运营商"
+						size="small"
+					>
+						<el-option
+							v-for="item in operatorOptions"
+							:key="item.operatorId"
+							:label="item.operatorName"
+							:value="item.operatorId"
+						></el-option>
+					</el-select>
+				</div>
+				<div class="flex-sbw-div">
+					<span class="topTitleTxt">充电站：</span>
+					<el-select
+						class="left-space time-interal"
+						v-model="csId"
+						clearable
+						placeholder="充电站"
+						size="small"
+					>
+						<el-option
+							v-for="item in stationOptions"
+							:key="item.csId"
+							:label="item.csName"
+							:value="item.csId"
+						></el-option>
+					</el-select>
+				</div>
+				<div class="flex-sbw-div">
+					<span class="topTitleTxt">充电桩类型：</span>
+					<el-select
+						class="left-space time-interal"
+						v-model="cpType"
+						clearable
+						placeholder="充电桩类型"
+						size="small"
+					>
+						<el-option
+							v-for="item in cpTypeOptions"
+							:key="item.typeStr"
+							:label="item.typeName"
+							:value="item.typeStr"
+						></el-option>
+					</el-select>
+				</div>
+				<!-- <div class="flex-sbw-div">
 					<span class="topTitleTxt">充电桩状态：</span>
 					<el-select
 						class="left-space time-interal"
@@ -77,55 +81,61 @@
 							:value="item.typeStr"
 						></el-option>
 					</el-select>
-        </div>-->
-        <el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
-      </div>
-      <div class="tableBox">
-        <el-table :data="tableData" stripe border style="width: 100%">
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column type="index" width="55" label="序号"></el-table-column>
-          <el-table-column prop="cpId" label="桩序列号" width="180"></el-table-column>
-          <el-table-column prop="gun" label="枪号" width="60"></el-table-column>
-          <el-table-column prop="cpState" label="设备状态" width="100"></el-table-column>
-          <el-table-column prop="gunState" label="枪状态" width="100"></el-table-column>
-          <el-table-column prop="city" label="SOC" width="100"></el-table-column>
-          <el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
-          <el-table-column prop="chargeMoney" label="充电金额(元)" width="100"></el-table-column>
-          <el-table-column prop="chargeTimeSpan" label="已充时间(分)" width="100"></el-table-column>
-          <el-table-column prop="eleType" label="桩类型" width="180"></el-table-column>
-          <el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
-          <el-table-column prop="csName" label="充电站" width="150"></el-table-column>
-          <el-table-column prop="chargePower" label="功率(kw)"></el-table-column>
-          <el-table-column prop="ua1" label="电压(V)"></el-table-column>
-          <el-table-column prop="ia1" label="电流(A)"></el-table-column>
-          <el-table-column prop="recordTime" label="记录时间"></el-table-column>
-          <!-- <el-table-column prop="zip" label="电池组最高温度(°C)" width="120"></el-table-column> -->
-          <!-- <el-table-column prop="zip" label="电池组最低温度" width="100"></el-table-column> -->
-          <!-- <el-table-column prop="zip" label="单体电池最高温度(°C)" width="120"></el-table-column> -->
-          <!-- <el-table-column prop="zip" label="单体组最低温度" width="100"></el-table-column> -->
-          <!-- <el-table-column prop="zip" label="充电机温度(°C)" width="120"></el-table-column> -->
-          <!-- <el-table-column prop="zip" label="充电导引电压(V)" width="100"></el-table-column> -->
-          <el-table-column label="操作">
+				</div>-->
+				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
+			</div>
+			<div class="tableBox">
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="cpId" label="桩序列号" width="180"></el-table-column>
+					<el-table-column prop="gun" label="枪号" width="60"></el-table-column>
+					<el-table-column prop="cpState" label="设备状态" width="100"></el-table-column>
+					<el-table-column prop="gunState" label="枪状态" width="100"></el-table-column>
+					<el-table-column v-if="!cpType" prop="city" label="SOC" width="100"></el-table-column>
+					<el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
+					<el-table-column prop="chargeMoney" label="充电金额(元)" width="100"></el-table-column>
+					<el-table-column prop="chargeTimeSpan" label="已充时间(分)" width="100"></el-table-column>
+					<el-table-column prop="eleType" label="桩类型" width="180"></el-table-column>
+					<el-table-column prop="chargePower" label="功率(kw)"></el-table-column>
+					<el-table-column v-if="cpType" prop="ua1" label="A相电压(V)"></el-table-column>
+					<el-table-column v-if="cpType" prop="ub1" label="B相电压(V)"></el-table-column>
+					<el-table-column v-if="cpType"  prop="uc1" label="C相电压(V)"></el-table-column>
+					<el-table-column v-if="!cpType" prop="ua1" label="电压(V)"></el-table-column>
+					<el-table-column v-if="cpType" prop="ia1" label="A相电流(A)"></el-table-column>
+					<el-table-column v-if="cpType" prop="ib1" label="B相电流(A)"></el-table-column>
+					<el-table-column v-if="cpType" prop="ic1" label="C相电流(A)"></el-table-column>
+					<el-table-column v-if="!cpType" prop="ia1" label="电流(A)"></el-table-column>
+					<el-table-column prop="recordTime" label="记录时间"></el-table-column>
+					<el-table-column prop="zip" label="电池组最高温度(°C)" width="120"></el-table-column>
+					<el-table-column prop="zip" label="电池组最低温度" width="100"></el-table-column>
+					<el-table-column prop="zip" label="单体电池最高温度(°C)" width="120"></el-table-column>
+					<el-table-column prop="zip" label="单体组最低温度" width="100"></el-table-column>
+					<el-table-column prop="zip" label="充电机温度(°C)" width="120"></el-table-column>
+					<el-table-column prop="zip" label="充电导引电压(V)" width="100"></el-table-column>
+					<!-- <el-table-column prop="operatorName" label="运营商" width="120"></el-table-column> -->
+					<!-- <el-table-column prop="csName" label="充电站" width="150"></el-table-column> -->
+					<!-- <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
             </template>
-          </el-table-column>
-        </el-table>
-      </div>
-      <div class="footer">
-        <el-pagination
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          :page-sizes="pageSizeArr"
-          :page-size="pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="total"
-        ></el-pagination>
-      </div>
-    </div>
-    <charge-record-detail :visible.sync="isShowAddDialog" @onCancel="close()" ref="houseTable" />
-  </el-row>
+					</el-table-column>-->
+				</el-table>
+			</div>
+			<div class="footer">
+				<el-pagination
+					@size-change="handleSizeChange"
+					@current-change="handleCurrentChange"
+					:current-page="currentPage"
+					:page-sizes="pageSizeArr"
+					:page-size="pageSize"
+					layout="total, sizes, prev, pager, next, jumper"
+					:total="total"
+				></el-pagination>
+			</div>
+		</div>
+		<charge-record-detail :visible.sync="isShowAddDialog" @onCancel="close()" ref="houseTable" />
+	</el-row>
 </template>
 <script>
 import ChargeRecordDetail from "@/components/ChargeRecordDetail";
@@ -140,6 +150,7 @@ export default {
   },
   data: function() {
     return {
+      cpId: null,
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 10,
@@ -223,85 +234,85 @@ export default {
 <style>
 .ChargeRecord .flex-sbw-item .el-input,
 .ChargeRecord .flex-sbw-item .el-input__inner {
-  width: 160px;
-  height: 32px;
+	width: 160px;
+	height: 32px;
 }
 .ChargeRecord .el-date-editor.el-input,
 .ChargeRecord .el-date-editor.el-input__inner {
-  width: 190px;
+	width: 190px;
 }
 .ChargeRecord .el-input--suffix .el-input__inner {
-  padding-right: 10px;
+	padding-right: 10px;
 }
 
 @media screen and (max-width: 1540px) {
-  .ChargeRecord .flex-sbw-item {
-    margin-right: 5px !important;
-  }
-  .ChargeRecord .flex-sbw-item .el-input,
-  .ChargeRecord .flex-sbw-item .el-input__inner {
-    width: 120px;
-    height: 32px;
-  }
-  .ChargeRecord .el-date-editor.el-input,
-  .ChargeRecord .el-date-editor.el-input__inner {
-    width: 180px;
-  }
-  .ChargeRecord .el-input--suffix .el-input__inner {
-    padding-right: 10px !important;
-  }
+	.ChargeRecord .flex-sbw-item {
+		margin-right: 5px !important;
+	}
+	.ChargeRecord .flex-sbw-item .el-input,
+	.ChargeRecord .flex-sbw-item .el-input__inner {
+		width: 120px;
+		height: 32px;
+	}
+	.ChargeRecord .el-date-editor.el-input,
+	.ChargeRecord .el-date-editor.el-input__inner {
+		width: 180px;
+	}
+	.ChargeRecord .el-input--suffix .el-input__inner {
+		padding-right: 10px !important;
+	}
 }
 </style>
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
 .ChargeRecord {
-  text-align: center;
-  height: 100%;
-  .titleBox {
-    text-align: left;
-    color: $--color-title-txt;
-    padding: 3px 15px 13px;
-  }
-  .bodyBox {
-    background-color: #ffffff;
-    padding: 25px 32px;
-    border-radius: 5px;
-    .topMenu {
-      text-align: left;
-      .topTitleTxt {
-        color: #999999;
-      }
-    }
-    .flex-sbw {
-      display: flex;
-      justify-content: space-between;
-      padding-bottom: 15px;
-      .el-button {
-        color: #ffffff;
-        background-color: #5b9cf8;
-        border-color: #5b9cf8;
-      }
-    }
-    .flex-st {
-      display: flex;
-      justify-content: flex-start;
-      padding-bottom: 15px;
-      .flex-sbw-div {
-        margin: 0 10px;
-      }
-      .el-button {
-        color: #ffffff;
-        background-color: #5b9cf8;
-        border-color: #5b9cf8;
-        // height: 32px;
-        // line-height: 32px;
-      }
-    }
-    .footer {
-      // margin-top: 30px;
-      text-align: right;
-    }
-  }
+	text-align: center;
+	height: 100%;
+	.titleBox {
+		text-align: left;
+		color: $--color-title-txt;
+		padding: 3px 15px 13px;
+	}
+	.bodyBox {
+		background-color: #ffffff;
+		padding: 25px 32px;
+		border-radius: 5px;
+		.topMenu {
+			text-align: left;
+			.topTitleTxt {
+				color: #999999;
+			}
+		}
+		.flex-sbw {
+			display: flex;
+			justify-content: space-between;
+			padding-bottom: 15px;
+			.el-button {
+				color: #ffffff;
+				background-color: #5b9cf8;
+				border-color: #5b9cf8;
+			}
+		}
+		.flex-st {
+			display: flex;
+			justify-content: flex-start;
+			padding-bottom: 15px;
+			.flex-sbw-div {
+				margin: 0 10px;
+			}
+			.el-button {
+				color: #ffffff;
+				background-color: #5b9cf8;
+				border-color: #5b9cf8;
+				// height: 32px;
+				// line-height: 32px;
+			}
+		}
+		.footer {
+			// margin-top: 30px;
+			text-align: right;
+		}
+	}
 }
 </style>
