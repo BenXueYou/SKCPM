@@ -88,7 +88,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button v-if="$store.state.home.roleId" type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
+				<el-button v-if="$store.state.home. AuthorizationID" type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">

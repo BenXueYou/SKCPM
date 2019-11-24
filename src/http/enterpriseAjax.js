@@ -46,7 +46,7 @@ export var EnterpriseAjax = {
     });
   },
   deleteEnterPriseStaffApi(xhr) {
-    let url = `${RestApi.api.AuthorityAccount.deleteEnterPriseStaffApi}`;
+    let url = `${RestApi.api.EnterpriseManageApi.deleteEnterPriseStaffApi}`;
     return axios({
       method: "post",
       url,
@@ -54,7 +54,7 @@ export var EnterpriseAjax = {
     });
   },
   checkEnterPriseStaffApi(xhr) {
-    let url = `${RestApi.api.AuthorityAccount.checkEnterPriseStaffApi}`;
+    let url = `${RestApi.api.EnterpriseManageApi.checkEnterPriseStaffApi}`;
     return axios({
       method: "post",
       url,

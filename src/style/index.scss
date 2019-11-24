@@ -26,7 +26,7 @@ img,
   font-size: 18px;
 }
 /*************************************** 表格样式 *******************************************/
-.el-table--scrollable-x .el-table__body-wrapper {
+.el-table__body-wrapper {
   height: calc(100% - 75px);
   overflow: auto;
   border: 0px solid #c0c4cc;

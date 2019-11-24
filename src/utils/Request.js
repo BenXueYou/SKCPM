@@ -39,7 +39,7 @@ service.interceptors.response.use(
     if (response.data.hasOwnProperty("success")) {
       if (response.data.success) {
         return response;
-      } else if (response.data.errCode === 7000) {
+      } else if (response.data.errorCode === "NTY100021") {
         router.replace({
           name: "Login"
         });

@@ -1,6 +1,6 @@
 <template>
 	<el-row
-		class="ChargeRecord"
+		class="PileRealData"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
@@ -232,33 +232,33 @@ export default {
 };
 </script>
 <style>
-.ChargeRecord .flex-sbw-item .el-input,
-.ChargeRecord .flex-sbw-item .el-input__inner {
+.PileRealData .flex-sbw-item .el-input,
+.PileRealData .flex-sbw-item .el-input__inner {
 	width: 160px;
 	height: 32px;
 }
-.ChargeRecord .el-date-editor.el-input,
-.ChargeRecord .el-date-editor.el-input__inner {
+.PileRealData .el-date-editor.el-input,
+.PileRealData .el-date-editor.el-input__inner {
 	width: 190px;
 }
-.ChargeRecord .el-input--suffix .el-input__inner {
+.PileRealData .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
 
 @media screen and (max-width: 1540px) {
-	.ChargeRecord .flex-sbw-item {
+	.PileRealData .flex-sbw-item {
 		margin-right: 5px !important;
 	}
-	.ChargeRecord .flex-sbw-item .el-input,
-	.ChargeRecord .flex-sbw-item .el-input__inner {
+	.PileRealData .flex-sbw-item .el-input,
+	.PileRealData .flex-sbw-item .el-input__inner {
 		width: 120px;
 		height: 32px;
 	}
-	.ChargeRecord .el-date-editor.el-input,
-	.ChargeRecord .el-date-editor.el-input__inner {
+	.PileRealData .el-date-editor.el-input,
+	.PileRealData .el-date-editor.el-input__inner {
 		width: 180px;
 	}
-	.ChargeRecord .el-input--suffix .el-input__inner {
+	.PileRealData .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
 	}
 }
@@ -266,7 +266,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.ChargeRecord {
+.PileRealData {
 	text-align: center;
 	height: 100%;
 	.titleBox {

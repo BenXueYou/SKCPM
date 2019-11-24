@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="topMenu" style="margin-bottom: 15px;">
-        <el-button type="primary"  v-if="$store.state.home.roleId" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
+        <el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
         <el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
       </div>
       <div class="tableBox">
@@ -90,7 +90,7 @@
           <template slot-scope="scope">{{transferRoleDesc(scope.row)}}</template>
         </el-table-column>
         <el-table-column prop="loginTime" label="最近登录时间"></el-table-column>
-        <el-table-column  v-if="$store.state.home.roleId" prop="totalFee" label="操作">
+        <el-table-column  v-if="$store.state.home. AuthorizationID" prop="totalFee" label="操作">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
             <el-button @click="deleteBtnAct(scope.row)" type="text" size="small">删除</el-button>

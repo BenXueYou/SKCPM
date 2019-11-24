@@ -226,8 +226,8 @@ export default {
 	width: 160px;
 	height: 32px;
 }
-.CardUser .el-date-editor.el-input,
-.CardUser .el-date-editor.el-input__inner {
+.CardUser .flex-sbw-item .el-date-editor.el-input,
+.CardUser .flex-sbw-item .el-date-editor .el-input__inner {
 	width: 190px;
 }
 .CardUser .el-input--suffix .el-input__inner {
@@ -243,8 +243,8 @@ export default {
 		width: 120px;
 		height: 32px;
 	}
-	.CardUser .el-date-editor.el-input,
-	.CardUser .el-date-editor.el-input__inner {
+	.CardUser .flex-sbw-item .el-date-editor.el-input,
+	.CardUser .flex-sbw-item .el-date-editor .el-input__inner {
 		width: 180px;
 	}
 	.CardUser .el-input--suffix .el-input__inner {

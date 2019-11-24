@@ -11,8 +11,8 @@
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
 				<div class="flex-sbw">
-					<el-button type="primary"  v-if="$store.state.home.roleId" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
-					<el-button type="primary"  v-if="$store.state.home.roleId" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button>
+					<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
+					<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px 0 30px;">
 						<span>企业名称：</span>
 						<el-input style="width:auto" v-model="operator"></el-input>
@@ -39,7 +39,7 @@ stripe border
 				<el-table-column prop="account" label="账号" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
 				<el-table-column prop="companyAddress" show-overflow-tooltip label="地址"></el-table-column>
-				<el-table-column  v-if="$store.state.home.roleId" label="操作">
+				<el-table-column  v-if="$store.state.home. AuthorizationID" label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>

@@ -8,12 +8,12 @@ const home = {
     provinceArr: Storage.readSession("provinceArr") || [],
     chargeFactoryArr: Storage.readSession("chargeFactoryArr") || [],
     Authorization: Storage.readSession("Authorization") || "",
+    AuthorizationID: Storage.readSession("AuthorizationID") || "",
+    AuthRoleId: Storage.readSession("AuthRoleId") || "",
     OperatorId: Storage.readSession("OperatorId") || "",
     loginId: Storage.readSession("loginId") || "",
     account: Storage.read("account") || "",
     userUuid: Storage.read("userUuid") || "",
-    roleId: Storage.read("roleId") || "",
-    projectList: Storage.read("projectList") || [],
     enterpriseUser: localStorage.getItem("enterpriseUser") || []
   },
   mutations: {
@@ -24,10 +24,6 @@ const home = {
     SET_OPERATOR_ARR: (state, operatorArr) => {
       state.operatorArr = operatorArr;
       Storage.saveSession("operatorArr", operatorArr);
-    },
-    SET_ROLE_ID: (state, roleId) => {
-      state.roleId = roleId;
-      Storage.saveSession("roleId", roleId);
     },
     SET_CHARGE_STATION_ARR: (state, chargeStationArr) => {
       state.chargeStationArr = chargeStationArr;
@@ -44,6 +40,14 @@ const home = {
     SET_AUTHORIZATION: (state, Authorization) => {
       state.Authorization = Authorization;
       Storage.saveSession("Authorization", Authorization);
+    },
+    SET_AUTHORIZATIONID: (state, AuthorizationID) => {
+      state.AuthorizationID = AuthorizationID;
+      Storage.saveSession("AuthorizationID", AuthorizationID);
+    },
+    SET_AUTHROLE_ID: (state, AuthRoleId) => {
+      state.AuthRoleId = AuthRoleId;
+      Storage.saveSession("AuthRoleId", AuthRoleId);
     },
     SET_OPERATOR_ID: (state, OperatorId) => {
       state.OperatorId = OperatorId;
@@ -84,6 +88,12 @@ const home = {
     setAuthorization({ commit }, Authorization) {
       commit("SET_AUTHORIZATION", Authorization);
     },
+    setAuthorizationID({ commit }, AuthorizationID) {
+      commit("SET_AUTHORIZATIONID", AuthorizationID);
+    },
+    setAuthRoleId({ commit }, AuthRoleId) {
+      commit("SET_AUTHROLE_ID", AuthRoleId);
+    },
     setOperatorId({ commit }, OperatorId) {
       commit("SET_OPERATOR_ID", OperatorId);
     },
@@ -93,9 +103,6 @@ const home = {
     SET_USERUUID({ commit }, userUuid) {
       commit("SET_USERUUID", userUuid);
     },
-    setRoleId({ commit }, roleId) {
-      commit("SET_ROLE_ID", roleId);
-    }
   }
 };
 

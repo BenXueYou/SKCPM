@@ -11,7 +11,7 @@
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
 				<div class="flex-sbw">
-					<el-button type="primary"  v-if="$store.state.home.roleId" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
+					<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 					<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px 0 30px;">
 						<span>运营商：</span>
@@ -39,7 +39,7 @@
 					<el-table-column prop="telephone" label="联系电话" width="180"></el-table-column>
 					<el-table-column prop="email" label="邮箱" width="180"></el-table-column>
 					<el-table-column prop="address" show-overflow-tooltip label="地址"></el-table-column>
-					<el-table-column  v-if="$store.state.home.roleId" label="操作">
+					<el-table-column  v-if="$store.state.home. AuthorizationID" label="操作">
 						<template slot-scope="scope">
 							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 						</template>

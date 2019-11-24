@@ -1,21 +1,21 @@
 <template>
-	<div class="box">
-		<el-container>
-			<el-header>
-				<sk-header></sk-header>
-			</el-header>
-			<el-container class="container">
-				<left-menu class="left-menu"></left-menu>
-				<el-main>
-					<keep-alive>
-						<transition :name="fade">
-							<router-view class="Router"></router-view>
-						</transition>
-					</keep-alive>
-				</el-main>
-			</el-container>
-		</el-container>
-	</div>
+  <div class="box">
+    <el-container>
+      <el-header>
+        <sk-header></sk-header>
+      </el-header>
+      <el-container class="container">
+        <left-menu class="left-menu"></left-menu>
+        <el-main>
+          <keep-alive>
+            <transition :name="fade">
+              <router-view class="Router"></router-view>
+            </transition>
+          </keep-alive>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
@@ -41,6 +41,7 @@ export default {
     });
     this.getPileFactoryList({ pageIndex: 1, pageSize: 100000 });
     this.getProvinceList({ pageIndex: 1, pageSize: 100000 });
+    console.log(this.$store.state.home);
   },
   methods: {
     registerEventbus() {
@@ -129,13 +130,13 @@ export default {
 </script>
 <style>
 .box .tableBox {
-	overflow: auto !important;
-	height: calc(100% - 150px);
-	padding-bottom: 30px;
-	box-sizing: border-box;
+  overflow: auto !important;
+  height: calc(100% - 150px);
+  padding-bottom: 30px;
+  box-sizing: border-box;
 }
 .box .tableBox .el-table {
-	height: 100%;
+  height: 100%;
 }
 /**渐进动画 */
 /* .fade-enter-active,
@@ -173,35 +174,35 @@ export default {
 } */
 
 .slide-left-enter-active {
-	transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .slide-left-leave-active {
-	transition: all 0.8s ease;
+  transition: all 0.8s ease;
 }
 .slide-left-enter,
 .slide-fade-leave-active {
-	transform: translateX(100%);
-	opacity: 0;
+  transform: translateX(100%);
+  opacity: 0;
 }
 .slide-left-leave-to {
-	transform: translateX(-100%);
-	opacity: 0;
+  transform: translateX(-100%);
+  opacity: 0;
 }
 
 .slide-right-enter-active {
-	transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .slide-right-leave-active {
-	transition: all 0.8s ease;
+  transition: all 0.8s ease;
 }
 .slide-fade-leave-active,
 .slide-right-enter {
-	transform: translateX(-100%);
-	opacity: 0;
+  transform: translateX(-100%);
+  opacity: 0;
 }
 .slide-right-leave-to {
-	transform: translateX(100%);
-	opacity: 0;
+  transform: translateX(100%);
+  opacity: 0;
 }
 </style>
 
@@ -209,39 +210,39 @@ export default {
 <style lang="scss" scoped>
 @import "@/style/variables.scss";
 .box {
-	display: flex;
-	justify-content: space-between;
-	height: 100%;
-	color: #cccccc;
-	.editFontClass {
-		font-family: "PingFangSC-Regular";
-		font-size: 13px;
-		color: #26d39d;
-		margin: 0 10px;
-	}
-	.deleteBtnClass {
-		font-family: "PingFangSC-Regular";
-		font-size: 13px;
-		color: #ff5f5f;
-	}
-	.el-container,
-	.container {
-		width: 100%;
-		height: 100%;
-		overflow: auto;
-		.el-header {
-			padding: 0;
-		}
-		.left-menu {
-			// width: 20%;
-			max-width: 200px;
-			background: $--color-left-menu;
-			height: 100%;
-		}
-		.el-main {
-			background-color: rgba(245, 245, 245, 0.8);
-			padding: 10px 20px;
-		}
-	}
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  color: #cccccc;
+  .editFontClass {
+    font-family: "PingFangSC-Regular";
+    font-size: 13px;
+    color: #26d39d;
+    margin: 0 10px;
+  }
+  .deleteBtnClass {
+    font-family: "PingFangSC-Regular";
+    font-size: 13px;
+    color: #ff5f5f;
+  }
+  .el-container,
+  .container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    .el-header {
+      padding: 0;
+    }
+    .left-menu {
+      // width: 20%;
+      max-width: 200px;
+      background: $--color-left-menu;
+      height: 100%;
+    }
+    .el-main {
+      background-color: rgba(245, 245, 245, 0.8);
+      padding: 10px 20px;
+    }
+  }
 }
 </style>
