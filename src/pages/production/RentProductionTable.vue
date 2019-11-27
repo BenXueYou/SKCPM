@@ -8,7 +8,7 @@
 			位置：
 			<span>微信商城／租赁方案</span>
 		</div>
-		<div class="bodyBox">
+		<div v-if="!isShowAddDialog" class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
@@ -77,14 +77,14 @@
 				></el-pagination>
 			</div>
 		</div>
-		<!-- <resveration-table-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+		<rent-add v-else @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
-// import RentProductionTableAdd from "@/components/RentProductionTableAdd";
+import RentAdd from "@/components/RentAdd";
 export default {
   components: {
-    // RentProductionTableAdd
+    RentAdd
   },
   mounted: function() {},
   data: function() {

@@ -8,7 +8,7 @@
 			位置：
 			<span>微信商城／充电桩信息</span>
 		</div>
-		<div class="bodyBox">
+		<div  v-if="!isShowAddDialog" class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
@@ -22,7 +22,7 @@
 							<el-input v-model="productionType"></el-input>
 						</div>
 						<div class="dateBox">
-							<span class="topTitleTxt">预约时间：</span>
+							<span class="topTitleTxt">发布时间：</span>
 							<el-date-picker
 								v-model="beginTime"
 								type="datetime"
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
@@ -78,14 +78,14 @@
 				></el-pagination>
 			</div>
 		</div>
-		<!-- <resveration-table-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+		<pile-production-add v-if="isShowAddDialog" @onCancel="close" ref="PileProductionAdd" />
 	</el-row>
 </template>
 <script>
-// import PileProductionTableAdd from "@/components/PileProductionTableAdd";
+import PileProductionAdd from "@/components/PileProductionAdd";
 export default {
   components: {
-    // PileProductionTableAdd
+    PileProductionAdd
   },
   mounted: function() {},
   data: function() {

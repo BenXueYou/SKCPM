@@ -8,7 +8,7 @@
 			位置：
 			<span>微信商城／加盟条例</span>
 		</div>
-		<div class="bodyBox">
+		<div v-if="!isShowAddDialog" class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
@@ -48,27 +48,37 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
+				<el-button
+					type="primary"
+					v-if="$store.state.home. AuthorizationID"
+					@click="addBtnAct"
+					style="margin:0 10px;"
+				>新增</el-button>
+				<el-button
+					type="primary"
+					v-if="$store.state.home. AuthorizationID"
+					@click="deleteBtnAct"
+					style="margin:0 10px;"
+				>批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
-			<el-table :data="tableData" stripe border  style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="租赁人姓名"></el-table-column>
-				<el-table-column prop="name" label="租赁人电话"></el-table-column>
-				<el-table-column prop="province" label="余额"></el-table-column>
-				<el-table-column prop="city" label="车辆型号"></el-table-column>
-				<el-table-column prop="city" label="车座位数"></el-table-column>
-				<el-table-column prop="zip" label="预约日期"></el-table-column>
-				<el-table-column prop="zip" label="记录日期"></el-table-column>
-				<!-- <el-table-column label="操作">
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="date" label="租赁人姓名"></el-table-column>
+					<el-table-column prop="name" label="租赁人电话"></el-table-column>
+					<el-table-column prop="province" label="余额"></el-table-column>
+					<el-table-column prop="city" label="车辆型号"></el-table-column>
+					<el-table-column prop="city" label="车座位数"></el-table-column>
+					<el-table-column prop="zip" label="预约日期"></el-table-column>
+					<el-table-column prop="zip" label="记录日期"></el-table-column>
+					<!-- <el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
-				</el-table-column> -->
-			</el-table>
+					</el-table-column>-->
+				</el-table>
 			</div>
 			<div class="footer">
 				<el-pagination
@@ -82,7 +92,47 @@
 				></el-pagination>
 			</div>
 		</div>
-		<!-- <resveration-table-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+		<div v-if="isShowAddDialog" style="width:80%;height:80%;margin:30px auto">
+			<el-form ref="form" :model="form" label-width="80px">
+				<el-form-item label="名称">
+					<el-input v-model="form.name"></el-input>
+				</el-form-item>
+				<el-form-item label="时间">
+					<el-col :span="11">
+						<el-date-picker
+							style="width: 100%;"
+							v-model="form.beginTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<!-- <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker> -->
+					</el-col>
+					<el-col class="line" :span="2">————</el-col>
+					<el-col :span="11">
+						<el-date-picker
+							style="width: 100%;"
+							v-model="form.endTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<!-- <el-time-picker placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker> -->
+					</el-col>
+				</el-form-item>
+				<el-form-item label="内容" style="height:65vh;">
+					<vue-ueditor-wrap style="height:80%;" v-model="form.msg" :config="myConfig"></vue-ueditor-wrap>
+				</el-form-item>
+				<el-form-item>
+					<el-button type="primary" @click="onSubmit">立即创建</el-button>
+					<el-button @click="close">取消</el-button>
+				</el-form-item>
+			</el-form>
+		</div>
 	</el-row>
 </template>
 <script>
@@ -94,6 +144,13 @@ export default {
   mounted: function() {},
   data: function() {
     return {
+      form: {
+        name: "",
+        beginTime: "",
+        endTime: "",
+        msg: ""
+      },
+      myConfig: window.config.vueUedutorWrap,
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 15,
@@ -111,6 +168,9 @@ export default {
     };
   },
   methods: {
+    onSubmit() {
+      console.log(this.form);
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -137,6 +197,9 @@ export default {
 };
 </script>
 <style>
+.AlignProductionTable .edui-default .edui-editor-iframeholder {
+	min-height: 50vh;
+}
 .AlignProductionTable .flex-sbw-item {
 	margin: 0 10px;
 }

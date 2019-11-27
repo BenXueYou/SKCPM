@@ -7,6 +7,9 @@ import App from './App';
 import echarts from 'echarts';
 import store from '@/store/store.js';
 import './permission.js';
+// 注册富文本编辑器
+import VueUeditorWrap from 'vue-ueditor-wrap';
+// 以下为http.js的注册
 import businessAjax from '@/http/businessAjax.js';
 import deviceAjax from '@/http/deviceAjax.js';
 import homeAjax from '@/http/homeAjax.js';
@@ -21,6 +24,7 @@ import Toast from "@/utils/Toast.js";
 import Common from '@/utils/Common.js';
 import bankCode from '@/utils/bank_code.js';
 import { EventBusPlugin as EventBus } from '@/utils/Eventbus';
+Vue.component('vue-ueditor-wrap', VueUeditorWrap);
 Vue.prototype.$echarts = echarts;
 Vue.use(Common);
 Vue.use(ElementUI);

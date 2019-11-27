@@ -8,7 +8,7 @@
 			位置：
 			<span>微信商城／车辆信息</span>
 		</div>
-		<div class="bodyBox">
+		<div  v-if="!isShowAddDialog" class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
@@ -77,14 +77,14 @@
 				></el-pagination>
 			</div>
 		</div>
-		<!-- <resveration-table-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+		<prodution-car-add v-if="isShowAddDialog" @onCancel="close" ref="ProdutionCarAdd" />
 	</el-row>
 </template>
 <script>
-// import CarProductionTableAdd from "@/components/CarProductionTableAdd";
+import ProdutionCarAdd from "@/components/ProdutionCarAdd";
 export default {
   components: {
-    // CarProductionTableAdd
+    ProdutionCarAdd
   },
   mounted: function() {},
   data: function() {
