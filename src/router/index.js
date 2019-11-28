@@ -1,33 +1,40 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Home from '@/pages/home/Home';
+
 const Login = () => import(/* webpackChunkName: "login" */ '@/pages/login/Login');
 const Main = () => import(/* webpackChunkName: "main" */ '@/pages/main/Main');
+// 概览
+const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home/Home');
+// 设备管理
 const ChargePile = () => import(/* webpackChunkName: "gdevice" */ '@/pages/device/ChargePile');
 const ChargeAddress = () => import(/* webpackChunkName: "device" */ '@/pages/device/ChargeAddress');
 const ChargeFactory = () => import(/* webpackChunkName: "device" */ '@/pages/device/ChargeFactory');
 const ChargeStation = () => import(/* webpackChunkName: "device" */ '@/pages/device/ChargeStation');
+// 用户管理
 const AppUser = () => import(/* webpackChunkName: "userManage" */ '@/pages/userManage/appUser');
 const Operator = () => import(/* webpackChunkName: "userManage" */ '@/pages/userManage/operator');
 const CardUser = () => import(/* webpackChunkName: "userManage" */ '@/pages/userManage/cardUser');
-
+// 运营管理
 const RechargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RechargeRecord');
 const ChargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargeRecord');
 const RefrundRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RefrundRecord');
 const ChargingRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargingRecord');
-
+const ChargeReport = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargeReport');
+// 运营统计
 const AppUserStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/AppUserStatics');
 const ChargePileStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/ChargePileStatics');
 const ChargeStationStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/ChargeStationStatics');
 const OperatorStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/OperatorStatics');
 
+// 实时监控
 const PileRealData = () => import(/* webpackChunkName: "realData" */ '@/pages/realData/PileRealData');
 const FaultAlarmData = () => import(/* webpackChunkName: "realData" */ '@/pages/realData/FaultAlarmData');
 const SwitchData = () => import(/* webpackChunkName: "realData" */ '@/pages/realData/SwitchData');
 
+// 费率模板
 const BillModel = () => import(/* webpackChunkName: "priceSet" */ '@/pages/priceSet/BillModel');
-const Home = () => import(/* webpackChunkName: "home" */ '@/pages/home/Home');
 
+// 商城
 const CaseProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/CaseProductionTable');
 const ReservationTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/ReservationTable');
 const RentProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/RentProductionTable');
@@ -250,6 +257,12 @@ export default new Router({
           path: "EnterpriseReportData",
           name: "EnterpriseReportData",
           component: EnterpriseReportData,
+          title: "充电报表"
+        },
+        {
+          path: "ChargeReport",
+          name: "ChargeReport",
+          component: ChargeReport,
           title: "充电报表"
         },
       ]

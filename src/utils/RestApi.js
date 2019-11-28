@@ -93,6 +93,9 @@ export default {
 
       getRefrundRecord: `${httpUrlHeader}/weChat/withdraw-list-by-page`,
 
+      // 充电报表
+      getChargeReport: `${httpUrlHeader}/charge/record/charge/reports`
+
     },
 
     /**

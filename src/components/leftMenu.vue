@@ -56,6 +56,7 @@
 						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
 						<el-menu-item index="/Main/RefrundRecord">提现记录</el-menu-item>
 						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
+						<el-menu-item index="/Main/ChargeReport">充电报表</el-menu-item>
 						<!-- <el-menu-item index="/Main/ChargingRecord">扣费记录</el-menu-item> -->
 					</el-submenu>
 					<el-submenu index="6" :class="menuTitle === '6'? 'submenuActiveClass' : ''">

@@ -114,7 +114,7 @@ export default {
     this.csOptions = this.$store.state.home.chargeStationArr;
     this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
-    this.operator = this.operatorOptions[0].operatorId;
+    // this.operator = this.operatorOptions[0].operatorId;
     this.csId = this.csOptions[0].csId;
     this.chargeWay = this.chargeWayOptions[0].typeStr;
     this.initData();
@@ -131,7 +131,7 @@ export default {
       operatorOptions: [],
       operatorName: null,
       stationOptions: [],
-      operatorId: null,
+      operator: null,
       csOptions: [],
       csId: null,
       mainScreenLoading: false,

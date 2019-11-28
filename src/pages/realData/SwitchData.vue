@@ -69,21 +69,20 @@
 					<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 				</div>
 			</div>
-			<div class="topMenu flex-st" style="margin-bottom: 15px;"></div>
-			<div class="topMenu flex-st" style="margin-bottom: 5px;"></div>
 			<div class="tableBox">
 			<el-table :data="tableData" stripe border  style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="充电桩" width="120"></el-table-column>
-				<el-table-column prop="name" label=" 新值" width="100"></el-table-column>
-				<el-table-column prop="zip" label="新值含义"></el-table-column>
-				<el-table-column prop="id" label="新值记录时间" width="180"></el-table-column>
-				<el-table-column prop="index" label="旧值" width="100"></el-table-column>
-				<el-table-column prop="index" label="旧值含义"></el-table-column>
-				<el-table-column prop="zip" label="旧值记录时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="确认状态" width="100"></el-table-column>
-				<el-table-column prop="zip" label="确认模式" width="100"></el-table-column>
+				<el-table-column prop="cpId" label="充电桩" width="120"></el-table-column>
+				<el-table-column prop="newValue" label=" 新值" width="100"></el-table-column>
+				<el-table-column prop="newValueMean" label="新值含义"></el-table-column>
+				<el-table-column prop="newValueRecordTime" label="新值记录时间" width="180"></el-table-column>
+				<el-table-column prop="oldValue" label="旧值" width="100"></el-table-column>
+				<el-table-column prop="oldValueMean" label="旧值含义"></el-table-column>
+				<el-table-column prop="oldValueRecordTime" label="旧值记录时间" width="180"></el-table-column>
+				<el-table-column prop="checkState" label="确认状态" width="100"></el-table-column>
+				<el-table-column prop="checkMode" label="确认模式" width="100"></el-table-column>
+				<el-table-column prop="gmtModify" label="入库时间" width="100"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">确认</el-button>
@@ -170,8 +169,8 @@ export default {
           cpType: this.cpType,
           type: this.type
         },
-        pageIndex: 1,
-        pageSize: 10,
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
         queryCount: true,
         start: 0
       };

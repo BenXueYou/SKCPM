@@ -159,9 +159,9 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
+      csId: null,
       stationOptions: [],
-      operator: null,
+      operatorId: null,
       mainScreenLoading: false,
       tableData: [],
       cpType: 0,
@@ -233,6 +233,8 @@ export default {
 </script>
 <style>
 .PileRealData .flex-sbw-item .el-input,
+.PileRealData .flex-sbw-div .el-input,
+.PileRealData .flex-sbw-div .el-input__inner,
 .PileRealData .flex-sbw-item .el-input__inner {
 	width: 160px;
 	height: 32px;
