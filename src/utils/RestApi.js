@@ -85,6 +85,7 @@ export default {
     BusinessAjax: {
       getChargeRecordTotal: `${httpUrlHeader}/charge/record/count`,
       exportChargeRecord: `${httpUrlHeader}/charge/record/export`,
+      updateChargeRecord: `${httpUrlHeader}/charge/record/update`,
       getChargeRecordList: `${httpUrlHeader}/charge/record/list-by-page`,
       deductRecordList: `${httpUrlHeader}/deduct/record/list`,
 

@@ -26,6 +26,14 @@ export var businessAjax = {
       data: xhr
     });
   },
+  updateChargeRecord(xhr) {
+    let url = `${RestApi.api.BusinessAjax.updateChargeRecord}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
   // 扣款记录
   deductRecordList(xhr) {
     let url = `${RestApi.api.BusinessAjax.deductRecordList}`;

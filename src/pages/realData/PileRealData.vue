@@ -92,6 +92,7 @@
 					<el-table-column prop="gun" label="枪号" width="60"></el-table-column>
 					<el-table-column prop="cpState" label="设备状态" width="100"></el-table-column>
 					<el-table-column prop="gunState" label="枪状态" width="100"></el-table-column>
+					<el-table-column prop="userId" label="用户ID" width="100"></el-table-column>
 					<el-table-column v-if="!cpType" prop="city" label="SOC" width="100"></el-table-column>
 					<el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
 					<el-table-column prop="chargeMoney" label="充电金额(元)" width="100"></el-table-column>

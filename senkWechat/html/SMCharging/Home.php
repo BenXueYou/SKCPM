@@ -35,7 +35,7 @@
 		$user = new USER($openid, $access_token);
 		//$user->saveUserInfo();
 	}
-	$jssdk = new JSSDK("wx031732af628faee0", "5e8ccf52a81d427752241374212af303");
+	$jssdk = new JSSDK("wxe76a06a63e687acb", "a594e4f4526e2b61863fc4b059b88a59");
 	$signPackage = $jssdk->GetSignPackage();
 	?>
   <!DOCTYPE html>
@@ -154,7 +154,6 @@
   					mui.prompt('输入设备号', '设备号+枪号"0*"', '提示', ["取消", "确定"], function(data) {
   						if (data.index) {
   							deviceId = data.value;
-  							// deviceId = "140105000000014300";
   							getPileBaseInfo(deviceId);
   						}
   					}, 'div');
