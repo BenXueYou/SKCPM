@@ -17,17 +17,17 @@ $jsonmenu = '{
             {
                "type":"view",
                "name":"扫码充电",
-               "url":"http://47.104.204.250/senkWechat/html/SMCharging/scanCode.php"
+               "url":"http://sksenk.cn/senkWechat/html/SMCharging/scanCode.php"
             },
             {
                "type":"view",
                "name":"预约充电",
-               "url":"http://47.104.204.250/senkWechat/html/SMCharging/appointCharge.html"
+               "url":"http://sksenk.cn/senkWechat/html/SMCharging/appointCharge.html"
             },
            {
                 "type":"view",
                 "name":"地图找桩",
-                "url":"http://47.104.204.250/senkWechat/html/SMCharging/webMap.html"
+                "url":"http://sksenk.cn/senkWechat/html/SMCharging/webMap.html"
             }]
        },
        {
@@ -36,12 +36,12 @@ $jsonmenu = '{
             {
                "type":"view",
                "name":"最新动态",
-               "url":"http://47.104.204.250/senkWechat/html/shopHome/shopHome.html"
+               "url":"http://sksenk.cn/senkWechat/html/shopHome/shopHome.html"
             },
             {
                "type":"view",
                "name":"产品资讯",
-               "url":"http://47.104.204.250/senkWechat/html/shopHome/ProductMsg.html"
+               "url":"http://sksenk.cn/senkWechat/html/shopHome/ProductMsg.html"
             },
             {
                 "type":"click",
@@ -55,12 +55,12 @@ $jsonmenu = '{
             {
                 "type":"view",
                 "name":"我的账户",
-                "url":"http://47.104.204.250/senkWechat/html/MY/My.html"
+                "url":"http://sksenk.cn/senkWechat/html/MY/My.html"
             },
             {
                 "type":"view",
                 "name":"技术支持",
-                "url":"http://47.104.204.250/senkWechat/"
+                "url":"http://sksenk.cn/senkWechat/"
             },
             {
                 "type":"view",

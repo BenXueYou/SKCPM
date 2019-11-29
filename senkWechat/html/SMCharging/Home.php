@@ -4,39 +4,39 @@
 	header("content-type:text/HTML;charset=utf-8");
 	require_once "../../php/jssdk.php";
 	require_once "../../php/wechatUserInfo.php";
-	$appid = "wxe76a06a63e687acb";
+	$appid = "wxe76a06a63e687acb ";
 	$secret = "a594e4f4526e2b61863fc4b059b88a59";
 
-	// if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
-	// 	$APPID = 'wx031732af628faee0';
-	// 	/***************************************************************************/
-	// 	//echo $_SERVER['HTTP_HOST'];
-	// 	$REDIRECT_URI = urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
-	// 	print($REDIRECT_URI);
-	// 	//$REDIRECT_URI = urlencode('https://www.gxbie.com/LanChangWechat/html/SMCharging/Home.php');
-	// 	/***************************************************************************/
-	// 	//$scope='snsapi_base';
-	// 	$scope = 'snsapi_userinfo'; //需要授权
-	// 	$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . $REDIRECT_URI . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
-	// 	header("Location:" . $url);
-	// } else {
-	// 	$code = $_GET["code"];
-	// 	$get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
-	// 	$ch = curl_init();
-	// 	curl_setopt($ch, CURLOPT_URL, $get_token_url);
-	// 	curl_setopt($ch, CURLOPT_HEADER, 0);
-	// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	// 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-	// 	$res = curl_exec($ch);
-	// 	curl_close($ch);
-	// 	$user_obj = json_decode($res, true);
-	// 	$openid = $user_obj['openid'];
-	// 	$access_token = $user_obj['access_token'];
-	// 	$user = new USER($openid, $access_token);
-	// 	//$user->saveUserInfo();
-	// }
-	// $jssdk = new JSSDK("wx031732af628faee0", "5e8ccf52a81d427752241374212af303");
-	// $signPackage = $jssdk->GetSignPackage();
+	if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
+		$APPID = 'wxe76a06a63e687acb';
+		/***************************************************************************/
+		//echo $_SERVER['HTTP_HOST'];
+		$REDIRECT_URI = urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
+		print($REDIRECT_URI);
+		//$REDIRECT_URI = urlencode('https://www.gxbie.com/LanChangWechat/html/SMCharging/Home.php');
+		/***************************************************************************/
+		//$scope='snsapi_base';
+		$scope = 'snsapi_userinfo'; //需要授权
+		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . $REDIRECT_URI . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
+		header("Location:" . $url);
+	} else {
+		$code = $_GET["code"];
+		$get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, $get_token_url);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		$res = curl_exec($ch);
+		curl_close($ch);
+		$user_obj = json_decode($res, true);
+		$openid = $user_obj['openid'];
+		$access_token = $user_obj['access_token'];
+		$user = new USER($openid, $access_token);
+		//$user->saveUserInfo();
+	}
+	$jssdk = new JSSDK("wx031732af628faee0", "5e8ccf52a81d427752241374212af303");
+	$signPackage = $jssdk->GetSignPackage();
 	?>
   <!DOCTYPE html>
   <html>
@@ -72,9 +72,9 @@
   	<script type="text/javascript">
   		//定义全局变量
   		var openId = '<?php echo $openid; ?>';
-  		var userid = openId = "oR9d21lZxSloF2iQtPHjdRAdy-2o";
-  		var userid = openId = "safasjfdnsakm2322";
-  		var userid = openId = "safasjfdnsakm2322";
+  		// var userid = openId = "oR9d21lZxSloF2iQtPHjdRAdy-2o";
+  		// var userid = openId = "safasjfdnsakm2322";
+  		// var userid = openId = "safasjfdnsakm2322";
   		var userid = openId;
   		var deviceId, cpid;
   		deviceId = cpid;

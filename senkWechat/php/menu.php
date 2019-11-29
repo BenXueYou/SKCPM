@@ -15,22 +15,17 @@ $jsonmenu = '{
             {
                "type":"view",
                "name":"扫码充电",
-               "url":"http://wx.senk.com.cn/senkWechat/html/scanCharging/Home.php"
+               "url":"http://sksenk.cn/senkWechat/html/scanCharging/Home.php"
             },
             {
                 "type":"view",
                 "name":"订单记录",
-                "url":"http://wx.senk.com.cn/senkWechat/html/MY/recHome.php"
+                "url":"http://sksenk.cn/senkWechat/html/MY/recHome.php"
             },
             {
                "type":"view",
                "name":"地图找桩",
-               "url":"http://wx.senk.com.cn/senkWechat/html/Map/webMap.html"
-            },
-            {
-               "type":"view",
-               "name":"下载APP",
-               "url":"http://wx.senk.com.cn/senkWechat/download.html"
+               "url":"http://sksenk.cn/senkWechat/html/Map/webMap.html"
             }
            ]
 
