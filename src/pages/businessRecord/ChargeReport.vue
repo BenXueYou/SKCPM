@@ -155,7 +155,7 @@ export default {
     ChargeRecordDetail
   },
   mounted: function() {
-    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
+    this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.csOptions = this.$store.state.home.chargeStationArr;
@@ -170,7 +170,7 @@ export default {
       total: 10,
       beginTime: null,
       endTime: null,
-      chargeWay: null,
+      chargeWay: 3,
       chargeWayOptions: [
         // { typeStr: 0, typeName: "APP充电" },
         { typeStr: 1, typeName: "刷卡充电" },
@@ -200,7 +200,7 @@ export default {
       csOptions: [],
       operatorOptions: [],
       operatorId: null,
-      type: null,
+      type: 1,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };
