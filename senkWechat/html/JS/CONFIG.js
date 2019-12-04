@@ -55,6 +55,6 @@ const CONFIGS = {
     tmin = tmin < 10 ? "0" + tmin : tmin;
     var tsd = ts.getSeconds();
     tsd = tsd < 10 ? "0" + tsd : tsd;
-    return ("lc" + indexNo + ty + tm + td + th + tmin + tsd);
+    return ("sk" + indexNo + ty + tm + td + th + tmin + tsd);
   }
 };

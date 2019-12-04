@@ -17,7 +17,7 @@ $jsonmenu = '{
             {
                "type":"view",
                "name":"扫码充电",
-               "url":"http://sksenk.cn/senkWechat/html/SMCharging/scanCode.php"
+               "url":"http://sksenk.cn/senkWechat/html/SMCharging/Home.php"
             },
             {
                "type":"view",

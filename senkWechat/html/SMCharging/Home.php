@@ -4,36 +4,37 @@
 	header("content-type:text/HTML;charset=utf-8");
 	require_once "../../php/jssdk.php";
 	require_once "../../php/wechatUserInfo.php";
-	$appid = "wxe76a06a63e687acb ";
+	$appid = "wxe76a06a63e687acb";
 	$secret = "a594e4f4526e2b61863fc4b059b88a59";
 
 	if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 		$APPID = 'wxe76a06a63e687acb';
 		/***************************************************************************/
 		//echo $_SERVER['HTTP_HOST'];
-		$REDIRECT_URI = urlencode('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
-		print($REDIRECT_URI);
-		//$REDIRECT_URI = urlencode('https://www.gxbie.com/LanChangWechat/html/SMCharging/Home.php');
+		$REDIRECT_URI = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
+		$REDIRECT_URI = urlencode('http://sksenk.cn/senkWechat/html/SMCharging/Home.php');
 		/***************************************************************************/
-		//$scope='snsapi_base';
-		$scope = 'snsapi_userinfo'; //需要授权
+		$scope = 'snsapi_base';
+		//$scope = 'snsapi_userinfo'; //需要授权
 		$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . $REDIRECT_URI . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
 		header("Location:" . $url);
 	} else {
+		$appid = "wxe76a06a63e687acb";
+		$secret = "a594e4f4526e2b61863fc4b059b88a59";
 		$code = $_GET["code"];
 		$get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $get_token_url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); //不验证证书下同
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
 		$res = curl_exec($ch);
 		curl_close($ch);
 		$user_obj = json_decode($res, true);
 		$openid = $user_obj['openid'];
-		$access_token = $user_obj['access_token'];
-		$user = new USER($openid, $access_token);
-		//$user->saveUserInfo();
 	}
 	$jssdk = new JSSDK("wxe76a06a63e687acb", "a594e4f4526e2b61863fc4b059b88a59");
 	$signPackage = $jssdk->GetSignPackage();
@@ -53,7 +54,7 @@
   	<script type="text/javascript" src="../JS/jquery-3.0.0.min.js"></script>
   	<link rel="stylesheet" type="text/css" href="../../CSS/mui.min.css" />
   	<link rel="stylesheet" type="text/css" href="../../CSS/scanCode.css" />
-  	<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
   	<title>扫码充电</title>
   	<style type="text/css">
   	</style>
@@ -73,8 +74,6 @@
   		//定义全局变量
   		var openId = '<?php echo $openid; ?>';
   		// var userid = openId = "oR9d21lZxSloF2iQtPHjdRAdy-2o";
-  		// var userid = openId = "safasjfdnsakm2322";
-  		// var userid = openId = "safasjfdnsakm2322";
   		var userid = openId;
   		var deviceId, cpid;
   		deviceId = cpid;
@@ -100,12 +99,12 @@
   		//调起微信扫码接口    
   		function wxScanAPI() {
   			wx.config({
-  				debug: false,
+  				debug: true,
   				appId: '<?php echo $signPackage["appId"]; ?>',
   				timestamp: '<?php echo $signPackage["timestamp"]; ?>',
   				nonceStr: '<?php echo $signPackage["nonceStr"]; ?>',
   				signature: '<?php echo $signPackage["signature"]; ?>',
-  				jsApiList: ["scanQRCode", ] // 所有要调用的 API 都要加到这个列表中     
+  				jsApiList: ["scanQRCode"] //// 所有要调用的 API 都要加到这个列表中   
   			});
   			wx.ready(function() {
   				wx.scanQRCode({
@@ -134,8 +133,8 @@
 		   */
   		function getPileBaseInfo(deviceId) {
   			Pile.pileState(CONFIGS.URLManage().getCpileStateoApi, deviceId, function(data) {
-				debugger;  
-				if (data) {
+  				debugger;
+  				if (data) {
   					console.log(data);
   					data.deviceId = deviceId;
   					data.openId = openId;

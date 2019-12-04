@@ -1,35 +1,28 @@
 var Order = {
   // 微信公众号支付下单
-  getOrderToWechat: function (url, openid, out_trade_no, total_fee, callback) {
-    url = "https://www.gxbie.com/LanChangWechat/html/MY/wx_pay/WechatPay/wxPayOrder.php";
-    console.log("url======" + url + "==openid===" + openId);
-    $.ajax({
+  getOrderToWechat: function (data, callback) {
+    url = "http://sksenk.cn/senkWechat/html/MY/wx_pay/WechatPay/wxPayOrder.php";
+    mui.ajax(url, {
       type: "GET",
-      url: url,
       dataType: "json",
       timeout: 10000,
       data: {
-        openId: openid,
-        total_fee: total_fee,
-        out_trade_no: out_trade_no,
+        openId: data.openId,
+        total_fee: data.money,
+        out_trade_no: data.outTradeNo,
       },
       success: function (data) {
-        console.log(data); // 日志传输
-        // outTradeNo = data[0];
+        console.log(data);
         var order = data[1];
-
-        // alert("---"+order);
-
-        if (order == false || order == "false") {
+        if (order === false) {
           order = "100";
         }
         callback(order);
       },
       error: function (jqXHR) {
         alert("下单发生错误");
-        // alert(jqXHR + "下单发生错误：" + JSON.stringify(jqXHR));
         console.log("get wechat pay order error!!!" + JSON.stringify(jqXHR));
-        callback(false);
+        callback();
       }
     });
   },
@@ -40,7 +33,6 @@ var Order = {
 	*/
   getUserMoneyFromWechat: function (url, openId, partner_trade_no, amount, callback) {
     url = url + "../MY/wx_pay/WechatPay/transferJsApi.php";
-
     var mask = mui.createMask();
     var result = "0";
     var postData = {
@@ -48,7 +40,6 @@ var Order = {
       partner_trade_no: partner_trade_no,
       amount: amount
     };
-
     ajaxBase(url, false, postData, function (data) {
       if (data) {
         try {

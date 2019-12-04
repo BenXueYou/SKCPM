@@ -5,7 +5,7 @@ $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&app
 
 $output = https_request($url);
 $jsoninfo = json_decode($output, true);
-echo $jsoninfo;
+
 $access_token = $jsoninfo["access_token"];
 $jsonmenu = '{
       "button":[
@@ -15,17 +15,22 @@ $jsonmenu = '{
             {
                "type":"view",
                "name":"扫码充电",
-               "url":"http://sksenk.cn/senkWechat/html/scanCharging/Home.php"
+               "url":"http://47.104.204.250/senkWechat/html/scanCharging/Home.php"
             },
             {
                 "type":"view",
                 "name":"订单记录",
-                "url":"http://sksenk.cn/senkWechat/html/MY/recHome.php"
+                "url":"http://47.104.204.250/senkWechat/html/MY/recHome.php"
             },
             {
                "type":"view",
                "name":"地图找桩",
-               "url":"http://sksenk.cn/senkWechat/html/Map/webMap.html"
+               "url":"http://47.104.204.250/senkWechat/html/Map/webMap.html"
+            },
+            {
+               "type":"view",
+               "name":"下载APP",
+               "url":"http://wx.senk.com.cn/senkWechat/download.html"
             }
            ]
 

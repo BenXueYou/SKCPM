@@ -269,7 +269,7 @@
 						mui.openWindow("charging.php?cpObj=" +
 							encodeURIComponent(JSON.stringify(data)), "charging.php", {}, "slide-in-right", 200);
 					} else {
-						mui.alert(data.errorMessage);
+						alert(e.errorMessage);
 					}
 				});
 			}.bind(this), 2000);

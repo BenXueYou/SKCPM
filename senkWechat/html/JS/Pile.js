@@ -99,11 +99,11 @@ var Pile = {
         if (data.success) {
           callback(data);
         } else {
-          callback();
+          callback(data);
         }
       },
       error: function (xhr, type, error) {
-        callback();
+        callback(data);
       }
     });
   },

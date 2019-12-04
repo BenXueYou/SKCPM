@@ -1,5 +1,5 @@
 	body {
-		background-color:#FFFFFF;
+		background-color: white;
 		padding: 0;
 		margin: 0;
 		position: relative;
@@ -22,9 +22,8 @@
 		text-align: center;
 	}
 	
-	.scanBtnClass {
+	button {
 		height: 60px;
-		background-color:#FFFFFF;
 		background: url(../img/扫描.png) no-repeat center;
 		background-clip: content-box;
 		background-origin: content-box;
@@ -37,7 +36,6 @@
 		margin: 50px 30% 10px;
 		font-size: 20px;
 		padding: 10px 0;
-		box-shadow: 1px 2px 3px 2px #299dff38;
 	}
 	
 	p {

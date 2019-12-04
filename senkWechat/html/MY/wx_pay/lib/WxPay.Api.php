@@ -623,9 +623,7 @@ class WxPayApi
 			curl_setopt($ch,CURLOPT_PROXY, WxPayConfig::CURL_PROXY_HOST);
 			curl_setopt($ch,CURLOPT_PROXYPORT, WxPayConfig::CURL_PROXY_PORT);
 		}
-        
         //var_dump("设置代理");
-        
 		curl_setopt($ch,CURLOPT_URL, $url);
 		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
 		curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);//严格校验
@@ -633,18 +631,13 @@ class WxPayApi
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		//要求结果为字符串且输出到屏幕上
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-	
 		if($useCert == true){
-            
-            
 			//使用证书：cert 与 key 分别属于两个.pem文件
 			curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
 			curl_setopt($ch,CURLOPT_SSLCERT, dirname(dirname(__FILE__))."/cert-2/apiclient_cert.pem");
 			curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
 			curl_setopt($ch,CURLOPT_SSLKEY, dirname(dirname(__FILE__))."/cert-2/apiclient_key.pem");
-             
             //echo "设置证书";
-            
 		}
 		//post提交方式
 		curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -653,17 +646,12 @@ class WxPayApi
 		$data = curl_exec($ch);    
 		//返回结果
 		if($data){
-            
 			curl_close($ch);
-           // var_dump($data);
 			return $data;
 		} else { 
-            
 			$error = curl_errno($ch);
 			curl_close($ch);
-            
            // echo "错误码".$error;
-            
 			throw new WxPayException("curl出错，错误码:$error");
 		}
 	}
