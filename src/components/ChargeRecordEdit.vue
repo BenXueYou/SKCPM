@@ -3,41 +3,56 @@
 		:title="title"
 		@close="close"
 		:width="width"
-		class="ChrageRecordDetail"
+		class="ChargeRecordEdit"
 		:visible.sync="dialogVisible"
 	>
 		<div class="body">
 			<div class="body_box" style="border-top:0px;">
 				<el-row type="flex" justify="flex-start" :gutter="20">
-					<el-col style="text-align:right;" :span="5">
-						<p>订单编号：</p>
+					<el-col style="text-align:right;" :span="6">
+						<p style="margin:7px 0">订单编号：</p>
 					</el-col>
-					<el-col style="text-align:right;" :span="17">
-						<p style="text-align:left">{{rowData.transactionId}}</p>
+					<el-col style="text-align:right;" :span="18">
+						<p style="text-align:left;margin:7px 0">{{rowData.transactionId}}</p>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="flex-start" :gutter="20">
-					<el-col style="text-align:right;" :span="5">
-						<p>服务费：</p>
-						<p>基础电费：</p>
-						<p>充电总金额：</p>
-						<p>充电电量：</p>
-						<p>充电前金额：</p>
-						<p>充电后金额：</p>
-						<p>充电时长：</p>
+					<el-col style="text-align:right;" :span="6">
+						<p class="leftPClass">服务费：</p>
+						<p class="leftPClass">基础电费：</p>
+						<p class="leftPClass">充电电量：</p>
+						<p class="leftPClass">充电时长：</p>
+						<p class="leftPClass">充电前金额：</p>
+						<p class="leftPClass">充电总金额：</p>
+						<p class="leftPClass">充电后金额：</p>
 					</el-col>
-					<el-col :span="6" style="text-align:left;">
-						<p><el-input v-model="rowData.serviceTip"></el-input></p>
-						<p><el-input v-model="rowData.chargeMoney"></el-input></p>
+					<el-col :span="10" class="rightClass">
+						<p>
+							<el-input v-model="rowData.serviceTip"></el-input>
+						</p>
+						<p>
+							<el-input v-model="rowData.chargeMoney"></el-input>
+						</p>
+						<p>
+							<el-input v-model="rowData.chargeQuantity"></el-input>
+						</p>
+						<p>
+							<el-input v-model="rowData.timeSpan"></el-input>
+						</p>
+						<p>
+							<el-input v-model="rowData.beforeChargeBalance"></el-input>
+						</p>
+						<!-- <p><el-input v-model="rowData.serviceTip"></el-input></p> -->
 						<p>{{rowData.chargeMoney + rowData.serviceTip}}</p>
-						<p><el-input v-model="rowData.chargeQuantity"></el-input></p>
-						<p><el-input v-model="rowData.beforeChargeBalance"></el-input></p>
-						<p><el-input v-model="rowData.serviceTip"></el-input></p>
 						<p>{{rowData.beforeChargeBalance - rowData.chargeMoney - rowData.serviceTip}}</p>
-						<p><el-input v-model="rowData.timeSpan"></el-input></p>
 						<!-- <p>{{$common.formatSeconds(rowData.timeSpan)}}</p> -->
 					</el-col>
-					<el-col style="text-align:right;" :span="4">
+				</el-row>
+			</div>
+			<hr style="border-top:1px dashed rgba(25,25,25,0.1); height:0px;margin-right:26px" />
+			<div class="body_box">
+				<el-row type="flex" justify="flex-start" :gutter="20">
+					<el-col style="text-align:right;" :span="6">
 						<p>充电模式：</p>
 						<p>交易状态：</p>
 						<p>停机原因：</p>
@@ -46,7 +61,7 @@
 						<p>结束时间：</p>
 						<p>电表总度数：</p>
 					</el-col>
-					<el-col :span="9" style="text-align:left;">
+					<el-col :span="12" style="text-align:left">
 						<p>{{rowData.chargeModeId}}</p>
 						<p>{{rowData.chargeFinishedFlag}}</p>
 						<p>{{rowData.chargeEndCause || ''}}</p>
@@ -57,50 +72,13 @@
 					</el-col>
 				</el-row>
 			</div>
-			<hr style="border-top:1px dashed rgba(25,25,25,0.1); height:0px;margin-right:26px">
-			<div class="body_box">
-				<el-row type="flex" justify="flex-start" :gutter="20">
-					<el-col style="text-align:right;" :span="5">
-						<p>运营商：</p>
-						<p>充电站：</p>
-						<p>充电站编号：</p>
-						<p>充电桩：</p>
-						<p>充电桩编号：</p>
-						<p>充电桩枪号：</p>
-					</el-col>
-					<el-col :span="6" style="text-align:left;">
-						<p>{{rowData.operatorName}}</p>
-						<p>{{rowData.csName}}</p>
-						<p>{{rowData.csId}}</p>
-						<p>{{rowData.cpId}}</p>
-						<p>{{rowData.deviceId}}</p>
-						<p>{{rowData.interfaceId}}</p>
-					</el-col>
-					<el-col style="text-align:right;" :span="4">
-						<p>用户(卡)ID：</p>
-						<p>手机号：</p>
-						<p>证件号：</p>
-						<p>车牌号：</p>
-						<p>VIN号：</p>
-						<p>大占比段：</p>
-					</el-col>
-					<el-col :span="9" style="text-align:left;">
-						<p>{{rowData.userId}}</p>
-						<p>{{rowData.cellphone || ''}}</p>
-						<p>{{rowData.nativePlace || ''}}</p>
-						<p>{{rowData.address || ''}}</p>
-						<p>{{rowData.remarks || ''}}</p>
-						<p>{{rowData.remarks || ''}}</p>
-					</el-col>
-				</el-row>
-			</div>
 		</div>
 		<div slot="footer" class="dialogHeaderClass">
 			<el-row type="flex" justify="space-between">
 				<el-col style="text-align:left" :span="4"></el-col>
 				<el-col class="header_right_box" :span="20">
-					<!-- <el-button @click="confirm" type="primary">保存并新增</el-button>
-					<el-button @click="confirm" type="primary">确认</el-button>-->
+					<!-- <el-button @click="confirm" type="primary">保存并新增</el-button>-->
+					<el-button @click="confirm" type="primary">确认</el-button>
 					<el-button @click="close" type="primary">关闭</el-button>
 				</el-col>
 			</el-row>
@@ -113,13 +91,13 @@ export default {
     width: {
       type: String,
       default() {
-        return "720px";
+        return "600px";
       }
     },
     title: {
       type: String,
       default() {
-        return "记录详情";
+        return "编辑";
       }
     },
     value: {
@@ -203,7 +181,21 @@ export default {
       this.$emit("update:visible", false);
       this.$emit("close");
     },
-    confirm() {},
+    confirm() {
+      this.$businessAjax
+        .updateChargeRecord(this.rowData)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("修改成功");
+            this.$emit("onCancel", true);
+          } else {
+            this.$message.warning("修改失败");
+          }
+        })
+        .catch(() => {
+          //   this.$message.error();
+        });
+    },
     nodeClick(data, node, nodeTree) {
       var checkedKeys = this.$refs.roomTree.getCheckedKeys();
       if (checkedKeys.indexOf(data.id) !== -1) {
@@ -239,7 +231,7 @@ export default {
 };
 </script>
 <style>
-.ChrageRecordDetail .el-dialog {
+.ChargeRecordEdit .el-dialog {
 	position: relative;
 	top: 60px;
 	left: 50%;
@@ -248,21 +240,21 @@ export default {
 	margin: 0px !important;
 	/* background: #212325; */
 }
-.ChrageRecordDetail .el-dialog__body {
+.ChargeRecordEdit .el-dialog__body {
 	padding: 0px 0px 10px 20px;
 	color: #606266;
 	font-size: 14px;
 	word-break: break-all;
 }
-.ChrageRecordDetail .el-input__icon {
+.ChargeRecordEdit .el-input__icon {
 	line-height: 30px;
 	color: #26d39d;
 }
-.ChrageRecordDetail .el-dialog__headerbtn {
+.ChargeRecordEdit .el-dialog__headerbtn {
 	top: 18px;
 	display: none;
 }
-.ChrageRecordDetail .el-dialog__header {
+.ChargeRecordEdit .el-dialog__header {
 	height: auto;
 }
 .dialogHeaderClass {
@@ -270,52 +262,52 @@ export default {
 	padding: 5px 40px 14px;
 	box-sizing: border-box;
 }
-.ChrageRecordDetail .dialogHeaderClass .header_left_txt {
+.ChargeRecordEdit .dialogHeaderClass .header_left_txt {
 	border-left: 2px solid #26d39d;
-	font-family: 'PingFangSC-Regular';
+	font-family: "PingFangSC-Regular";
 	font-size: 14px;
 	color: #ffffff;
 	padding-left: 10px;
 }
-.ChrageRecordDetail .pBox {
+.ChargeRecordEdit .pBox {
 	display: flex;
 	justify-content: flex-start;
 	margin: 7px 0 8px;
 }
-.ChrageRecordDetail .pBox div {
+.ChargeRecordEdit .pBox div {
 	width: 50%;
 	text-align: left;
 }
-.ChrageRecordDetail .header_right_box {
+.ChargeRecordEdit .header_right_box {
 	text-align: right;
 	margin-top: -10px;
 }
-.ChrageRecordDetail .header_right_box button {
+.ChargeRecordEdit .header_right_box button {
 	height: 32px;
-	font-family: 'PingFangSC-Regular';
+	font-family: "PingFangSC-Regular";
 	font-size: 13px;
 	color: #ffffff;
 	text-align: justify;
 	padding: 7px 17px;
 }
 
-.ChrageRecordDetail .imgBox {
+.ChargeRecordEdit .imgBox {
 	display: inline-block;
 	width: 100%;
 	height: 100px;
 	background: rgba(0, 0, 0, 0.1);
 	border: 0 solid rgba(255, 255, 255, 0.1);
 }
-.ChrageRecordDetail .imgBox img {
+.ChargeRecordEdit .imgBox img {
 	width: 100%;
 	height: 100%;
 }
-.ChrageRecordDetail .left_tips_txt {
-	font-family: 'PingFangSC-Regular';
+.ChargeRecordEdit .left_tips_txt {
+	font-family: "PingFangSC-Regular";
 	font-size: 13px;
 	color: #26d39d;
 }
-.ChrageRecordDetail .el-upload {
+.ChargeRecordEdit .el-upload {
 	display: inline-block;
 	text-align: center;
 	width: 100%;
@@ -323,40 +315,43 @@ export default {
 	cursor: pointer;
 	outline: none;
 }
-.ChrageRecordDetail .authBox {
+.ChargeRecordEdit .authBox {
 	display: flex;
 	justify-content: flex-start;
 	flex-direction: row;
 	flex-wrap: wrap;
 }
-.ChrageRecordDetail .el-select {
+.ChargeRecordEdit .el-select {
 	display: inline-block;
 	position: relative;
 	width: 30%;
 }
-.ChrageRecordDetail .el-select .el-input {
+
+.ChargeRecordEdit .rightClass .el-input {
 	width: 100%;
 }
-.ChrageRecordDetail .el-select .el-select-dropdown__list {
+.ChargeRecordEdit .el-select .el-input {
 	width: 100%;
 }
-.ChrageRecordDetail .el-input {
+.ChargeRecordEdit .el-select .el-select-dropdown__list {
+	width: 100%;
+}
+.ChargeRecordEdit .el-input {
 	display: inline-block;
 	width: 30%;
 	height: 30px;
 }
-.ChrageRecordDetail .el-input .el-input__inner {
+.ChargeRecordEdit .el-input .el-input__inner {
 	height: 30px;
 	padding-right: 15px;
 }
-.ChrageRecordDetail .body_box {
-	padding: 15px 0px 20px;
+.ChargeRecordEdit .body_box {
 	color: #bbbbbb;
 }
 .el-dialog__wrapper {
 	overflow: auto;
 }
-.ChrageRecordDetail .time-line {
+.ChargeRecordEdit .time-line {
 	display: inline-block;
 	border-width: 1px 0px 0px 0px;
 	width: 8px;
@@ -364,8 +359,11 @@ export default {
 	border-style: solid;
 	margin: 0px 3px;
 }
-.ChrageRecordDetail .img {
+.ChargeRecordEdit .img {
 	vertical-align: baseline;
+}
+.ChargeRecordEdit .leftPClass {
+	margin: 25px 0;
 }
 </style>
 
@@ -389,8 +387,13 @@ export default {
 			font-family: "PingFangSC-Regular";
 			font-size: 12px;
 			color: #606266;
-			margin: 7px 0 8px;
 			height: 16px;
+		}
+		.rightClass {
+			text-align: left;
+			p {
+				margin: 25px 0;
+			}
 		}
 	}
 }

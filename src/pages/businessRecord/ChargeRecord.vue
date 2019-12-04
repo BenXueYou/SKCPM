@@ -109,9 +109,10 @@
 					</el-table-column>
 					<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
 					<el-table-column prop="chargeMoney" label="充电总金额" width="100"></el-table-column>
-					<el-table-column label="操作">
+					<el-table-column label="操作" width="120">
 						<template slot-scope="scope">
 							<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+							<el-button @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -134,13 +135,21 @@
 			@onCancel="close"
 			ref="houseTable"
 		/>
+		<charge-record-edit
+			:visible.sync="dialogRecordView"
+			:rowData="rowData"
+			@onCancel="closeRecordView"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
 import ChargeRecordDetail from "@/components/ChargeRecordDetail";
+import ChargeRecordEdit from "@/components/ChargeRecordEdit";
 export default {
   components: {
-    ChargeRecordDetail
+    ChargeRecordDetail,
+    ChargeRecordEdit
   },
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
@@ -151,6 +160,7 @@ export default {
   },
   data: function() {
     return {
+      dialogRecordView: false,
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 10,
@@ -178,6 +188,16 @@ export default {
     };
   },
   methods: {
+    // 关闭编辑弹窗
+    closeRecordView(is) {
+      this.dialogRecordView = !this.dialogRecordView;
+      if (is) this.initData();
+    },
+    // 编辑
+    handleEditClick(rowData) {
+      this.dialogRecordView = !this.dialogRecordView;
+      this.rowData = rowData;
+    },
     /**
 	   *   {
       "cellStyleMap": {},
