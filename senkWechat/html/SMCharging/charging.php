@@ -272,7 +272,6 @@
 								if (res) {
 									location.href = "finishCharge.php?serialNo=" + res;
 								} else {
-									alert("获取流水号失败");
 									WeixinJSBridge.call('closeWindow');
 								}
 							});

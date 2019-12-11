@@ -1,32 +1,31 @@
 <?php
 require_once "../../php/jssdk.php";
-$appid = "wx32a40fe9e54cc1c8";
-$secret = "cba6f2171a8a0fb4a2c3012c65f007d3";
-session_start();
-// if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
-// 	$APPID = 'wx32a40fe9e54cc1c8';
-// 	$REDIRECT_URI = 'http://wx.senk.com.cn/senkWechat/MY/recHome.php';
-// 	$scope = 'snsapi_base';
-// 	//$scope='snsapi_userinfo';//需要授权
-// 	$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . urlencode($REDIRECT_URI) . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
-// 	header("Location:" . $url);
-// } else {
-// 	$code = $_GET["code"];
-// 	$get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
-// 	$ch = curl_init();
-// 	curl_setopt($ch, CURLOPT_URL, $get_token_url);
-// 	curl_setopt($ch, CURLOPT_HEADER, 0);
-// 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-// 	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-// 	$res = curl_exec($ch);
-// 	curl_close($ch);
-// 	//	解析json
-// 	$user_obj = json_decode($res, true);
-// 	//print_r($user_obj);
-// 	$openid = $user_obj['openid'];
-// 	//存入Session中 注意此时SAE中SESSION不可用。
-// 	$_SESSION['user'] = $openid;
-// }
+$appid = "wxe76a06a63e687acb";
+$secret = "a594e4f4526e2b61863fc4b059b88a59";
+if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
+	$APPID = 'wxe76a06a63e687acb';
+	$REDIRECT_URI = 'http://sksenk.cn/senkWechat/html/MY/recHome.php';
+	$scope = 'snsapi_base';
+	//$scope='snsapi_userinfo';//需要授权
+	$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . urlencode($REDIRECT_URI) . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
+	header("Location:" . $url);
+} else {
+	$code = $_GET["code"];
+	$get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $get_token_url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+	$res = curl_exec($ch);
+	curl_close($ch);
+	//	解析json
+	$user_obj = json_decode($res, true);
+	//print_r($user_obj);
+	$openid = $user_obj['openid'];
+	//存入Session中 注意此时SAE中SESSION不可用。
+	$_SESSION['user'] = $openid;
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,7 +36,7 @@ session_start();
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Cache-control" content="no-cache">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-	<title>支付记录</title>
+	<title>订单记录</title>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<link rel="stylesheet" href="../../CSS/mui.min.css">
@@ -88,9 +87,9 @@ session_start();
 		}
 
 		.mui-pull-top-tips .mui-pull-loading {
-			/*-webkit-backface-visibility: hidden;
-				-webkit-transition-duration: 400ms;
-				transition-duration: 400ms;*/
+			-webkit-backface-visibility: hidden;
+			-webkit-transition-duration: 400ms;
+			transition-duration: 400ms;
 			margin: 0;
 		}
 
@@ -216,10 +215,11 @@ session_start();
 	<script type="text/javascript" charset="UTF-8">
 		var urlM = CONFIGS.URLManage().getChargeRecordApi;
 		var openId = 'safasjfdnsakm2322';
+		var openId = '<?php echo $openid; ?>';
 		var payRecordArr = new Array();
 		var chargeRecordArr = new Array();
 		var chargeState = 0,
-			pages = 0;
+			pages = 1;
 		mui.init();
 		(function($) {
 			//阻尼系数
@@ -231,9 +231,9 @@ session_start();
 			});
 			$.ready(function() {
 				//循环初始化所有下拉刷新，上拉加载。
-				var ul1 = $('.my-left-view')[0];
-				var ul2 = $('.my-right-view')[0];
-				var pages = 0;
+				var ul = $('.my-left-view')[0];
+				// var ul2 = $('.my-right-view')[0];
+				var pages = 1;
 				// getPayRecord(urlM, openId, pages, function(dom) {
 				// 	if (dom && dom != "null") {
 				// 		ul1.appendChild(dom);
@@ -243,7 +243,7 @@ session_start();
 				// });
 				getChargeRecorder(urlM, openId, pages, function(dom) {
 					if (dom && dom != "null") {
-						ul2.appendChild(dom);
+						ul.appendChild(dom);
 					} else {
 
 					}
@@ -254,16 +254,16 @@ session_start();
 						down: { //下拉刷新
 							callback: function() {
 								var self = this;
-								pages = 0;
+								pages = 1;
 								setTimeout(function() {
 									var ul = self.element.querySelector('.mui-table-view');
 									ul.innerHTML = "";
 									// if (!index) {
-										getChargeRecorder(urlM, openId, pages, function(dom) {
-											if (dom && dom != "null") {
-												ul.insertBefore(dom, ul.firstChild);
-											}
-										});
+									getChargeRecorder(urlM, openId, pages, function(dom) {
+										if (dom && dom != "null") {
+											ul.insertBefore(dom, ul.firstChild);
+										}
+									});
 									// } else {
 									// 	getPayRecord(urlM, openId, pages, function(dom) {
 									// 		if (dom && dom != "null") {
@@ -282,17 +282,17 @@ session_start();
 								setTimeout(function() {
 									var ul = self.element.querySelector('.mui-table-view');
 									// if (!index) {
-										getChargeRecorder(urlM, openId, pages, function(dom) {
-											if (dom && dom != "null") {
-												ul.appendChild(dom, ul.firstChild);
-											}
-										});
+									getChargeRecorder(urlM, openId, pages, function(dom) {
+										if (dom && dom != "null") {
+											ul.appendChild(dom, ul.firstChild);
+										}
+									});
 									// } else {
-										getPayRecord(urlM, openId, pages, function(dom) {
-											if (dom && dom != "null") {
-												ul.appendChild(dom, ul.firstChild);
-											}
-										});
+									getPayRecord(urlM, openId, pages, function(dom) {
+										if (dom && dom != "null") {
+											ul.appendChild(dom, ul.firstChild);
+										}
+									});
 									// }
 									self.endPullUpToRefresh();
 								}, 1000);
@@ -306,7 +306,7 @@ session_start();
 				var fragment;
 				let data = {
 					"model": {
-						"userId": openId,
+						"openId": openId,
 					},
 					"pageIndex": index,
 					"pageSize": 10,
@@ -328,19 +328,19 @@ session_start();
 						li.setAttribute('value', i);
 						li.value = i;
 						if (arr[i].refundStatus == 0) {
-							li.innerHTML = "订&nbsp;&nbsp;单&nbsp;号：" + arr[i].transactionNum +
+							li.innerHTML = "订&nbsp;&nbsp;单&nbsp;号：" + arr[i].transactionId +
 								"<br>支付金额：" + arr[i].payMoney +
 								"<br>订单状态：" + "已支付" +
 								"<br>支付时间：" + arr[i].payTime;
 						} else if (arr[i].refundStatus == 1) {
 							arr[i].reunfundMoney = arr[i].reunfundMoney == "null" ? 0 : arr[i].reunfundMoney;
-							li.innerHTML = "订&nbsp;&nbsp;单&nbsp;号：" + arr[i].transactionNum +
+							li.innerHTML = "订&nbsp;&nbsp;单&nbsp;号：" + arr[i].transactionId +
 								"<br>支付金额：" + arr[i].payMoney +
 								"<br>消费金额：" + (arr[i].payMoney - arr[i].reunfundMoney) +
 								"<br>订单状态：" + "已结算" +
 								"<br>支付时间：" + arr[i].payTime;
 						} else {
-							li.innerHTML = "订&nbsp;&nbsp;单&nbsp;号：" + arr[i].transactionNum +
+							li.innerHTML = "订&nbsp;&nbsp;单&nbsp;号：" + arr[i].transactionId +
 								"<br>支付金额：" + arr[i].payMoney +
 								"<br>订单状态：" + "结算中（点击重新发起结算）" +
 								"<br>支付时间：" + arr[i].payTime;
@@ -356,7 +356,7 @@ session_start();
 				var fragment;
 				let data = {
 					"model": {
-						"userId": openId,
+						"openId": openId,
 					},
 					"pageIndex": index,
 					"pageSize": 10,
@@ -380,7 +380,7 @@ session_start();
 						var ttt = chargeRecorder[i].timeSpan;
 						var tt = ttt / 60;
 						li.innerHTML = "流&nbsp;水&nbsp;号:" + chargeRecorder[i].transationId +
-							"<br>充&nbsp;&nbsp;电&nbsp;桩：" + chargeRecorder[i].cpName +
+							"<br>充&nbsp;&nbsp;电&nbsp;桩：" + chargeRecorder[i].cpId +
 							"<br>充电时长(分)：" + tt.toFixed(2) +
 							"<br>充电金额(元)：" + chargeRecorder[i].chargeMoney +
 							"<br>充电电量(度)：" + chargeRecorder[i].chargeQuantity +

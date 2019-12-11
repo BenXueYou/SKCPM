@@ -7,14 +7,13 @@ const CONFIGS = {
   },
   /* Server */
   LANCHUANG: function () {
-    return "https://gxbie.com/LanChuang/"; // 天翼云平台
+    return "http://sksenk.cn/"; // 天翼云平台
   },
   URLManage: function () {
-    const URLHeader = "http://47.104.204.250:8080";
+    const URLHeader = "http://47.104.204.250";
     const URLObj = {
       registerWechatApi: `${URLHeader}/weChat/register`,
       getUserInfoApi: `${URLHeader}/weChat/query/detail`,
-      getUserStateApi: ``,
       postUserInfoApi: `${URLHeader}/weChat/update`,
 
       getCpileBaseInfoApi: `${URLHeader}/scan/charge/get-pile-baseInfo`,
@@ -31,7 +30,7 @@ const CONFIGS = {
 
       postPayOrderApi: `${URLHeader}/weChat/deposit/save`,
       getPayOrderAPi: `${URLHeader}/weChat/deposit/record`,
-      getChargeRecordApi: `${URLHeader}/charge/record/list-by-page`,
+      getChargeRecordApi: `${URLHeader}/weChat/charge/record-by-openId`,
       getRefrundOrderAPi: `${URLHeader}/weChat/withdraw-list-by-page`,
 
       getCSList: `${URLHeader}/map/query/near/list`,

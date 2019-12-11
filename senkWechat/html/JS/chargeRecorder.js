@@ -1,9 +1,10 @@
 var ChargeRecord = {
-  getChargeRecord: function (urlM, data, callback) {
-    $.ajax({
+  getChargeRecord: function (url, data, callback) {
+    console.log(data);
+    mui.ajax(url, {
       type: "POST",
-      url: urlM,
       dataType: 'json',
+      headers: {'Content-Type': 'application/json'},
       data: data,
       success: function (data) {
         console.log("充电记录=" + data);
