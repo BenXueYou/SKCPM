@@ -141,11 +141,9 @@ var Pile = {
   getSerialNo: function (url, openid, callback) {
     var mask = mui.createMask();
     var result = false;
-    mui.ajax(url, {
-      data: {
-        userId: openid,
-      },
+    mui.ajax(url + '?userId=' + openid, {
       dataType: "json",
+      headers: {'Content-Type': 'application/json'},
       type: "GET",
       crossDomain: true,
       timeout: 15000,

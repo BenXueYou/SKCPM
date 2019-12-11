@@ -135,6 +135,8 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 
 		.onc {
 			cursor: pointer;
+			margin: 5px 9px;
+			box-shadow: 4px 2px 10px #888888bd;
 		}
 
 		.hidden {
@@ -219,6 +221,7 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 		var payRecordArr = new Array();
 		var chargeRecordArr = new Array();
 		var chargeState = 0,
+			totalPages = 1,
 			pages = 1;
 		mui.init();
 		(function($) {
@@ -279,6 +282,10 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 							callback: function() {
 								var self = this;
 								pages++;
+								if(totalPages < pages){
+									mui.alert('没有更多数据了');
+									return
+								};
 								setTimeout(function() {
 									var ul = self.element.querySelector('.mui-table-view');
 									// if (!index) {
@@ -288,11 +295,11 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 										}
 									});
 									// } else {
-									getPayRecord(urlM, openId, pages, function(dom) {
-										if (dom && dom != "null") {
-											ul.appendChild(dom, ul.firstChild);
-										}
-									});
+									// getPayRecord(urlM, openId, pages, function(dom) {
+									// 	if (dom && dom != "null") {
+									// 		ul.appendChild(dom, ul.firstChild);
+									// 	}
+									// });
 									// }
 									self.endPullUpToRefresh();
 								}, 1000);
@@ -364,7 +371,9 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 					"start": 0
 				};
 				ChargeRecord.getChargeRecord(urlM, data, function(data) {
-					var chargeRecorder = data;
+					var chargeRecorder = data.model;
+					data = data.model;
+					totalPages = data.totalPage;
 					fragment = document.createDocumentFragment();
 					var li;
 					if (!data) {

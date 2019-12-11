@@ -246,7 +246,7 @@
 				}
 				if (user.balance <= 0) {
 					mui.alert("账户余额不足");
-					mui.openWindow('../MY/My_account.html?openId=' + user.cpUserId, 'pay.html', {}, 'slide-in-bottom', 200);
+					mui.openWindow('../MY/myAccount.html?openId=' + user.cpUserId, 'pay.html', {}, 'slide-in-bottom', 200);
 					return;
 				}
 				var data = {

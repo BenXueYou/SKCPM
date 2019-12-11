@@ -9,7 +9,7 @@ var ChargeRecord = {
       success: function (data) {
         console.log("充电记录=" + data);
         if (data.success) {
-          callback(data.model);
+          callback(data);
         } else {
           mui.alert("没有抓到数据");
           callback();
