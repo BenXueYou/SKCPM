@@ -93,15 +93,17 @@
 					<el-table-column prop="cpState" label="设备状态" width="100"></el-table-column>
 					<el-table-column prop="gunState" label="枪状态" width="100"></el-table-column>
 					<el-table-column prop="userId" label="用户ID" width="100"></el-table-column>
-					<el-table-column v-if="!cpType" prop="city" label="SOC" width="100"></el-table-column>
+					<el-table-column v-if="!cpType" prop="soc" label="SOC" width="100"></el-table-column>
 					<el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
 					<el-table-column prop="chargeMoney" label="充电金额(元)" width="100"></el-table-column>
 					<el-table-column prop="chargeTimeSpan" label="已充时间(分)" width="100"></el-table-column>
 					<el-table-column prop="eleType" label="桩类型" width="180"></el-table-column>
-					<el-table-column prop="chargePower" label="功率(kw)"></el-table-column>
+					<el-table-column prop="chargePower" label="功率(kw)">
+						<template slot-scope="scope">{{scope.row.chargePower/1000}}</template>
+					</el-table-column>
 					<el-table-column v-if="cpType" prop="ua1" label="A相电压(V)"></el-table-column>
 					<el-table-column v-if="cpType" prop="ub1" label="B相电压(V)"></el-table-column>
-					<el-table-column v-if="cpType"  prop="uc1" label="C相电压(V)"></el-table-column>
+					<el-table-column v-if="cpType" prop="uc1" label="C相电压(V)"></el-table-column>
 					<el-table-column v-if="!cpType" prop="ua1" label="电压(V)"></el-table-column>
 					<el-table-column v-if="cpType" prop="ia1" label="A相电流(A)"></el-table-column>
 					<el-table-column v-if="cpType" prop="ib1" label="B相电流(A)"></el-table-column>

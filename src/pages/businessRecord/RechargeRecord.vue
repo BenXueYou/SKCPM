@@ -64,19 +64,21 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
-				<el-table :data="tableData" stripe border  style="width: 100%">
+				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
-					<el-table-column type="orderId" width="55" label="序号"></el-table-column>
-					<el-table-column prop="date" label="订单号"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="orderId" label="订单号"></el-table-column>
 					<el-table-column prop="userId" label="用户ID"></el-table-column>
 					<el-table-column prop="userName" label="用户名"></el-table-column>
 					<el-table-column prop="telephone" label="电话"></el-table-column>
 					<el-table-column prop="depositMoney" label="充值金额"></el-table-column>
-					<el-table-column prop="beforeBalance" label="充值前金额"></el-table-column>
+					<el-table-column prop="beforeDepositMoney" label="充值前金额"></el-table-column>
 					<el-table-column prop="balance" label="充值后金额"></el-table-column>
-					<el-table-column prop="gmtCreate" label="支付时间"></el-table-column>
-					<el-table-column prop="gmtModify" label="更新时间"></el-table-column>
-					<el-table-column prop="flag" label="交易状态"></el-table-column>
+					<el-table-column prop="gmtCreate" label="支付时间" width="160"></el-table-column>
+					<el-table-column prop="gmtModify" label="更新时间" width="160"></el-table-column>
+					<el-table-column prop="flag" label="交易状态">
+						<template slot-scope="scope">{{scope.row.flag?'成功':'失败'}}</template>
+					</el-table-column>
 				</el-table>
 			</div>
 			<div class="footer">
@@ -101,7 +103,7 @@ export default {
     // appUserAdd
   },
   mounted: function() {
-    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
+    this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.initData();
   },
@@ -175,6 +177,7 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);

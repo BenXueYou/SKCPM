@@ -137,7 +137,7 @@ export default {
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.csOptions = this.$store.state.home.chargeStationArr;
-    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
+    this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.operator = this.operatorOptions[0].operatorId;
     this.chargeMethodId = this.chargeMethodOptions[0].typeStr;

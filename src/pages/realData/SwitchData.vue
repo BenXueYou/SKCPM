@@ -112,7 +112,7 @@ export default {
     ChargeRecordDetail
   },
   mounted: function() {
-    this.beginTime = this.$common.getSpaceDate(-7) + " 00:00:00";
+    this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.initData();
   },
