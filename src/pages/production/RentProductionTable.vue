@@ -48,22 +48,32 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
+				<el-button
+					type="primary"
+					v-if="$store.state.home. AuthorizationID"
+					@click="addBtnAct"
+					style="margin:0 10px;"
+				>新增</el-button>
+				<el-button
+					type="primary"
+					v-if="$store.state.home. AuthorizationID"
+					@click="deleteBtnAct"
+					style="margin:0 10px;"
+				>批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
-			<el-table :data="tableData" stripe border  style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="车型"></el-table-column>
-				<el-table-column prop="name" label="售价（万元）"></el-table-column>
-				<el-table-column  v-if="$store.state.home. AuthorizationID" label="操作">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="date" label="车型"></el-table-column>
+					<el-table-column prop="name" label="售价（万元）"></el-table-column>
+					<el-table-column v-if="$store.state.home. AuthorizationID" label="操作">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
 			</div>
 			<div class="footer">
 				<el-pagination
@@ -91,7 +101,7 @@ export default {
     return {
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
@@ -119,13 +129,16 @@ export default {
       console.log(row);
       this.isShowAddDialog = !this.isShowAddDialog;
     },
+    initData() {},
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

@@ -113,7 +113,7 @@ export default {
       transationNum: null,
       userName: null,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
@@ -182,6 +182,7 @@ export default {
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

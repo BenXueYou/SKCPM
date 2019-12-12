@@ -141,7 +141,7 @@ export default {
       myConfig: window.config.vueUedutorWrap,
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       beginTime: null,
@@ -162,6 +162,7 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
+    initData() {},
     queryBtnAct() {},
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
@@ -175,10 +176,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

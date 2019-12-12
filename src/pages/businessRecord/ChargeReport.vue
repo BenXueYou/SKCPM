@@ -110,7 +110,7 @@
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column v-if="this.type === 4" prop="date" label="用户ID/卡号" width="120"></el-table-column>
-					<el-table-column v-if="this.type === 4"  prop="name" label="用户名" width="100"></el-table-column>
+					<el-table-column v-if="this.type === 4" prop="name" label="用户名" width="100"></el-table-column>
 					<el-table-column prop="data" label="时间"></el-table-column>
 					<el-table-column prop="count" label="充电次数" width="100"></el-table-column>
 					<el-table-column prop="chargeQuantity" label="充电电量(度)" width="120"></el-table-column>
@@ -130,7 +130,7 @@
 						<template slot-scope="scope">
 							<el-button @click="handleClick(scope.row)" type="text" size="small">确认</el-button>
 						</template>
-					</el-table-column> -->
+					</el-table-column>-->
 				</el-table>
 			</div>
 			<div class="footer">
@@ -184,12 +184,10 @@ export default {
         {
           typeStr: 2,
           typeName: "按周统计"
-
         },
         {
           typeStr: 3,
           typeName: "按年统计"
-
         },
         {
           typeStr: 4,
@@ -250,10 +248,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}
