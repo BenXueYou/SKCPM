@@ -173,8 +173,10 @@ export default {
      * 充电价格
      */
     ChargePriceAjax: {
-      getChargePrice: `${httpUrlHeader}/bill/model/list-by-page`
+      getChargePrice: `${httpUrlHeader}/bill/model/list-by-page`,
+      putChargePrice: `${httpUrlHeader}/bill/model/update`,
     },
+
     AuthorityAccount: {
       getAuthorityAccount: `${httpUrlHeader}/user/list-by-page`,
       getAccountUserList: `${httpUrlHeader}/user/list-by-page`,

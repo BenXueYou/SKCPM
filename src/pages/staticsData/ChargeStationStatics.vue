@@ -178,8 +178,8 @@ export default {
           operatorId: this.operator,
           startTime: this.beginTime
         },
-        pageIndex: 1,
-        pageSize: 10,
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
         queryCount: true,
         start: 0
       };

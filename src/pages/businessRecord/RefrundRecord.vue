@@ -140,7 +140,7 @@ export default {
           openId: this.userId,
           startTime: this.beginTime
         },
-        pageIndex: 1,
+        pageIndex: this.currentPage,
         pageSize: this.pageSize,
         queryCount: true,
         start: 0

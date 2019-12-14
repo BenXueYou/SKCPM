@@ -58,40 +58,40 @@
 				</div>
 			</div>
 			<div class="tableBox">
-			<el-table :data="tableData" stripe border  style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="validTime" label="生效时间" width="180"></el-table-column>
-				<el-table-column prop="invalidTime" label="失效时间" width="180"></el-table-column>
-				<el-table-column prop="timeIntervalCount" label="有效时段" width="120"></el-table-column>
-				<el-table-column prop="serviceTip" label=" 服务费" width="100"></el-table-column>
-				<el-table-column prop="jprice" label="尖电价"></el-table-column>
-				<el-table-column prop="fprice" label="峰电价" width="100"></el-table-column>
-				<el-table-column prop="pprice" label="平电价"></el-table-column>
-				<el-table-column prop="gprice" label="谷电价" width="100"></el-table-column>
-				<el-table-column prop="ti1Start" label="时段1起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti1Id" label="时段1类型" width="120"></el-table-column>
-				<el-table-column prop="ti2Start" label="时段2起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti2Id" label="时段2类型" width="120"></el-table-column>
-				<el-table-column prop="ti3Start" label="时段3起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti3Id" label="时段3类型" width="120"></el-table-column>
-				<el-table-column prop="ti4Start" label="时段4起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti4Id" label="时段4类型" width="120"></el-table-column>
-				<el-table-column prop="ti5Start" label="时段5起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti5Id" label="时段5类型" width="120"></el-table-column>
-				<el-table-column prop="ti6Start" label="时段6起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti6Id" label="时段6类型" width="120"></el-table-column>
-				<el-table-column prop="ti7Start" label="时段7起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti7Id" label="时段7类型" width="120"></el-table-column>
-				<el-table-column prop="ti8Start" label="时段8起始时刻" width="120"></el-table-column>
-				<el-table-column prop="ti8Id" label="时段8类型" width="120"></el-table-column>
-				<!-- <el-table-column prop="zip" label="确认模式" width="120"></el-table-column> -->
-				<el-table-column label="操作">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="validTime" label="生效时间" width="180"></el-table-column>
+					<el-table-column prop="invalidTime" label="失效时间" width="180"></el-table-column>
+					<el-table-column prop="timeIntervalCount" label="有效时段" width="120"></el-table-column>
+					<el-table-column prop="serviceTip" label=" 服务费" width="100"></el-table-column>
+					<el-table-column prop="jprice" label="尖电价"></el-table-column>
+					<el-table-column prop="fprice" label="峰电价" width="100"></el-table-column>
+					<el-table-column prop="pprice" label="平电价"></el-table-column>
+					<el-table-column prop="gprice" label="谷电价" width="100"></el-table-column>
+					<el-table-column prop="ti1Start" label="时段1起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti1Id" label="时段1类型" width="120"></el-table-column>
+					<el-table-column prop="ti2Start" label="时段2起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti2Id" label="时段2类型" width="120"></el-table-column>
+					<el-table-column prop="ti3Start" label="时段3起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti3Id" label="时段3类型" width="120"></el-table-column>
+					<el-table-column prop="ti4Start" label="时段4起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti4Id" label="时段4类型" width="120"></el-table-column>
+					<el-table-column prop="ti5Start" label="时段5起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti5Id" label="时段5类型" width="120"></el-table-column>
+					<el-table-column prop="ti6Start" label="时段6起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti6Id" label="时段6类型" width="120"></el-table-column>
+					<el-table-column prop="ti7Start" label="时段7起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti7Id" label="时段7类型" width="120"></el-table-column>
+					<el-table-column prop="ti8Start" label="时段8起始时刻" width="120"></el-table-column>
+					<el-table-column prop="ti8Id" label="时段8类型" width="120"></el-table-column>
+					<!-- <el-table-column prop="zip" label="确认模式" width="120"></el-table-column> -->
+					<el-table-column label="操作">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
 			</div>
 			<div class="footer">
 				<el-pagination
@@ -105,7 +105,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<bill-model-edit :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" />
+		<bill-model-edit
+			:rowData="rowData"
+			:isShow="isShowAddDialog"
+			@onCancel="close()"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -123,6 +128,7 @@ export default {
   data: function() {
     return {
       isShowAddDialog: false,
+      rowData: {},
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 10,
       currentPage: 1,
@@ -187,6 +193,7 @@ export default {
     handleClick(row) {
       console.log(row);
       this.isShowAddDialog = !this.isShowAddDialog;
+      this.rowData = row;
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

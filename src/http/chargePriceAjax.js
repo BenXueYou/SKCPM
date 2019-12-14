@@ -9,6 +9,14 @@ export var priceAjax = {
       data: xhr
     });
   },
+  putChargePrice(xhr) {
+    let url = `${RestApi.api.ChargePriceAjax.putChargePrice}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
   realAlarmData(xhr) {
     let url = `${RestApi.api.ChargePriceAjax.realAlarmData}`;
     return axios({
