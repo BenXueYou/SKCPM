@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
-		width="480px"
-		:title="!formLabelAlign.addressId?`新增充电桩地址`:`修改充电桩地址`"
+		width="780px"
+		title="费率模板编辑"
 		class="BillModelEdit"
 		center
 		:visible.sync="isCurrentShow"
@@ -18,67 +18,114 @@
 				:model="formLabelAlign"
 				class="info-form"
 			>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="省：" prop="provinceId">
-						<el-select
-							class="time-interal"
-							v-model="formLabelAlign.provinceId"
-							size="small"
-							clearable
-							placeholder="请选择省"
-							@change="provinceChangeAct"
-						>
-							<el-option
-								v-for="item in provinceOptions"
-								:key="item.provinceId"
-								:label="item.province"
-								:value="item.provinceId"
-							></el-option>
-						</el-select>
-					</el-form-item>
+				<el-row type="flex" justify="space-between" :gutter="30">
+					<el-col :span="12">
+						<el-form-item label="费率模板：" prop="rateId">
+							<el-input v-model="formLabelAlign.rateId" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="计费方案：" prop="billModelId">
+							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
 				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="市：" prop="cityId">
-						<el-select
-							class="time-interal"
-							v-model="formLabelAlign.cityId"
-							size="small"
-							clearable
-							placeholder="请选择市"
-							@change="cityChangeAct"
-						>
-							<el-option
-								v-for="item in cityOptions"
-								:key="item.cityId"
-								:label="item.cityName"
-								:value="item.cityId"
-							></el-option>
-						</el-select>
-					</el-form-item>
+				<el-row type="flex" justify="space-between" :gutter="30">
+					<el-col :span="12">
+						<el-form-item label="生效时间：" prop="validTime">
+							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="失效时间：" prop="invalidTime">
+							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
 				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="区：" prop="areaId">
-						<el-select
-							class="time-interal"
-							v-model="formLabelAlign.areaId"
-							size="small"
-							clearable
-							placeholder="请选择区/县"
-						>
-							<el-option
-								v-for="item in areaOptions"
-								:key="item.areaId"
-								:label="item.areaName"
-								:value="item.areaId"
-							></el-option>
-						</el-select>
-					</el-form-item>
+				<el-row type="flex" justify="space-between" :gutter="30">
+					<el-col :span="12">
+						<el-form-item label="生效时段：" prop="timeIntervalCount">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.timeIntervalCount"
+								size="small"
+								clearable
+								placeholder="请选择"
+							>
+								<el-option v-for="item in 8" :key="item" :label="item" :value="item"></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="服务费(元/度)：" prop="serviceTip">
+							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
 				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="地址：" prop="addressName">
-						<el-input style="width:auto" v-model="formLabelAlign.addressName"></el-input>
-					</el-form-item>
+				<el-row type="flex" justify="space-between" :gutter="30">
+					<el-col :span="12">
+						<el-form-item label="尖电价(元/度)：" prop="jprice">
+							<el-input v-model="formLabelAlign.jprice" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="峰电价(元/度)：" prop="fprice">
+							<el-input v-model="formLabelAlign.fprice" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
 				</el-row>
+				<el-row type="flex" justify="space-between" :gutter="30">
+					<el-col :span="12">
+						<el-form-item label="平电价(元/度)：" prop="pprice">
+							<el-input v-model="formLabelAlign.pprice" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="谷电价(元/度)：" prop="gprice">
+							<el-input v-model="formLabelAlign.gprice" placeholder="请输入内容"></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<template v-for="(item,index) in formLabelAlign.timeIntervalCount">
+					<el-row :key="index" type="flex" justify="space-between" :gutter="30">
+						<el-col :span="12">
+							<el-form-item :label="`时段${item}类型：`" prop="id">
+								<el-select
+									class="time-interal"
+									v-model="formLabelAlign['ti'+item+'Id']"
+									size="small"
+									clearable
+									placeholder="请选择"
+								>
+									<el-option
+										v-for="item in priceOptions"
+										:key="item.id"
+										:label="item.label"
+										:value="item.id"
+									></el-option>
+								</el-select>
+							</el-form-item>
+						</el-col>
+						<el-col :span="12">
+							<el-form-item :label="`时段${item}起始时刻：`" prop="csId">
+								<el-time-picker
+									v-model="formLabelAlign['ti'+item+'Start']"
+									:picker-options="{
+                    selectableRange: '00:00:00 - 23:59:59'
+                  }"
+									placeholder="任意时间点"
+								></el-time-picker>——
+								<el-time-picker
+									v-model="formLabelAlign['ti'+(item+1)+'Start']"
+									:picker-options="{
+                    selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59:59'
+                  }"
+									placeholder="任意时间点"
+								></el-time-picker>
+							</el-form-item>
+						</el-col>
+					</el-row>
+				</template>
 			</el-form>
 		</div>
 		<div slot="footer" class="dialog-footer">
@@ -109,33 +156,49 @@ export default {
   },
   data() {
     return {
-      provinceOptions: [],
+      priceOptions: [
+        { id: 0, label: "尖电价" },
+        { id: 1, label: "峰电价" },
+        { id: 2, label: "平电价" },
+        { id: 3, label: "谷电价" }
+      ],
       cityOptions: [],
       areaOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        provinceId: null,
-        cityId: null,
-        areaId: null,
-        addressName: null
+        billModelId: 0,
+        timeIntervalCount: null,
+        rateId: null,
+        invalidTime: null,
+        validTime: null,
+        addressName: null,
+        fprice: null,
+        gprice: null,
+        jprice: null,
+        pprice: null,
+        ti1Id: 0,
+        ti1Start: null,
+        ti2Id: 0,
+        ti2Start: null,
+        ti3Id: 0,
+        ti3Start: null,
+        ti4Id: 0,
+        ti4Start: null,
+        ti5Id: 0,
+        ti5Start: null,
+        ti6Id: 0,
+        ti6Start: null,
+        ti7Id: 0,
+        ti7Start: null,
+        ti8Id: 0,
+        ti8Start: null
       },
-      rules: {
-        provinceId: [
-          { required: true, message: "省份不能为空", trigger: "change" }
-        ],
-        cityId: [{ required: true, message: "市不能为空", trigger: "change" }],
-        addressName: [
-          { required: true, message: "地址不能为空", trigger: "change" }
-        ],
-        areaId: [{ required: true, message: "区域不能为空", trigger: "change" }]
-      }
+      rules: {}
     };
   },
   created() {},
-  mounted() {
-    this.provinceOptions = this.$store.state.home.provinceArr;
-  },
+  mounted() {},
   methods: {
     onClickCancel() {
       this.$emit("onCancel");
@@ -144,7 +207,7 @@ export default {
       console.log(this.formLabelAlign);
       let data = {
         addressId: 0,
-        addressName: "string",
+        addressName: null,
         areaId: 0,
         cityId: this.formLabelAlign.cityId,
         latitude: 0,
@@ -249,6 +312,14 @@ export default {
 	line-height: 32px;
 	width: 100%;
 }
+.BillModelEdit .el-input--small .el-input__inner {
+	height: 40px;
+	line-height: 40px;
+}
+.BillModelEdit .el-date-editor.el-input,
+.BillModelEdit .el-date-editor.el-input__inner {
+	width: 40%;
+}
 </style>
 <style lang="scss" scoped>
 .BillModelEdit {
@@ -265,7 +336,7 @@ export default {
 		color: #cccccc;
 	}
 	.time-interal {
-		width: 90%;
+		width: 100%;
 	}
 	.info-form {
 		// width: 85%;

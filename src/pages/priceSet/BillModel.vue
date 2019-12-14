@@ -105,14 +105,14 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-record-detail :visible.sync="isShowAddDialog" @onCancel="close()" ref="houseTable" />
+		<bill-model-edit :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
-import ChargeRecordDetail from "@/components/ChargeRecordDetail";
+import BillModelEdit from "@/components/BillModelEdit";
 export default {
   components: {
-    ChargeRecordDetail
+    BillModelEdit
   },
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;

@@ -39,7 +39,7 @@ var User = {
     var postData = {
       userId: userid,
     };
-    url = url + '?userId=' + userid;
+    // url = url + '?userId=' + userid;
     ajaxBase('POST', url, false, postData, function (data) {
       if (data && data.success) {
         callback(data.success);
