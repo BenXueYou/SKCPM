@@ -59,7 +59,11 @@
 				<el-table-column prop="userName" label="用户名" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="telephone" label="电话" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="openId" label="用户openID" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="userType" label="用户类型"></el-table-column>
+				<el-table-column prop="userType" label="用户类型">
+					<template slot-scope="scope">
+						{{scope.row.userType?'APP用户':'微信用户'}}
+					</template>
+				</el-table-column>
 				<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
 				<el-table-column prop="chargeState" show-overflow-tooltip label="状态"></el-table-column>
 				<el-table-column prop="gmtCreate" show-overflow-tooltip label="注册时间"></el-table-column>
@@ -112,7 +116,7 @@ export default {
       phoneNumber: null,
       mainScreenLoading: false,
       plateNumber: null,
-      tableData: window.config.tableData,
+      tableData: [],
       userId: null
     };
   },
@@ -125,8 +129,8 @@ export default {
           userId: this.userId,
           telephone: this.phoneNumber
         },
-        pageIndex: 1,
-        pageSize: 10,
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
         queryCount: true,
         start: 0
       };

@@ -135,16 +135,18 @@ export default {
   mounted: function() {
     console.log(this.$common.getStartTime());
     this.operatorOptions = this.$store.state.home.operatorArr;
-    let day = new Date();
-    // 设置当前月的某一天
-    day.setDate(1);
-    let firstdate = this.$common.timestampToFormatter(day, "yyyy-mm-dd");
-    let enddate = this.$common.timestampToFormatter(
-      new Date().getTime(),
-      "yyyy-mm-dd"
-    );
-    this.beginTime = firstdate + " " + "00:00:00";
-    this.endTime = enddate + " " + "23:59:59";
+    // let day = new Date();
+    // // 设置当前月的某一天
+    // day.setDate(1);
+    // let firstdate = this.$common.timestampToFormatter(day, "yyyy-mm-dd");
+    // let enddate = this.$common.timestampToFormatter(
+    //   new Date().getTime(),
+    //   "yyyy-mm-dd"
+    // );
+    // this.beginTime = firstdate + " " + "00:00:00";
+    // this.endTime = enddate + " " + "23:59:59";
+    this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
+    this.endTime = this.$common.getCurrentTime();
     this.initData();
     this.initLineData();
   },

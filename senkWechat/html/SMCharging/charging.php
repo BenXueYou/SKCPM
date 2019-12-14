@@ -212,6 +212,7 @@
 		function plusReady() {
 			var user = User.userIsLogin();
 			var openId = user.openId;
+			userid = user.userId;
 			User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
 				if (user.chargeState === 0) {
 					//用户空闲状态可以扫码
@@ -327,7 +328,7 @@
 		}
 		//强制退出事件
 		function userChange() {
-			User.UserChange(CONFIGS.LANCHUANG(), userid, function(e) {
+			User.UserChange(CONFIGS.URLManage().changeUserStateApi, userid, function(e) {
 				if (e) {
 					WeixinJSBridge.call('closeWindow');
 				}

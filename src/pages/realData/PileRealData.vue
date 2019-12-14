@@ -22,6 +22,7 @@
 						clearable
 						placeholder="运营商"
 						size="small"
+						@change="operatorIdChangeAct"
 					>
 						<el-option
 							v-for="item in operatorOptions"
@@ -91,7 +92,12 @@
 					<el-table-column prop="cpId" label="桩序列号" width="180"></el-table-column>
 					<el-table-column prop="gun" label="枪号" width="60"></el-table-column>
 					<el-table-column prop="cpState" label="设备状态" width="100"></el-table-column>
-					<el-table-column prop="gunState" label="枪状态" width="100"></el-table-column>
+					<el-table-column prop="gunState" label="枪状态" width="100">
+						<template slot-scope="scope">
+							<span v-if="scope.row.cpState==='在线'">{{scope.row.gunState==='3'?'充电中':'空闲'}}</span>
+							<span v-else>{{scope.row.gunState}}</span>
+						</template>
+					</el-table-column>
 					<el-table-column prop="userId" label="用户ID" width="100"></el-table-column>
 					<el-table-column v-if="!cpType" prop="soc" label="SOC" width="100"></el-table-column>
 					<el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
@@ -181,6 +187,9 @@ export default {
     };
   },
   methods: {
+    operatorIdChangeAct(val) {
+      console.log(val);
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },

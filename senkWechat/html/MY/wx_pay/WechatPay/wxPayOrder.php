@@ -1,7 +1,6 @@
 <?php
 
 require_once "../lib/WxPay.Api.php";
-require_once "../lib/con.php";
 require_once "WxPay.JsApiPay.php";
 $openId = $_GET["openId"];
 $total_fee = $_GET["total_fee"];

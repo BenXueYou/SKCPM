@@ -86,7 +86,7 @@ class wechatCallbackapiTest
         {
             case "subscribe":
                 $content = array();
-                $content[]=array("Title"=>"山西尚宽电气","Description"=>"欢迎关注山西尚宽充电桩软件系列产品-微信公众号!","PicUrl"=>"http://wx.senk.com.cn/senkWechat/senk-shop/img/images/sku252.png","Url"=>"http://wx.senk.com.cn/senkWechat/senk-shop/about_us/index.html");
+                $content[]=array("Title"=>"山西尚宽电气","Description"=>"欢迎关注山西尚宽充电桩软件系列产品-微信公众号!","PicUrl"=>"http://sksenk.cn/senkWechat/senk-shop/img/images/sku252.png","Url"=>"http://sksenk.cn/senkWechat/senk-shop/about_us/index.html");
                 break;
             case "unsubscribe":
                 $content = "取消关注";
@@ -162,16 +162,14 @@ class wechatCallbackapiTest
         }
   $content = "你好！欢迎使用微信公众号
   
-在线实时充电".'<a href="http://wx.senk.com.cn/senkWechat/scanCharge/Home.php">【点击我要充电】</a>'."
+在线实时充电".'<a href="http://sksenk.cn/senkWechat/scanCharge/Home.php">【点击我要充电】</a>'."
   
-查找充电桩".'<a href="http://wx.senk.com.cn/senkWechat/webMap/webMap.html">【点击地图找桩】</a>'."
+查找充电桩".'<a href="http://sksenk.cn/senkWechat/webMap/webMap.html">【点击地图找桩】</a>'."
   
-查看充电记录".'<a href="http://wx.senk.com.cn/senkWechat/MY/recHome.php">【点击订单管理】</a>'."
+查看充电记录".'<a href="http://sksenk.cn/senkWechat/MY/recHome.php">【点击订单管理】</a>'."
   
 查看退款".'<a href="http://mp.weixin.qq.com/s/oUszttFu-gFJChF07euXWA">【点击退款帮助】</a>'."
-  
-推荐下尚宽云充APP，可以更加方便快捷找桩充电，预约充电".'<a href="http://wx.senk.com.cn/senkWechat/download.html">【点击下载APP】</a>'."
-  
+
 更多产品信息请关注：".'<a href="http://www.senk.com.cn">【山西尚宽】</a>
               ';
         //自动回复模式

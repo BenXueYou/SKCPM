@@ -53,8 +53,8 @@ class WxPayApi
 		
 		$inputObj->SetAppid(WxPayConfig::APPID);//公众账号ID
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
-		$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
-		//$inputObj->SetSpbill_create_ip("1.1.1.1");  	    
+		// $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
+		$inputObj->SetSpbill_create_ip("1.1.1.1");  	    
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 		
 		//签名
@@ -233,14 +233,14 @@ class WxPayApi
 		$url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 		
 		//异步通知url未设置，则使用配置文件中的url
-		if(!$inputObj->IsNotify_urlSet()){
-			$inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
-		}
+		//if(!$inputObj->IsNotify_urlSet()){
+		//	$inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
+		//}
 		
 		$inputObj->SetMch_appid(WxPayConfig::APPID);//公众账号ID
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
-		$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
-		//$inputObj->SetSpbill_create_ip("139.129.194.195");  	    
+		//$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
+		$inputObj->SetSpbill_create_ip("47.104.204.250");  	    
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 		
 		//签名
@@ -250,7 +250,6 @@ class WxPayApi
 		$result = WxPayResults::Init($response);
 	
 		return $result;
-
 	}
 
 

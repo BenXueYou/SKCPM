@@ -2,8 +2,9 @@ var Order = {
   // 微信公众号支付下单
   getOrderToWechat: function (data, callback) {
     url = "http://sksenk.cn/senkWechat/html/MY/wx_pay/WechatPay/wxPayOrder.php";
-    mui.ajax(url, {
+    $.ajax({
       type: "GET",
+      url: url,
       dataType: "json",
       timeout: 10000,
       data: {
@@ -12,16 +13,13 @@ var Order = {
         out_trade_no: data.outTradeNo,
       },
       success: function (data) {
-        console.log(data);
-        var order = data[1];
-        if (order === false) {
-          order = "100";
+        if (!data[1]) {
+          callback();
+        } else {
+          callback(data[1]);
         }
-        callback(order);
       },
       error: function (jqXHR) {
-        alert("下单发生错误");
-        console.log("get wechat pay order error!!!" + JSON.stringify(jqXHR));
         callback();
       }
     });

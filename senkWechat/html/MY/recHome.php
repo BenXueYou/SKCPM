@@ -282,7 +282,7 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 							callback: function() {
 								var self = this;
 								pages++;
-								if(totalPages < pages){
+								if(totalPages< pages){
 									mui.alert('没有更多数据了');
 									return
 								};
@@ -295,11 +295,11 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 										}
 									});
 									// } else {
-									// getPayRecord(urlM, openId, pages, function(dom) {
-									// 	if (dom && dom != "null") {
-									// 		ul.appendChild(dom, ul.firstChild);
-									// 	}
-									// });
+									//getPayRecord(urlM, openId, pages, function(dom) {
+									//	if (dom && dom != "null") {
+									//		ul.appendChild(dom, ul.firstChild);
+									//	}
+									//});
 									// }
 									self.endPullUpToRefresh();
 								}, 1000);
@@ -370,7 +370,7 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 					"queryCount": true,
 					"start": 0
 				};
-				ChargeRecord.getChargeRecord(urlM, data, function(data) {
+				ChargeRecord.getChargeRecord(urlM, data, function(data) {					
 					var chargeRecorder = data.model;
 					data = data.model;
 					totalPages = data.totalPage;
@@ -388,7 +388,7 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 						li.value = i;
 						var ttt = chargeRecorder[i].timeSpan;
 						var tt = ttt / 60;
-						li.innerHTML = "流&nbsp;水&nbsp;号:" + chargeRecorder[i].transationId +
+						li.innerHTML = "流&nbsp;水&nbsp;号:" + chargeRecorder[i].transactionId+
 							"<br>充&nbsp;&nbsp;电&nbsp;桩：" + chargeRecorder[i].cpId +
 							"<br>充电时长(分)：" + tt.toFixed(2) +
 							"<br>充电金额(元)：" + chargeRecorder[i].chargeMoney +

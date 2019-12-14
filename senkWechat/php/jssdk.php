@@ -1,30 +1,25 @@
 <?php
-class JSSDK
-{
+class JSSDK {
   private $appId;
   private $appSecret;
 
-  public function __construct($appId, $appSecret)
-  {
+  public function __construct($appId, $appSecret) {
     $this->appId = $appId;
     $this->appSecret = $appSecret;
   }
 
-  public function getSignPackage()
-  {
-
+  public function getSignPackage() {      
     $jsapiTicket = $this->getJsApiTicket();
-
     // 注意 URL 一定要动态获取，不能 hardcode.
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-    $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
+   // $url = "$protocol$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    $url = "$protocol"."sksenk.cn"."$_SERVER[REQUEST_URI]";
     $timestamp = time();
     $nonceStr = $this->createNonceStr();
 
     // 这里参数的顺序要按照 key 值 ASCII 码升序排序
     $string = "jsapi_ticket=$jsapiTicket&noncestr=$nonceStr&timestamp=$timestamp&url=$url";
-    $signature = sha1($string);
+   $signature = sha1($string);
     $signPackage = array(
       "appId"     => $this->appId,
       "nonceStr"  => $nonceStr,
@@ -33,11 +28,10 @@ class JSSDK
       "signature" => $signature,
       "rawString" => $string
     );
-    return $signPackage;
+    return $signPackage; 
   }
 
-  private function createNonceStr($length = 16)
-  {
+  private function createNonceStr($length = 16) {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     $str = "";
     for ($i = 0; $i < $length; $i++) {
@@ -46,12 +40,11 @@ class JSSDK
     return $str;
   }
 
-  private function getJsApiTicket()
-  {
+  private function getJsApiTicket() {      
     // jsapi_ticket 应该全局存储与更新，以下代码以写入到文件中做示例
     $time = json_decode($this->get_token_time());
     if ($time < time()) {
-      $accessToken = $this->getAccessToken();
+        $accessToken = $this->getAccessToken();
       // 如果是企业号用以下 URL 获取 ticket
       // $url = "https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=$accessToken";
       $url = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=$accessToken";
@@ -66,65 +59,45 @@ class JSSDK
     } else {
       $ticket = $data->jsapi_ticket;
     }
-
     return $ticket;
   }
 
-  private function getAccessToken()
-  {
+  private function getAccessToken() {
     // access_token 应该全局存储与更新，以下代码以写入到文件中做示例
-
-
+       
     //从数据库中取数据
     $time = json_decode($this->get_token_time());
-
-
-
     if ($time < time()) {
       // 如果是企业号用以下URL获取access_token
       // $url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$this->appId&corpsecret=$this->appSecret";
-
       $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$this->appId&secret=$this->appSecret";
-
       $res = json_decode($this->httpGet($url));
-
-      /*
+        /*
         返回：
         	{"access_token":"ACCESS_TOKEN","expires_in":7200}
         */
-
       $access_token = $res->access_token;
       $data = new stdClass();
       if ($access_token) {
-
         $data->expire_time = time() + 7000;
-
         $data->access_token = $access_token;
-
-
         $this->set_token_access(json_encode($data));
-
-
         //数据库操作、修改存储的数据
-
-
-
+      
       }
     } else {
-
-      $access_token = $data->access_token;
+      $access_token = $data->access_token;  
     }
-
     return $access_token;
   }
 
-  private function httpGet($url)
-  {
-
+  private function httpGet($url) {
+      
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_TIMEOUT, 500);
-
+      
+      
     // 为保证第三方服务器与微信服务器之间数据传输的安全性，所有微信接口采用https方式调用，必须使用下面2行代码打开ssl安全校验。
     // 如果在部署过程中代码在此处验证失败，请到 http://curl.haxx.se/ca/cacert.pem 下载新的证书判别文件。
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 2);
@@ -137,11 +110,10 @@ class JSSDK
     return $res;
   }
 
-  private function get_token_time()
-  {
+  private function get_token_time() {
 
-
-    /*  // 连主库
+      
+      /*  // 连主库
         $db = mysql_connect(SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,SAE_MYSQL_USER,SAE_MYSQL_PASS);
         
         // 连从库
@@ -165,12 +137,12 @@ class JSSDK
        mysql_close($db);
       
     return $time;
-     */ }
-
-  private function set_token_access($content)
-  {
-
-    /* 
+     */
+  }
+    
+  private function set_token_access($content) {
+      
+       /* 
       
      // 配置参数
       
@@ -197,8 +169,13 @@ class JSSDK
             $access_token = $content->access_token;
             $access_time = time();
             $id = '1';
-            $result = mysql_query("SELECT * FROM xyWCT");
+     
+            
+            
+             $result = mysql_query("SELECT * FROM xyWCT");
+            
             if($result){
+            	
                     mysql_query("UPDATE xyWCT SET time = $access_time,access_token = $access_token WHERE id = 1");
             }
             
@@ -209,10 +186,18 @@ class JSSDK
             { 
                 die('Error: ' . mysql_error());
             } 
-            echo "1 record added";  
+            
+            echo "1 record added";
+            
+          
+            
         }
 
       
      mysql_close($db);
-  */ }
+  */
+      
+  }
+    
+  
 }

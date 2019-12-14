@@ -86,38 +86,38 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
-			<el-table :data="tableData" stripe border  style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
-				<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
-				<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
-				<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
-				<el-table-column prop="chargeMethodId" label="充电类型" width="100"></el-table-column>
-				<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
-				<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
-				<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
-				<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
-				<el-table-column prop="timeSpan" label="充电时长" width="180">
-					<template slot-scope="scope">{{$common.formatSeconds(scope.row.timeSpan)}}</template>
-				</el-table-column>
-				<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
-				<el-table-column prop="chargeMoney" label="应扣金额" width="100"></el-table-column>
-				<el-table-column prop="beforeChargeBalance" label="充电前金额" width="100"></el-table-column>
-				<el-table-column prop="zip" label="充电后金额" width="100">
-					<template
-						slot-scope="scope"
-					>{{scope.row.beforeChargeBalance - scope.row.chargeMoney - scope.row.serviceTip}}</template>
-				</el-table-column>
-				<el-table-column prop="chargeMoney" label="实扣金额" width="100"></el-table-column>
-				<el-table-column label="操作">
-					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
-					</template>
-				</el-table-column>
-			</el-table>
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
+					<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
+					<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
+					<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
+					<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
+					<el-table-column prop="chargeMethodId" label="充电类型" width="100"></el-table-column>
+					<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
+					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
+					<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
+					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
+					<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
+					<el-table-column prop="timeSpan" label="充电时长" width="180">
+						<template slot-scope="scope">{{$common.formatSeconds(scope.row.timeSpan)}}</template>
+					</el-table-column>
+					<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
+					<el-table-column prop="chargeMoney" label="应扣金额" width="100"></el-table-column>
+					<el-table-column prop="beforeChargeBalance" label="充电前金额" width="100"></el-table-column>
+					<el-table-column prop="zip" label="充电后金额" width="100">
+						<template
+							slot-scope="scope"
+						>{{scope.row.beforeChargeBalance - scope.row.chargeMoney - scope.row.serviceTip}}</template>
+					</el-table-column>
+					<el-table-column prop="chargeMoney" label="实扣金额" width="100"></el-table-column>
+					<el-table-column label="操作">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+						</template>
+					</el-table-column>
+				</el-table>
 			</div>
 			<div class="footer">
 				<el-pagination
@@ -173,10 +173,11 @@ export default {
       chargeMethodOptions: [
         { typeStr: 0, typeName: "APP充电" },
         { typeStr: 2, typeName: "刷卡充电" },
-        { typeStr: 3, typeName: "微信充电" },
+        { typeStr: 0, typeName: "微信充电" },
         { typeStr: 4, typeName: "全部充电" }
       ],
-      chargeMethodId: null
+      chargeMethodId: null,
+      telephone: null
     };
   },
   methods: {

@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8" />
 	<title></title>
@@ -75,29 +74,14 @@
 			</div>
 			<div id="slider" class="mui-slider">
 				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-					<a target="0" class="mui-control-item" href="#item1">自动充满</a>
-					<a target="1" class="mui-control-item" href="#item2">按电量充</a>
-					<a target="2" class="mui-control-item" href="#item3">按时间充</a>
-					<a target="3" class="mui-control-item" href="#item4">按金额充</a>
+					<a target="1" class="mui-control-item" href="#item1">按电量充</a>
+					<a target="2" class="mui-control-item" href="#item2">按时间充</a>
+					<a target="3" class="mui-control-item" href="#item3">按金额充</a>
+					<a target="4" class="mui-control-item" href="#item4">自动充满</a>
 				</div>
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
 				<div class="mui-slider-group">
 					<div id="item1" class="mui-slider-item mui-control-content mui-active">
-						<ul class="mui-table-view">
-							<li class="">
-								<div class="mui-card">
-									<div class="mui-card-content">
-										<div class="mui-card-content-inner">
-											您的账户余额为：<span id="mode4">0.00</span>元
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="tips-txt content-txt-center">系统会根据您账户余额进行结算。余额不足则会自动停止充电</li>
-						</ul>
-
-					</div>
-					<div id="item2" class="mui-slider-item mui-control-content">
 						<ul class="mui-table-view">
 							<li class="">
 								<div class="mui-card">
@@ -116,8 +100,7 @@
 							<li class="tips-txt content-txt-center">如电量已充满或者其他意外情而停止充电，导致充电未完成。系统恢复会根据当前充电记录自动结算。</li>
 						</ul>
 					</div>
-					<div id="item3" class="mui-slider-item mui-control-content">
-
+					<div id="item2" class="mui-slider-item mui-control-content">
 						<ul class="mui-table-view">
 							<li class="">
 								<div class="mui-card">
@@ -136,7 +119,7 @@
 							<li class="tips-txt content-txt-center">如电量已充满或者其他意外情而停止充电，导致充电未完成。系统恢复会根据当前充电记录自动结算。</li>
 						</ul>
 					</div>
-					<div id="item4" class="mui-slider-item mui-control-content">
+					<div id="item3" class="mui-slider-item mui-control-content">
 						<ul class="mui-table-view">
 							<li class="">
 								<div class="mui-card">
@@ -156,6 +139,20 @@
 							<li class="tips-txt content-txt-center" style="">如电量已充满或者其他意外情而停止充电，导致充电未完成。系统恢复会根据当前充电记录自动结算。</li>
 						</ul>
 					</div>
+					<div id="item4" class="mui-slider-item mui-control-content">
+						<ul class="mui-table-view">
+							<li class="">
+								<div class="mui-card">
+									<div class="mui-card-content">
+										<div class="mui-card-content-inner">
+											您的账户余额为：<span id="mode4">0.00</span>元
+										</div>
+									</div>
+								</div>
+							</li>
+							<li class="tips-txt content-txt-center">系统会根据您账户余额进行结算。余额不足则会自动停止充电</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -172,7 +169,7 @@
 		mui.init();
 		plusReady();
 		//	默认充电方式为1，按时间充。
-		var chargeWay = 0;
+		var chargeWay = 1;
 		//  直流桩类型默认为0，当直流桩为24V时，则为1
 		var dcChargeMode = 0;
 		var cptype = 0 //默认交流桩
@@ -184,12 +181,12 @@
 			document.getElementById("mode4").innerHTML = user.balance;
 			let objStr = getQueryString('obj');
 			console.log(objStr);
-			let objData = JSON.parse(objStr) || {};
+			let objData = JSON.parse(objStr);
 			deviceId = objData.deviceId;
 			openId = objData.openId;
 			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
 			mui(".mui-card-content-left")[0].innerText = "桩类型：" + (objData.cpPhase == 1 ? '三相' : '单相') + (objData.cpType == 1 ? '交流' : '直流');
-			
+			//cpObj.cptype = "直流桩";
 			if (objData.cptype == "直流桩") {
 				mui(".dc-box")[0].classList.remove("hidden");
 				cptype = 1;
@@ -218,10 +215,16 @@
 		//菜单点击事件
 		mui(document.body).on('tap', ".mui-control-item", function() {
 			chargeWay = this.target;
+			if (chargeWay == 4) {
+				chargeWay = 0;
+			}
 		});
 		//菜单滑动事件
 		document.getElementById('slider').addEventListener('slide', function(e) {
-			chargeWay = e.detail.slideNumber;
+			chargeWay = e.detail.slideNumber + 1;
+			if (chargeWay == 4) {
+				chargeWay = 0;
+			}
 		});
 		mui(document.body).on('tap', '#setmode-btn', function(e) {
 			mui(this).button('loading');

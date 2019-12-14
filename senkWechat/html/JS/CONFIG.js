@@ -10,12 +10,12 @@ const CONFIGS = {
     return "http://sksenk.cn/"; // 天翼云平台
   },
   URLManage: function () {
-    const URLHeader = "http://47.104.204.250";
+    const URLHeader = "http://47.104.204.250:8080";
     const URLObj = {
       registerWechatApi: `${URLHeader}/weChat/register`,
       getUserInfoApi: `${URLHeader}/weChat/query/detail`,
       postUserInfoApi: `${URLHeader}/weChat/update`,
-
+      changeUserStateApi:`${URLHeader}/weChat/update-user-status`,
       getCpileBaseInfoApi: `${URLHeader}/scan/charge/get-pile-baseInfo`,
       getCpileStateoApi: `${URLHeader}/scan/charge/check-pile`,
 
@@ -54,6 +54,5 @@ const CONFIGS = {
     tmin = tmin < 10 ? "0" + tmin : tmin;
     var tsd = ts.getSeconds();
     tsd = tsd < 10 ? "0" + tsd : tsd;
-    return ("sk" + indexNo + ty + tm + td + th + tmin + tsd);
-  }
+    return ("sk" + indexNo + ty + tm + td + th + tmin + tsd);  }
 };

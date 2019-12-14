@@ -36,25 +36,15 @@ var User = {
   },
   // 改变用户状态，取消用户标记
   UserChange: function (url, userid, callback) {
-    url = url + "scanCharge/resetUser";
     var postData = {
       userId: userid,
     };
-    ajaxBase(url, false, postData, function (data) {
-      if (data) {
-        try {
-          data = JSON.parse(data);
-        } catch (data) {
-          // TODO handle the exception
-        }
-        if (data.returnCode == 0) {
-          callback(true);
-        } else {
-          alert("取消订单异常");
-          callback(false);
-        }
+    url = url + '?userId=' + userid;
+    ajaxBase('POST', url, false, postData, function (data) {
+      if (data && data.success) {
+        callback(data.success);
       } else {
-        callback(false);
+        callback();
       }
     });
   },
@@ -172,7 +162,7 @@ var User = {
     });
   },
   UploadUserMsg: function (url, user, callback) {
-  // var mask = mui.createMask();
+    // var mask = mui.createMask();
     url = url + "userManager/updateProfile";
     var data = {
       name: user.cpUserName,
@@ -279,7 +269,7 @@ function ajaxBase(method, url, asyn, data, callback) {
       if (e.success) {
         callback(e);
       } else {
-        alert(e.errorMessage);
+        mui.alert(e.errorMessage);
         callback();
       }
     },

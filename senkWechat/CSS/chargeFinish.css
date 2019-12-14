@@ -9,7 +9,7 @@ body{
 			}
 			#label{
                 background:no-repeat;
-                background-image: url(../../img/charging03.png);
+                background-image: url(../img/charging03.png);
 				height: 100%;
 				overflow: hidden;
 				text-align: center;

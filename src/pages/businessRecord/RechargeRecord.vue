@@ -16,6 +16,10 @@
 						<el-input v-model="userName"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>手机号：</span>
+						<el-input v-model="telephone"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>订单流水号：</span>
 						<el-input v-model="transationNum"></el-input>
 					</div>
@@ -124,7 +128,8 @@ export default {
       mainScreenLoading: false,
       payStatus: null,
       payStatusOptions: [],
-      tableData: []
+      tableData: [],
+      telephone: null
     };
   },
   methods: {
@@ -149,7 +154,7 @@ export default {
           id: 0,
           isDeleted: 0,
           openId: null,
-          telephone: null,
+          telephone: this.telephone,
           userId: null,
           userName: this.userName
         },

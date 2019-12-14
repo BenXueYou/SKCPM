@@ -891,6 +891,14 @@ class WxpayBankOrder extends WxPayDataBase{
 	{
 		return array_key_exists("desc",$this->values);
 	}
+		/**
+	* 判断接收微信支付异步通知回调地址是否存在
+	* @return true 或 false
+	**/
+	public function IsNotify_urlSet()
+	{
+		return array_key_exists('notify_url', $this->values);
+	}
 }
 
 
@@ -933,7 +941,7 @@ class WxPayTransferOrder extends WxPayDataBase
 	**/
 	public function SetMch_id($value)
 	{
-		$this->values['mch_id'] = $value;
+		$this->values['mchid'] = $value;
 	}
 	/**
 	* 获取微信支付分配的商户号的值
@@ -941,7 +949,7 @@ class WxPayTransferOrder extends WxPayDataBase
 	**/
 	public function GetMch_id()
 	{
-		return $this->values['mch_id'];
+		return $this->values['mchid'];
 	}
 	/**
 	* 判断微信支付分配的商户号是否存在
@@ -949,7 +957,7 @@ class WxPayTransferOrder extends WxPayDataBase
 	**/
 	public function IsMch_idSet()
 	{
-		return array_key_exists('mch_id', $this->values);
+		return array_key_exists('mchid', $this->values);
 	}
 
 
@@ -1188,6 +1196,25 @@ class WxPayTransferOrder extends WxPayDataBase
 	{
 		return array_key_exists('openid', $this->values);
 	}
+
+		/**
+	* 判断接收微信支付异步通知回调地址是否存在
+	* @return true 或 false
+	**/
+	public function IsNotify_urlSet()
+	{
+		return array_key_exists('notify_url', $this->values);
+	}
+
+		/**
+	* 设置接收微信支付异步通知回调地址
+	* @param string $value 
+	**/
+	public function SetNotify_url($value)
+	{
+		$this->values['notify_url'] = $value;
+	}
+
 }
 
 

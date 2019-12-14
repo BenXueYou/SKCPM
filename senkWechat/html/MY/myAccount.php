@@ -1,5 +1,4 @@
 <?php
-
 error_reporting(E_ERROR | E_PARSE);
 header("content-type:text/HTML;charset=utf-8");
 require_once "../../php/jssdk.php";
@@ -7,9 +6,9 @@ $appid = "wxe76a06a63e687acb";
 $secret = "a594e4f4526e2b61863fc4b059b88a59";
 
 if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
-	$APPID = 'wx031732af628faee0';
-	$REDIRECT_URI = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
-	$REDIRECT_URI = urlencode('http://sksenk.cn/senkWechat/html/MY/My_account.php');
+	$APPID = 'wxe76a06a63e687acb';
+	//$REDIRECT_URI = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
+	$REDIRECT_URI = urlencode('http://sksenk.cn/senkWechat/html/MY/myAccount.php');
 	$scope = 'snsapi_base';
 	//$scope='snsapi_userinfo';//需要授权
 	$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . $REDIRECT_URI . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
@@ -33,7 +32,6 @@ $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="Expires" content="0">
@@ -52,47 +50,30 @@ $signPackage = $jssdk->GetSignPackage();
 			margin: 0;
 		}
 
-		body {
-			background-color: #D3D3D3;
-			/* background-color:#D8D8D6; */
-		}
-
-		.top {
-			background-color: white;
-			color: black;
-			padding: 10px;
-			margin-bottom: 15px;
-		}
-
-		.topmsg {
-			text-align: center;
-		}
-
-		.topmsg_desc {
-			padding: 0 10%;
+		.mui-content {
+			background-color: transparent;
 		}
 
 		.middle {
 			display: none;
-			background-color: white;
 			color: black;
 			margin-bottom: 15px;
-			padding: 5px 15px 20px;
+		}
+
+		.money {
+			padding: 10px 15px 20px;
 		}
 
 		.money button {
 			margin: 10px 1%;
-			width: 20%;
-			height: 30px;
+			width: 22%;
+			height: 34px;
 		}
-
-		.middleDetail {}
 
 		#middle_input {
 			width: 40vw;
 			margin: auto;
-			height：30px;
-			line-height: 30px;
+			margin-right: 8px;
 			font-size: 12px;
 			text-align: center;
 			-webkit-user-select: auto;
@@ -109,7 +90,7 @@ $signPackage = $jssdk->GetSignPackage();
 			height: 40px;
 			padding: 0px;
 			margin: 0 8%;
-			background-color: #88D1FE;
+			background-color: #299dff;
 			font-size: 18px;
 			color: rgb(245, 245, 245);
 			border: 1px solid deepskyblue;
@@ -133,32 +114,8 @@ $signPackage = $jssdk->GetSignPackage();
 			background-color: rgba(80, 80, 80, 0.3);
 		}
 
-		label {
-			margin: 0 15%;
-		}
-
-		#total {
-			-webkit-user-select: text;
-			text-align: right;
-			padding: 0 1em;
-			border: 0px;
-			border-bottom: 1px solid #ECB100;
-			border-radius: 0;
-			font-size: 16px;
-			width: 30%;
-			outline: none;
-		}
-
-		html,
-		body,
-		div,
-		p {
-			/*background-color: #efeff4;*/
-			background-color: transparent !important;
-		}
-
 		.myAccountBg {
-			padding: 0.5em 1em;
+			padding: 0.5em 1em 1.5em;
 			text-align: center;
 		}
 
@@ -168,20 +125,6 @@ $signPackage = $jssdk->GetSignPackage();
 
 		.paybtn {
 			background-color: #EC971F !important;
-		}
-
-		.btn {
-			border: 1px solid lightgrey;
-		}
-
-		.topTitle {
-			margin-top: -25px;
-			color: orange;
-			font-size: 16px;
-		}
-
-		#accountSum {
-			font-size: 16px;
 		}
 
 		#bottom {
@@ -204,41 +147,33 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="circlebg"></div>
 		</div>
 	</div>
-
 	<header class="mui-bar mui-bar-nav" style="background-color: transparent;">
-
 		<h1 class="mui-title">我的账户</h1>
-		<a class="mui-icon-right-nav mui-pull-right" onclick="listOrder()"><span class="mui-icon mui-icon-bars"></span></a>
+		<!--		<a class="mui-icon-right-nav mui-pull-right" onclick="listOrder()"><span class="mui-icon mui-icon-bars"></span></a>-->
 	</header>
 	<div class="mui-content">
 		<div id="dcontent" class="dcontent">
 			<div class="myAccountBg">
 				<img src="../../img/myAccount.png" style="margin-top:-20px;" />
-				<h3 class="account" id="accountSum">
+				<h4 class="account" id="accountSum">
 					您当前余额为：0.0
-				</h3>
-				<hr color="#EEE" style="margin-top:10px;" />
+				</h4>
 			</div>
-			<p style="padding: 0 1em;text-align:left;">
-
-			</p>
-			<br />
 			<div class="top">
-				<p class="topTitle">✅&nbsp;请选择金额</p>
+				<div style="font-size:12px">✅&nbsp;请选择充值金额</div>
 				<div class="money">
 					<button class="btn">20元</button>
-					<button class="btn">30元</button>
+					<button class="btn active">30元</button>
 					<button class="btn">50元</button>
 					<button class="btn" value="4">自定义</button>
 				</div>
 			</div>
 			<div class="middle">
 				<p class="middleTitle">其他金额</p>
-				<div class="middleDetail"><input placeholder="请输入金额" id="middle_input" />元</div>
+				<div class="middleDetail"><input type="number" placeholder="请输入金额" id="middle_input" />元</div>
 			</div>
 			<button id="bottom">确定</button>
 			<!--<button id="transfer">余额提现</button>-->
-
 			<script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
 			<script src="../JS/mui.js" type="text/javascript" charset="utf-8"></script>
 			<script type="text/javascript" src="../JS/Order.js"></script>
@@ -256,87 +191,55 @@ $signPackage = $jssdk->GetSignPackage();
 				var outTradeNo = 0;
 				var dcChargeMode = 0;
 				var payState = 0;
-				var urlM = CONFIGS.LANCHUANG();
 				var openId = '<?php echo $openid; ?>';
-				var userid = openId;
+				var userid = openId = 'oCYn-1GMMBIqphinD6_InxoshM7o';
 				var user = User.userIsLogin();
 				User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
-					console.log("-----" + user);
+					console.log(user);
 					user = user;
-					initHtml();
-				});
-
-				function initHtml() {
-					try {
-						var accountSum = user.balance;
-						document.getElementById("accountSum").innerHTML = "余额：" + parseFloat(accountSum).toFixed(2);
-
-					} catch (e) {
-						//TODO handle the exception
-						document.getElementById("accountSum").innerHTML = "余额：¥ " + "0.00";
+					userid = user.userId;
+					if (user) {
+						var accountSum = user.balance || '0.00';
+						document.getElementById("accountSum").innerHTML = "余额：" + accountSum;
+					} else {
+						location.href = "./getPhone.html?openId=" + openId;
 					}
-				}
+				});
 				//点击确定按钮发起订单支付流程。
 				$("#bottom").click(function() {
-					if (chargeWayIndex == 0) { //是否选择自动充满
-						if (index == undefined && payState == 0) {
-							alert("你还未设置充电金额");
-						} else {
-							if (index == 3) { //自定义输入
-								var inputData = document.getElementById("middle_input").value;
-								money = inputData.substring(0, 2);
-							} else {
-								var x = $(".btn"); //二级菜单对象
-								var indexy = index + chargeWayIndex * 4; //二级菜单被选中的标记
-								var xhtmlObj = x[indexy]; //二级菜单中携带信息
-								var xhtml = xhtmlObj.innerHTML;
-								money = xhtml.substring(0, xhtml.length - 1);
-							}
-							if (isInteger(money) && money != 0 && money != "") {
-								//向微信统一下单
-								$("#mask").removeClass("hidden");
-								if (payState == 0) { //向微信统一下单
-									outTradeNo = CONFIGS.GETOUTTRADENO(cpid);
-									let orderParams = {
-										openId: openId,
-										outTradeNo: outTradeNo,
-										money: money
-									};
-									Order.getOrderToWechat(orderParams, function(order) {
-										$("#mask").addClass("hidden");
-										if (order) {
-											if (order == "100" || order == "false") {
-												location.href = "getPhone.html?openId=" + openId;
-												return;
-											} else {
-												Order = order;
-												sendPay(order);
-											}
-
-										} else {
-											alert("下单失败");
-											console.log("测试版本，暂不支持充值");
-										}
-									})
-								} else if (payState == 10) { //已下单重新支付
-									sendPay(Order);
-								} else if (payState == 100) {
-									getOrderWechatResult(function(e) {
-										if (e) {
-											mui.back();
-										} else {
-											$("#mask").addClass("hidden");
-											alert("您已取消了支付，请退出重新支付");
-										}
-									});
-								} else {
-									alert("请退出重新支付");
-								}
-							} else {
-								alert("支付金额必须大于0且为整数");
-							}
-						}
+					if (index == 3) { //自定义输入
+						money = document.getElementById("middle_input").value;
+					} else {
+						var x = $(".btn"); //二级菜单对象
+						var indexy = index + chargeWayIndex * 4; //二级菜单被选中的标记
+						var xhtmlObj = x[indexy]; //二级菜单中携带信息
+						var xhtml = xhtmlObj.innerHTML;
+						money = xhtml.substring(0, xhtml.length - 1);
 					}
+					if (isInteger(money)) {
+						//向微信统一下单
+						$("#mask").removeClass("hidden");
+						//向微信统一下单
+						outTradeNo = CONFIGS.GETOUTTRADENO(userid);
+						let orderParams = {
+							openId: openId,
+							outTradeNo: outTradeNo,
+							money: money
+						};
+						Order.getOrderToWechat(orderParams, function(order) {
+							$("#mask").addClass("hidden");
+							if (order) {
+								Order = order;
+								sendPay(order);
+							} else {
+								mui.alert('下单错误');
+								console.log("测试版本，暂不支持充值");
+							}
+						})
+					} else {
+						alert("支付金额必须大于0且为整数");
+					}
+
 				});
 
 				$("#transfer").click(function() {
@@ -381,67 +284,39 @@ $signPackage = $jssdk->GetSignPackage();
 							"paySign": Order.paySign //微信签名
 						},
 						function(res) {
-							$("#mask").removeClass("hidden");
-							payState = 100;
+							$("#mask").addClass("hidden");
 							if (res.err_msg == "get_brand_wcpay_request:ok") {
-								mui.back();
-							} else {
-								getOrderWechatResult(function(e) {
-									if (e) {
-										mui.back();
+								User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
+									user = user;
+									userid = user.userId;
+									if (user) {
+										var accountSum = user.balance || '0.00';
+										document.getElementById("accountSum").innerHTML = "余额：" + accountSum;
 									} else {
-										alert("支付失败");
-										$("#mask").addClass("hidden");
+
 									}
+
 								});
+							} else {
+								mui.alert("支付失败");
 							}
 						}
 					);
 				}
-
 				$(".middleDetail input").focus(function() {
 					index = 3;
-					$(".btn").removeClass("active");
-
 				});
-
-				//支付成功返回的结果
-				function getOrderWechatResult(callback) {
-					var ajax = $.ajax({
-						type: "GET",
-						url: "wx_pay/WechatPay/getPayOrderRes.php",
-						data: {
-							out_trade_no: outTradeNo
-						},
-						success: function(data) {
-							//日志传输
-							if (data == "1" || data == 1) {
-								callback(true);
-							} else {
-								callback(false);
-							}
-						},
-						error: function(jqXHR) {
-							$("#mask").addClass("hidden");
-							callback(false);
-							alert("订单查询失败,请记住该订单号并联系管理员" + outTradeNo);
-							Loggert("checkOrder ajax error tradeNo" + outTradeNo + "=openid=" + openId);
-						}
-					});
-				}
 				//点击菜单设置充电方式
 				$(".btn").on("click", function() {
-					$(this).addClass("active").siblings().removeClass("active");
+					index = $(this).index();
 					var sbtitle = $(".middle");
 					if ($(this).index() == "3") {
-						if (sbtitle.length) {
-							sbtitle.show();
-						}
+						sbtitle.show();
 					} else {
 						$("#middle_input").attr("value", "");
 						sbtitle.hide();
 					}
-					index = $(this).index();
+					$(this).addClass("active").siblings().removeClass("active");
 				});
 
 				//判断是否为整数
@@ -462,23 +337,6 @@ $signPackage = $jssdk->GetSignPackage();
 						},
 						waiting: {
 							autoShow: false
-						}
-					});
-				}
-				//日志
-				function Loggert(t) {
-					var ajax = $.ajax({
-						type: "GET",
-						url: urlM + "wechatUserManager/logger",
-						dataType: "json",
-						data: {
-							content: "returnWechatLogger" + t
-						},
-						success: function(data) {
-							console.log("成功");
-						},
-						error: function(jqXHR) {
-							console.log("失败");
 						}
 					});
 				}

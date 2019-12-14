@@ -13,7 +13,7 @@
 						<p style="margin:7px 0">订单编号：</p>
 					</el-col>
 					<el-col style="text-align:right;" :span="18">
-						<p style="text-align:left;margin:7px 0">{{rowData.transactionId}}</p>
+						<p style="text-align:left;margin:7px 0">{{formLabelAlign.transactionId}}</p>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="flex-start" :gutter="20">
@@ -28,24 +28,24 @@
 					</el-col>
 					<el-col :span="10" class="rightClass">
 						<p>
-							<el-input v-model="rowData.serviceTip"></el-input>
+							<el-input v-model="formLabelAlign.serviceTip"></el-input>
 						</p>
 						<p>
-							<el-input v-model="rowData.chargeMoney"></el-input>
+							<el-input v-model="formLabelAlign.chargeMoney"></el-input>
 						</p>
 						<p>
-							<el-input v-model="rowData.chargeQuantity"></el-input>
+							<el-input v-model="formLabelAlign.chargeQuantity"></el-input>
 						</p>
 						<p>
-							<el-input v-model="rowData.timeSpan"></el-input>
+							<el-input v-model="formLabelAlign.timeSpan"></el-input>
 						</p>
 						<p>
-							<el-input v-model="rowData.beforeChargeBalance"></el-input>
+							<el-input v-model="formLabelAlign.beforeChargeBalance"></el-input>
 						</p>
-						<!-- <p><el-input v-model="rowData.serviceTip"></el-input></p> -->
-						<p>{{rowData.chargeMoney + rowData.serviceTip}}</p>
-						<p>{{rowData.beforeChargeBalance - rowData.chargeMoney - rowData.serviceTip}}</p>
-						<!-- <p>{{$common.formatSeconds(rowData.timeSpan)}}</p> -->
+						<!-- <p><el-input v-model="formLabelAlign.serviceTip"></el-input></p> -->
+						<p>{{Number(formLabelAlign.chargeMoney) + Number(formLabelAlign.serviceTip)}}</p>
+						<p>{{Number(formLabelAlign.beforeChargeBalance) - Number(formLabelAlign.chargeMoney) - Number(formLabelAlign.serviceTip)}}</p>
+						<!-- <p>{{$common.formatSeconds(formLabelAlign.timeSpan)}}</p> -->
 					</el-col>
 				</el-row>
 			</div>
@@ -62,13 +62,13 @@
 						<p>电表总度数：</p>
 					</el-col>
 					<el-col :span="12" style="text-align:left">
-						<p>{{rowData.chargeModeId}}</p>
-						<p>{{rowData.chargeFinishedFlag}}</p>
-						<p>{{rowData.chargeEndCause || ''}}</p>
-						<p>{{rowData.chargeMethodId || ''}}</p>
-						<p>{{rowData.chargeStartTime || ''}}</p>
-						<p>{{rowData.chargeEndTime || ''}}</p>
-						<p>{{rowData.allQuantity || ''}}</p>
+						<p>{{formLabelAlign.chargeModeId}}</p>
+						<p>{{formLabelAlign.chargeFinishedFlag}}</p>
+						<p>{{formLabelAlign.chargeEndCause || ''}}</p>
+						<p>{{formLabelAlign.chargeMethodId || ''}}</p>
+						<p>{{formLabelAlign.chargeStartTime || ''}}</p>
+						<p>{{formLabelAlign.chargeEndTime || ''}}</p>
+						<p>{{formLabelAlign.allQuantity || ''}}</p>
 					</el-col>
 				</el-row>
 			</div>
@@ -97,7 +97,7 @@ export default {
     title: {
       type: String,
       default() {
-        return "编辑";
+        return "编辑记录";
       }
     },
     value: {
@@ -127,55 +127,17 @@ export default {
   },
   data() {
     return {
-      countryOptions: window.config.options,
-      countryOption: "",
-      maritalOptions: window.config.options,
-      maritalOption: "",
-      nationOption: "",
-      nationOptions: window.config.options,
-      educationOptions: window.config.options,
-      educationOption: "",
-      checkedNodeName: "",
-      inputWidth: "30%",
-      visible_popver: false,
-      checkeTreedNodes: [],
-      dynamicTags: [],
-      myHeaders: {},
-      updateFileImage: "",
       dialogVisible: false,
-      radioGender: "男",
-      phoneNumber: "",
-      name: "",
-      radioDate: "",
-      startTime: "",
-      endTime: "",
-      ResidentPopoverClass: "ResidentPopoverClass",
-      treeData: window.config.treeData,
-      defaultProps: {
-        label: "label",
-        children: "children"
-      },
-      filterText: "",
-      certificateOptions: window.config.options,
-      certificateOption: ""
+      formLabelAlign: {}
     };
   },
   mounted() {
     this.dialogVisible = this.visible;
-    this.name = this.value;
-    this.checkeTreedNodes = this.dynamicTags;
   },
   methods: {
-    filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
-    },
     clearAction() {},
     transferCheckedNodes() {},
-    handleClose(arr) {
-      this.dynamicTags = arr;
-      this.checkeTreedNodes = this.dynamicTags;
-    },
+    handleClose(arr) {},
     httpRequest() {},
     close() {
       this.$emit("update:visible", false);
@@ -183,7 +145,7 @@ export default {
     },
     confirm() {
       this.$businessAjax
-        .updateChargeRecord(this.rowData)
+        .updateChargeRecord(this.formLabelAlign)
         .then(res => {
           if (res.data.success) {
             this.$message.success("修改成功");
@@ -196,34 +158,18 @@ export default {
           //   this.$message.error();
         });
     },
-    nodeClick(data, node, nodeTree) {
-      var checkedKeys = this.$refs.roomTree.getCheckedKeys();
-      if (checkedKeys.indexOf(data.id) !== -1) {
-        checkedKeys.splice(checkedKeys.indexOf(data.id), 1);
-      } else {
-        checkedKeys.push(data.id);
-      }
-      this.$refs.roomTree.setCheckedKeys(checkedKeys);
-    }
+    nodeClick(data, node, nodeTree) {}
   },
   watch: {
     visible(val) {
       if (val) {
         this.name = this.value;
+        this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
       }
       this.dialogVisible = this.visible;
-      this.dynamicTags = [];
     },
     rowData: {
-      handler(val, oldVal) {
-        if (val.tagInofShows && val.tagInofShows.length) {
-          val.tagInofShows.forEach(item => {
-            item.id = item.tagUuid;
-            item.label = item.tagName;
-            this.dynamicTags.push(item);
-          });
-        }
-      },
+      handler(val, oldVal) {},
       deep: true,
       immediate: true
     }

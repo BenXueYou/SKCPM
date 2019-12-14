@@ -11,7 +11,6 @@
         $total_fee = $total_fee * 100;
 //参数；
         //②、统一下单
-            $tools = new JsApiPay();
             $input = new WxPayTransferOrder();
             $input->SetDesc("山西尚宽电气集团有限公司-用户提现");
             $input->SetPartner_trade_no($partner_trade_no);

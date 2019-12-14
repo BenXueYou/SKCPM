@@ -1,17 +1,30 @@
 <?php
+
 require_once "../../php/jssdk.php";
-$appid = "wxe76a06a63e687acb";
-$secret =  "a594e4f4526e2b61863fc4b059b88a59";
+
+$appid = "wx031732af628faee0";
+$secret =  "5e8ccf52a81d427752241374212af303";
 session_start();
 $code = $_GET["code"];
+
 $get_token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $secret . '&code=' . $code . '&grant_type=authorization_code';
+
 $ch = curl_init();
+
 curl_setopt($ch, CURLOPT_URL, $get_token_url);
+
 curl_setopt($ch, CURLOPT_HEADER, 0);
+
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
 $res = curl_exec($ch);
+
 curl_close($ch);
+
+
+
 //	解析json
 $user_obj = json_decode($res, true);
 

@@ -235,7 +235,7 @@
 		function regUserInfoAjax(userInfo) {
 			app.reg(userInfo, CONFIGS.URLManage().registerWechatApi, function (data) {
 				if (data && data.success) {
-					mui.back();
+					history.go(-1);location.reload()
 				} else {
 					mui.toast("注册失败");
 					return;

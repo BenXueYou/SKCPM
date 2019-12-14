@@ -174,7 +174,7 @@ export default {
       chargeWayOptions: [
         // { typeStr: 0, typeName: "APP充电" },
         { typeStr: 1, typeName: "刷卡充电" },
-        { typeStr: 3, typeName: "微信充电" }
+        { typeStr: 0, typeName: "微信充电" }
       ],
       typeOptions: [
         {
