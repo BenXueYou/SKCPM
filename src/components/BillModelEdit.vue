@@ -33,12 +33,12 @@
 				<el-row type="flex" justify="space-between" :gutter="30">
 					<el-col :span="12">
 						<el-form-item label="生效时间：" prop="validTime">
-							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.validTime" placeholder="请输入内容"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="失效时间：" prop="invalidTime">
-							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.invalidTime" placeholder="请输入内容"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -110,15 +110,27 @@
 							<el-form-item :label="`时段${item}起始时刻：`" prop="csId">
 								<el-time-picker
 									v-model="formLabelAlign['ti'+item+'Start']"
+									value-format="HH:mm"
 									:picker-options="{
-                    selectableRange: '00:00:00 - 23:59:59'
+                    selectableRange: '00:00 - 23:59'
                   }"
 									placeholder="任意时间点"
 								></el-time-picker>——
 								<el-time-picker
+									v-if="item !== formLabelAlign.timeIntervalCount"
 									v-model="formLabelAlign['ti'+(item+1)+'Start']"
+									value-format="HH:mm"
 									:picker-options="{
-                    selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59:59'
+                    selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59'
+                  }"
+									placeholder="任意时间点"
+								></el-time-picker>
+								<el-time-picker
+									v-else
+									v-model="formLabelAlign['ti'+1+'Start']"
+									value-format="HH:mm"
+									:picker-options="{
+                    selectableRange: formLabelAlign['ti'+1+'Start'] +' - 23:59'
                   }"
 									placeholder="任意时间点"
 								></el-time-picker>
@@ -205,25 +217,17 @@ export default {
     },
     onClickConfirm() {
       console.log(this.formLabelAlign);
-      let data = {
-        addressId: 0,
-        addressName: null,
-        areaId: 0,
-        cityId: this.formLabelAlign.cityId,
-        latitude: 0,
-        longitude: 0,
-        provinceId: this.formLabelAlign.provinceId
-      };
+      let data = {};
       Object.assign(data, this.formLabelAlign);
-      if (this.formLabelAlign.addressId) {
+      if (this.formLabelAlign.Id) {
         this.updateChargeAddress(data);
       } else {
         this.addChargeAddress(data);
       }
     },
     updateChargeAddress(data) {
-      this.$deviceAjax
-        .updateChargeAddress(data)
+      this.$PriceAjax
+        .putChargePrice(data)
         .then(res => {
           if (res.data.success) {
             this.$emit("onCancel", true);
@@ -282,9 +286,11 @@ export default {
     rowData(val) {
       this.formLabelAlign = JSON.parse(JSON.stringify(val));
       Object.assign(this.formLabelAlign, this.formLabelAlign.address);
-      console.log("formLabelAlign", this.formLabelAlign);
-      this.cityOptions = val.cityList;
-      this.areaOptions = val.areaList;
+      console.log(
+        this.formLabelAlign["ti" + 1 + "Start"],
+        "formLabelAlign",
+        this.formLabelAlign
+      );
     }
   },
   destroyed() {}
