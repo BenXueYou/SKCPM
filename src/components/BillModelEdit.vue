@@ -121,7 +121,8 @@
 									v-model="formLabelAlign['ti'+(item+1)+'Start']"
 									value-format="HH:mm"
 									:picker-options="{
-                    selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59'
+                    selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59',
+					format:'HH:mm'
                   }"
 									placeholder="任意时间点"
 								></el-time-picker>
@@ -130,7 +131,8 @@
 									v-model="formLabelAlign['ti'+1+'Start']"
 									value-format="HH:mm"
 									:picker-options="{
-                    selectableRange: formLabelAlign['ti'+1+'Start'] +' - 23:59'
+                    selectableRange: formLabelAlign['ti'+1+'Start'] +' - 23:59',
+					format:'HH:mm'
                   }"
 									placeholder="任意时间点"
 								></el-time-picker>
