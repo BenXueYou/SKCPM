@@ -1,11 +1,9 @@
 <?php
 ini_set('date.timezone', 'Asia/Shanghai');
 error_reporting(E_ERROR);
-
 require_once "../lib/WxPay.Api.php";
 require_once '../lib/WxPay.Notify.php';
 //require_once "../lib/con.php";
-// require_once 'log.php';
 class PayNotifyCallBack extends WxPayNotify
 {
 	//查询订单
@@ -47,8 +45,8 @@ class PayNotifyCallBack extends WxPayNotify
 			$out_trade_no = $data["out_trade_no"];
 			$params=array("depositMoney"=>$total_fee,"flag"=>1,"gmtCreate"=>$time_end,"openId"=>$openid,'orderId'=>$out_trade_no);
 			$data_string = json_encode($params);			
-			$this->postNotifyToServer($data_string);
-			return true;
+			$result = $this->postNotifyToServer($data_string);
+			return $result;
 		} else {
 			return false;
 		}
@@ -61,7 +59,7 @@ class PayNotifyCallBack extends WxPayNotify
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
 		curl_setopt($ch, CURLOPT_POST, TRUE);
 		curl_setopt($ch, CURLOPT_POSTFIELDS,$data_string);
 		//设置头信息
@@ -71,6 +69,8 @@ class PayNotifyCallBack extends WxPayNotify
 		));
 		$res = curl_exec($ch);
 		curl_close($ch);
+		$res = json_decode($res);
+		return $res->success;
 	}
 	// 直连数据库做出支付记录
 	public function QuerySql($sql)
