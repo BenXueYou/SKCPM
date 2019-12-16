@@ -11,7 +11,7 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 	$REDIRECT_URI = urlencode('http://sksenk.cn/senkWechat/html/MY/myAccount.php');
 	$scope = 'snsapi_base';
 	//$scope='snsapi_userinfo';//需要授权
-	$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . $REDIRECT_URI . '&response_type=code&scope=' . $scope . '&state=' . $state . '#wechat_redirect';
+	$url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $APPID . '&redirect_uri=' . $REDIRECT_URI . '&response_type=code&scope=' . $scope . '&state=STATE##wechat_redirect';
 	header("Location:" . $url);
 } else {
 	$code = $_GET["code"];
@@ -32,6 +32,7 @@ $signPackage = $jssdk->GetSignPackage();
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="Expires" content="0">
@@ -149,7 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 	<header class="mui-bar mui-bar-nav" style="background-color: transparent;">
 		<h1 class="mui-title">我的账户</h1>
-		<!--		<a class="mui-icon-right-nav mui-pull-right" onclick="listOrder()"><span class="mui-icon mui-icon-bars"></span></a>-->
+<!--	<a class="mui-icon-right-nav mui-pull-right" onclick="listOrder()"><span class="mui-icon mui-icon-bars"></span></a>-->
 	</header>
 	<div class="mui-content">
 		<div id="dcontent" class="dcontent">
@@ -182,31 +183,48 @@ $signPackage = $jssdk->GetSignPackage();
 				//全局变量
 				var index, money;
 				var chargeWayIndex = 0;
-				var cpid = "";
 				var payMode = 4;
 				var appid = "wxe76a06a63e687acb";
 				var nonceStr;
-				var package, signType, paySign, timeStamp, Order, user;
+				var package, signType, paySign, timeStamp,orderData,user;
 				var chargeState = 0;
 				var outTradeNo = 0;
 				var dcChargeMode = 0;
 				var payState = 0;
 				var openId = '<?php echo $openid; ?>';
-				var userid = openId = 'oCYn-1GMMBIqphinD6_InxoshM7o';
-				var user = User.userIsLogin();
-				User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
-					console.log(user);
-					user = user;
-					userid = user.userId;
-					if (user) {
-						var accountSum = user.balance || '0.00';
-						document.getElementById("accountSum").innerHTML = "余额：" + accountSum;
-					} else {
-						location.href = "./getPhone.html?openId=" + openId;
-					}
-				});
+				var userid = openId;
+				getUserState();
+
+				function getUserState() {
+					User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
+						console.log(user);
+						user = user;
+						if (user) {
+							userid = user.userId;
+							var accountSum = user.balance || '0.00';
+							document.getElementById("accountSum").innerHTML = "余额：" + accountSum;
+						} else {
+							location.href = "./getPhone.html?openId=" + openId;
+						}
+					});
+				}
 				//点击确定按钮发起订单支付流程。
 				$("#bottom").click(function() {
+					User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
+						console.log(user);
+						user = user;
+						if (user) {
+							userid = user.userId;
+							getPayOrder();
+							var accountSum = user.balance || '0.00';
+							document.getElementById("accountSum").innerHTML = "余额：" + accountSum;
+						} else {
+							location.href = "./getPhone.html?openId=" + openId;
+						}
+					});
+				});
+
+				function getPayOrder() {
 					if (index == 3) { //自定义输入
 						money = document.getElementById("middle_input").value;
 					} else {
@@ -226,11 +244,11 @@ $signPackage = $jssdk->GetSignPackage();
 							outTradeNo: outTradeNo,
 							money: money
 						};
-						Order.getOrderToWechat(orderParams, function(order) {
+						Order.getOrderToWechat(orderParams, function(orderRes) {
 							$("#mask").addClass("hidden");
-							if (order) {
-								Order = order;
-								sendPay(order);
+							if (orderRes) {
+								orderData = orderRes
+								sendPay(orderRes);
 							} else {
 								mui.alert('下单错误');
 								console.log("测试版本，暂不支持充值");
@@ -239,19 +257,17 @@ $signPackage = $jssdk->GetSignPackage();
 					} else {
 						alert("支付金额必须大于0且为整数");
 					}
-
-				});
+				}
 
 				$("#transfer").click(function() {
 					if (user.accountSum > 0 && user.accountSum != "") {
-						//向微信统一下单
+						//向微信统一下单提现
 						$("#mask").removeClass("hidden");
-						outTradeNo = CONFIGS.GETOUTTRADENO(cpid);
-						Order.getUserMoneyFromWechat(CONFIGS.LANCHUANG(), openId, outTradeNo, money, function(order) {
+						outTradeNo = CONFIGS.GETOUTTRADENO(userid);
+						Order.getUserMoneyFromWechat(CONFIGS.LANCHUANG(), openId, outTradeNo, money, function(orderRes) {
 							$("#mask").addClass("hidden");
-							if (order) {
-								Order = order;
-								console.log(order);
+							if (orderRes) {
+								console.log(orderRes);
 							} else {
 								console.log("下单失败");
 								alert("暂不支持充值");
@@ -260,7 +276,7 @@ $signPackage = $jssdk->GetSignPackage();
 					}
 				});
 				//支付
-				function sendPay(order) {
+				function sendPay(orderData) {
 					if (typeof WeixinJSBridge == "undefined") {
 						if (document.addEventListener) {
 							document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
@@ -277,26 +293,16 @@ $signPackage = $jssdk->GetSignPackage();
 					WeixinJSBridge.invoke(
 						'getBrandWCPayRequest', {
 							"appId": appid, //公众号名称，由商户传入
-							"timeStamp": Order.timeStamp, //时间戳，自1970年以来的秒数
-							"nonceStr": Order.nonceStr, //随机串
-							"package": Order.package,
+							"timeStamp": orderData.timeStamp, //时间戳，自1970年以来的秒数
+							"nonceStr": orderData.nonceStr, //随机串
+							"package": orderData.package,
 							"signType": "MD5", //微信签名方式：
-							"paySign": Order.paySign //微信签名
+							"paySign": orderData.paySign //微信签名
 						},
 						function(res) {
 							$("#mask").addClass("hidden");
 							if (res.err_msg == "get_brand_wcpay_request:ok") {
-								User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
-									user = user;
-									userid = user.userId;
-									if (user) {
-										var accountSum = user.balance || '0.00';
-										document.getElementById("accountSum").innerHTML = "余额：" + accountSum;
-									} else {
-
-									}
-
-								});
+								getUserState();
 							} else {
 								mui.alert("支付失败");
 							}

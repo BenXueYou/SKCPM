@@ -193,7 +193,7 @@ $signPackage = $jssdk->GetSignPackage();
 				var dcChargeMode = 0;
 				var payState = 0;
 				var openId = '<?php echo $openid; ?>';
-				var userid = openId = 'oCYn-1GMMBIqphinD6_InxoshM7o';
+				var userid = openId;
 				var user = User.userIsLogin();
 				User.getUserState(CONFIGS.URLManage().getUserInfoApi, openId, function(user) {
 					console.log(user);

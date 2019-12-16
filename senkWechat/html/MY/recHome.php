@@ -216,7 +216,6 @@ if (!isset($_GET["code"]) &&  $_GET["code"] == "") {
 	<script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="UTF-8">
 		var urlM = CONFIGS.URLManage().getChargeRecordApi;
-		var openId = 'safasjfdnsakm2322';
 		var openId = '<?php echo $openid; ?>';
 		var payRecordArr = new Array();
 		var chargeRecordArr = new Array();
