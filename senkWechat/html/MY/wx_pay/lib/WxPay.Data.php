@@ -882,10 +882,6 @@ class WxpayBankOrder extends WxPayDataBase
 }
 
 
-
-
-
-
 //企业付款到零钱
 class WxPayTransferOrder extends WxPayDataBase
 {

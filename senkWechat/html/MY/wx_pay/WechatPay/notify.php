@@ -31,6 +31,7 @@ class PayNotifyCallBack extends WxPayNotify
 			$msg = "输入参数不正确";
 			return false;
 		}
+		error_log("wechat pay notify:=====".json_encode($data), 0);
 		//收到微信支付成功的回调，给微信做出应答
 		if (
 			array_key_exists("return_code", $data)
@@ -46,7 +47,12 @@ class PayNotifyCallBack extends WxPayNotify
 			$params=array("depositMoney"=>$total_fee,"flag"=>1,"gmtCreate"=>$time_end,"openId"=>$openid,'orderId'=>$out_trade_no);
 			$data_string = json_encode($params);			
 			$result = $this->postNotifyToServer($data_string);
-			return $result;
+			if($result === 'true' || true){
+    			return true;
+			}else{
+				return $this->postNotifyToServer($data_string);
+			}
+
 		} else {
 			return false;
 		}
@@ -54,7 +60,7 @@ class PayNotifyCallBack extends WxPayNotify
 	// 调用接口，通知服务做出支付记录
 	public function postNotifyToServer($data_string)
 	{
-		$url = 'http://sksenk.cn/weChat/deposit/save';
+		$url = 'http://47.104.204.250:8080/weChat/deposit/save';
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -69,7 +75,9 @@ class PayNotifyCallBack extends WxPayNotify
 		));
 		$res = curl_exec($ch);
 		curl_close($ch);
+		error_log("wechat pay notify:-------".$res, 0);
 		$res = json_decode($res);
+		error_log("wechat pay notify:-------".$res->success, 0);
 		return $res->success;
 	}
 	// 直连数据库做出支付记录

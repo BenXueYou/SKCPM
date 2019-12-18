@@ -13,10 +13,6 @@ var User = {
       signId: ""
     };
     ajaxBase("POST", url, false, postData, function (returnData) {
-      //   if (returnData) {
-      //   } else {
-      //     callback(fasle);
-      //   }
     });
   },
   // 获取用户当前状态
@@ -54,22 +50,7 @@ var User = {
     var data = {
       userId: userid
     };
-    var DataObj = {
-      voltageA: 0,
-      voltageB: 0,
-      voltageC: 0,
-      currentA: 0,
-      currentB: 0,
-      currentC: 0,
-      chargeDuration: 0,
-      quantity: 0,
-      price: 0,
-      fee: 0,
-      dateTime: "----.--.-- --:--",
-      deviceId: 0,
-      gun: 0,
-      cpType: 0
-    };
+    var DataObj = {};
     ajaxBase("GET", url, false, data, function (res) {
       if (res && res.success) {
         let dataInfo = res.model;
@@ -84,8 +65,6 @@ var User = {
           callback(DataObj);
         }
       } else {
-        const msg = '未检测到桩数据信号,强制退出则取消对本次充电的监控，重新扫码充电';
-        mui.alert(msg);
         callback();
       }
     });
@@ -161,97 +140,7 @@ var User = {
       }
     });
   },
-  UploadUserMsg: function (url, user, callback) {
-    // var mask = mui.createMask();
-    url = url + "userManager/updateProfile";
-    var data = {
-      name: user.cpUserName,
-      IdentificationCode: user.vin,
-      sex: user.sex,
-      codeMode: "Android",
-      userId: user.cpUserId,
-      plateNumber: user.platform
-    };
-    // 上传基本信息
-    ajaxBase("POST", url, true, data, function (e) {
-      var data = e;
-      //			console.log("修改个人资料：" + user.cpUserId + "====" + JSON.stringify(e));
-      if (data == null) {
-        callback();
-      }
-      if (data.returnCode == 0) { // 修改成功
-        var users = JSON.parse(localStorage.getItem('$users') || '[]');
-        users.splice(0, users.length);
-        users.push(user);
-        localStorage.setItem('$users', JSON.stringify(users));
-        callback();
-      } else {
-        callback();
-      }
-    });
-    // 上传头像
-    uploaderHeadImg(user.headImgurl, user.cpUserId);
-  }
-
 };
-var files = [];
-var index = 1;
-var newUrlAfterCompress;
-function uploaderHeadImg(fileSrc, userId) {
-  console.log("图片路径=" + fileSrc);
-  var dstname = "_downloads/" + getUid() + ".jpg"; // 设置压缩后图片的路径
-  plus.zip.compressImage({
-    src: fileSrc,
-    dst: dstname,
-    overwrite: true,
-    quality: 20
-  },
-  function (event) {
-    console.log("Compress success:" + event.target);
-    appendFile(dstname); // 添加图片
-    var urlStr = CONFIGS.LANCHUANG() + "userManager/uploadPortrait";
-    var task = plus.uploader.createUpload(urlStr, {
-      method: "POST"
-    },
-    function (t, status) { // 上传完成
-      if (status == 200) {
-        console.log(t.responseText);
-        var result = JSON.parse(t.responseText);
-        mui.toast(result.message);
-      } else {
-        console.log("上传失败：" + status);
-      }
-    }
-    );
-
-    for (var i = 0; i < files.length; i++) {
-      var f = files[i];
-      task.addFile(f.path, {
-        key: f.name
-      });
-      console.log(JSON.stringify(files[i]));
-    }
-    task.addData('userId', "78503239");
-    task.start();
-  },
-  function (error) {
-    console.log(error);
-    return src;
-  });
-}
-
-// 向文件数组中添加图片
-function appendFile(p) {
-  files.push({
-    path: p,
-    name: "uploadkey_" + index
-  });
-  index++;
-}
-// 产生一个随机数
-function getUid() {
-  return Math.floor(Math.random() * 100000000 + 10000000).toString();
-}
 function ajaxBase(method, url, asyn, data, callback) {
   var mask = mui.createMask();
   mui.ajax(url, {
@@ -274,7 +163,6 @@ function ajaxBase(method, url, asyn, data, callback) {
       }
     },
     error: function (xhr) {
-      console.log(url + ":", xhr);
       callback();
     }
   });
@@ -290,30 +178,4 @@ function getDateString() {
   var tsd = ts.getSeconds();
   var dtime = ty + "-" + (tm < 10 ? "0" + tm : tm) + "-" + (td < 10 ? "0" + td : td) + "&nbsp" + (th < 10 ? "0" + th : th) + ":" + (tmin < 10 ? "0" + tmin : tmin) + ":" + (tsd < 10 ? "0" + tsd : tsd);
   return dtime;
-}
-
-function CurentTime() {
-  var now = new Date();
-  var year = now.getFullYear(); // 年
-  var month = now.getMonth() + 1; // 月
-  var day = now.getDate(); // 日
-  var hh = now.getHours(); // 时
-  var mm = now.getMinutes() - GetRandomNum(3.0, 1.0); // 分
-  var clock = year + "-";
-  if (month < 10) { clock += "0"; }
-  clock += month + "-";
-  if (day < 10) { clock += "0"; }
-  clock += day + " ";
-  if (hh < 10) { clock += "0"; }
-  clock += hh + ":";
-  if (mm < 10) clock += '0';
-  clock += mm;
-  return (clock);
-}
-
-// 随机数
-function GetRandomNum(Min, Max) {
-  var Range = Max - Min;
-  var Rand = Math.random();
-  return (Min + Math.round(Rand * Range));
 }

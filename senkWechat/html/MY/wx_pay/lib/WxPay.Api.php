@@ -505,6 +505,8 @@ class WxPayApi
 			$result = WxPayResults::Init($xml);
 		} catch (WxPayException $e){
 			$msg = $e->errorMessage();
+			
+
 		}
 		
 		return call_user_func($callback, $result);

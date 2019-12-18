@@ -1,0 +1,29 @@
+
+[16-Dec-2019 11:05:08 Europe/Berlin] PHP Notice:  Undefined index: code in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 5
+[16-Dec-2019 11:05:08 Europe/Berlin] PHP Notice:  Undefined variable: state in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 10
+[16-Dec-2019 11:05:08 Europe/Berlin] PHP Notice:  Undefined variable: openid in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 220
+[16-Dec-2019 11:07:13 Europe/Berlin] Oracle���ݿⲻ����!
+[16-Dec-2019 11:12:27 Europe/Berlin] PHP Notice:  Undefined index: code in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 5
+[16-Dec-2019 11:12:27 Europe/Berlin] PHP Notice:  Undefined variable: state in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 10
+[16-Dec-2019 11:12:27 Europe/Berlin] PHP Notice:  Undefined variable: openid in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 220
+[16-Dec-2019 18:33:37 Asia/Shanghai] wechat pay notify:=====Array
+[16-Dec-2019 18:35:51 Asia/Shanghai] wechat pay notify:====={"appid":"wxe76a06a63e687acb","attach":"test","bank_type":"OTHERS","cash_fee":"100","fee_type":"CNY","is_subscribe":"Y","mch_id":"1421696402","nonce_str":"uo3ro6iufahmjfkwpqzpt8zxicddeyht","openid":"oCYn-1GMMBIqphinD6_InxoshM7o","out_trade_no":"sk88818344400920191216183546","result_code":"SUCCESS","return_code":"SUCCESS","sign":"16238D5AC4E14F1582EC6C74640820E4","time_end":"20191216183550","total_fee":"100","trade_type":"JSAPI","transaction_id":"4200000465201912163593774689"}
+[16-Dec-2019 18:35:51 Asia/Shanghai] wechat pay notify:=====1
+[16-Dec-2019 11:37:18 Europe/Berlin] PHP Notice:  Undefined index: code in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 5
+[16-Dec-2019 11:37:18 Europe/Berlin] PHP Notice:  Undefined variable: state in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 10
+[16-Dec-2019 11:37:18 Europe/Berlin] PHP Notice:  Undefined variable: openid in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 220
+[16-Dec-2019 11:39:04 Europe/Berlin] PHP Notice:  Undefined index: code in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 5
+[16-Dec-2019 11:39:04 Europe/Berlin] PHP Notice:  Undefined variable: state in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 10
+[16-Dec-2019 11:39:04 Europe/Berlin] PHP Notice:  Undefined variable: openid in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 220
+[16-Dec-2019 18:39:09 Asia/Shanghai] wechat pay notify:====={"appid":"wxe76a06a63e687acb","attach":"test","bank_type":"OTHERS","cash_fee":"2000","fee_type":"CNY","is_subscribe":"Y","mch_id":"1421696402","nonce_str":"3me0whiri58uqjynjsafo3sizhxtk1rb","openid":"oCYn-1Csy-Jmt2Pwb_YD5N_bxMwQ","out_trade_no":"sk88815970861320191216183901","result_code":"SUCCESS","return_code":"SUCCESS","sign":"E749702C4F14EE7F0ABE0C540ECCC020","time_end":"20191216183909","total_fee":"2000","trade_type":"JSAPI","transaction_id":"4200000465201912166315685913"}
+[16-Dec-2019 18:39:09 Asia/Shanghai] wechat pay notify:=====1
+[16-Dec-2019 11:49:11 Europe/Berlin] PHP Notice:  Undefined index: code in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 5
+[16-Dec-2019 11:49:11 Europe/Berlin] PHP Notice:  Undefined variable: state in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 10
+[16-Dec-2019 11:49:11 Europe/Berlin] PHP Notice:  Undefined variable: openid in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 220
+[16-Dec-2019 12:00:41 Europe/Berlin] PHP Notice:  Undefined index: code in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 5
+[16-Dec-2019 12:00:41 Europe/Berlin] PHP Notice:  Undefined variable: state in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 10
+[16-Dec-2019 12:00:41 Europe/Berlin] PHP Notice:  Undefined variable: openid in /opt/lampp/htdocs/senkWechat/html/MY/recHome.php on line 220
+[16-Dec-2019 19:24:31 Asia/Shanghai] wechat pay notify:====={"appid":"wxe76a06a63e687acb","attach":"test","bank_type":"OTHERS","cash_fee":"3000","fee_type":"CNY","is_subscribe":"Y","mch_id":"1421696402","nonce_str":"a7ge592a00on13y32jg67epzftewtju7","openid":"oCYn-1Gnc22Jhi976JFD9JcqWhZA","out_trade_no":"sk88813040433920191216192428","result_code":"SUCCESS","return_code":"SUCCESS","sign":"672FBF9B7E45056ECBC49B9324D141AF","time_end":"20191216192430","total_fee":"3000","trade_type":"JSAPI","transaction_id":"4200000454201912162279387656"}
+[16-Dec-2019 19:24:32 Asia/Shanghai] wechat pay notify:=====1
+[16-Dec-2019 19:42:27 Asia/Shanghai] wechat pay notify:====={"appid":"wxe76a06a63e687acb","attach":"test","bank_type":"OTHERS","cash_fee":"3000","fee_type":"CNY","is_subscribe":"Y","mch_id":"1421696402","nonce_str":"cepby1sxfu5nii5oy7tctnbw6y99uvn2","openid":"oCYn-1LZGhB7JN2-3ll3iOrpQ9MY","out_trade_no":"sk88818022759620191216194219","result_code":"SUCCESS","return_code":"SUCCESS","sign":"E27CC22BDA1DF2567FE4377496EC5327","time_end":"20191216194226","total_fee":"3000","trade_type":"JSAPI","transaction_id":"4200000461201912166273699492"}
+[16-Dec-2019 19:42:27 Asia/Shanghai] wechat pay notify:=====1

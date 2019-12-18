@@ -15,7 +15,7 @@ const CONFIGS = {
       registerWechatApi: `${URLHeader}/weChat/register`,
       getUserInfoApi: `${URLHeader}/weChat/query/detail`,
       postUserInfoApi: `${URLHeader}/weChat/update`,
-      changeUserStateApi:`${URLHeader}/weChat/update-user-status`,
+      changeUserStateApi: `${URLHeader}/weChat/update-user-status`,
       getCpileBaseInfoApi: `${URLHeader}/scan/charge/get-pile-baseInfo`,
       getCpileStateoApi: `${URLHeader}/scan/charge/check-pile`,
 
@@ -54,5 +54,10 @@ const CONFIGS = {
     tmin = tmin < 10 ? "0" + tmin : tmin;
     var tsd = ts.getSeconds();
     tsd = tsd < 10 ? "0" + tsd : tsd;
-    return ("sk" + indexNo + ty + tm + td + th + tmin + tsd);  }
+    return ("sk" + indexNo + ty + tm + td + th + tmin + tsd);
+  },
+  // 产生一个随机数
+  getUid: function () {
+    return Math.floor(Math.random() * 100000000 + 10000000).toString();
+  }
 };

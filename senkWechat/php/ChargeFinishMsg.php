@@ -8,28 +8,34 @@ $access_token = $jsoninfo["access_token"];
 $openId = $_GET["openId"];
 $total_fee = $_GET["total_fee"];
 $time = $_GET["dateTime"];
+$telephone = $_GET['telephone'];
+$balance = $_GET['balance'];
 $jsonmenu = '{
-        "touser":"'.$openId.'",
-        "template_id":"VPlLa0_uQ07OjwKwk28T4-gi1JA4D-00ezHHCpps1uY",
+        "touser":"' . $openId . '",
+        "template_id":"iNKUMAz6aeLpnD4k1WA9jPp9-muAapffhuE4XdbR1j0",
         "url":"http://weixin.qq.com/download",
         "topcolor":"#FF0000",
         "data":{
 	        "first": {
-                       "value":"充电完成！",
+                       "value":"您好，本次充电完成！您的账户消费情况如下：",
                        "color":"#173177"
                    },
-                   "keyword1":{
-                       "value":"扫码充电",
+                   "account":{
+                       "value":"'.$telephone.'",
                        "color":"#173177"
                    },
-                   "keyword2": {
-                       "value":"充电消费'.$total_fee.'元",
+                   "time": {
+                        "value":"' . $time . '",
+                        "color":"#173177"
+                    },
+                    "amount": {
+                        "value":"充电消费' . $total_fee . '元",
+                        "color":"#173177"
+                    },
+                   "accountbalance": {
+                       "value":"' . $balance . '",
                        "color":"#173177"
-                   },
-                   "keyword3": {
-                       "value":"'.$time.'",
-                       "color":"#173177"
-                   },
+                    },
                    "remark":{
                        "value":"欢迎下次再来！",
                        "color":"#173177"
@@ -41,7 +47,6 @@ $jsonmenu = '{
 $url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" . $access_token;
 $result = https_request($url, $jsonmenu);
 var_dump($result);
-
 function https_request($url, $data = null)
 {
     $curl = curl_init();
