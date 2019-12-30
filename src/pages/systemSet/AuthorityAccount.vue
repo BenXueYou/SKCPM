@@ -90,7 +90,7 @@
           <template slot-scope="scope">{{transferRoleDesc(scope.row)}}</template>
         </el-table-column>
         <el-table-column prop="loginTime" label="最近登录时间"></el-table-column>
-        <el-table-column  v-if="$store.state.home. AuthorizationID" prop="totalFee" label="操作">
+        <el-table-column  v-if="$store.state.home.AuthorizationID" prop="totalFee" label="操作">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
             <el-button @click="deleteBtnAct(scope.row)" type="text" size="small">删除</el-button>
@@ -124,8 +124,8 @@ export default {
     this.csOptions = this.$store.state.home.chargeStationArr;
     this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
-    this.operator = this.operatorOptions[0].operatorId;
-    this.roleId = this.accountRoleOptions[0].typeStr;
+    // this.roleId = this.accountRoleOptions[0].typeStr;
+    this.csOptions = this.$store.state.home.operatorId;
     this.initData();
   },
   data: function() {
@@ -142,17 +142,17 @@ export default {
         {
           typeStr: 1,
           typeName: "系统操作员",
-          desc: "浏览一切权限"
+          desc: "浏览该平台下的一切数据权限"
         },
         {
           typeStr: 2,
           typeName: "运营管理员",
-          desc: "运营者一切权限"
+          desc: "当前运营商及其子运营商的一切权限"
         },
         {
           typeStr: 3,
           typeName: "普通操作员",
-          desc: "浏览运营权限"
+          desc: "浏览运营商及其子运营商的数据权限"
         }
       ],
       pageSize: 10,

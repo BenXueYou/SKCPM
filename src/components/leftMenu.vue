@@ -142,7 +142,7 @@
 						</template>
 						<el-menu-item index="/Main/EnterpriseUser">企业用户</el-menu-item>
 						<el-menu-item index="/Main/EnterpriseStaff">企业员工</el-menu-item>
-						<el-menu-item index="/Main/EnterpriseChargeRecord">充电记录</el-menu-item>
+						<!-- <el-menu-item index="/Main/EnterpriseChargeRecord">充电记录</el-menu-item> -->
 						<!-- <el-menu-item index="/Main/EnterpriseReportData">充电报表</el-menu-item> -->
 					</el-submenu>
 
@@ -150,11 +150,14 @@
 						<i class="el-icon-money"></i>
 						计费模型
 					</el-menu-item>
-					<el-menu-item index="/main/AuthorityAccount" style="padding-left:20px;background-color:rgb(53,64,84)">
+					<el-menu-item
+						index="/main/AuthorityAccount"
+						style="padding-left:20px;background-color:rgb(53,64,84)"
+					>
 						<i class="el-icon-coordinate"></i>
 						账号管理
 					</el-menu-item>
-					<el-submenu index="7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
+					<el-submenu v-if="OperatorId===34" index="7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<i class="el-icon-menu"></i>
 							<span slot="title">微信商城</span>
@@ -184,6 +187,7 @@
 	</el-row>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   mounted: function() {
     console.log(this.$route);
@@ -198,6 +202,13 @@ export default {
       subRoute: "VistorRecord",
       defaultActive: ""
     };
+  },
+  computed: {
+    ...mapState({
+      OperatorId: state => {
+        return state.home.OperatorId;
+      }
+    })
   },
   watch: {
     $route(to, from) {
@@ -290,14 +301,14 @@ export default {
 	text-align: left;
 }
 .left_menu_box .el-col-24 {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 .left_menu_box .el-row {
-    position: relative;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    height: 100%;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 100%;
 }
 .el-menu {
 	height: 100%;

@@ -120,6 +120,7 @@ export default {
   watch: {
     operatorArr(arr) {
       this.operatorOptions = arr;
+      this.operatorId = this.operatorOptions[0].operatorId;
     }
   },
   computed: {
@@ -149,6 +150,11 @@ export default {
     this.endTime = this.$common.getCurrentTime();
     this.initData();
     this.initLineData();
+
+    console.log('---------mounted-----------');
+  },
+  destroyed: function() {
+    console.log('------destroyed--------');
   },
   data: function() {
     return {

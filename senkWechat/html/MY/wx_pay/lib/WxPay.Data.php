@@ -212,6 +212,7 @@ class WxPayResults extends WxPayDataBase
 	{
 		$obj = new self();
 		$obj->FromXml($xml);
+		
 		//fix bug 2015-06-29
 		if ($obj->values['return_code'] != 'SUCCESS') {
 			return $obj->GetValues();

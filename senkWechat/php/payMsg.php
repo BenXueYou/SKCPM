@@ -8,30 +8,31 @@ $access_token = $jsoninfo["access_token"];
 $openId = $_GET["openId"];
 $total_fee = $_GET["total_fee"];
 $time = $_GET["dateTime"];
+$order_id = $_GET["order_id"];
 $jsonmenu = '{
         "touser":"'.$openId.'",
-        "template_id":"VPlLa0_uQ07OjwKwk28T4-gi1JA4D-00ezHHCpps1uY",
+        "template_id":"VJ9JjvSNRGfPv_CW9yXlBppGKzSKr8N1NhXdfu07BUw",
         "url":"http://weixin.qq.com/download",
         "topcolor":"#FF0000",
         "data":{
 	        "first": {
-                       "value":"充电完成！",
+                       "value":"尊敬的用户，您好！您的支付订单已收到",
                        "color":"#173177"
                    },
                    "keyword1":{
-                       "value":"扫码充电",
-                       "color":"#173177"
-                   },
-                   "keyword2": {
-                       "value":"充电消费'.$total_fee.'元",
-                       "color":"#173177"
-                   },
-                   "keyword3": {
                        "value":"'.$time.'",
                        "color":"#173177"
                    },
+                   "keyword2": {
+                    "value":"'.$total_fee.'元",
+                    "color":"#173177"
+                   },
+                   "keyword3": {
+                       "value":"'.$order_id.'",
+                       "color":"#173177"
+                   },
                    "remark":{
-                       "value":"欢迎下次再来！",
+                       "value":"感谢您的购买，请凭该购买通知到服务区扫码充电！",
                        "color":"#173177"
                    }
 	        }

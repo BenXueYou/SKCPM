@@ -170,7 +170,7 @@ export default {
       total: 10,
       beginTime: null,
       endTime: null,
-      chargeWay: 3,
+      chargeWay: 0,
       chargeWayOptions: [
         // { typeStr: 0, typeName: "APP充电" },
         { typeStr: 1, typeName: "刷卡充电" },

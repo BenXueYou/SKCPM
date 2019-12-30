@@ -82,7 +82,7 @@
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
-				<el-button type="primary" @click="deleteBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
+				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
@@ -96,7 +96,9 @@
 					<el-table-column prop="chargeMethodId" label="充电类型" width="100">
 						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}</template>
 					</el-table-column>
-					<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
+					<el-table-column prop="chargeModeId" label="充电模式" width="100">
+						<template slot-scope="scope">{{transferChargeModelId(scope.row.chargeModeId)}}</template>
+					</el-table-column>
 					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
 					<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
 					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100">
@@ -184,10 +186,20 @@ export default {
       userName: null,
       phoneNumber: null,
       chargeMethodId: null,
-      rowData: {}
+      rowData: {},
+      chargeModelOptions: {
+        0: "自动充满",
+        1: "电量",
+        2: "时间",
+        3: "金额",
+        4: "刷卡"
+      }
     };
   },
   methods: {
+    transferChargeModelId(chargeModelId) {
+      return this.chargeModelOptions[chargeModelId];
+    },
     // 关闭编辑弹窗
     closeRecordView(is) {
       this.dialogRecordView = !this.dialogRecordView;
@@ -302,7 +314,33 @@ export default {
         .catch(() => {});
     },
     deleteBtnAct() {},
-    exportBtnAct() {},
+    exportBtnAct() {
+      var data = {
+        model: {
+          cardNum: "string",
+          operatorLoginId: 0,
+          roleId: 0,
+          userId: "string",
+          chargeEndTime: this.endTime,
+          chargeMethodId: this.chargeMethodId,
+          chargeStartTime: this.beginTime,
+          deviceId: this.cpId,
+          operatorId: this.operatorId,
+          telephone: this.phoneNumber,
+          userName: this.userName
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true
+      };
+      this.$businessAjax
+        .exportChargeRecord(data)
+        .then(res => {
+          if (res.data.success) {
+          }
+        })
+        .catch(() => {});
+    },
     handleClick(row) {
       console.log(row);
       this.rowData = row;

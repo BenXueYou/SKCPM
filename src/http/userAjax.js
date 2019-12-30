@@ -89,7 +89,7 @@ export var userAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      params: xhr
     });
   },
   updateUserList(xhr) {

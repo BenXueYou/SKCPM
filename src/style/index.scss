@@ -27,7 +27,8 @@ img,
 }
 /*************************************** 表格样式 *******************************************/
 .el-table__body-wrapper {
-  height: calc(100% - 75px);
+  max-height: calc(100% - 75px);
+  // height: 100%;
   overflow: auto;
   border: 0px solid #c0c4cc;
 }

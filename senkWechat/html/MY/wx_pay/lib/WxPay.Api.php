@@ -162,20 +162,14 @@ class WxPayApi
 		$inputObj->SetAppid(WxPayConfig::APPID);//公众账号ID
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
-	
+
 		$inputObj->SetSign();//签名
 		$xml = $inputObj->ToXml();
-   
 		$startTimeStamp = self::getMillisecond();//请求开始时间
-    
-        
 		$response = self::postXmlCurl($xml, $url, true, $timeOut);
-        
 		$result = WxPayResults::Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
-		
         //var_dump($result); 
-        
 		return $result;
 	}
 	
@@ -204,15 +198,12 @@ class WxPayApi
 		}
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
-		
 		$inputObj->SetSign();//签名
 		$xml = $inputObj->ToXml();
-		
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
 		$result = WxPayResults::Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
-
 		return $result;
 	}
 
@@ -222,8 +213,6 @@ class WxPayApi
  * 参数二：企业付款单号partner_trade_no
  * 参数三：随机字符串nonce_str
  * 参数四：签名sign
-
- 
  * 参数八：付款金额：amount
  * 参数九：付款说明:desc
  */
@@ -236,19 +225,16 @@ class WxPayApi
 		//if(!$inputObj->IsNotify_urlSet()){
 		//	$inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
 		//}
-		
 		$inputObj->SetMch_appid(WxPayConfig::APPID);//公众账号ID
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
 		//$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  
 		$inputObj->SetSpbill_create_ip("47.104.204.250");  	    
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
-		
 		//签名
 		$inputObj->SetSign();
 		$xml = $inputObj->ToXml();
 		$response = self::postXmlCurl($xml, $url, true, $timeOut=6);
 		$result = WxPayResults::Init($response);
-	
 		return $result;
 	}
 
