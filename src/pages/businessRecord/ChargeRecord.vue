@@ -10,38 +10,22 @@
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:10px">
-				<div class="flex-sbw">
-					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-						<span>用户名：</span>
-						<el-input v-model="userName"></el-input>
+				<div class="flex-st">
+					<div class="topTitleTxt flex-sbw-item">
+						<span>用户ID：</span>
+						<el-input v-model="userId"></el-input>
 					</div>
-					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+					<div class="topTitleTxt flex-sbw-item">
 						<span>充电桩ID：</span>
 						<el-input v-model="cpId"></el-input>
 					</div>
-					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+					<div class="topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
 						<el-input v-model="phoneNumber"></el-input>
 					</div>
-					<div class="dateBox">
-						<span class="topTitleTxt">充电时间：</span>
-						<el-date-picker
-							v-model="beginTime"
-							type="datetime"
-							class="time-interal-date"
-							size="small"
-							placeholder="选择日期"
-							value-format="yyyy-MM-dd HH:mm:ss"
-						></el-date-picker>
-						<span class="time-line">—</span>
-						<el-date-picker
-							v-model="endTime"
-							type="datetime"
-							class="time-interal-date"
-							placeholder="选择日期"
-							size="small"
-							value-format="yyyy-MM-dd HH:mm:ss"
-						></el-date-picker>
+					<div class="topTitleTxt flex-sbw-item">
+						<span>充电卡号：</span>
+						<el-input v-model="cardNum"></el-input>
 					</div>
 				</div>
 			</div>
@@ -80,6 +64,26 @@
 						></el-option>
 					</el-select>
 				</div>
+				<div class="dateBox">
+					<span class="topTitleTxt">充电时间：</span>
+					<el-date-picker
+						v-model="beginTime"
+						type="datetime"
+						class="time-interal-date"
+						size="small"
+						placeholder="选择日期"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+					<span class="time-line">—</span>
+					<el-date-picker
+						v-model="endTime"
+						type="datetime"
+						class="time-interal-date"
+						placeholder="选择日期"
+						size="small"
+						value-format="yyyy-MM-dd HH:mm:ss"
+					></el-date-picker>
+				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
 				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
@@ -89,28 +93,33 @@
 				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
-					<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
-					<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
+					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
 					<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
-					<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
-					<el-table-column prop="chargeMethodId" label="充电类型" width="100">
-						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}</template>
+					<el-table-column prop="userId" label="用户ID" width="160">
+						<template slot-scope="scope">{{scope.row.chargeMethodId !==1?scope.row.userId:'————'}}</template>
 					</el-table-column>
+					<el-table-column prop="cardNum" label="卡号" width="160">
+						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?scope.row.chargeMethodId:'————'}}</template>
+					</el-table-column>
+					<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
 					<el-table-column prop="chargeModeId" label="充电模式" width="100">
 						<template slot-scope="scope">{{transferChargeModelId(scope.row.chargeModeId)}}</template>
 					</el-table-column>
+					<el-table-column prop="chargeMethodId" label="充电类型" width="100">
+						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}</template>
+					</el-table-column>
 					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
 					<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
-					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100">
-						<template slot-scope="scope">{{scope.row.chargeFinishedFlag>0?"成功":'失败'}}</template>
-					</el-table-column>
-					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
-					<el-table-column prop="userId" label="用户ID" width="160"></el-table-column>
 					<el-table-column prop="timeSpan" label="充电时长" width="180">
 						<template slot-scope="scope">{{$common.formatSeconds(scope.row.timeSpan)}}</template>
 					</el-table-column>
 					<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
 					<el-table-column prop="chargeMoney" label="充电总金额" width="100"></el-table-column>
+					<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
+					<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
+					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100">
+						<template slot-scope="scope">{{scope.row.chargeFinishedFlag>0?"成功":'失败'}}</template>
+					</el-table-column>
 					<el-table-column label="操作" width="120">
 						<template slot-scope="scope">
 							<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
@@ -184,9 +193,11 @@ export default {
       tableData: window.config.tableData,
       cpId: null,
       userName: null,
+      userId: null,
       phoneNumber: null,
       chargeMethodId: null,
       rowData: {},
+      cardNum: null,
       chargeModelOptions: {
         0: "自动充满",
         1: "电量",
@@ -283,7 +294,8 @@ export default {
           deviceId: this.cpId,
           operatorId: this.operatorId,
           telephone: this.phoneNumber,
-          userName: this.userName
+          cardNum: this.cardNum,
+          userId: this.userId
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,
@@ -387,6 +399,9 @@ export default {
 .ChargeRecord .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
+.ChargeRecord .flex-sbw-item {
+	margin-right: 5%;
+}
 
 @media screen and (max-width: 1540px) {
 	.ChargeRecord .flex-sbw-item {
@@ -442,7 +457,7 @@ export default {
 			justify-content: flex-start;
 			padding-bottom: 15px;
 			.flex-sbw-div {
-				margin-right: 20px;
+				margin-right: 3%;
 			}
 			.el-button {
 				color: #ffffff;
