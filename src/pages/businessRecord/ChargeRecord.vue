@@ -99,7 +99,7 @@
 						<template slot-scope="scope">{{scope.row.chargeMethodId !==1?scope.row.userId:'————'}}</template>
 					</el-table-column>
 					<el-table-column prop="cardNum" label="卡号" width="160">
-						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?scope.row.chargeMethodId:'————'}}</template>
+						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?scope.row.cardNum:'————'}}</template>
 					</el-table-column>
 					<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
 					<el-table-column prop="chargeModeId" label="充电模式" width="100">
