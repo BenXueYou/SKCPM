@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="topMenu" style="margin-bottom: 15px;">
-        <el-button type="primary" v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
+        <el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
         <el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
       </div>
       <div class="tableBox">

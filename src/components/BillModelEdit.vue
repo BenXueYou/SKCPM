@@ -221,13 +221,13 @@ export default {
       console.log(this.formLabelAlign);
       let data = {};
       Object.assign(data, this.formLabelAlign);
-      if (this.formLabelAlign.Id) {
-        this.updateChargeAddress(data);
+      if (this.formLabelAlign.billModelId) {
+        this.updateChargePrice(data);
       } else {
-        this.addChargeAddress(data);
+        this.addChargePrice(data);
       }
     },
-    updateChargeAddress(data) {
+    updateChargePrice(data) {
       this.$PriceAjax
         .putChargePrice(data)
         .then(res => {
@@ -240,9 +240,9 @@ export default {
         })
         .catch(() => {});
     },
-    addChargeAddress(data) {
+    addChargePrice(data) {
       this.$deviceAjax
-        .postChargeAddress(data)
+        .postChargePrice(data)
         .then(res => {
           if (res.data.success) {
             this.$emit("onCancel", true);

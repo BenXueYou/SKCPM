@@ -11,7 +11,7 @@
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
 				<div class="flex-sbw">
-					<el-button v-if="$store.state.home. AuthorizationID" type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
+					<el-button v-if="$store.state.home.AuthorizationID" type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 					<div class="flex-sbw-div">
 						<span class="topTitleTxt">省：</span>
 						<el-select
@@ -83,7 +83,7 @@
 				<el-table-column prop="addressName" label="地址" show-overflow-tooltip></el-table-column>
 				<el-table-column prop="longitude" label="经度"></el-table-column>
 				<el-table-column prop="latitude" label="纬度"></el-table-column>
-				<el-table-column  v-if="$store.state.home. AuthorizationID" label="操作">
+				<el-table-column  v-if="$store.state.home.AuthorizationID" label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>

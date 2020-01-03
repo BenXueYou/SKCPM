@@ -70,11 +70,11 @@
         <el-button
           type="primary"
           @click="addBtnAct"
-          v-if="$store.state.home. AuthorizationID"
+          v-if="$store.state.home.AuthorizationID"
           style="margin-bottom:10px;"
         >新增</el-button>
-        <el-button type="primary" v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct">删除</el-button>
-        <el-button type="primary" v-if="$store.state.home. AuthorizationID" @click="exportBtnAct">导出</el-button>
+        <el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="deleteBtnAct">删除</el-button>
+        <el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="exportBtnAct">导出</el-button>
       </div>
       <div class="tableBox">
         <el-table
@@ -95,7 +95,7 @@
           <el-table-column prop="model" label="桩型号"></el-table-column>
           <el-table-column prop="gmtCreate" label="建桩日期"></el-table-column>
           <el-table-column prop="location" label="详细地址" show-overflow-tooltip></el-table-column>
-          <el-table-column v-if="$store.state.home. AuthorizationID" label="操作" width="100">
+          <el-table-column v-if="$store.state.home.AuthorizationID" label="操作" width="100">
             <template slot-scope="scope">
               <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
               <!-- <el-button type="text" size="small">编辑</el-button> -->

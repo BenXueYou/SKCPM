@@ -317,10 +317,10 @@ export default {
     exportBtnAct() {
       var data = {
         model: {
-          cardNum: "string",
-          operatorLoginId: 0,
-          roleId: 0,
-          userId: "string",
+          cardNum: null,
+          operatorLoginId: this.$store.state.home.OperatorId,
+          //   roleId: this.$store.state.home.AuthRoleId,
+          userId: null,
           chargeEndTime: this.endTime,
           chargeMethodId: this.chargeMethodId,
           chargeStartTime: this.beginTime,
@@ -336,7 +336,21 @@ export default {
       this.$businessAjax
         .exportChargeRecord(data)
         .then(res => {
-          if (res.data.success) {
+          if (res.data) {
+            const content = res.data;
+            const blob = new Blob([content]);
+            const fileName = new Date().getTime() + ".xlsx";
+            if ("download" in document.createElement("a")) {
+              // 非IE下载
+              const elink = document.createElement("a");
+              elink.download = fileName;
+              elink.style.display = "none";
+              elink.href = URL.createObjectURL(blob);
+              document.body.appendChild(elink);
+              elink.click();
+              URL.revokeObjectURL(elink.href); // 释放URL 对象
+              document.body.removeChild(elink);
+            }
           }
         })
         .catch(() => {});

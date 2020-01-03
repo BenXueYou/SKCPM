@@ -92,6 +92,7 @@ export var ProductionAjax = {
   exportReservation(xhr) {
     let url = `${RestApi.api.ProductionAjax.exportReservation}`;
     return axios({
+      responseType: 'arraybuffer', // 二进制流
       method: "post",
       url,
       data: xhr

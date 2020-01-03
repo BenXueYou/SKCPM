@@ -45,8 +45,8 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
-				<el-button type="primary"  v-if="$store.state.home. AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
+				<el-button type="primary"  v-if="$store.state.home.AuthorizationID" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
+				<el-button type="primary"  v-if="$store.state.home.AuthorizationID" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
@@ -59,7 +59,7 @@
 				<el-table-column prop="city" label="最大输出电流"></el-table-column>
 				<el-table-column prop="city" label="输出功率"></el-table-column>
 				<el-table-column prop="zip" label="发布时间"></el-table-column>
-				<el-table-column  v-if="$store.state.home. AuthorizationID" label="操作">
+				<el-table-column  v-if="$store.state.home.AuthorizationID" label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>

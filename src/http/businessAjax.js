@@ -13,6 +13,7 @@ export var businessAjax = {
   exportChargeRecord(xhr) {
     let url = `${RestApi.api.BusinessAjax.exportChargeRecord}`;
     return axios({
+      responseType: 'arraybuffer', // 二进制流
       method: "post",
       url,
       data: xhr
@@ -55,6 +56,7 @@ export var businessAjax = {
   exportRechargeRecord(xhr) {
     let url = `${RestApi.api.BusinessAjax.exportRechargeRecord}`;
     return axios({
+      responseType: 'arraybuffer', // 二进制流
       method: "post",
       url,
       data: xhr
