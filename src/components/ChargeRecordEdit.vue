@@ -28,21 +28,21 @@
 					</el-col>
 					<el-col :span="10" class="rightClass">
 						<p>
-							<el-input v-model="formLabelAlign.serviceTip"></el-input>
+							<el-input v-model="formLabelAlign.serviceTip" clearable></el-input>
 						</p>
 						<p>
-							<el-input v-model="formLabelAlign.chargeMoney"></el-input>
+							<el-input v-model="formLabelAlign.chargeMoney" clearable></el-input>
 						</p>
 						<p>
-							<el-input v-model="formLabelAlign.chargeQuantity"></el-input>
+							<el-input v-model="formLabelAlign.chargeQuantity" clearable></el-input>
 						</p>
 						<p>
-							<el-input v-model="formLabelAlign.timeSpan"></el-input>
+							<el-input v-model="formLabelAlign.timeSpan" clearable></el-input>
 						</p>
 						<p>
-							<el-input v-model="formLabelAlign.beforeChargeBalance"></el-input>
+							<el-input v-model="formLabelAlign.beforeChargeBalance" clearable></el-input>
 						</p>
-						<!-- <p><el-input v-model="formLabelAlign.serviceTip"></el-input></p> -->
+						<!-- <p><el-input v-model="formLabelAlign.serviceTip" clearable></el-input></p> -->
 						<p>{{Number(formLabelAlign.chargeMoney) + Number(formLabelAlign.serviceTip)}}</p>
 						<p>{{Number(formLabelAlign.beforeChargeBalance) - Number(formLabelAlign.chargeMoney) - Number(formLabelAlign.serviceTip)}}</p>
 						<!-- <p>{{$common.formatSeconds(formLabelAlign.timeSpan)}}</p> -->

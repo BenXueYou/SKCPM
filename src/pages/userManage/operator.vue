@@ -15,11 +15,11 @@
 					<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px 0 30px;">
 						<span>运营商：</span>
-						<el-input style="width:auto" v-model="operator"></el-input>
+						<el-input style="width:auto" v-model="operator"  clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>联系电话：</span>
-						<el-input style="width:auto" v-model="phoneNumber"></el-input>
+						<el-input style="width:auto" v-model="phoneNumber"  clearable></el-input>
 					</div>
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
@@ -121,6 +121,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$userAjax
         .getOperatorListByPage(data)
         .then(res => {

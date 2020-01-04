@@ -14,15 +14,15 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户ID：</span>
-							<el-input v-model="userId"></el-input>
+							<el-input v-model="userId" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>电话：</span>
-							<el-input v-model="phoneNumber"></el-input>
+							<el-input v-model="phoneNumber" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>车牌号：</span>
-							<el-input v-model="plateNumber"></el-input>
+							<el-input v-model="plateNumber" clearable></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">注册时间：</span>
@@ -52,28 +52,26 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
-			<el-table :data="tableData" stripe border  style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="userId" label="用户ID" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="userName" label="用户名" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="telephone" label="电话" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="openId" label="用户openID" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="userType" label="用户类型">
-					<template slot-scope="scope">
-						{{scope.row.userType?'APP用户':'微信用户'}}
-					</template>
-				</el-table-column>
-				<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
-				<el-table-column prop="chargeState" show-overflow-tooltip label="状态"></el-table-column>
-				<el-table-column prop="gmtCreate" show-overflow-tooltip label="注册时间"></el-table-column>
-				<el-table-column prop="gmtModify" show-overflow-tooltip label="更新时间"></el-table-column>
-				<!-- <el-table-column label="操作">
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="userId" label="用户ID" show-overflow-tooltip></el-table-column>
+					<el-table-column prop="userName" label="用户名" show-overflow-tooltip></el-table-column>
+					<el-table-column prop="telephone" label="电话" show-overflow-tooltip></el-table-column>
+					<el-table-column prop="openId" label="用户openID" show-overflow-tooltip></el-table-column>
+					<el-table-column prop="userType" label="用户类型">
+						<template slot-scope="scope">{{scope.row.userType?'APP用户':'微信用户'}}</template>
+					</el-table-column>
+					<el-table-column prop="balance" show-overflow-tooltip label="余额"></el-table-column>
+					<el-table-column prop="chargeState" show-overflow-tooltip label="状态"></el-table-column>
+					<el-table-column prop="gmtCreate" show-overflow-tooltip label="注册时间"></el-table-column>
+					<el-table-column prop="gmtModify" show-overflow-tooltip label="更新时间"></el-table-column>
+					<!-- <el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
-				</el-table-column>-->
-			</el-table>
+					</el-table-column>-->
+				</el-table>
 			</div>
 			<div class="footer">
 				<el-pagination
@@ -134,6 +132,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$userAjax
         .getAppUserList(data)
         .then(res => {

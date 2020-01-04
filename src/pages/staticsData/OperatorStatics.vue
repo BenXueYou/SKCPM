@@ -14,7 +14,7 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>运营商：</span>
-							<!-- <el-input v-model="station"></el-input> -->
+							<!-- <el-input v-model="station" clearable></el-input> -->
 							<el-select
 								class="left-space time-interal"
 								v-model="operator"
@@ -71,22 +71,27 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button v-if="$store.state.home.AuthorizationID" type="primary" @click="exportBtnAct" style="margin:0 10px;">批量导出</el-button>
+				<!-- <el-button
+					v-if="$store.state.home.AuthorizationID"
+					type="primary"
+					@click="exportBtnAct"
+					style="margin:0 10px;"
+				>批量导出</el-button> -->
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
-			<el-table :data="tableData" stripe border  style="width: 100%">
-				<el-table-column type="selection" width="55"></el-table-column>
-				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="operatorName" label="运营商名"></el-table-column>
-				<el-table-column prop="operatorId" label="运营商ID"></el-table-column>
-				<el-table-column prop="chargeCount" label="充电次数"></el-table-column>
-				<el-table-column prop="chargeTimeSpan" label="充电时长"></el-table-column>
-				<el-table-column prop="chargeQuantity" label="充电电量(kWh)"></el-table-column>
-				<el-table-column prop="serviceTip" label="服务费(元)"></el-table-column>
-				<el-table-column prop="chargeMoney" label="基础电费(元)"></el-table-column>
-				<el-table-column prop="totalFee" label="充电总费用(元)"></el-table-column>
-			</el-table>
+				<el-table :data="tableData" stripe border style="width: 100%">
+					<el-table-column type="selection" width="55"></el-table-column>
+					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="operatorName" label="运营商名"></el-table-column>
+					<el-table-column prop="operatorId" label="运营商ID"></el-table-column>
+					<el-table-column prop="chargeCount" label="充电次数"></el-table-column>
+					<el-table-column prop="chargeTimeSpan" label="充电时长"></el-table-column>
+					<el-table-column prop="chargeQuantity" label="充电电量(kWh)"></el-table-column>
+					<el-table-column prop="serviceTip" label="服务费(元)"></el-table-column>
+					<el-table-column prop="chargeMoney" label="基础电费(元)"></el-table-column>
+					<el-table-column prop="totalFee" label="充电总费用(元)"></el-table-column>
+				</el-table>
 			</div>
 			<div class="footer">
 				<el-pagination
@@ -160,6 +165,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$staticsAjax
         .getOperator(data)
         .then(res => {

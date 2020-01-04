@@ -67,9 +67,14 @@
 				<el-button type="mini" @click="queryBtnAct">查询</el-button>
 			</div>
 			<div class="topMenu">
-				<el-button type="primary"  v-if="$store.state.home.AuthorizationID" @click="addBtnAct" style="margin-bottom:10px;">新增</el-button>
-				<el-button type="primary"  v-if="$store.state.home.AuthorizationID" @click="deleteBtnAct">删除</el-button>
-				<el-button type="primary"  v-if="$store.state.home.AuthorizationID" @click="exportBtnAct">导出</el-button>
+				<el-button
+					type="primary"
+					v-if="$store.state.home.AuthorizationID"
+					@click="addBtnAct"
+					style="margin-bottom:10px;"
+				>新增</el-button>
+				<el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="deleteBtnAct">删除</el-button>
+				<el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="exportBtnAct">导出</el-button>
 			</div>
 			<div class="tableBox">
 				<el-table
@@ -188,6 +193,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$deviceAjax
         .getChargeStationList(data)
         .then(res => {

@@ -13,15 +13,15 @@
 				<div class="flex-sbw">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>用户名：</span>
-						<el-input v-model="userName"></el-input>
+						<el-input v-model="userName" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>充电桩ID：</span>
-						<el-input v-model="cpId"></el-input>
+						<el-input v-model="cpId" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
-						<el-input v-model="phoneNumber"></el-input>
+						<el-input v-model="phoneNumber" clearable></el-input>
 					</div>
 					<div class="dateBox">
 						<span class="topTitleTxt">充电时间：</span>
@@ -206,6 +206,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$businessAjax
         .deductRecordList(data)
         .then(res => {

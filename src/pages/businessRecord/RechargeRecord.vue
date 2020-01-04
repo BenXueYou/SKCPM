@@ -13,19 +13,19 @@
 				<div class="flex-sbw">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>用户名：</span>
-						<el-input v-model="userName"></el-input>
+						<el-input v-model="userName" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
-						<el-input v-model="telephone"></el-input>
+						<el-input v-model="telephone" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>订单流水号：</span>
-						<el-input v-model="transationNum"></el-input>
+						<el-input v-model="transationNum" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>支付金额：</span>
-						<el-input v-model="money"></el-input>
+						<el-input v-model="money" clearable></el-input>
 						<!-- <el-select
 							class="left-space time-interal"
 							v-model="payStatus"
@@ -163,6 +163,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$businessAjax
         .getRechargeRecord(data)
         .then(res => {

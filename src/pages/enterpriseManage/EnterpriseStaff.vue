@@ -14,11 +14,11 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户姓名：</span>
-							<el-input v-model="userName"></el-input>
+							<el-input v-model="userName" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>企业名称：</span>
-							<!-- <el-input v-model="station"></el-input> -->
+							<!-- <el-input v-model="station" clearable></el-input> -->
 							<el-select
 								class="left-space time-interal"
 								v-model="companyId"
@@ -284,6 +284,7 @@ export default {
         employeeId: this.checkedStaffUuids,
         status: status
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$EnterpriseAjax
         .checkEnterPriseStaffApi(data)
         .then(res => {

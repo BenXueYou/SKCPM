@@ -21,24 +21,24 @@
 				<el-row type="flex" justify="space-between" :gutter="30">
 					<el-col :span="12">
 						<el-form-item label="费率模板：" prop="rateId">
-							<el-input v-model="formLabelAlign.rateId" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.rateId" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="计费方案：" prop="billModelId">
-							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between" :gutter="30">
 					<el-col :span="12">
 						<el-form-item label="生效时间：" prop="validTime">
-							<el-input v-model="formLabelAlign.validTime" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.validTime" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="失效时间：" prop="invalidTime">
-							<el-input v-model="formLabelAlign.invalidTime" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.invalidTime" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -58,31 +58,31 @@
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="服务费(元/度)：" prop="serviceTip">
-							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between" :gutter="30">
 					<el-col :span="12">
 						<el-form-item label="尖电价(元/度)：" prop="jprice">
-							<el-input v-model="formLabelAlign.jprice" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.jprice" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="峰电价(元/度)：" prop="fprice">
-							<el-input v-model="formLabelAlign.fprice" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.fprice" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between" :gutter="30">
 					<el-col :span="12">
 						<el-form-item label="平电价(元/度)：" prop="pprice">
-							<el-input v-model="formLabelAlign.pprice" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.pprice" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="谷电价(元/度)：" prop="gprice">
-							<el-input v-model="formLabelAlign.gprice" placeholder="请输入内容"></el-input>
+							<el-input v-model="formLabelAlign.gprice" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -221,6 +221,7 @@ export default {
       console.log(this.formLabelAlign);
       let data = {};
       Object.assign(data, this.formLabelAlign);
+      data = this.$common.deleteEmptyString(data, true);
       if (this.formLabelAlign.billModelId) {
         this.updateChargePrice(data);
       } else {

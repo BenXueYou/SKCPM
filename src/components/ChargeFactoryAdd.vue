@@ -21,24 +21,24 @@
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="桩厂商：" prop="mfrName">
-							<el-input class="time-interal" v-model="formLabelAlign.mfrName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.mfrName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="桩厂商代号：" prop="mfrAbbr">
-							<el-input class="time-interal" v-model="formLabelAlign.mfrAbbr" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.mfrAbbr" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="桩型号：" prop="model">
-							<el-input class="time-interal" v-model="formLabelAlign.model" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.model" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="桩功率(kW)：" prop="ratedPower">
-							<el-input class="time-interal" v-model="formLabelAlign.ratedPower" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.ratedPower" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -203,6 +203,7 @@ export default {
         ratedPower: 0
       };
       Object.assign(data, this.formLabelAlign);
+      data = this.$common.deleteEmptyString(data, true);
       if (this.formLabelAlign.id) {
         this.updateHttpFactory(data);
       } else {

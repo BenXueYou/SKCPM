@@ -39,7 +39,7 @@
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="充电站：" prop="csName">
-							<el-input class="time-interal" v-model="formLabelAlign.csName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.csName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -156,7 +156,7 @@
 					</el-col>
 					<el-col :span="12" v-if="isParkFee">
 						<el-form-item label="停车费(元/时)：" prop="roomsType">
-							<el-input class="time-interal" v-model="formLabelAlign.parkFee" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.parkFee" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>

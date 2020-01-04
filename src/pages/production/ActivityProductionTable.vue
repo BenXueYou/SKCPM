@@ -14,7 +14,7 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>活动主题：</span>
-							<el-input v-model="themeTitle"></el-input>
+							<el-input v-model="themeTitle" clearable></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">发布时间：</span>
@@ -83,7 +83,7 @@
 		<div v-if="isShowAddDialog" style="width:80%;height:80%;margin:30px auto">
 			<el-form ref="form" :model="form" label-width="80px">
 				<el-form-item label="活动名称">
-					<el-input v-model="form.name"></el-input>
+					<el-input v-model="form.name" clearable></el-input>
 				</el-form-item>
 				<el-form-item label="活动时间">
 					<el-col :span="11">

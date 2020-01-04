@@ -15,108 +15,108 @@
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="车型：" prop="carType">
-						<el-input class="time-interal" v-model="form.carType" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carType" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="型式：" prop="carEnergyType">
-						<el-input class="time-interal" v-model="form.carEnergyType" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carEnergyType" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="长（mm）：" prop="carLength">
-						<el-input class="time-interal" v-model="form.carLength" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carLength" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="宽（mm）：" prop="carWidth">
-						<el-input class="time-interal" v-model="form.carWidth" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carWidth" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="高（mm）：" prop="carHigh">
-						<el-input class="time-interal" v-model="form.carHigh" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carHigh" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="驱动形式：" prop="carDriverType">
-						<el-input class="time-interal" v-model="form.carDriverType" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carDriverType" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="轴距（mm）：" prop="wheelBase">
-						<el-input class="time-interal" v-model="form.outVoltage" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.outVoltage" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="前悬（mm）：" prop="frontOverhang">
-						<el-input class="time-interal" v-model="form.size" size="frontOverhang"></el-input>
+						<el-input class="time-interal" v-model="form.size" size="frontOverhang" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="后悬（mm）：" prop="rearOverhang">
-						<el-input class="time-interal" v-model="form.rearOverhang" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.rearOverhang" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="轮距（前轮 mm ）：" prop="trackFront">
-						<el-input class="time-interal" v-model="form.trackFront" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.trackFront" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="轮距（后轮 mm）：" prop="rearFront">
-						<el-input class="time-interal" v-model="form.rearFront" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.rearFront" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="最小离地间距（mm）：" prop="minSpace">
-						<el-input class="time-interal" v-model="form.minSpace" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.minSpace" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="乘客门一级踏步离地高（mm）：" prop="midSpace">
-						<el-input class="time-interal" v-model="form.midSpace" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.midSpace" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="额定成员（人）：" prop="ratedNum">
-						<el-input class="time-interal" v-model="form.ratedNum" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.ratedNum" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="乘客座椅数（座）：" prop="ratedChair">
-						<el-input class="time-interal" v-model="form.ratedChair" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.ratedChair" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="车辆容积(m³)：" prop="carVolume">
-						<el-input class="time-interal" v-model="form.carVolume" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.carVolume" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="电池容量（KWh）：" prop="batteryCapacity">
-						<el-input class="time-interal" v-model="form.batteryCapacity" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.batteryCapacity" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="续航载货（KM）：" prop="cargo">
-						<el-input class="time-interal" v-model="form.cargo" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.cargo" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>

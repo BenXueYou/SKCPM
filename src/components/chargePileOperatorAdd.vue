@@ -21,24 +21,24 @@
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="运营商：" prop="operatorName">
-							<el-input class="time-interal" v-model="formLabelAlign.operatorName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.operatorName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="联系人：" prop="contactName">
-							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="电话：" prop="telephone">
-							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="邮箱：" prop="email">
-							<el-input class="time-interal" v-model="formLabelAlign.email" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.email" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -50,6 +50,7 @@
 								class="time-interal"
 								v-model="formLabelAlign.address"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -178,7 +179,7 @@ export default {
           cardUser: "",
           contactName: "",
           email: "",
-          operatorId: '',
+          operatorId: "",
           operatorLoginId: this.$store.state.home.OperatorId,
           operatorName: "",
           telephone: "",

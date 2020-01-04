@@ -40,7 +40,20 @@ service.interceptors.response.use(
       if (response.data.success) {
         return response;
       } else if (response.data.errorCode === "NTY100021") {
-        router.replace({
+        store.dispatch("setAccount", "");
+        store.dispatch("setAuthorization", "");
+        store.dispatch("setOperatorId", []);
+        store.dispatch("SET_USERUUID", "");
+        store.dispatch("setOperatorArr", []);
+        store.dispatch("setChargeStationArr", []);
+        store.dispatch("setProvinceArr", []);
+        store.dispatch("setChargeFactoryArr", []);
+        store.dispatch("setChargeFactoryArr", []);
+        store.dispatch("setRoleId", "");
+        store.dispatch("setAccount", "");
+        store.dispatch("setEnterpriseUser", "");
+        store.dispatch("setLoginId", "");
+        router.push({
           name: "Login"
         });
       } else {

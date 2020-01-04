@@ -15,11 +15,11 @@
 
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>产品名称：</span>
-							<el-input v-model="productionName"></el-input>
+							<el-input v-model="productionName" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>产品型号：</span>
-							<el-input v-model="productionType"></el-input>
+							<el-input v-model="productionType" clearable></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">发布时间：</span>

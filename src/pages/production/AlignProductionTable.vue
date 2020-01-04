@@ -14,15 +14,15 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>租赁人：</span>
-							<el-input v-model="userName"></el-input>
+							<el-input v-model="userName" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>电话号码：</span>
-							<el-input v-model="phoneNumber"></el-input>
+							<el-input v-model="phoneNumber" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>车型号：</span>
-							<el-input v-model="carModel"></el-input>
+							<el-input v-model="carModel" clearable></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">预约时间：</span>
@@ -95,7 +95,7 @@
 		<div v-if="isShowAddDialog" style="width:80%;height:80%;margin:30px auto">
 			<el-form ref="form" :model="form" label-width="80px">
 				<el-form-item label="名称">
-					<el-input v-model="form.name"></el-input>
+					<el-input v-model="form.name" clearable></el-input>
 				</el-form-item>
 				<el-form-item label="时间">
 					<el-col :span="11">

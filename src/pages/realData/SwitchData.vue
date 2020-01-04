@@ -174,6 +174,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$realAjax
         .realSwitchData(data)
         .then(res => {
@@ -192,7 +193,7 @@ export default {
     exportBtnAct() {},
     handleClick(row) {
       console.log(row);
-    //   this.isShowAddDialog = !this.isShowAddDialog;
+      //   this.isShowAddDialog = !this.isShowAddDialog;
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

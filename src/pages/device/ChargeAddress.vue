@@ -68,7 +68,7 @@
 					</div>
 					<div class="flex-sbw-div topTitleTxt">
 						<span>地址：</span>
-						<el-input style="width:auto" v-model="address"></el-input>
+						<el-input style="width:auto" v-model="address" clearable></el-input>
 					</div>
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;">查询</el-button>

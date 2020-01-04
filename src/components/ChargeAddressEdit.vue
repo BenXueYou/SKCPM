@@ -76,7 +76,7 @@
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-form-item label="地址：" prop="addressName">
-						<el-input style="width:auto" v-model="formLabelAlign.addressName"></el-input>
+						<el-input style="width:auto" v-model="formLabelAlign.addressName" clearable></el-input>
 					</el-form-item>
 				</el-row>
 			</el-form>
@@ -152,6 +152,8 @@ export default {
         provinceId: this.formLabelAlign.provinceId
       };
       Object.assign(data, this.formLabelAlign);
+      data = this.$common.deleteEmptyString(data, true);
+
       if (this.formLabelAlign.addressId) {
         this.updateChargeAddress(data);
       } else {

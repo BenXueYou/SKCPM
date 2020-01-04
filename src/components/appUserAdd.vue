@@ -26,6 +26,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.userName"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -36,6 +37,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.phoneNumber"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -48,6 +50,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.address"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -58,6 +61,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.email"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -113,8 +117,7 @@ export default {
     };
   },
   created() {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
     onClickCancel() {
       this.$emit("onCancel");
@@ -122,12 +125,11 @@ export default {
     onClickConfirm() {
       this.$refs.addHouseForm.validate(valid => {
         if (valid) {
-
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
-    },
+    }
   },
   watch: {
     isShow(val) {

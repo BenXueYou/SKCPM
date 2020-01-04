@@ -26,6 +26,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.address"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -56,6 +57,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.userName"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -66,6 +68,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.telephone"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -78,6 +81,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.deforeDepositMoney"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -88,6 +92,7 @@
 								style="width:96%;box-sizing: border-box;"
 								v-model="formLabelAlign.depositMoney"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>

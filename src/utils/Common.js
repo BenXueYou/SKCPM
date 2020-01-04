@@ -1,5 +1,33 @@
 import store from "@/store/store.js";
 export var COMMON = {
+
+  /**
+   * 过滤空对象
+   */
+  deleteEmptyObject(obj, recurse) {
+    for (var i in obj) {
+      if (this.isEmptyObj(obj[i])) {
+        delete obj[i];
+      } else if (recurse && typeof obj[i] === 'object') {
+        this.deleteEmptyObject(obj[i], recurse);
+      }
+    }
+    return obj;
+  },
+  /**
+   * 过滤空字符串
+   */
+  deleteEmptyString(obj, recurse) {
+    for (var i in obj) {
+      if (obj[i] === '') {
+        delete obj[i];
+      } else if (recurse && typeof obj[i] === 'object') {
+        this.deleteEmptyString(obj[i], recurse);
+      }
+    }
+    return obj;
+  },
+
   // 获取当前时间的前移或后移几天
   getSpaceDate(a) {
     var date1 = new Date();

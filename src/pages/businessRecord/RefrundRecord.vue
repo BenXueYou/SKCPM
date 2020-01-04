@@ -13,15 +13,15 @@
 				<div class="flex-sbw">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>用户ID：</span>
-						<el-input v-model="userId"></el-input>
+						<el-input v-model="userId" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>订单流水号：</span>
-						<el-input v-model="transationNum"></el-input>
+						<el-input v-model="transationNum" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>提现金额：</span>
-						<el-input v-model="Money"></el-input>
+						<el-input v-model="Money" clearable></el-input>
 						<!-- <el-select
 							class="left-space time-interal"
 							v-model="refundStatus"
@@ -64,7 +64,7 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
-				<el-table :data="tableData" stripe border  style="width: 100%">
+				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="orderId" label="订单号"></el-table-column>
@@ -145,6 +145,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$businessAjax
         .getRefrundRecord(data)
         .then(res => {

@@ -13,19 +13,19 @@
 				<div class="flex-st">
 					<div class="topTitleTxt flex-sbw-item">
 						<span>用户ID：</span>
-						<el-input v-model="userId"></el-input>
+						<el-input v-model="userId"  clearable></el-input>
 					</div>
 					<div class="topTitleTxt flex-sbw-item">
 						<span>充电桩ID：</span>
-						<el-input v-model="cpId"></el-input>
+						<el-input v-model="cpId"  clearable></el-input>
 					</div>
 					<div class="topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
-						<el-input v-model="phoneNumber"></el-input>
+						<el-input v-model="phoneNumber"  clearable></el-input>
 					</div>
 					<div class="topTitleTxt flex-sbw-item">
 						<span>充电卡号：</span>
-						<el-input v-model="cardNum"></el-input>
+						<el-input v-model="cardNum" clearable></el-input>
 					</div>
 				</div>
 			</div>
@@ -96,10 +96,10 @@
 					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
 					<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
 					<el-table-column prop="userId" label="用户ID" width="160">
-						<template slot-scope="scope">{{scope.row.chargeMethodId !==1?scope.row.userId:'————'}}</template>
+						<template slot-scope="scope">{{scope.row.chargeMethodId !==1?scope.row.userId:''}}</template>
 					</el-table-column>
 					<el-table-column prop="cardNum" label="卡号" width="160">
-						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?scope.row.cardNum:'————'}}</template>
+						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?scope.row.cardNum:''}}</template>
 					</el-table-column>
 					<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
 					<el-table-column prop="chargeModeId" label="充电模式" width="100">
@@ -301,6 +301,7 @@ export default {
         pageSize: this.pageSize,
         queryCount: true
       };
+      data.model = this.$common.deleteEmptyString(data.model);
       this.getTotal(data);
       this.$businessAjax
         .getChargeRecordList(data)
@@ -345,6 +346,8 @@ export default {
         pageSize: this.pageSize,
         queryCount: true
       };
+      // 过滤空字符串
+      data.model = this.$common.deleteEmptyString(data.model);
       this.$businessAjax
         .exportChargeRecord(data)
         .then(res => {

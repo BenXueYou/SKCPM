@@ -225,6 +225,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$businessAjax
         .getChargeReport(data)
         .then(res => {

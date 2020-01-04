@@ -15,45 +15,45 @@
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="产品名称：" prop="pileName">
-						<el-input class="time-interal" v-model="form.pileName" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.pileName" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="产品型号：" prop="pileType">
-						<el-input class="time-interal" v-model="form.pileType" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.pileType" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-row type="flex" justify="space-between">
 				<el-col :span="12">
 					<el-form-item label="输出电压：" prop="outVoltage">
-						<el-input class="time-interal" v-model="form.outVoltage" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.outVoltage" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 				<el-col :span="12">
 					<el-form-item label="轮廓尺寸：" prop="size">
-						<el-input class="time-interal" v-model="form.size" size="small"></el-input>
+						<el-input class="time-interal" v-model="form.size" size="small" clearable></el-input>
 					</el-form-item>
 				</el-col>
 			</el-row>
 			<el-form-item label="输入电压：">
-				<el-input v-model="form.inVoltage"></el-input>
+				<el-input v-model="form.inVoltage" clearable></el-input>
 			</el-form-item>
 			<el-form-item label="输出电流：">
-				<el-input v-model="form.outCurrent"></el-input>
+				<el-input v-model="form.outCurrent" clearable></el-input>
 			</el-form-item>
 			<el-form-item label="最大输出电流：">
-				<el-input v-model="form.maxOutCurrent"></el-input>
+				<el-input v-model="form.maxOutCurrent" clearable></el-input>
 			</el-form-item>
 			<el-form-item label="输出功率：">
-				<el-input v-model="form.outPower"></el-input>
+				<el-input v-model="form.outPower" clearable></el-input>
 			</el-form-item>
 
 			<el-form-item label="产品说明：">
-				<el-input type="textarea" v-model="form.description"></el-input>
+				<el-input type="textarea" v-model="form.description" clearable></el-input>
 			</el-form-item>
 			<el-form-item label="产品优势：">
-				<el-input type="textarea" v-model="form.advantage"></el-input>
+				<el-input type="textarea" v-model="form.advantage" clearable></el-input>
 			</el-form-item>
 		</el-form>
 		<el-footer>

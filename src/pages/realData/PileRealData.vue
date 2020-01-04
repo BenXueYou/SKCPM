@@ -106,24 +106,26 @@
 					<el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
 					<el-table-column prop="chargeMoney" label="充电金额(元)" width="100"></el-table-column>
 					<el-table-column prop="chargeTimeSpan" label="已充时间(分)" width="100"></el-table-column>
-					<el-table-column prop="chargePower" label="功率(kw)">
-						<template slot-scope="scope">{{scope.row.chargePower/1000}}</template>
-					</el-table-column>
-					<el-table-column v-if="cpType" prop="ua1" label="A相电压(V)"></el-table-column>
-					<el-table-column v-if="cpType" prop="ub1" label="B相电压(V)"></el-table-column>
-					<el-table-column v-if="cpType" prop="uc1" label="C相电压(V)"></el-table-column>
-					<el-table-column v-if="!cpType" prop="ua1" label="电压(V)"></el-table-column>
-					<el-table-column v-if="cpType" prop="ia1" label="A相电流(A)"></el-table-column>
-					<el-table-column v-if="cpType" prop="ib1" label="B相电流(A)"></el-table-column>
-					<el-table-column v-if="cpType" prop="ic1" label="C相电流(A)"></el-table-column>
-					<el-table-column v-if="!cpType" prop="ia1" label="电流(A)"></el-table-column>
+					<el-table-column prop="chargePower" label="功率(kw)"></el-table-column>
+					<template v-if="cpType">
+						<el-table-column prop="ua1" label="A相电压(V)"></el-table-column>
+						<el-table-column prop="ub1" label="B相电压(V)"></el-table-column>
+						<el-table-column prop="uc1" label="C相电压(V)"></el-table-column>
+						<el-table-column prop="ia1" label="A相电流(A)"></el-table-column>
+						<el-table-column prop="ib1" label="B相电流(A)"></el-table-column>
+						<el-table-column prop="ic1" label="C相电流(A)"></el-table-column>
+					</template>
+					<template v-else>
+						<el-table-column prop="ua1" label="电压(V)"></el-table-column>
+						<el-table-column prop="ia1" label="电流(A)"></el-table-column>
+					</template>
 					<el-table-column prop="recordTime" label="记录时间" width="160"></el-table-column>
-					<el-table-column prop="zip" label="电池组最高温度(°C)" width="120"></el-table-column>
+					<!-- <el-table-column prop="zip" label="电池组最高温度(°C)" width="120"></el-table-column>
 					<el-table-column prop="zip" label="电池组最低温度" width="100"></el-table-column>
 					<el-table-column prop="zip" label="单体电池最高温度(°C)" width="120"></el-table-column>
 					<el-table-column prop="zip" label="单体组最低温度" width="100"></el-table-column>
 					<el-table-column prop="zip" label="充电机温度(°C)" width="120"></el-table-column>
-					<el-table-column prop="zip" label="充电导引电压(V)" width="100"></el-table-column>
+					<el-table-column prop="zip" label="充电导引电压(V)" width="100"></el-table-column>-->
 					<!-- <el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
 					<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
 					<el-table-column label="操作">
@@ -214,13 +216,19 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$realAjax
         .realPileData(data)
         .then(res => {
+          this.tableData = [];
           if (res.data.success && res.data.model) {
-            this.tableData = res.data.model;
+            let num = [];
+            res.data.model.forEach(element => {
+              element.chargePower = element.chargePower / 1000;
+              num.push(element);
+            });
+            this.tableData = num;
             this.total = res.data.totalCount;
-            console.log('---');
           } else {
             this.$message.warning("没有找到相关数据");
           }
@@ -250,7 +258,13 @@ export default {
       this.initData();
     }
   },
-  watch: {}
+  watch: {
+    tableData: {
+      handler() {},
+      deep: true,
+      immediate: true
+    }
+  }
 };
 </script>
 <style>

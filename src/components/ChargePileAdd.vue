@@ -60,12 +60,12 @@
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="桩别名：" prop="cpName">
-							<el-input class="time-interal" v-model="formLabelAlign.cpName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.cpName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="充电桩ID：" prop="cpId">
-							<el-input class="time-interal" v-model="formLabelAlign.cpId" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.cpId" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -246,6 +246,7 @@ export default {
           };
           this.formLabelAlign.deviceId = this.formLabelAlign.cpId;
           Object.assign(data, this.formLabelAlign);
+          data = this.$common.deleteEmptyString(data, true);
           if (this.rowData.cpId) {
             this.updatePile(data);
           } else {

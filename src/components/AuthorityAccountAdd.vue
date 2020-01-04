@@ -38,17 +38,17 @@
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-form-item label="用户名：" prop="userName">
-						<el-input style="width:auto" v-model="formLabelAlign.userName"></el-input>
+						<el-input style="width:auto" v-model="formLabelAlign.userName" clearable></el-input>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-form-item label="账号：" prop="loginId">
-						<el-input style="width:auto" v-model="formLabelAlign.loginId"></el-input>
+						<el-input style="width:auto" v-model="formLabelAlign.loginId" clearable></el-input>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-form-item label="密码：" prop="password">
-						<el-input style="width:auto" v-model="formLabelAlign.password"></el-input>
+						<el-input style="width:auto" v-model="formLabelAlign.password" clearable></el-input>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
@@ -198,6 +198,7 @@ export default {
       };
       Object.assign(data, this.formLabelAlign);
       console.log(data);
+      data = this.$common.deleteEmptyString(data, true);
       if (this.formLabelAlign.id) {
         this.updateAuthorityAccount(data);
       } else {

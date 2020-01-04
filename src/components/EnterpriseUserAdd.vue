@@ -21,19 +21,19 @@
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="企业名称：" prop="companyName">
-							<el-input class="time-interal" v-model="formLabelAlign.companyName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.companyName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="联系人：" prop="contactName">
-							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="电话：" prop="telephone">
-							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small" clearable></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
@@ -43,6 +43,7 @@
 								class="time-interal"
 								v-model="formLabelAlign.balance"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
@@ -55,6 +56,7 @@
 								class="time-interal"
 								v-model="formLabelAlign.companyAddress"
 								size="small"
+								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>

@@ -13,7 +13,7 @@
 				<div class="flex-st">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>卡号：</span>
-						<el-input v-model="cardNum"></el-input>
+						<el-input v-model="cardNum" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<div class="dateBox">
@@ -39,11 +39,11 @@
 					</div>
 					<!-- <div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>用户名：</span>
-						<el-input v-model="userName"></el-input>
+						<el-input v-model="userName" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
-						<el-input v-model="phoneNumber"></el-input>
+						<el-input v-model="phoneNumber" clearable></el-input>
 					</div>-->
 					<!-- <div class="flex-sbw-div">
 						<span class="topTitleTxt">运营商：</span>
@@ -176,6 +176,7 @@ export default {
         pageSize: this.pageSize,
         queryCount: true
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$userAjax
         .getCardUserList(data)
         .then(res => {

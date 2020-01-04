@@ -14,15 +14,15 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
-							<el-input v-model="userName"></el-input>
+							<el-input v-model="userName" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>电话：</span>
-							<el-input v-model="phoneNumber"></el-input>
+							<el-input v-model="phoneNumber" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>车牌号：</span>
-							<el-input v-model="plateNumber"></el-input>
+							<el-input v-model="plateNumber" clearable></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">预约时间：</span>

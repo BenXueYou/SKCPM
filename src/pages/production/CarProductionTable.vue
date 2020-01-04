@@ -14,11 +14,11 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>车类型：</span>
-							<el-input v-model="carType"></el-input>
+							<el-input v-model="carType" clearable></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>车型号：</span>
-							<el-input v-model="carModel"></el-input>
+							<el-input v-model="carModel" clearable></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">发布时间：</span>

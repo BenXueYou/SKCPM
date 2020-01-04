@@ -25,6 +25,14 @@ img,
   font-family: "Helvetica Neue";
   font-size: 18px;
 }
+.el-input__icon {
+  height: 100%;
+  width: 25px;
+  text-align: center;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  line-height: 32px;
+}
 /*************************************** 表格样式 *******************************************/
 .el-table__body-wrapper {
   max-height: calc(100% - 75px);

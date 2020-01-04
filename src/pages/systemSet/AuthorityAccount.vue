@@ -14,7 +14,7 @@
           <div class="flex-sbw">
             <div class="flex-sbw-div topTitleTxt flex-sbw-item">
               <span>用户名：</span>
-              <el-input v-model="userName"></el-input>
+              <el-input v-model="userName" clearable></el-input>
             </div>
             <div class="flex-sbw-div topTitleTxt flex-sbw-item">
               <span>运营商：</span>
@@ -194,6 +194,7 @@ export default {
         queryCount: true,
         start: 0
       };
+      data = this.$common.deleteEmptyString(data, true);
       this.$userAjax
         .getAccountUserList(data)
         .then(res => {
