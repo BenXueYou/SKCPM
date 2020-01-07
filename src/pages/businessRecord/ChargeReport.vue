@@ -233,10 +233,10 @@ export default {
                 sums[index] += "次";
                 break;
               case 4:
-              case 7:
-              case 9:
-              case 11:
-              case 13:
+              case 8:
+              case 10:
+              case 12:
+              case 14:
                 sums[index] = sums[index].toFixed(2);
                 sums[index] += "度";
                 break;
