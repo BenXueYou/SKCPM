@@ -90,7 +90,14 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
-				<el-table :data="tableData" stripe border style="width: 100%">
+				<el-table
+					:data="tableData"
+					show-summary
+					:summary-method="summaryMethod"
+					stripe
+					border
+					style="width: 100%"
+				>
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
@@ -208,6 +215,46 @@ export default {
     };
   },
   methods: {
+    summaryMethod(param) {
+      // param 是固定的对象，里面包含 columns与 data参数的对象 {columns: Array[4], data: Array[5]},包含了表格的所有的列与数据信息
+      const { columns, data } = param;
+      console.log(param);
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = "合计";
+          return;
+        }
+        if (index > 10 && index < 14) {
+          const values = data.map(item => Number(item[column.property]));
+          // 验证每个value值是否是数字，如果是执行if
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              return prev + curr;
+            }, 0);
+            switch (index) {
+              case 11:
+                sums[index] = this.$common.formatSeconds(sums[index]);
+                break;
+              case 12:
+                sums[index] = sums[index].toFixed(2);
+                sums[index] += "度";
+                break;
+              default:
+                sums[index] = sums[index].toFixed(2);
+                sums[index] += "元";
+                break;
+            }
+          } else {
+            sums[index] = "";
+          }
+        } else {
+          return "";
+        }
+      });
+
+      return sums;
+    },
     transferChargeModelId(chargeModelId) {
       return this.chargeModelOptions[chargeModelId];
     },
@@ -409,7 +456,15 @@ export default {
 .ChargeRecord .flex-sbw-item {
 	margin-right: 5%;
 }
-
+.ChargeRecord .el-table__body-wrapper {
+	max-height: calc(100% - 100px);
+	overflow: auto;
+	border: 0px solid #c0c4cc;
+}
+.ChargeRecord .el-table__footer-wrapper .el-table--border th,
+.ChargeRecord.el-table__footer-wrapper .el-table--border td {
+	border-right: 0px solid #dcdfe6;
+}
 @media screen and (max-width: 1540px) {
 	.ChargeRecord .flex-sbw-item {
 		margin-right: 5px !important;

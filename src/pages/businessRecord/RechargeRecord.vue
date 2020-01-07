@@ -71,13 +71,13 @@
 				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
-					<el-table-column prop="orderId" label="订单号"></el-table-column>
-					<el-table-column prop="userId" label="用户ID"></el-table-column>
-					<el-table-column prop="userName" label="用户名"></el-table-column>
-					<el-table-column prop="telephone" label="电话"></el-table-column>
-					<el-table-column prop="depositMoney" label="充值金额"></el-table-column>
-					<el-table-column prop="beforeDepositMoney" label="充值前金额"></el-table-column>
-					<el-table-column prop="balance" label="充值后金额"></el-table-column>
+					<el-table-column prop="orderId" width="240" label="订单号"></el-table-column>
+					<el-table-column prop="userId"  width="160" label="用户ID"></el-table-column>
+					<!-- <el-table-column prop="userName" label="用户名"></el-table-column> -->
+					<el-table-column prop="telephone"  min-width="120" label="电话"></el-table-column>
+					<el-table-column prop="depositMoney" min-width="80" label="充值金额"></el-table-column>
+					<el-table-column prop="beforeDepositMoney" min-width="100" label="充值前金额"></el-table-column>
+					<el-table-column prop="balance" min-width="100" label="充值后金额"></el-table-column>
 					<el-table-column prop="gmtCreate" label="支付时间" width="160"></el-table-column>
 					<el-table-column prop="gmtModify" label="更新时间" width="160"></el-table-column>
 					<el-table-column prop="flag" label="交易状态">

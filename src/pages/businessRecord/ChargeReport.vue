@@ -107,11 +107,18 @@
 				</div>
 			</div>
 			<div class="tableBox">
-				<el-table :data="tableData" stripe border style="width: 100%">
+				<el-table
+					:data="tableData"
+					show-summary
+					:summary-method="summaryMethod"
+					stripe
+					border
+					style="width: 100%"
+				>
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
-					<el-table-column v-if="type === 4" prop="data" label="用户ID/卡号" width="120"></el-table-column>
-					<el-table-column prop="data" width="150" label="时间"></el-table-column>
+					<el-table-column v-if="type === 4" prop="data" label="用户ID/卡号" width="150"></el-table-column>
+					<el-table-column v-if="type !== 4" prop="data" width="150" label="时间"></el-table-column>
 					<el-table-column prop="count" label="充电次数" width="100"></el-table-column>
 					<el-table-column prop="chargeQuantity" label="充电电量(度)" width="120"></el-table-column>
 					<!-- <el-table-column prop="index" label="充电金额（元）"></el-table-column> -->
@@ -204,6 +211,50 @@ export default {
     };
   },
   methods: {
+    summaryMethod(param) {
+      // param 是固定的对象，里面包含 columns与 data参数的对象 {columns: Array[4], data: Array[5]},包含了表格的所有的列与数据信息
+      const { columns, data } = param;
+      console.log(param);
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = "合计";
+          return;
+        }
+        if (index > 2) {
+          const values = data.map(item => Number(item[column.property]));
+          // 验证每个value值是否是数字，如果是执行if
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              return prev + curr;
+            }, 0);
+            switch (index) {
+              case 3:
+                sums[index] += "次";
+                break;
+              case 4:
+              case 7:
+              case 9:
+              case 11:
+              case 13:
+                sums[index] = sums[index].toFixed(2);
+                sums[index] += "度";
+                break;
+              default:
+                sums[index] = sums[index].toFixed(2);
+                sums[index] += "元";
+                break;
+            }
+          } else {
+            sums[index] = "";
+          }
+        } else {
+          return "";
+        }
+      });
+
+      return sums;
+    },
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -279,7 +330,11 @@ export default {
 .ChargeReport .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
-
+.ChargeReport .el-table__body-wrapper {
+	max-height: calc(100% - 100px);
+	overflow: auto;
+	border: 0px solid #c0c4cc;
+}
 @media screen and (max-width: 1540px) {
 	.ChargeReport .flex-sbw-item {
 		margin-right: 5px !important;
