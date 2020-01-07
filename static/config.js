@@ -1,7 +1,8 @@
 let httpUrlHeader = '/apis';
 const DEBUG = 'PO';
 if (DEBUG === 'PRO') {
-  httpUrlHeader = 'http://47.104.204.250:80';
+  // httpUrlHeader = 'http://47.104.204.250:80';
+  httpUrlHeader = 'http://129.28.156.99:80';
 }
 window.config = {
   pageSizeArr: [10, 30, 50],

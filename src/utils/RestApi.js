@@ -175,6 +175,7 @@ export default {
     ChargePriceAjax: {
       getChargePrice: `${httpUrlHeader}/bill/model/list-by-page`,
       putChargePrice: `${httpUrlHeader}/bill/model/update`,
+      getChargePriceDetail: `${httpUrlHeader}/bill/model/detail`,
     },
 
     AuthorityAccount: {

@@ -55,7 +55,48 @@
 					</el-col>
 				</el-row>
 			</div>
-			<hr style="border-top:1px dashed rgba(25,25,25,0.1); height:0px;margin-right:26px">
+			<hr style="border-top:1px dashed rgba(25,25,25,0.1); height:0px;margin-right:26px" />
+			<div class="body_box">
+				<el-row type="flex" justify="flex-start" :gutter="20">
+					<el-col style="text-align:right;" :span="5">
+						<p>尖电量(度)：</p>
+						<p>峰电量(度)：</p>
+						<p>平电量(度)：</p>
+						<p>谷电量(度)：</p>
+					</el-col>
+					<el-col :span="3" style="text-align:left;">
+						<p>{{rowData.jQuantity}}</p>
+						<p>{{rowData.fQuantity}}</p>
+						<p>{{rowData.pQuantity}}</p>
+						<p>{{rowData.gQuantity}}</p>
+					</el-col>
+					<el-col style="text-align:right;" :span="3">
+						<p>尖时间：</p>
+						<p>峰时间：</p>
+						<p>平时间：</p>
+						<p>谷时间：</p>
+					</el-col>
+					<el-col :span="4" style="text-align:left;">
+						<p>{{$common.formatSeconds(rowData.jTime)}}</p>
+						<p>{{$common.formatSeconds(rowData.fTime)}}</p>
+						<p>{{$common.formatSeconds(rowData.pTime)}}</p>
+						<p>{{$common.formatSeconds(rowData.gTime)}}</p>
+					</el-col>
+					<el-col style="text-align:right;" :span="4">
+						<p>尖电费(元)：</p>
+						<p>峰电费(元)：</p>
+						<p>平电费(元)：</p>
+						<p>谷电费(元)：</p>
+					</el-col>
+					<el-col :span="4" style="text-align:left;">
+						<p>{{rowData.jFee}}</p>
+						<p>{{rowData.fFee}}</p>
+						<p>{{rowData.pFee}}</p>
+						<p>{{rowData.gFee}}</p>
+					</el-col>
+				</el-row>
+			</div>
+			<hr style="border-top:1px dashed rgba(25,25,25,0.1); height:0px;margin-right:26px" />
 			<div class="body_box">
 				<el-row type="flex" justify="flex-start" :gutter="20">
 					<el-col style="text-align:right;" :span="5">
@@ -270,7 +311,7 @@ export default {
 }
 .ChrageRecordDetail .dialogHeaderClass .header_left_txt {
 	border-left: 2px solid #26d39d;
-	font-family: 'PingFangSC-Regular';
+	font-family: "PingFangSC-Regular";
 	font-size: 14px;
 	color: #ffffff;
 	padding-left: 10px;
@@ -290,7 +331,7 @@ export default {
 }
 .ChrageRecordDetail .header_right_box button {
 	height: 32px;
-	font-family: 'PingFangSC-Regular';
+	font-family: "PingFangSC-Regular";
 	font-size: 13px;
 	color: #ffffff;
 	text-align: justify;
@@ -309,7 +350,7 @@ export default {
 	height: 100%;
 }
 .ChrageRecordDetail .left_tips_txt {
-	font-family: 'PingFangSC-Regular';
+	font-family: "PingFangSC-Regular";
 	font-size: 13px;
 	color: #26d39d;
 }

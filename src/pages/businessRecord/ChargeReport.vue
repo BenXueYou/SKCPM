@@ -18,6 +18,7 @@
 							v-model="type"
 							clearable
 							placeholder="请选择报表类型"
+							@change="initData"
 							size="small"
 						>
 							<el-option
@@ -109,9 +110,8 @@
 				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
-					<el-table-column v-if="this.type === 4" prop="date" label="用户ID/卡号" width="120"></el-table-column>
-					<el-table-column v-if="this.type === 4" prop="name" label="用户名" width="100"></el-table-column>
-					<el-table-column prop="data" label="时间"></el-table-column>
+					<el-table-column v-if="type === 4" prop="data" label="用户ID/卡号" width="120"></el-table-column>
+					<el-table-column prop="data" width="150" label="时间"></el-table-column>
 					<el-table-column prop="count" label="充电次数" width="100"></el-table-column>
 					<el-table-column prop="chargeQuantity" label="充电电量(度)" width="120"></el-table-column>
 					<!-- <el-table-column prop="index" label="充电金额（元）"></el-table-column> -->
@@ -183,7 +183,7 @@ export default {
         },
         {
           typeStr: 2,
-          typeName: "按周统计"
+          typeName: "按月统计"
         },
         {
           typeStr: 3,
@@ -214,7 +214,7 @@ export default {
       let data = {
         model: {
           chargeMethodId: this.chargeWay,
-          csId: 0,
+          csId: this.csId,
           dimension: this.type,
           endTime: this.endTime,
           operatorId: this.operatorId,
@@ -257,7 +257,13 @@ export default {
       this.initData();
     }
   },
-  watch: {}
+  watch: {
+    tableData: {
+      handler() {},
+      deep: true,
+      immediate: true
+    }
+  }
 };
 </script>
 <style>

@@ -17,12 +17,12 @@ export var priceAjax = {
       data: xhr
     });
   },
-  realAlarmData(xhr) {
-    let url = `${RestApi.api.ChargePriceAjax.realAlarmData}`;
+  getChargePriceDetail(xhr) {
+    let url = `${RestApi.api.ChargePriceAjax.getChargePriceDetail}`;
     return axios({
-      method: "post",
+      method: "get",
       url,
-      data: xhr
+      params: xhr
     });
   },
 };

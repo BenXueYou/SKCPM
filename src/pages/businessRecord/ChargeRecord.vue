@@ -13,15 +13,15 @@
 				<div class="flex-st">
 					<div class="topTitleTxt flex-sbw-item">
 						<span>用户ID：</span>
-						<el-input v-model="userId"  clearable></el-input>
+						<el-input v-model="userId" clearable></el-input>
 					</div>
 					<div class="topTitleTxt flex-sbw-item">
 						<span>充电桩ID：</span>
-						<el-input v-model="cpId"  clearable></el-input>
+						<el-input v-model="cpId" clearable></el-input>
 					</div>
 					<div class="topTitleTxt flex-sbw-item">
 						<span>手机号：</span>
-						<el-input v-model="phoneNumber"  clearable></el-input>
+						<el-input v-model="phoneNumber" clearable></el-input>
 					</div>
 					<div class="topTitleTxt flex-sbw-item">
 						<span>充电卡号：</span>
@@ -105,7 +105,7 @@
 					<el-table-column prop="chargeModeId" label="充电模式" width="100">
 						<template slot-scope="scope">{{transferChargeModelId(scope.row.chargeModeId)}}</template>
 					</el-table-column>
-					<el-table-column prop="chargeMethodId" label="充电类型" width="100">
+					<el-table-column prop="chargeMethodId" label="充电类型" width="90">
 						<template slot-scope="scope">{{scope.row.chargeMethodId ===1?'刷卡':'微信'}}</template>
 					</el-table-column>
 					<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
@@ -120,7 +120,7 @@
 					<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100">
 						<template slot-scope="scope">{{scope.row.chargeFinishedFlag>0?"成功":'失败'}}</template>
 					</el-table-column>
-					<el-table-column label="操作" width="120">
+					<el-table-column label="操作" fixed="right" width="120">
 						<template slot-scope="scope">
 							<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
 							<el-button @click="handleEditClick(scope.row)" type="text" size="small">编辑</el-button>
@@ -390,6 +390,10 @@ export default {
 };
 </script>
 <style>
+.ChargeRecord .el-table__fixed,
+.ChargeRecord .el-table__fixed-right {
+	box-shadow: 0 0 0px rgba(0, 0, 0, 0.12);
+}
 .ChargeRecord .flex-sbw-item .el-input,
 .ChargeRecord .flex-sbw-item .el-input__inner {
 	width: 160px;

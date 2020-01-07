@@ -58,7 +58,7 @@
 					</el-col>
 					<el-col :span="12">
 						<el-form-item label="服务费(元/度)：" prop="serviceTip">
-							<el-input v-model="formLabelAlign.billModelId" placeholder="请输入内容" clearable></el-input>
+							<el-input v-model="formLabelAlign.serviceTip" placeholder="请输入内容" clearable></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -106,34 +106,34 @@
 								</el-select>
 							</el-form-item>
 						</el-col>
+						<!-- :picker-options="{
+										selectableRange: '00:00 - 23:59'
+						}"-->
+						<!-- :picker-options="{
+										selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59',
+										format:'HH:mm'
+						}"-->
+						<!-- :picker-options="{
+                    selectableRange: formLabelAlign['ti'+1+'Start'] +' - 23:59',
+					format:'HH:mm'
+						}"-->
 						<el-col :span="12">
 							<el-form-item :label="`时段${item}起始时刻：`" prop="csId">
 								<el-time-picker
 									v-model="formLabelAlign['ti'+item+'Start']"
 									value-format="HH:mm"
-									:picker-options="{
-                    selectableRange: '00:00 - 23:59'
-                  }"
 									placeholder="任意时间点"
 								></el-time-picker>——
 								<el-time-picker
 									v-if="item !== formLabelAlign.timeIntervalCount"
 									v-model="formLabelAlign['ti'+(item+1)+'Start']"
 									value-format="HH:mm"
-									:picker-options="{
-                    selectableRange: formLabelAlign['ti'+item+'Start'] +' - 23:59',
-					format:'HH:mm'
-                  }"
 									placeholder="任意时间点"
 								></el-time-picker>
 								<el-time-picker
 									v-else
 									v-model="formLabelAlign['ti'+1+'Start']"
 									value-format="HH:mm"
-									:picker-options="{
-                    selectableRange: formLabelAlign['ti'+1+'Start'] +' - 23:59',
-					format:'HH:mm'
-                  }"
 									placeholder="任意时间点"
 								></el-time-picker>
 							</el-form-item>
@@ -222,7 +222,7 @@ export default {
       let data = {};
       Object.assign(data, this.formLabelAlign);
       data = this.$common.deleteEmptyString(data, true);
-      if (this.formLabelAlign.billModelId) {
+      if (this.formLabelAlign.id) {
         this.updateChargePrice(data);
       } else {
         this.addChargePrice(data);
