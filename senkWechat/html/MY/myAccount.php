@@ -181,7 +181,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<script type="text/javascript" src="../JS/User.js"></script>
 			<script type="text/javascript">
 				//全局变量
-				var index, money;
+				var index=1, money;
 				var chargeWayIndex = 0;
 				var payMode = 4;
 				var appid = "wxe76a06a63e687acb";
