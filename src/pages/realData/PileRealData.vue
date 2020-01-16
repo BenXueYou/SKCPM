@@ -209,7 +209,8 @@ export default {
         model: {
           cpType: this.cpType,
           csId: this.csId,
-          operatorId: this.operatorId
+          operatorId: this.operatorId,
+          cpId: this.cpId
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,
