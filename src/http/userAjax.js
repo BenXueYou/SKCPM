@@ -116,7 +116,6 @@ export var userAjax = {
       data: xhr
     });
   },
-
 };
 
 function install(Vue) {
