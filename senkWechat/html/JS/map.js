@@ -1,3 +1,5 @@
+import { init } from "echarts";
+
 //全局变量
 var lng = ""; //经度
 var lat = ""; //纬度
@@ -46,7 +48,15 @@ map.plugin('AMap.Geolocation', function() {
 		buttonPosition: 'RB'
 	});
 	map.addControl(geolocation);
-	geolocation.getCurrentPosition();
+	geolocation.getCurrentPosition(function(result){
+		var currentLat = result.latitude;
+		var currentLon = result.longitude;
+		var gpsPoint = new AMap.Point(currentLon,currentLat);
+		AMap.convertor.translate(gpsPoint,initMap);
+	});
+	function initMap(point){
+		console.log(point);
+	}
 	AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
 	AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
 });
