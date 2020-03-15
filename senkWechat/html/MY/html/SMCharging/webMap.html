@@ -1,0 +1,272 @@
+<!doctype html>
+
+<html>
+<head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=8">
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Cache-control" content="no-cache">
+        <meta http-equiv="Cache" content="no-cache">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <title>地图找桩</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=a668a7bf772ef0e195642264ba825493&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+     <style type="text/css">
+        .info {
+            border: solid 1px silver;
+        }
+        div.info-top {
+            position: relative;
+            background: none repeat scroll 0 0 #F9F9F9;
+            border-bottom: 1px solid #CCC;
+            border-radius: 5px 5px 0 0;
+        }
+        div.info-top div {
+            display: inline-block;
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 31px;
+            padding: 0 10px;
+           
+        }
+        div.info-top img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition-duration: 0.25s;
+        }
+        div.info-top img:hover {
+            box-shadow: 0px 0px 5px #000;
+        }
+        div.info-middle {
+            font-size: 13px;
+            padding: 6px;
+            line-height: 20px;
+        }
+        div.info-bottom {
+            height: 0px;
+            width: 100%;
+            clear: both;
+            text-align: center;
+           
+        }
+        div.info-bottom img {
+            position: relative;
+            z-index: 104;
+        }
+        span {
+            margin-left: 5px;
+            font-size: 11px;
+        }
+        .info-middle img {
+            float: left;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div id="myPageTop">
+    <table>
+        <tr>
+            <td>
+                <label>输入关键字</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input id="tipinput"/>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    
+    
+     //地图加载
+      map  = new AMap.Map("container", {resizeEnable: true, center: [121.463031,31.249318],zoom: 13});
+            //输入提示
+            var autoOptions = {
+                input: "tipinput"
+            };
+            var auto = new AMap.Autocomplete(autoOptions);
+            var placeSearch = new AMap.PlaceSearch({
+                map: ''
+            });  //构造地点查询类
+            
+            
+            
+            AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+            
+           
+            
+            var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
+            
+              	//alert("haha111");
+            
+            function select(e) {
+            			console.log(e);
+           		 	//alert("haha222");
+                   placeSearch.setCity(e.poi.adcode);
+                   
+                   if (e.poi && e.poi.location) {
+                        map.setZoom(15);
+                        map.setCenter(e.poi.location);
+                    }
+                 placeSearch.search(e.poi.name, function(status, result) {
+//               	console.log(status);//
+//               	console.log(result);//
+                 	
+                 if (status === 'complete' && result.info === 'OK') { 
+                    	
+                    		console.log("AAAAAAA"+result.poiList);//返回数组10个对象
+                    		console.log(result);
+                    	
+                     for(var h=1;h<result.poiList.pois.length;h++){//返回搜索列表循环绑定marker
+                            
+                            console.log("BBBBBBB"+result.poiList.pois[h]);
+                            
+                           var jy=result.poiList.pois[h]['location'];//经纬度
+                           var address=result.poiList.pois[h]['address'];//地址
+                           var name = result.poiList.pois[h]['name'];//
+                            
+							 console.log("CCCCCCC地址"+address+"jy经纬度"+jy);
+                           
+                                
+                            addMarker(jy);
+                            function addMarker(jy) {
+							    //  map.clearMap();
+							    var marker = new AMap.Marker({
+							        map: map,
+							        position: jy
+							    });
+							    
+						 //实例化信息窗体   
+                           marker.extData = {'getLng':jy['lng'],'getLat':jy['lat'],'content':'地址：'+address+'<br/>'+'充电桩编号:1001802'+h+'号桩'+'【可用】'};//自定义想传入的参数
+                           var title = name,
+						   content = [];
+						   content.push("<img src='http://1.pxywechat.applinzi.com/img/nav_img.jpeg'>"+marker.extData.content);
+						   content.push("<button style='margin-left:40%; background-color:white;outline:none;border:1px solid #299dff; border-radius:5px;color:#299dff' onclick='navBtn(marker,title)'>导航</button>");
+							        
+						//鼠标点击marker弹出自定义的信息窗体
+							AMap.event.addListener(marker, 'click', function() {
+							 	var infoWindow = new AMap.InfoWindow({
+								 	isCustom: true,  //使用自定义窗体
+								 	content: createInfoWindow(title, content.join("<br/>")),
+								 	offset: new AMap.Pixel(16, -45)
+						     	});   
+							 infoWindow.open(map, marker.getPosition());
+							});
+						  }
+                            marker.emit('click', {target: marker});
+                       }
+                    }
+                });  //关键字查询查询
+
+            }
+            
+     //导航：
+     function navBtn(e,title){
+         
+         
+         
+     	//alert(title + e.extData.content);
+     	
+     	 e.markOnAMAP({
+                    name:title,
+                    position:e.getPosition()
+                })
+     }
+	   
+
+    //构建自定义信息窗体
+    function createInfoWindow(title, content) {
+        var info = document.createElement("div");
+        info.className = "info";
+
+        //可以通过下面的方式修改自定义窗体的宽高
+        //info.style.width = "400px";
+        // 定义顶部标题
+        var top = document.createElement("div");
+        var titleD = document.createElement("div");
+        var closeX = document.createElement("img");
+        top.className = "info-top";
+        titleD.innerHTML = title;
+        closeX.src = "http://webapi.amap.com/images/close2.gif";
+        closeX.onclick = closeInfoWindow;
+
+        top.appendChild(titleD);
+        top.appendChild(closeX);
+        info.appendChild(top);
+
+        // 定义中部内容
+        var middle = document.createElement("div");
+        middle.className = "info-middle";
+        middle.style.backgroundColor = 'white';
+        middle.innerHTML = content;
+        info.appendChild(middle);
+
+        // 定义底部内容
+        var bottom = document.createElement("div");
+        bottom.className = "info-bottom";
+        bottom.style.position = 'relative';
+        bottom.style.top = '0px';
+        bottom.style.margin = '0 auto';
+        var sharp = document.createElement("img");
+        sharp.src = "http://webapi.amap.com/images/sharp.png";
+        bottom.appendChild(sharp);
+        info.appendChild(bottom);
+        return info;
+    }
+
+    //关闭信息窗体
+    function closeInfoWindow() {
+        map.clearInfoWindow();
+    }
+                   
+            
+            //默认的点
+            marker = new AMap.Marker({  //加点
+                        map: map,
+                        position: [121.463031,31.249318]
+                    });
+
+             map.on('click', function(e) {
+                   if (marker) {
+                        marker.setMap(null);
+                        marker = null;
+                    }
+                 getLng=e.lnglat.getLng();
+                 getLat=e.lnglat.getLat();
+                 lnglatXY = [e.lnglat.getLng(), e.lnglat.getLat()]; //已知点坐标
+                   var geocoder = new AMap.Geocoder({
+                        radius: 1000,
+                        extensions: "all"
+                    });        
+                    geocoder.getAddress(lnglatXY, function(status, result) {
+                        if (status === 'complete' && result.info === 'OK') {
+                            address=result.regeocode.formattedAddress;
+                        }
+                    });        
+                    marker = new AMap.Marker({  //加点
+                        map: map,
+                        position: lnglatXY
+                    });  
+                    map.setFitView();
+
+    })
+
+    
+    
+    
+    
+    
+    
+    
+    
+</script>
+</body>
+</html> 

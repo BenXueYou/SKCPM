@@ -66,7 +66,7 @@
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
 				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
-				<!-- <el-button type="primary" @click="addBtnAct" style="margin:-5px 10px 0">批量导出</el-button> -->
+				<el-button type="primary" @click="addBtnAct" style="margin:-5px 10px 0">新增</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
@@ -74,10 +74,11 @@
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="cardNum" label="卡号" width="180"></el-table-column>
-					<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
 					<el-table-column prop="userName" label="用户名" width="160"></el-table-column>
 					<el-table-column prop="telephone" label="联系电话" width="160"></el-table-column>
-					<el-table-column prop="depositMoney" label="余额" width="100"></el-table-column>
+					<el-table-column prop="plateNumbers" label="车牌号" width="160"></el-table-column>
+					<el-table-column prop="balance" label="余额" width="100"></el-table-column>
+					<el-table-column prop="openCardUser" label="开卡人" width="120"></el-table-column>
 					<el-table-column prop="gmtCreate" label="开卡时间" width="180"></el-table-column>
 					<el-table-column prop="gmtModify" label="变更时间" width="180"></el-table-column>
 					<el-table-column label="操作">

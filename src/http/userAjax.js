@@ -108,8 +108,16 @@ export var userAjax = {
       data: xhr
     });
   },
-  saveCardUserDeposit(xhr) {
-    let url = `${RestApi.api.UserAjax.saveCardUserDeposit}`;
+  saveCardUser(xhr) {
+    let url = `${RestApi.api.UserAjax.saveCardUser}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  updateCardUser(xhr) {
+    let url = `${RestApi.api.UserAjax.updateCardUser}`;
     return axios({
       method: "post",
       url,
