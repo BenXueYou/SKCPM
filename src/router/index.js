@@ -20,6 +20,7 @@ const ChargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pa
 const RefrundRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RefrundRecord');
 const ChargingRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargingRecord');
 const ChargeReport = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargeReport');
+const CardRechargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/CardRechargeRecord');
 // 运营统计
 const AppUserStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/AppUserStatics');
 const ChargePileStatics = () => import(/* webpackChunkName: "staticsData" */ '@/pages/staticsData/ChargePileStatics');
@@ -264,6 +265,12 @@ export default new Router({
           name: "ChargeReport",
           component: ChargeReport,
           title: "充电报表"
+        },
+        {
+          path: "CardRechargeRecord",
+          name: "CardRechargeRecord",
+          component: CardRechargeRecord,
+          title: "卡充值记录"
         },
       ]
     }

@@ -6,7 +6,7 @@
 	>
 		<div class="titleBox">
 			位置：
-			<span>用户管理／充电卡管理</span>
+			<span>运营管理／卡充值记录</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:10px">
@@ -17,7 +17,7 @@
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<div class="dateBox">
-							<span class="topTitleTxt">开卡时间：</span>
+							<span class="topTitleTxt">充值时间：</span>
 							<el-date-picker
 								v-model="beginTime"
 								type="datetime"
@@ -65,31 +65,18 @@
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
-				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
 				<el-button type="primary" @click="addBtnAct" style="margin:-5px 10px 0">新增</el-button>
+				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
 				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
-					<el-table-column prop="cardNum" label="卡号" width="180"></el-table-column>
-					<el-table-column prop="userName" label="用户名" width="160"></el-table-column>
-					<el-table-column prop="telephone" label="联系电话" width="160"></el-table-column>
-					<el-table-column prop="plateNumbers" label="车牌号" width="160"></el-table-column>
-					<el-table-column prop="balance" label="余额" width="100"></el-table-column>
-					<el-table-column prop="openCardUser" label="开卡人" width="120"></el-table-column>
-					<el-table-column prop="gmtCreate" label="开卡时间" width="180"></el-table-column>
-					<el-table-column prop="gmtModify" label="变更时间" width="180"></el-table-column>
-					<el-table-column label="操作">
-						<template slot-scope="scope">
-							<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
-							<el-button style="color:#ff5f5f" @click="forbidBtnAct(scope.row)" type="text" size="small">
-								{{
-								scope.row.isDeleted?'已禁用':'禁用'}}
-							</el-button>
-						</template>
-					</el-table-column>
+					<el-table-column prop="cardNum" label="卡号"></el-table-column>
+					<el-table-column prop="depositMoney" label="充值金额"></el-table-column>
+					<!-- <el-table-column prop="openCardUser" label="开卡人" width="120"></el-table-column> -->
+					<el-table-column prop="gmtCreate" label="充值时间" width="180"></el-table-column>
 				</el-table>
 			</div>
 			<div class="footer">
@@ -104,7 +91,7 @@
 				></el-pagination>
 			</div>
 		</div>
-		<card-user-detail
+		<card-recharge-add-or-edit
 			:visible.sync="isShowAddDialog"
 			:rowData="rowData"
 			@onCancel="close"
@@ -113,10 +100,10 @@
 	</el-row>
 </template>
 <script>
-import CardUserDetail from "@/components/CardUserEdit";
+import CardRechargeAddOrEdit from "@/components/CardRechargeAddOrEdit";
 export default {
   components: {
-    CardUserDetail
+    CardRechargeAddOrEdit
   },
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
@@ -154,22 +141,6 @@ export default {
     };
   },
   methods: {
-    forbidBtnAct(rowData) {
-      if (rowData.isDeleted) {
-        this.$message({ type: "warning", message: "已经禁用" });
-        return;
-      }
-      this.$userAjax
-        .deleteCardUser({ id: rowData.id })
-        .then(res => {
-          if (res.data.success) {
-            this.$message({ type: "success", message: "禁用成功" });
-            this.endTime = this.$common.getCurrentTime();
-            this.initData();
-          }
-        })
-        .catch(() => {});
-    },
     close(is) {
       this.isShowAddDialog = !this.isShowAddDialog;
       if (is) {
@@ -199,8 +170,8 @@ export default {
         queryCount: true
       };
       data = this.$common.deleteEmptyString(data, true);
-      this.$userAjax
-        .getCardUserList(data)
+      this.$businessAjax
+        .getCardDepositList(data)
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;

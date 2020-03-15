@@ -261,7 +261,10 @@ export default {
     // 关闭编辑弹窗
     closeRecordView(is) {
       this.dialogRecordView = !this.dialogRecordView;
-      if (is) this.initData();
+      if (is) {
+        this.initData();
+        this.endTime = this.$common.getCurrentTime();
+      }
     },
     // 编辑
     handleEditClick(rowData) {

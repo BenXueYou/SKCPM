@@ -124,6 +124,14 @@ export var userAjax = {
       data: xhr
     });
   },
+  deleteCardUser(xhr) {
+    let url = `${RestApi.api.UserAjax.deleteCardUser}`;
+    return axios({
+      method: "post",
+      url,
+      params: xhr
+    });
+  },
 };
 
 function install(Vue) {

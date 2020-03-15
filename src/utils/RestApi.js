@@ -120,6 +120,7 @@ export default {
       getCardUserList: `${httpUrlHeader}/card/list-by-page`,
       saveCardUser: `${httpUrlHeader}/card/open-card-save`,
       updateCardUser: `${httpUrlHeader}/card/update`,
+      deleteCardUser: `${httpUrlHeader}/card/delete`,
 
     },
     /**
