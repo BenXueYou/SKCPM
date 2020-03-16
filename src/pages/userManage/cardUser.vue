@@ -65,8 +65,8 @@
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
-				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
-				<el-button type="primary" @click="addBtnAct" style="margin:-5px 10px 0">新增</el-button>
+				<!-- <el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button> -->
+				<el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="addBtnAct" style="margin:-5px 10px 0">新增</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
