@@ -100,6 +100,12 @@ export default {
       // 卡充值管理
       getCardDepositList: `${httpUrlHeader}/card/deposit/list-by-page`,
       saveCardUserDeposit: `${httpUrlHeader}/card/deposit/save`,
+      // 根据卡号查询卡充电记录
+      getCardChargeRecordByCardNum: `${httpUrlHeader}/card/record-by-cardNum`,
+      // 根据用户名查询卡充电记录
+      getCardChargeRecordByUserName: `${httpUrlHeader}/card/record-by-userName`,
+      // 导出卡充电记录
+      exportCardChargeRecordExcel: `${httpUrlHeader}/card/export-by-userName`
 
     },
 

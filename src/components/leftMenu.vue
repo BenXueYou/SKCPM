@@ -105,7 +105,6 @@
 					</el-submenu>
 					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
 							<i class="el-icon-s-custom"></i>
 							<span slot="title">用户管理</span>
 							<img
