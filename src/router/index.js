@@ -17,6 +17,7 @@ const CardUser = () => import(/* webpackChunkName: "userManage" */ '@/pages/user
 // 运营管理
 const RechargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RechargeRecord');
 const ChargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargeRecord');
+const CardChargeRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/CardChargeRecord');
 const RefrundRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/RefrundRecord');
 const ChargingRecord = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargingRecord');
 const ChargeReport = () => import(/* webpackChunkName: "businessRecord" */ '@/pages/businessRecord/ChargeReport');
@@ -271,6 +272,12 @@ export default new Router({
           name: "CardRechargeRecord",
           component: CardRechargeRecord,
           title: "卡充值记录"
+        },
+        {
+          path: "CardChargeRecord",
+          name: "CardChargeRecord",
+          component: CardChargeRecord,
+          title: "卡充电记录"
         },
       ]
     }

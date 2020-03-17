@@ -73,8 +73,16 @@
 				<el-table :data="tableData" stripe border style="width: 100%">
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
-					<el-table-column prop="cardNum" label="卡号" width="180"></el-table-column>
-					<el-table-column prop="userName" label="用户名" width="160"></el-table-column>
+					<el-table-column prop="cardNum" label="卡号" width="180">
+						<template slot-scope="scope">
+							<el-button @click="JumpToAct(scope.row)" type="text">{{scope.row.cardNum}}</el-button>
+						</template>
+					</el-table-column>
+					<el-table-column prop="userName" label="用户名" width="160">
+						<template slot-scope="scope">
+							<el-button @click="JumpToAct(scope.row)" type="text">{{scope.row.userName}}</el-button>
+						</template>
+					</el-table-column>
 					<el-table-column prop="telephone" label="联系电话" width="160"></el-table-column>
 					<el-table-column prop="plateNumbers" label="车牌号" width="160"></el-table-column>
 					<el-table-column prop="balance" label="余额" width="100"></el-table-column>
@@ -154,6 +162,11 @@ export default {
     };
   },
   methods: {
+    JumpToAct(rowData) {
+      this.$router.push({
+        name: "CardChargeRecord"
+      });
+    },
     forbidBtnAct(rowData) {
       if (rowData.isDeleted) {
         this.$message({ type: "warning", message: "已经禁用" });
