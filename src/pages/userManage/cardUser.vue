@@ -4,11 +4,11 @@
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
-		<div class="titleBox">
+		<div v-if="!showCardChargRecord" class="titleBox">
 			位置：
 			<span>用户管理／充电卡管理</span>
 		</div>
-		<div class="bodyBox">
+		<div v-if="!showCardChargRecord" class="bodyBox">
 			<div class="topMenu" style="padding-bottom:10px">
 				<div class="flex-st">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
@@ -41,32 +41,15 @@
 							></el-date-picker>
 						</div>
 					</div>
-					<!-- <div class="flex-sbw-div topTitleTxt flex-sbw-item">
-						<span>手机号：</span>
-						<el-input v-model="phoneNumber" clearable></el-input>
-					</div> -->
-					<!-- <div class="flex-sbw-div">
-						<span class="topTitleTxt">运营商：</span>
-						<el-select
-							class="left-space time-interal"
-							v-model="operatorId"
-							clearable
-							placeholder="运营商"
-							size="small"
-						>
-							<el-option
-								v-for="item in operatorOptions"
-								:key="item.operatorId"
-								:label="item.operatorName"
-								:value="item.operatorId"
-							></el-option>
-						</el-select>
-					</div>-->
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
-				<!-- <el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button> -->
-				<el-button type="primary" v-if="$store.state.home.AuthorizationID" @click="addBtnAct" style="margin:-5px 10px 0">新增</el-button>
+				<el-button
+					type="primary"
+					v-if="$store.state.home.AuthorizationID"
+					@click="addBtnAct"
+					style="margin:-5px 10px 0"
+				>新增</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<div class="tableBox">
@@ -118,13 +101,22 @@
 			@onCancel="close"
 			ref="houseTable"
 		/>
+
+		<card-charge-record
+			v-if="showCardChargRecord"
+			@back="showCardChargRecord=!showCardChargRecord"
+			:showCardChargRecord="showCardChargRecord"
+			:cardUser="cardUser"
+		></card-charge-record>
 	</el-row>
 </template>
 <script>
 import CardUserDetail from "@/components/CardUserEdit";
+import CardChargeRecord from "@/pages/businessRecord/CardChargeRecord";
 export default {
   components: {
-    CardUserDetail
+    CardUserDetail,
+    CardChargeRecord
   },
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
@@ -135,6 +127,8 @@ export default {
   },
   data: function() {
     return {
+      showCardChargRecord: false,
+      cardUser: null,
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 10,
@@ -163,9 +157,11 @@ export default {
   },
   methods: {
     JumpToAct(rowData) {
-      this.$router.push({
-        name: "CardChargeRecord"
-      });
+      //   this.$router.push({
+      //     name: "CardChargeRecord"
+      //   });
+      this.cardUser = rowData;
+      this.showCardChargRecord = true;
     },
     forbidBtnAct(rowData) {
       if (rowData.isDeleted) {

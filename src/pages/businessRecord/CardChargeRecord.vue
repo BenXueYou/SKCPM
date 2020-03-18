@@ -1,6 +1,6 @@
 <template>
 	<el-row
-		class="ChargeRecord"
+		class="CardChargeRecord"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
@@ -44,6 +44,7 @@
 			<div class="topMenu flex-st" style="margin-bottom: 5px;">
 				<el-button type="primary" @click="exportBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
+				<el-button type="primary" class="el-icon-back" @click="backBtnAct" style="margin:-5px 10px 0">返回</el-button>
 			</div>
 			<div class="tableBox">
 				<el-table
@@ -121,13 +122,46 @@
 import ChargeRecordDetail from "@/components/ChargeRecordDetail";
 import ChargeRecordEdit from "@/components/ChargeRecordEdit";
 export default {
+  props: {
+    cardUser: {
+      type: Object,
+      default: () => {
+        return {};
+      }
+    },
+    showCardChargRecord: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     ChargeRecordDetail,
     ChargeRecordEdit
   },
+  watch: {
+    showCardChargRecord(val) {
+      console.log(val);
+      debugger;
+      if (val) {
+        this.cardNum = this.cardUser.cardNum;
+        this.userName = this.cardUser.userName;
+        this.currentPage = 1;
+        this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
+        this.endTime = this.$common.getCurrentTime();
+        this.initData();
+      }
+    },
+    cardUser(val) {
+      console.log(val);
+      debugger;
+    }
+  },
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.stationOptions = this.$store.state.home.chargeStationArr;
+    this.cardNum = this.cardUser.cardNum;
+    this.userName = this.cardUser.userName;
+    this.currentPage = 1;
     this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     this.initData();
@@ -161,10 +195,12 @@ export default {
     };
   },
   methods: {
+    backBtnAct() {
+      this.$emit("back", false);
+    },
     summaryMethod(param) {
       // param 是固定的对象，里面包含 columns与 data参数的对象 {columns: Array[4], data: Array[5]},包含了表格的所有的列与数据信息
       const { columns, data } = param;
-      console.log(param);
       const sums = [];
       columns.forEach((column, index) => {
         if (index === 0) {
@@ -204,28 +240,6 @@ export default {
     transferChargeModelId(chargeModelId) {
       return this.chargeModelOptions[chargeModelId];
     },
-    // 关闭编辑弹窗
-    closeRecordView(is) {
-      this.dialogRecordView = !this.dialogRecordView;
-      if (is) {
-        this.initData();
-        this.endTime = this.$common.getCurrentTime();
-      }
-    },
-    // 编辑
-    handleEditClick(rowData) {
-      this.dialogRecordView = !this.dialogRecordView;
-      this.rowData = rowData;
-    },
-    close() {
-      this.isShowAddDialog = !this.isShowAddDialog;
-    },
-    queryBtnAct() {
-      this.initData();
-    },
-    addBtnAct() {
-      this.isShowAddDialog = !this.isShowAddDialog;
-    },
     initData() {
       var data = {
         model: {
@@ -244,7 +258,7 @@ export default {
       } else {
         this.httpQueryCardChargeRecordByCardNum(data);
       }
-      this.getTotal(data);
+      // this.getTotal(data);
     },
     httpQueryCardChargeRecordByCardNum(data) {
       this.$businessAjax
@@ -270,7 +284,18 @@ export default {
         })
         .catch(() => {});
     },
-    getTotal(data) {
+    getTotal() {
+      var data = {
+        model: {
+          endTime: this.endTime,
+          beginTime: this.beginTime,
+          cardNum: this.cardNum,
+          userName: this.userName
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true
+      };
       this.$businessAjax
         .getChargeRecordTotal(data)
         .then(res => {
@@ -281,6 +306,28 @@ export default {
           }
         })
         .catch(() => {});
+    },
+    // 关闭编辑弹窗
+    closeRecordView(is) {
+      this.dialogRecordView = !this.dialogRecordView;
+      if (is) {
+        this.initData();
+        this.endTime = this.$common.getCurrentTime();
+      }
+    },
+    // 编辑
+    handleEditClick(rowData) {
+      this.dialogRecordView = !this.dialogRecordView;
+      this.rowData = rowData;
+    },
+    close() {
+      this.isShowAddDialog = !this.isShowAddDialog;
+    },
+    queryBtnAct() {
+      this.initData();
+    },
+    addBtnAct() {
+      this.isShowAddDialog = !this.isShowAddDialog;
     },
     deleteBtnAct() {},
     exportBtnAct() {
@@ -334,53 +381,52 @@ export default {
       this.pageSize = val;
       this.initData();
     }
-  },
-  watch: {}
+  }
 };
 </script>
 <style>
-.ChargeRecord .el-table__fixed,
-.ChargeRecord .el-table__fixed-right {
+.CardChargeRecord .el-table__fixed,
+.CardChargeRecord .el-table__fixed-right {
 	box-shadow: 0 0 0px rgba(0, 0, 0, 0.12);
 }
-.ChargeRecord .flex-sbw-item .el-input,
-.ChargeRecord .flex-sbw-item .el-input__inner {
+.CardChargeRecord .flex-sbw-item .el-input,
+.CardChargeRecord .flex-sbw-item .el-input__inner {
 	width: 160px;
 	height: 32px;
 }
-.ChargeRecord .el-date-editor.el-input,
-.ChargeRecord .el-date-editor.el-input__inner {
+.CardChargeRecord .el-date-editor.el-input,
+.CardChargeRecord .el-date-editor.el-input__inner {
 	width: 190px;
 }
-.ChargeRecord .el-input--suffix .el-input__inner {
+.CardChargeRecord .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
-.ChargeRecord .flex-sbw-item {
+.CardChargeRecord .flex-sbw-item {
 	margin-right: 5%;
 }
-.ChargeRecord .el-table__body-wrapper {
+.CardChargeRecord .el-table__body-wrapper {
 	max-height: calc(100% - 100px);
 	overflow: auto;
 	border: 0px solid #c0c4cc;
 }
-.ChargeRecord .el-table__footer-wrapper .el-table--border th,
-.ChargeRecord.el-table__footer-wrapper .el-table--border td {
+.CardChargeRecord .el-table__footer-wrapper .el-table--border th,
+.CardChargeRecord.el-table__footer-wrapper .el-table--border td {
 	border-right: 0px solid #dcdfe6;
 }
 @media screen and (max-width: 1540px) {
-	.ChargeRecord .flex-sbw-item {
+	.CardChargeRecord .flex-sbw-item {
 		margin-right: 5px !important;
 	}
-	.ChargeRecord .flex-sbw-item .el-input,
-	.ChargeRecord .flex-sbw-item .el-input__inner {
+	.CardChargeRecord .flex-sbw-item .el-input,
+	.CardChargeRecord .flex-sbw-item .el-input__inner {
 		width: 120px;
 		height: 32px;
 	}
-	.ChargeRecord .el-date-editor.el-input,
-	.ChargeRecord .el-date-editor.el-input__inner {
+	.CardChargeRecord .el-date-editor.el-input,
+	.CardChargeRecord .el-date-editor.el-input__inner {
 		width: 180px;
 	}
-	.ChargeRecord .el-input--suffix .el-input__inner {
+	.CardChargeRecord .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
 	}
 }
@@ -388,7 +434,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.ChargeRecord {
+.CardChargeRecord {
 	text-align: center;
 	height: 100%;
 	.titleBox {
