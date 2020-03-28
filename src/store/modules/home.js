@@ -12,8 +12,8 @@ const home = {
     AuthRoleId: Storage.readSession("AuthRoleId") || "",
     OperatorId: Storage.readSession("OperatorId") || "",
     loginId: Storage.readSession("loginId") || "",
-    account: Storage.read("account") || "",
-    userUuid: Storage.read("userUuid") || "",
+    account: Storage.readSession("account") || "",
+    userUuid: Storage.readSession("userUuid") || "",
     enterpriseUser: localStorage.getItem("enterpriseUser") || []
   },
   mutations: {

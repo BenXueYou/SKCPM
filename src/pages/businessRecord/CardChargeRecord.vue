@@ -171,22 +171,21 @@ export default {
     ChargeRecordEdit
   },
   watch: {
-    showCardChargRecord(val) {
-      console.log(val);
-      debugger;
-      if (val) {
-        this.cardNum = this.cardUser.cardNum;
-        this.userName = this.cardUser.userName;
+    showCardChargRecord(val) {},
+    cardUser: {
+      handler(newVal, oldVal) {
+        console.log(newVal);
+        if (newVal.cardNum) {
+          this.cardNum = newVal.cardNum;
+          this.userName = "";
+        } else {
+          this.cardNum = "";
+          this.userName = newVal.userName;
+        }
         this.currentPage = 1;
         this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
         this.endTime = this.$common.getCurrentTime();
         this.initData();
-      }
-    },
-    cardUser: {
-      handler(newVal, oldVal) {
-        console.log(newVal);
-        console.log(oldVal);
       },
       deep: true,
       immediate: true
@@ -200,7 +199,7 @@ export default {
     this.currentPage = 1;
     this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
-    this.initData();
+    // this.initData();
   },
   data: function() {
     return {
@@ -289,7 +288,7 @@ export default {
         queryCount: true
       };
       data.model = this.$common.deleteEmptyString(data.model);
-      if (this.userName) {
+      if (data.model.userName) {
         this.getCardChargeRecordByUserName(data);
       } else {
         this.httpQueryCardChargeRecordByCardNum(data);

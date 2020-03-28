@@ -66,7 +66,7 @@
                            label="卡号"
                            width="180">
             <template slot-scope="scope">
-              <el-button @click="JumpToAct(scope.row.cardNum,cardNum)"
+              <el-button @click="JumpToAct(scope.row.cardNum,'cardNum')"
                          type="text">{{scope.row.cardNum}}</el-button>
             </template>
           </el-table-column>
@@ -74,7 +74,7 @@
                            label="用户名"
                            width="160">
             <template slot-scope="scope">
-              <el-button @click="JumpToAct(scope.row.userName,userName)"
+              <el-button @click="JumpToAct(scope.row.userName,'userName')"
                          type="text">{{scope.row.userName}}</el-button>
             </template>
           </el-table-column>
@@ -128,7 +128,7 @@
                       ref="houseTable" />
 
     <card-charge-record v-if="showCardChargRecord"
-                        @back="showCardChargRecord=!showCardChargRecord"
+                        @back="cardUser={},showCardChargRecord=!showCardChargRecord"
                         :showCardChargRecord="showCardChargRecord"
                         :cardUser="cardUser"></card-charge-record>
   </el-row>
@@ -151,7 +151,7 @@ export default {
   data: function() {
     return {
       showCardChargRecord: false,
-      cardUser: null,
+      cardUser: {},
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 10,
@@ -180,7 +180,7 @@ export default {
   },
   methods: {
     JumpToAct(val, key) {
-      this.cardUser = { key: val };
+      this.cardUser[key] = val;
       this.showCardChargRecord = true;
     },
     forbidBtnAct(rowData) {
