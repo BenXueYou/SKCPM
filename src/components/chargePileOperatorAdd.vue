@@ -81,7 +81,7 @@
                         v-model="formLabelAlign.powerCompensation"
                         size="small"
                         clearable></el-input>
-              <span style="color:#ff5f5f;margin-left:20px;">例如：数字数字1，则充电费用 * 1%</span>
+              <span style="color:#ff5f5f;margin-left:20px;">例如：输入数字1，则充电费用 * 1%</span>
             </el-form-item>
           </el-col>
         </el-row>

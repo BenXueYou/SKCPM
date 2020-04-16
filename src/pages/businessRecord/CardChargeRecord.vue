@@ -242,18 +242,20 @@ export default {
           sums[index] = "合计";
           return;
         }
-        if (index > 10 && index < 14) {
+        if (index > 8 && index < 13) {
+          console.log(index);
           const values = data.map(item => Number(item[column.property]));
           // 验证每个value值是否是数字，如果是执行if
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               return prev + curr;
             }, 0);
+
             switch (index) {
-              case 11:
+              case 9:
                 sums[index] = this.$common.formatSeconds(sums[index]);
                 break;
-              case 12:
+              case 10:
                 sums[index] = sums[index].toFixed(2);
                 sums[index] += "度";
                 break;
