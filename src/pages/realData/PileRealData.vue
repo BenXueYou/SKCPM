@@ -126,7 +126,8 @@
 
           </el-table-column>
           <el-table-column prop="chargePower"
-                           label="功率(kw)"></el-table-column>
+                           label="功率(kw)">
+          </el-table-column>
           <template v-if="cpType">
             <el-table-column prop="ua1"
                              label="A相电压(V)"></el-table-column>
@@ -255,7 +256,7 @@ export default {
           if (res.data.success && res.data.model) {
             let num = [];
             res.data.model.forEach(element => {
-              element.chargePower = element.chargePower / 1000;
+              // element.chargePower = element.chargePower / 1000;
               num.push(element);
             });
             this.tableData = num;
