@@ -12,7 +12,7 @@
     /***************************************************************************/
     //echo $_SERVER['HTTP_HOST'];
     $REDIRECT_URI = urlencode('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] . $_SERVER['QUERY_STRING']);
-    $REDIRECT_URI = urlencode('http://sksenk.cn/senkWechat/html/SMCharging/Home.php');
+    $REDIRECT_URI = urlencode('http://sksenk.cn/senkWechat/html/SMCharging/THome.php');
     /***************************************************************************/
     $scope = 'snsapi_base';
     //$scope = 'snsapi_userinfo'; //需要授权
@@ -67,7 +67,7 @@
     <p class="middle_input">或<a style="color: blue; text-decoration: underline;" onclick="hrefBtn()">输入桩编号</a></p>
     <h5 style="width:100%;text-align:center;margin:auto;">扫描桩上的二维码启动充电</h5>
     <script type="text/javascript" src="../JS/mui.js"></script>
-    <script type="text/javascript" src="../JS/CONFIG.js"></script>
+    <script type="text/javascript" src="../JS/TCONFIG.js"></script>
     <script type="text/javascript" src="../JS/Order.js"></script>
     <script type="text/javascript" src="../JS/Pile.js"></script>
     <script type="text/javascript" src="../JS/User.js"></script>
@@ -91,7 +91,7 @@
             wxScanAPI();
           } else if (user && user.chargeState === 1) {
             //用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-            location.href = 'charging.php?cpObj=' + JSON.stringify(user);
+            location.href = 'TCharging.php?cpObj=' + JSON.stringify(user);
           } else {
             location.href = "../MY/getPhone.html?openId=" + openId;
           }
@@ -139,7 +139,7 @@
             console.log(data);
             data.deviceId = deviceId;
             data.openId = openId;
-            location.href = "chargePay.php?obj=" + encodeURIComponent(JSON.stringify(data));
+            location.href = "TChargePay.php?obj=" + encodeURIComponent(JSON.stringify(data));
           } else {
             console.log('请求错误');
           }
@@ -159,7 +159,7 @@
             }, 'div');
           } else if (user && user.chargeState === 1) {
             //用户已产生订单，获取订单信息，且直接进入充电界面,获取当前桩的信息
-            location.href = 'charging.php?cpObj=' + JSON.stringify(user);
+            location.href = 'TCharging.php?cpObj=' + JSON.stringify(user);
           } else {
             location.href = "../MY/getPhone.html?openId=" + openId;
           }

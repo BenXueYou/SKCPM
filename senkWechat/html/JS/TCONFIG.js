@@ -1,16 +1,6 @@
 const CONFIGS = {
-  WXPAYSERVER: function () {
-    return "http://gxbie.com/LanChuang/wechatPay/unifiedOrder?payid=";
-  },
-  ALIPAYSERVER: function () {
-    return "https://gxbie.com/LanChuang/wechatPay/alipayUnifiedOrder?payid=";
-  },
-  /* Server */
-  LANCHUANG: function () {
-    return "http://sksenk.cn/"; // 天翼云平台
-  },
   URLManage: function () {
-    const URLHeader = "http://47.104.204.250:8080";
+    const URLHeader = "http://175.24.87.234:8080";
     const URLObj = {
       registerWechatApi: `${URLHeader}/weChat/register`,
       getUserInfoApi: `${URLHeader}/weChat/query/detail`,

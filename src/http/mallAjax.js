@@ -19,8 +19,13 @@ export var ProductionAjax = {
   },
   deleteCar(xhr) {
     let url = `${RestApi.api.ProductionAjax.deleteCar}`;
+    let param = new URLSearchParams();
+    param.append("id", xhr);
     return axios({
       method: "post",
+      headers: {
+        'Content-Type': 'application/json'
+      },
       url,
       data: xhr
     });
@@ -30,7 +35,7 @@ export var ProductionAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   detailCar(xhr) {
@@ -231,7 +236,7 @@ export var ProductionAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      params: xhr
     });
   },
   updateImage(xhr) {

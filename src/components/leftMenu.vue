@@ -179,7 +179,7 @@
 						<el-menu-item index="/Main/RentProductionTable">租赁方案</el-menu-item>
 						<el-menu-item index="/Main/ActivityProductionTable">优惠活动</el-menu-item>
 						<el-menu-item index="/Main/CaseProductionTable">优秀案例</el-menu-item>
-						<el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item>
+						<!-- <el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item> -->
 					</el-submenu>
 				</el-menu>
 			</el-col>
