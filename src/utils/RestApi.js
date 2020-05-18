@@ -95,7 +95,18 @@ export default {
       getRefrundRecord: `${httpUrlHeader}/weChat/withdraw-list-by-page`,
 
       // 充电报表
-      getChargeReport: `${httpUrlHeader}/charge/record/charge/reports`
+      getChargeReport: `${httpUrlHeader}/charge/record/charge/reports`,
+
+      // 卡充值管理
+      getCardDepositList: `${httpUrlHeader}/card/deposit/list-by-page`,
+      saveCardUserDeposit: `${httpUrlHeader}/card/deposit/save`,
+
+      // 根据卡号查询卡充电记录
+      getCardChargeRecordByCardNum: `${httpUrlHeader}/card/record-by-cardNum`,
+      // 根据用户名查询卡充电记录
+      getCardChargeRecordByUserName: `${httpUrlHeader}/card/record-by-userName`,
+      // 导出卡充电记录
+      exportCardChargeRecordExcel: `${httpUrlHeader}/card/export-by-userName`
 
     },
 
@@ -112,8 +123,12 @@ export default {
 
       getAppUserList: `${httpUrlHeader}/weChat/list-by-page`,
 
-      getCardUserList: `${httpUrlHeader}/card/deposit/list-by-page`,
-      saveCardUserDeposit: `${httpUrlHeader}/card/deposit/save`,
+      // 用户卡管理
+      getCardUserList: `${httpUrlHeader}/card/list-by-page`,
+      saveCardUser: `${httpUrlHeader}/card/open-card-save`,
+      updateCardUser: `${httpUrlHeader}/card/update`,
+      deleteCardUser: `${httpUrlHeader}/card/delete`,
+
     },
     /**
        * 运营统计

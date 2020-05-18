@@ -81,6 +81,52 @@ export var businessAjax = {
       data: xhr
     });
   },
+  // 获取卡充值记录
+  getCardDepositList(xhr) {
+    let url = `${RestApi.api.BusinessAjax.getCardDepositList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  // 获取新增卡充值记录
+  saveCardUserDeposit(xhr) {
+    let url = `${RestApi.api.BusinessAjax.saveCardUserDeposit}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  // 根据卡号查询卡充电记录
+  getCardChargeRecordByCardNum(xhr) {
+    let url = `${RestApi.api.BusinessAjax.getCardChargeRecordByCardNum}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  // 根据用户名查询卡充电记录
+  getCardChargeRecordByUserName(xhr) {
+    let url = `${RestApi.api.BusinessAjax.getCardChargeRecordByUserName}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  // 导出卡充电记录
+  exportCardChargeRecordExcel(xhr) {
+    let url = `${RestApi.api.BusinessAjax.exportCardChargeRecordExcel}`;
+    return axios({
+      responseType: 'arraybuffer', // 二进制流
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
 };
 
 function install(Vue) {

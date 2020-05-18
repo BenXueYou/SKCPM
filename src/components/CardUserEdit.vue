@@ -20,19 +20,26 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="卡号：" prop="chargePriceModel">
+						<el-form-item label="卡号：" prop="cardNum">
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.address"
+								v-model="formLabelAlign.cardNum"
 								size="small"
 								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="运营商：" prop="operatorId">
-							<el-select
+						<el-form-item label="用户名：" prop="operatorId">
+							<el-input
+								class="time-interal"
+								style="width:96%;box-sizing: border-box;"
+								v-model="formLabelAlign.userName"
+								size="small"
+								clearable
+							></el-input>
+							<!-- <el-select
 								class="time-interal"
 								v-model="formLabelAlign.operatorId"
 								size="small"
@@ -45,17 +52,17 @@
 									:label="item.operatorName"
 									:value="item.operatorId"
 								></el-option>
-							</el-select>
+							</el-select>-->
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="用户名：" prop="userName">
+						<el-form-item label="开卡人" prop="userName">
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.userName"
+								v-model="formLabelAlign.openCardUser"
 								size="small"
 								clearable
 							></el-input>
@@ -75,22 +82,22 @@
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="修改后余额：" prop="telephone">
+						<el-form-item label="余额：" prop="balance">
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.deforeDepositMoney"
+								v-model="formLabelAlign.balance"
 								size="small"
 								clearable
 							></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="修改前余额：" prop="depositMoney">
+						<el-form-item label="车牌号：" prop="plateNumbers">
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.depositMoney"
+								v-model="formLabelAlign.plateNumbers"
 								size="small"
 								clearable
 							></el-input>
@@ -135,9 +142,9 @@ export default {
         userName: null,
         cardNum: null,
         telephone: null,
-        operatorId: null,
-        depositMoney: null,
-        beforeDepositMoney: null
+        openCardUser: null,
+        balance: null,
+        plateNumbers: null
       },
       businessOptions: [],
       rules: {
@@ -147,10 +154,10 @@ export default {
         cardNum: [
           { required: true, message: "卡号不能为空", trigger: "change" }
         ],
-        depositMoney: [
+        balance: [
           { required: true, message: "余额不能为空", trigger: "change" }
         ],
-        phoneNumber: [
+        telephone: [
           { required: true, message: "电话不能为空", trigger: "change" }
         ]
       }
@@ -167,17 +174,34 @@ export default {
     onClickConfirm() {
       this.$refs.addHouseForm.validate(valid => {
         if (valid) {
+          if (this.rowData.id) {
+            this.updateCardUser();
+          } else {
+            this.saveCardUser();
+          }
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
     },
-    saveCardUser() {
+    updateCardUser() {
       this.$userAjax
-        .saveCardUserDeposit(this.formLabelAlign)
+        .updateCardUser(this.formLabelAlign)
         .then(res => {
           if (res.data.success) {
-            this.$message.success("编辑成功！");
+            this.$message.success("修改成功！");
+            this.$emit("onCancel", true);
+          } else {
+          }
+        })
+        .catch(() => {});
+    },
+    saveCardUser() {
+      this.$userAjax
+        .saveCardUser(this.formLabelAlign)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("添加成功！");
             this.$emit("onCancel", true);
           } else {
           }
@@ -195,9 +219,9 @@ export default {
           userName: null,
           cardNum: null,
           telephone: null,
-          operatorId: null,
-          depositMoney: null,
-          beforeDepositMoney: null
+          openCardUser: null,
+          balance: null,
+          plateNumbers: null
         };
       }
       //   this.formLabelAlign.operatorLoginId = this.$store.state.home.OperatorId;

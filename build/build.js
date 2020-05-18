@@ -3,10 +3,15 @@ require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
 
+// 打包时候加载的转圈效果
 const ora = require('ora')
+
 const rm = require('rimraf')
+
 const path = require('path')
+// 给打印信息赋予的颜色
 const chalk = require('chalk')
+
 const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')

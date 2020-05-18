@@ -87,15 +87,12 @@ $white15: rgba(255, 255, 255, 0.15);
   margin: 20px 0px;
 }
 
-
-
 .dash-line {
   height: 1px;
   background:linear-gradient(to right, #{$dash-line-color} 50%, transparent 50%);
   background-size: 8px 2px;
   background-repeat: repeat-x;
 }
-
 
 // $activemenubg:rgba(40, 255, 187, 0.15);
 // $activemenuborder:rgba(40, 255, 187, 0.80);

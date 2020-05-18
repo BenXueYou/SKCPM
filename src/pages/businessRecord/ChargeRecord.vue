@@ -207,10 +207,10 @@ export default {
       cardNum: null,
       chargeModelOptions: {
         0: "自动充满",
-        1: "电量",
-        2: "时间",
-        3: "金额",
-        4: "刷卡"
+        1: "按电量充",
+        2: "按时间充",
+        3: "按金额充",
+        4: "自动充满"
       }
     };
   },
@@ -261,7 +261,10 @@ export default {
     // 关闭编辑弹窗
     closeRecordView(is) {
       this.dialogRecordView = !this.dialogRecordView;
-      if (is) this.initData();
+      if (is) {
+        this.initData();
+        this.endTime = this.$common.getCurrentTime();
+      }
     },
     // 编辑
     handleEditClick(rowData) {

@@ -61,3 +61,4 @@ const CONFIGS = {
     return Math.floor(Math.random() * 100000000 + 10000000).toString();
   }
 };
+window.config = CONFIGS;

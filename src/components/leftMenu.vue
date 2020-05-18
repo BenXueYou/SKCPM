@@ -57,6 +57,7 @@
 						<el-menu-item index="/Main/RefrundRecord">提现记录</el-menu-item>
 						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
 						<el-menu-item index="/Main/ChargeReport">充电报表</el-menu-item>
+						<el-menu-item index="/Main/CardRechargeRecord">卡充值记录</el-menu-item>
 						<!-- <el-menu-item index="/Main/ChargingRecord">扣费记录</el-menu-item> -->
 					</el-submenu>
 					<el-submenu index="6" :class="menuTitle === '6'? 'submenuActiveClass' : ''">
@@ -104,7 +105,6 @@
 					</el-submenu>
 					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
 							<i class="el-icon-s-custom"></i>
 							<span slot="title">用户管理</span>
 							<img
@@ -179,7 +179,7 @@
 						<el-menu-item index="/Main/RentProductionTable">租赁方案</el-menu-item>
 						<el-menu-item index="/Main/ActivityProductionTable">优惠活动</el-menu-item>
 						<el-menu-item index="/Main/CaseProductionTable">优秀案例</el-menu-item>
-						<el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item>
+						<!-- <el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item> -->
 					</el-submenu>
 				</el-menu>
 			</el-col>

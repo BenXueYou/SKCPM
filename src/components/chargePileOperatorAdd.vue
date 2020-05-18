@@ -1,67 +1,102 @@
 <template>
-	<el-dialog
-		width="580px"
-		:title="!rowData.operatorId?`新增运营商`:`修改运营商`"
-		class="dialog-factory-add"
-		center
-		:visible.sync="isCurrentShow"
-		:before-close="onClickCancel"
-		:close-on-click-modal="false"
-	>
-		<div class="dialog-content">
-			<!--内容-->
-			<el-form
-				:rules="rules"
-				ref="addHouseForm"
-				:label-position="labelPosition"
-				label-width="120px"
-				:model="formLabelAlign"
-				class="info-form"
-			>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="运营商：" prop="operatorName">
-							<el-input class="time-interal" v-model="formLabelAlign.operatorName" size="small" clearable></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="联系人：" prop="contactName">
-							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small" clearable></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="电话：" prop="telephone">
-							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small" clearable></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="邮箱：" prop="email">
-							<el-input class="time-interal" v-model="formLabelAlign.email" size="small" clearable></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="24">
-						<el-form-item label="地址：" prop="address">
-							<el-input
-								style="width:96.5%"
-								class="time-interal"
-								v-model="formLabelAlign.address"
-								size="small"
-								clearable
-							></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-			</el-form>
-		</div>
-		<div slot="footer" class="dialog-footer">
-			<el-button type="primary" @click="onClickConfirm" size="small">确定</el-button>
-			<el-button type="primary" @click="onClickCancel" size="small">取消</el-button>
-		</div>
-	</el-dialog>
+  <el-dialog width="580px"
+             :title="!rowData.operatorId?`新增运营商`:`修改运营商`"
+             class="dialog-factory-add"
+             center
+             :visible.sync="isCurrentShow"
+             :before-close="onClickCancel"
+             :close-on-click-modal="false">
+    <div class="dialog-content">
+      <!--内容-->
+      <el-form :rules="rules"
+               ref="addHouseForm"
+               :label-position="labelPosition"
+               label-width="120px"
+               :model="formLabelAlign"
+               class="info-form">
+        <el-row type="flex"
+                justify="space-between">
+          <el-col :span="12">
+            <el-form-item label="运营商："
+                          prop="operatorName">
+              <el-input class="time-interal"
+                        v-model="formLabelAlign.operatorName"
+                        size="small"
+                        clearable></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系人："
+                          prop="contactName">
+              <el-input class="time-interal"
+                        v-model="formLabelAlign.contactName"
+                        size="small"
+                        clearable></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex"
+                justify="space-between">
+          <el-col :span="12">
+            <el-form-item label="电话："
+                          prop="telephone">
+              <el-input class="time-interal"
+                        v-model="formLabelAlign.telephone"
+                        size="small"
+                        clearable></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="邮箱："
+                          prop="email">
+              <el-input class="time-interal"
+                        v-model="formLabelAlign.email"
+                        size="small"
+                        clearable></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex"
+                justify="space-between">
+          <el-col :span="24">
+            <el-form-item label="地址："
+                          prop="address">
+              <el-input style="width:96.5%"
+                        class="time-interal"
+                        v-model="formLabelAlign.address"
+                        size="small"
+                        clearable></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row v-if="!$store.state.home.AuthRoleId"
+                type="flex"
+                justify="center">
+          <el-col :span="24">
+            <el-form-item label="功率补偿："
+                          prop="address">
+              <el-input style="width:30.5%"
+                        class="time-interal"
+                        type="numder"
+                        v-model="formLabelAlign.powerCompensation"
+                        size="small"
+                        clearable></el-input>
+              <span style="color:#ff5f5f;margin-left:20px;">例如：输入数字1，则充电费用 * 1%</span>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </div>
+    <div slot="footer"
+         class="dialog-footer">
+      <el-button type="primary"
+                 @click="onClickConfirm"
+                 size="small">确定</el-button>
+      <el-button type="primary"
+                 @click="onClickCancel"
+                 size="small">取消</el-button>
+    </div>
+  </el-dialog>
 </template>
 
 <script>
@@ -102,6 +137,7 @@ export default {
         operatorName: "",
         telephone: "",
         validFlag: 0,
+        powerCompensation: 0,
         bulk: false
       },
       rules: {
@@ -122,6 +158,7 @@ export default {
   created() {},
   mounted() {
     this.initData();
+    console.log(this.$store.state.home.AuthRoleId);
   },
   methods: {
     initData() {},
@@ -170,6 +207,7 @@ export default {
       this.isCurrentShow = val;
       if (val && this.rowData.operatorId) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
+        console.log(this.formLabelAlign);
       } else {
         this.formLabelAlign = {
           address: "",
@@ -195,39 +233,39 @@ export default {
 </script>
 <style>
 .dialog-factory-add .el-dialog__header {
-	border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 .dialog-factory-add .el-dialog--center .el-dialog__body {
-	text-align: initial;
-	padding: 25px 35px 20px 5px;
+  text-align: initial;
+  padding: 25px 35px 20px 5px;
 }
 </style>
 <style lang="scss" scoped>
 .dialog-factory-add {
-	.dialog-content {
-		box-sizing: border-box;
-	}
-	.dialog-footer {
-		padding: 0 0 4% 0;
-		box-sizing: border-box;
-	}
-	.topTitleTxt {
-		font-family: "PingFangSC-Regular";
-		font-size: 14px;
-		color: #cccccc;
-	}
-	.time-interal {
-		width: 90%;
-	}
-	.info-form {
-		// width: 85%;
-		margin: 0 auto;
-	}
-	.el-form-item {
-		margin-bottom: 12px;
-	}
+  .dialog-content {
+    box-sizing: border-box;
+  }
+  .dialog-footer {
+    padding: 0 0 4% 0;
+    box-sizing: border-box;
+  }
+  .topTitleTxt {
+    font-family: "PingFangSC-Regular";
+    font-size: 14px;
+    color: #cccccc;
+  }
+  .time-interal {
+    width: 90%;
+  }
+  .info-form {
+    // width: 85%;
+    margin: 0 auto;
+  }
+  .el-form-item {
+    margin-bottom: 12px;
+  }
 }
 .el-dialog__header {
-	background-color: red;
+  background-color: red;
 }
 </style>
