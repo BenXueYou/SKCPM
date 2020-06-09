@@ -254,7 +254,8 @@ export default {
           if (res.data.success && res.data.model) {
             let num = [];
             res.data.model.forEach(element => {
-              element.chargePower = element.chargePower / 1000.00;
+              element.chargePower = element.chargePower / 10.00;
+              element.chargeAmount = element.chargeAmount * 100.00;
               num.push(element);
             });
             this.tableData = num;
