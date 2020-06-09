@@ -49,8 +49,8 @@
                   stripe
                   border
                   style="width: 100%">
-          <el-table-column type="selection"
-                           width="55"></el-table-column>
+          <!-- <el-table-column type="selection"
+                           width="55"></el-table-column> -->
           <el-table-column type="index"
                            width="55"
                            label="序号"></el-table-column>
@@ -182,9 +182,7 @@ export default {
       // this.isShowAddDialog = !this.isShowAddDialog;
       this.httpConfirmAct(row);
     },
-    httpConfirmAct(row) {
-
-    },
+    httpConfirmAct(row) {},
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;

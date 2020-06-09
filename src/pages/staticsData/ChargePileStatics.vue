@@ -125,7 +125,7 @@
 			</div>
 			<div class="tableBox">
 				<el-table :data="tableData" stripe border style="width: 100%">
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="cpId" label="充电桩ID"></el-table-column>
 					<el-table-column prop="cpName" label="桩名"></el-table-column>
@@ -319,7 +319,7 @@ export default {
 			}
 		}
 		.tableBox {
-			height: calc(100% - 200px);
+			min-height: calc(100% - 200px);
 		}
 		.footer {
 			// margin-top: 30px;

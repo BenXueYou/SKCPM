@@ -71,12 +71,12 @@
       </div>
       <div class="tableBox">
         <el-table :data="tableData" stripe border style="width: 100%">
-          <el-table-column type="selection" width="55"></el-table-column>
+          <!-- <el-table-column type="selection" width="55"></el-table-column> -->
           <el-table-column type="index" width="55" label="序号"></el-table-column>
           <el-table-column prop="cardNum" label="卡号"></el-table-column>
           <el-table-column prop="depositMoney" label="充值金额"></el-table-column>
           <!-- <el-table-column prop="openCardUser" label="开卡人" width="120"></el-table-column> -->
-          <el-table-column prop="gmtCreate" label="充值时间" width="180"></el-table-column>
+          <el-table-column prop="gmtCreate" label="充值时间"></el-table-column>
         </el-table>
       </div>
       <div class="footer">
@@ -294,7 +294,7 @@ export default {
       }
     }
     .tableBox {
-      height: calc(100% - 150px);
+      min-height: calc(100% - 150px);
     }
     .footer {
       // padding-top: 30px;

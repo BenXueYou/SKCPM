@@ -59,7 +59,7 @@
 			</div>
 			<div class="tableBox">
 				<el-table :data="tableData" stripe border style="width: 100%">
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="validTime" label="生效时间" width="180"></el-table-column>
 					<el-table-column prop="invalidTime" label="失效时间" width="180"></el-table-column>

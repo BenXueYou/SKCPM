@@ -132,7 +132,7 @@ export default {
 <style>
 .box .tableBox {
 	overflow: auto !important;
-	height: calc(100% - 150px);
+	min-height: calc(100% - 150px);
 	padding-bottom: 30px;
 	box-sizing: border-box;
 }

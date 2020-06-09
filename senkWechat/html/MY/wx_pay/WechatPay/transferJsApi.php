@@ -1,7 +1,6 @@
 # wechat 提现接口
 
 <?php
-
 require_once "../lib/WxPay.Api.php";
 require_once "../lib/WxPay.Data.php";
 require_once "WxPay.JsApiPay.php";
@@ -22,29 +21,29 @@ $input->SetOpenid($openId);
 //下单并获取返回的结果
 $order = WxPayApi::wx_transfer($input);
 //获取并解析返回的参数
-$jsApiParameters = $tools->GetJsApiParameters($order);
-//将数组打包成JSON格式
-$obj = json_encode($arr);
-$data = json_encode($arr);
-if (
-        array_key_exists("return_code", $data)
-        && $data["return_code"] == "SUCCESS"
-        && array_key_exists("result_code", $data)
-        && $data["result_code"] == "SUCCESS"
-) {
-        $openid = $data["openid"];
-        $time_end = $data["time_end"];
-        $time_end = date('Y-m-d H:i:s', strtotime($time_end));
-        $total_fee = $data["total_fee"] / 100;
-        $out_trade_no = $data["out_trade_no"];
-        $params = array("userId" => $user_id, "withdrawMoney" => $total_fee, "flag" => 1, "gmtCreate" => $time_end, "openId" => $openid, 'orderId' => $out_trade_no);
-        $data_string = json_encode($params);
-        $this->postNotifyToServer($data_string);
-        return true;
-} else {
-        return false;
-}
-echo $obj;
+// $jsApiParameters = $tools->GetJsApiParameters($order);
+// //将数组打包成JSON格式
+// $obj = json_encode($arr);
+// $data = json_encode($arr);
+// if (
+//         array_key_exists("return_code", $data)
+//         && $data["return_code"] == "SUCCESS"
+//         && array_key_exists("result_code", $data)
+//         && $data["result_code"] == "SUCCESS"
+// ) {
+//         $openid = $data["openid"];
+//         $time_end = $data["time_end"];
+//         $time_end = date('Y-m-d H:i:s', strtotime($time_end));
+//         $total_fee = $data["total_fee"] / 100;
+//         $out_trade_no = $data["out_trade_no"];
+//         $params = array("userId" => $user_id, "withdrawMoney" => $total_fee, "flag" => 1, "gmtCreate" => $time_end, "openId" => $openid, 'orderId' => $out_trade_no);
+//         $data_string = json_encode($params);
+//         $this->postNotifyToServer($data_string);
+//         return true;
+// } else {
+//         return false;
+// }
+// echo $obj;
 
 
 

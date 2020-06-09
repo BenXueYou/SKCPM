@@ -84,7 +84,7 @@
 			</div>
 			<div class="tableBox">
 				<el-table :data="tableData" stripe border style="width: 100%">
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="operatorName" width="120" label="运营商" :show-overflow-tooltip='true'></el-table-column>
 					<el-table-column prop="userName" width="120" label="用户名"></el-table-column>

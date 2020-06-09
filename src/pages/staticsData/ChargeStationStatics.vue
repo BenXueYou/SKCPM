@@ -98,7 +98,7 @@
 			</div>
 			<div class="tableBox">
 				<el-table :data="tableData" stripe border style="width: 100%">
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="csName" label="充电站"></el-table-column>
 					<el-table-column prop="operatorName" label="运营商"></el-table-column>

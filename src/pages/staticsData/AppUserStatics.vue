@@ -69,7 +69,7 @@
 			</div>
 			<div class="tableBox">
 				<el-table :v-loading="mainScreenLoading" :data="tableData" stripe border style="width: 100%">
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="userId" label="用户(卡)ID号"></el-table-column>
 					<el-table-column prop="userName" label="用户名"></el-table-column>

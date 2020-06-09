@@ -41,7 +41,7 @@
 					style="width: 100%"
 					@selection-change="handleSelectionChange"
 				>
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="mfrName" label="桩厂商"></el-table-column>
 					<el-table-column prop="model" label="桩型号"></el-table-column>
@@ -237,7 +237,7 @@ export default {
 			}
 		}
 		.tableBox {
-			height: calc(100% - 100px);
+			min-height: calc(100% - 100px);
 		}
 		.footer {
 			// margin-top: 30px;

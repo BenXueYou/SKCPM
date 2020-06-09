@@ -71,7 +71,7 @@
 			</div>
 			<div class="tableBox">
 				<el-table :data="tableData" stripe border style="width: 100%">
-					<el-table-column type="selection" width="55"></el-table-column>
+					<!-- <el-table-column type="selection" width="55"></el-table-column> -->
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="cpId" label="充电桩" width="120"></el-table-column>
 					<el-table-column prop="newValue" label=" 新值" width="100"></el-table-column>

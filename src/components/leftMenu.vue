@@ -126,7 +126,7 @@
 					<el-submenu index="8" :class="menuTitle === '8'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
-							<i class="el-icon-s-custom"></i>
+							<i class="el-icon-s-home"></i>
 							<span slot="title">企业用户</span>
 							<img
 								v-show="menuTitle === '8'"

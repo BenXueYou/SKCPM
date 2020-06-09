@@ -234,7 +234,7 @@ export default {
 			}
 		}
 		.tableBox {
-			height: calc(100% - 100px);
+			min-height: calc(100% - 100px);
 		}
 		.footer {
 			// margin-top: 30px;
