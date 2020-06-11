@@ -3,7 +3,7 @@
 		<el-row class="el-row">
 			<el-col :span="24">
 				<el-menu
-					:default-active="defaultActive"
+					:default-active="$route.path"
 					class="el-menu-vertical"
 					@open="handleOpen"
 					@close="handleClose"
@@ -13,7 +13,7 @@
 					:router="true"
 					active-text-color="#ff5f5f"
 				>
-					<el-menu-item index="/main/Home" style="padding-left:20px;background-color:rgb(53,64,84)">
+					<el-menu-item index="/Home" style="padding-left:20px;background-color:rgb(53,64,84)">
 						<i class="el-icon-s-platform"></i>
 						系统概览
 					</el-menu-item>
@@ -33,9 +33,9 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/PileRealData">充电监控</el-menu-item>
-						<el-menu-item index="/Main/SwitchData">变位监控</el-menu-item>
-						<el-menu-item index="/Main/FaultAlarmData">故障监控</el-menu-item>
+						<el-menu-item index="/PileRealData">充电监控</el-menu-item>
+						<el-menu-item index="/SwitchData">变位监控</el-menu-item>
+						<el-menu-item index="/FaultAlarmData">故障监控</el-menu-item>
 					</el-submenu>
 					<el-submenu index="5" :class="menuTitle === '5'? 'submenuActiveClass' : ''">
 						<template slot="title">
@@ -53,12 +53,12 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
-						<el-menu-item index="/Main/RefrundRecord">提现记录</el-menu-item>
-						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
-						<el-menu-item index="/Main/ChargeReport">充电报表</el-menu-item>
-						<el-menu-item index="/Main/CardRechargeRecord">卡充值记录</el-menu-item>
-						<!-- <el-menu-item index="/Main/ChargingRecord">扣费记录</el-menu-item> -->
+						<el-menu-item index="/RechargeRecord">充值记录</el-menu-item>
+						<el-menu-item index="/RefrundRecord">提现记录</el-menu-item>
+						<el-menu-item index="/ChargeRecord">充电记录</el-menu-item>
+						<el-menu-item index="/ChargeReport">充电报表</el-menu-item>
+						<el-menu-item index="/CardRechargeRecord">卡充值记录</el-menu-item>
+						<!-- <el-menu-item index="/ChargingRecord">扣费记录</el-menu-item> -->
 					</el-submenu>
 					<el-submenu index="6" :class="menuTitle === '6'? 'submenuActiveClass' : ''">
 						<template slot="title">
@@ -76,10 +76,10 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/AppUserStatics">用户统计</el-menu-item>
-						<el-menu-item index="/Main/ChargePileStatics">充电桩统计</el-menu-item>
-						<el-menu-item index="/Main/ChargeStationStatics">充电站统计</el-menu-item>
-						<el-menu-item index="/Main/OperatorStatics">运营商统计</el-menu-item>
+						<el-menu-item index="/AppUserStatics">用户统计</el-menu-item>
+						<el-menu-item index="/ChargePileStatics">充电桩统计</el-menu-item>
+						<el-menu-item index="/ChargeStationStatics">充电站统计</el-menu-item>
+						<el-menu-item index="/OperatorStatics">运营商统计</el-menu-item>
 					</el-submenu>
 
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
@@ -98,10 +98,10 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/ChargePile">充电桩</el-menu-item>
-						<el-menu-item index="/Main/ChargeStation">充电站</el-menu-item>
-						<el-menu-item index="/Main/ChargeAddress">充电桩地址</el-menu-item>
-						<el-menu-item index="/Main/ChargeFactory">充电桩厂商</el-menu-item>
+						<el-menu-item index="/ChargePile">充电桩</el-menu-item>
+						<el-menu-item index="/ChargeStation">充电站</el-menu-item>
+						<el-menu-item index="/ChargeAddress">充电桩地址</el-menu-item>
+						<el-menu-item index="/ChargeFactory">充电桩厂商</el-menu-item>
 					</el-submenu>
 					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
 						<template slot="title">
@@ -119,9 +119,9 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/AppUser">用户管理</el-menu-item>
-						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
-						<el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item>
+						<el-menu-item index="/AppUser">用户管理</el-menu-item>
+						<el-menu-item index="/Operator">运营商管理</el-menu-item>
+						<el-menu-item index="/CardUser">充电卡管理</el-menu-item>
 					</el-submenu>
 					<el-submenu index="8" :class="menuTitle === '8'? 'submenuActiveClass' : ''">
 						<template slot="title">
@@ -140,24 +140,24 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/EnterpriseUser">企业用户</el-menu-item>
-						<el-menu-item index="/Main/EnterpriseStaff">企业员工</el-menu-item>
-						<!-- <el-menu-item index="/Main/EnterpriseChargeRecord">充电记录</el-menu-item> -->
-						<!-- <el-menu-item index="/Main/EnterpriseReportData">充电报表</el-menu-item> -->
+						<el-menu-item index="/EnterpriseUser">企业用户</el-menu-item>
+						<el-menu-item index="/EnterpriseStaff">企业员工</el-menu-item>
+						<!-- <el-menu-item index="/EnterpriseChargeRecord">充电记录</el-menu-item> -->
+						<!-- <el-menu-item index="/EnterpriseReportData">充电报表</el-menu-item> -->
 					</el-submenu>
 
-					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
+					<el-menu-item index="/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
 						<i class="el-icon-money"></i>
 						计费模型
 					</el-menu-item>
 					<el-menu-item
-						index="/main/AuthorityAccount"
+						index="/AuthorityAccount"
 						style="padding-left:20px;background-color:rgb(53,64,84)"
 					>
 						<i class="el-icon-coordinate"></i>
 						账号管理
 					</el-menu-item>
-					<el-submenu v-if="OperatorId===34" index="7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
+					<el-submenu v-if="OperatorId===34" index="/7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<i class="el-icon-menu"></i>
 							<span slot="title">微信商城</span>
@@ -173,13 +173,13 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/ReservationTable">预约信息</el-menu-item>
-						<el-menu-item index="/Main/CarProductionTable">车辆发布</el-menu-item>
-						<el-menu-item index="/Main/PileProductionTable">充电桩发布</el-menu-item>
-						<el-menu-item index="/Main/RentProductionTable">租赁方案</el-menu-item>
-						<el-menu-item index="/Main/ActivityProductionTable">优惠活动</el-menu-item>
-						<el-menu-item index="/Main/CaseProductionTable">优秀案例</el-menu-item>
-						<!-- <el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item> -->
+						<el-menu-item index="/ReservationTable">预约信息</el-menu-item>
+						<el-menu-item index="/CarProductionTable">车辆发布</el-menu-item>
+						<el-menu-item index="/PileProductionTable">充电桩发布</el-menu-item>
+						<el-menu-item index="/RentProductionTable">租赁方案</el-menu-item>
+						<el-menu-item index="/ActivityProductionTable">优惠活动</el-menu-item>
+						<el-menu-item index="/CaseProductionTable">优秀案例</el-menu-item>
+						<!-- <el-menu-item index="/AlignProductionTable">加盟方案</el-menu-item> -->
 					</el-submenu>
 				</el-menu>
 			</el-col>

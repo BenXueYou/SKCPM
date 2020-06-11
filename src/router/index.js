@@ -70,215 +70,215 @@ export default new Router({
       component: Main,
       children: [
         {
-          path: "ActivityProductionTable",
+          path: "/ActivityProductionTable",
           name: "ActivityProductionTable",
           component: ActivityProductionTable,
           title: "优惠活动"
         },
         {
-          path: "AlignProductionTable",
+          path: "/AlignProductionTable",
           name: "AlignProductionTable",
           component: AlignProductionTable,
           title: "加盟方案"
         },
         {
-          path: "CarProductionTable",
+          path: "/CarProductionTable",
           name: "CarProductionTable",
           component: CarProductionTable,
           title: "车辆发布"
         },
         {
-          path: "PileProductionTable",
+          path: "/PileProductionTable",
           name: "PileProductionTable",
           component: PileProductionTable,
           title: "充电桩发布"
         },
         {
-          path: "RentProductionTable",
+          path: "/RentProductionTable",
           name: "RentProductionTable",
           component: RentProductionTable,
           title: "租赁方案"
         },
         {
-          path: "ReservationTable",
+          path: "/ReservationTable",
           name: "ReservationTable",
           component: ReservationTable,
           title: "预约信息"
         },
         {
-          path: "CaseProductionTable",
+          path: "/CaseProductionTable",
           name: "CaseProductionTable",
           component: CaseProductionTable,
           title: "优秀案例"
         },
         {
-          path: "ChargePile",
+          path: "/ChargePile",
           name: "ChargePile",
           component: ChargePile,
           title: "充电桩管理"
         },
         {
-          path: "ChargeAddress",
+          path: "/ChargeAddress",
           name: "ChargeAddress",
           component: ChargeAddress,
           title: "充电桩地址"
         },
         {
-          path: "ChargeFactory",
+          path: "/ChargeFactory",
           name: "ChargeFactory",
           component: ChargeFactory,
           title: "充电桩厂商"
         },
         {
-          path: "ChargeStation",
+          path: "/ChargeStation",
           name: "ChargeStation",
           component: ChargeStation,
           title: "充电站管理"
         },
         {
-          path: "AppUser",
+          path: "/AppUser",
           name: "AppUser",
           component: AppUser,
           title: "微信/APP用户"
         },
         {
-          path: "Operator",
+          path: "/Operator",
           name: "Operator",
           component: Operator,
           title: "运营商管理"
         },
         {
-          path: "CardUser",
+          path: "/CardUser",
           name: "CardUser",
           component: CardUser,
           title: "充电卡管理"
         },
         {
-          path: "ChargeRecord",
+          path: "/ChargeRecord",
           name: "ChargeRecord",
           component: ChargeRecord,
           title: "充电记录"
         },
         {
-          path: "RechargeRecord",
+          path: "/RechargeRecord",
           name: "RechargeRecord",
           component: RechargeRecord,
           title: "充值记录"
         },
         {
-          path: "RefrundRecord",
+          path: "/RefrundRecord",
           name: "RefrundRecord",
           component: RefrundRecord,
           title: "退款记录"
         },
         {
-          path: "ChargingRecord",
+          path: "/ChargingRecord",
           name: "ChargingRecord",
           component: ChargingRecord,
           title: "扣费记录"
         },
         {
-          path: "AppUserStatics",
+          path: "/AppUserStatics",
           name: "AppUserStatics",
           component: AppUserStatics,
           title: "app用户统计"
         },
         {
-          path: "ChargePileStatics",
+          path: "/ChargePileStatics",
           name: "ChargePileStatics",
           component: ChargePileStatics,
           title: "充电桩统计"
         },
         {
-          path: "ChargeStationStatics",
+          path: "/ChargeStationStatics",
           name: "ChargeStationStatics",
           component: ChargeStationStatics,
           title: "充电站统计"
         },
         {
-          path: "OperatorStatics",
+          path: "/OperatorStatics",
           name: "OperatorStatics",
           component: OperatorStatics,
           title: "运营商统计"
         },
         {
-          path: "Home",
+          path: "/Home",
           name: "Home",
           component: Home,
           title: "概览"
         },
         {
-          path: "SwitchData",
+          path: "/SwitchData",
           name: "SwitchData",
           component: SwitchData,
           title: "变位数据"
         },
         {
-          path: "PileRealData",
+          path: "/PileRealData",
           name: "PileRealData",
           component: PileRealData,
           title: "充电监控"
         },
         {
-          path: "FaultAlarmData",
+          path: "/FaultAlarmData",
           name: "FaultAlarmData",
           component: FaultAlarmData,
           title: "故障报警"
         },
         {
-          path: "BillModel",
+          path: "/BillModel",
           name: "BillModel",
           component: BillModel,
           title: "计费模型"
         },
         {
-          path: "AuthorityAccount",
+          path: "/AuthorityAccount",
           name: "AuthorityAccount",
           component: AuthorityAccount,
           title: "账号管理"
         },
         {
-          path: "EnterpriseUser",
+          path: "/EnterpriseUser",
           name: "EnterpriseUser",
           component: EnterpriseUser,
           title: "企业用户"
         },
         {
-          path: "EnterpriseStaff",
+          path: "/EnterpriseStaff",
           name: "EnterpriseStaff",
           component: EnterpriseStaff,
           title: "企业员工"
         },
         {
-          path: "EnterpriseChargeRecord",
+          path: "/EnterpriseChargeRecord",
           name: "EnterpriseChargeRecord",
           component: EnterpriseChargeRecord,
           title: "充电记录"
         },
         {
-          path: "EnterpriseReportData",
+          path: "/EnterpriseReportData",
           name: "EnterpriseReportData",
           component: EnterpriseReportData,
           title: "充电报表"
         },
         {
-          path: "ChargeReport",
+          path: "/ChargeReport",
           name: "ChargeReport",
           component: ChargeReport,
           title: "充电报表"
         },
         {
-          path: "CardRechargeRecord",
+          path: "/CardRechargeRecord",
           name: "CardRechargeRecord",
           component: CardRechargeRecord,
           title: "卡充值记录"
         },
         {
-          path: "CardChargeRecord",
+          path: "/CardChargeRecord",
           name: "CardChargeRecord",
           component: CardChargeRecord,
           title: "卡充电记录"
-        },
+        }
       ]
     }
   ]

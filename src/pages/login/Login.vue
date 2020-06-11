@@ -47,11 +47,11 @@
 			</div>
 		</div>
 		<div class="login-foot">
-			<div class="foot-item">
+			<!-- <div class="foot-item">
 				<div class="item-text" v-for="(item,index) in alinkArr" :key="index">
 					<a :href="item.strValue" target="_blank">{{item.strName}}</a>
 				</div>
-			</div>
+			</div> -->
 			<div class="foot-text">Copyright © 2016 0901.com All Rights Reserved 版权所有</div>
 		</div>
 	</div>
@@ -140,7 +140,7 @@ export default {
     if (this.$store.state.home.Authorization) {
       let index = window.location.href.lastIndexOf("/");
       let suffix = window.location.href.substring(0, index + 1);
-      window.location.href = suffix + "Main";
+      window.location.href = suffix + "Home";
     }
   },
   methods: {
@@ -296,14 +296,14 @@ export default {
 		display: flex;
 		align-items: center;
 		.main-block {
-			width: 75%;
+			width: 65%;
 			min-width: 300px;
 			height: 400px;
 			background: #ffffff;
 			padding: 8%;
 			box-sizing: border-box;
 			.block-title {
-				font-family: PingFangSC-Medium;
+				font-family: 'PingFangSC-Medium';
 				font-size: 30px;
 				color: #333333;
 				text-align: center;
