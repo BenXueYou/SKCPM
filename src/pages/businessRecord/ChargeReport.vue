@@ -259,6 +259,7 @@ export default {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
     queryBtnAct() {
+      this.currentPage = 1;
       this.initData();
     },
     initData() {

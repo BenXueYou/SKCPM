@@ -60,18 +60,18 @@
                style="text-align:right">
             <span class="topTitleTxt">查询时间：</span>
             <el-date-picker v-model="beginTime"
-                            type="date"
+                            type="datetime"
                             class="time-interal-date"
                             size="small"
                             placeholder="选择日期"
-                            value-format="yyyy-MM-dd"></el-date-picker>
+                            value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
             <span class="time-line">—</span>
             <el-date-picker v-model="endTime"
-                            type="date"
+                            type="datetime"
                             class="time-interal-date"
                             placeholder="选择日期"
                             size="small"
-                            value-format="yyyy-MM-dd"></el-date-picker>
+                            value-format="yyyy-MM-dd HH:mm:ss"></el-date-picker>
           </div>
         </div>
         <el-button type="primary"
@@ -191,8 +191,8 @@ export default {
         this.$message({ type: "warnning", message: "请选择运营商" });
         return;
       }
-      this.endTime = this.endTime.split(" ")[0] + " 00:00:00";
-      this.beginTime = this.beginTime.split(" ")[0] + " 00:00:00";
+      // this.endTime = this.endTime.split(" ")[0] + " 00:00:00";
+      // this.beginTime = this.beginTime.split(" ")[0] + " 00:00:00";
       this.$homeAjax
         .trend({
           endTime: this.endTime,
@@ -231,6 +231,7 @@ export default {
         .catch(() => {});
     },
     queryBtnAct() {
+      this.currentPage = 1;
       this.initLineData();
     },
     handleSizeChange(val) {

@@ -149,6 +149,7 @@ export default {
       }
     },
     queryBtnAct() {
+      this.currentPage = 1;
       this.initData();
     },
     addBtnAct() {
