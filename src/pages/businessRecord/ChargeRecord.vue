@@ -381,10 +381,9 @@ export default {
     exportBtnAct() {
       var data = {
         model: {
-          cardNum: null,
+          cardNum: this.cardNum,
           operatorLoginId: this.$store.state.home.OperatorId,
-          //   roleId: this.$store.state.home.AuthRoleId,
-          userId: null,
+          userId: this.userId,
           chargeEndTime: this.endTime,
           chargeMethodId: this.chargeMethodId,
           chargeStartTime: this.beginTime,

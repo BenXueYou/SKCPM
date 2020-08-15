@@ -346,7 +346,7 @@ export default {
     exportBtnAct() {
       var data = {
         model: {
-          cardNum: null,
+          cardNum: this.cardNum,
           endTime: this.endTime,
           startTime: this.beginTime,
           userName: this.userName
