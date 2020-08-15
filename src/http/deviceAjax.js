@@ -1,6 +1,14 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
 export var DeviceAjax = {
+  operatorPiles(xhr) {
+    let url = `${RestApi.api.DeviceAjax.operatorPiles}`;
+    return axios({
+      method: 'post',
+      url,
+      data: xhr,
+    });
+  },
   getAddOptions(xhr) {
     let url = `${RestApi.api.DeviceAjax.getAddOptions}`;
     return axios({

@@ -13,8 +13,8 @@ module.exports = {
     proxyTable: {
       '/apis': {    //将www.exaple.com印射为/apis
         //target: 'http://129.28.156.99:8080/',  // 接口域名
-        target: 'http://47.104.204.250:8080/',  // 接口域名
-        // target: 'http://175.24.87.234:8080/',  // 接口域名
+        // target: 'http://47.104.204.250:8080/',  // 接口域名
+        target: 'http://175.24.87.234:8080/',  // 接口域名
         secure: false,  // 如果是https接口，需要配置这个参数
         changeOrigin: true,  //是否跨域
         pathRewrite: {

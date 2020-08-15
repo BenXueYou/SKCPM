@@ -50,6 +50,7 @@ export default {
       getEditOptions: `${httpUrlHeader}/chargePile/toEdit`,
       updatePile: `${httpUrlHeader}/chargePile/update`,
       getPileOptions: `${httpUrlHeader}/chargePile/list`,
+      operatorPiles: `${httpUrlHeader}/chargePile/enableOrDisable`,
 
       deleteChargeStation: `${httpUrlHeader}/charge/station/delete`,
       getChargeStationList: `${httpUrlHeader}/charge/station/list-by-page`,
