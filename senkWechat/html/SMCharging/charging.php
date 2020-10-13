@@ -318,6 +318,9 @@
 					document.getElementById("quantity").innerHTML = DataInfo.quantity;
 					document.getElementById("price").innerHTML = DataInfo.price;
 					document.getElementById("date").innerHTML = DataInfo.dateTime;
+					if (!cptype) {						
+						document.getElementById("MSG").innerHTML = DataInfo.soc;
+					}
 					if (!deviceId) {
 						deviceId = DataInfo.deviceId;
 						document.getElementById("cpid").innerHTML = "充电桩：" + deviceId;

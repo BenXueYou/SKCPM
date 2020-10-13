@@ -83,6 +83,22 @@
 					</div>
 				</div>
 				<div class="topMenu flex-st">
+					<div style="margin-right: 50px;" class="flex-sbw-div">
+            <span class="topTitleTxt">记录类型：</span>
+            <el-select
+              class="left-space time-interal"
+              v-model="recordType"
+              placeholder="记录类型"
+              size="small"
+            >
+              <el-option
+                v-for="item in recordTypeOptions"
+                :key="item.typeStr"
+                :label="item.typeName"
+                :value="item.typeStr"
+              ></el-option>
+            </el-select>
+          </div>
 					<div class="dateBox">
 						<span class="topTitleTxt">查询时间：</span>
 						<el-date-picker
@@ -117,6 +133,9 @@
 				>
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
+					<el-table-column prop="recordType" label="记录类型" width="100">
+						<template slot-scope="scope">{{scope.row.recordType ===1?'快电':'尚宽'}}</template>
+					</el-table-column>
 					<el-table-column v-if="type === 4" prop="data" label="用户ID/卡号" width="150"></el-table-column>
 					<el-table-column v-if="type !== 4" prop="data" width="150" label="时间"></el-table-column>
 					<el-table-column prop="count" label="充电次数" width="100"></el-table-column>
@@ -207,7 +226,12 @@ export default {
       operatorId: null,
       type: 1,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: [],
+      recordTypeOptions: [
+        { typeStr: 0, typeName: "尚宽" },
+        { typeStr: 1, typeName: "快电" }
+      ],
+      recordType: 0,
     };
   },
   methods: {
@@ -270,7 +294,8 @@ export default {
           dimension: this.type,
           endTime: this.endTime,
           operatorId: this.operatorId,
-          startTime: this.beginTime
+          startTime: this.beginTime,
+          recordType: this.recordType
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,

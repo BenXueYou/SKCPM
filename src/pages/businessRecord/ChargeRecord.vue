@@ -27,6 +27,22 @@
 						<span>充电卡号：</span>
 						<el-input v-model="cardNum" clearable></el-input>
 					</div>
+          <div class="flex-sbw-div">
+            <span class="topTitleTxt">记录类型：</span>
+            <el-select
+              class="left-space time-interal"
+              v-model="recordType"
+              placeholder="记录类型"
+              size="small"
+            >
+              <el-option
+                v-for="item in recordTypeOptions"
+                :key="item.typeStr"
+                :label="item.typeName"
+                :value="item.typeStr"
+              ></el-option>
+            </el-select>
+          </div>
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 15px;">
@@ -101,6 +117,9 @@
 					<el-table-column type="selection" width="55"></el-table-column>
 					<el-table-column type="index" width="55" label="序号"></el-table-column>
 					<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
+          <el-table-column prop="recordType" label="记录类型" width="100">
+						<template slot-scope="scope">{{scope.row.recordType ===1?'快电':'尚宽'}}</template>
+					</el-table-column>
 					<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
 					<el-table-column prop="userId" label="用户ID" width="160">
 						<template slot-scope="scope">{{scope.row.chargeMethodId !==1?scope.row.userId:''}}</template>
@@ -193,6 +212,11 @@ export default {
         { typeStr: 0, typeName: "微信充电" }
         // { typeStr: 4, typeName: "全部充电" }
       ],
+      recordTypeOptions: [
+        { typeStr: 0, typeName: "尚宽" },
+        { typeStr: 1, typeName: "快电" }
+      ],
+      recordType: 0,
       station: null,
       stationOptions: [],
       operatorId: null,
@@ -271,61 +295,6 @@ export default {
       this.dialogRecordView = !this.dialogRecordView;
       this.rowData = rowData;
     },
-    /**
-	   *   {
-      "cellStyleMap": {},
-      "cpId": "1401070000000045",
-      "deviceId": "1401070000000045",
-      "interfaceId": 2,
-      "transactionId": "14010700000000451915252115240000",
-      "cardNum": "0000000000000000",
-      "userId": "8881556682148237",
-      "chargeQuantity": 38.84,
-      "csName": "",
-      "csId": 0,
-      "operatorId": 34,
-      "operatorName": "",
-      "beforeChargeBalance": 50,
-      "chargeMoney": 34.1792,
-      "serviceTip": 0,
-      "chargeStartTime": "2019-06-25 21:15:24",
-      "chargeEndTime": "2019-06-25 22:22:17",
-      "chargeFinishedFlag": 2,
-      "chargeEndCause": "充满",
-      "billModelId": 206,
-      "jTime": 0,
-      "fTime": 4012,
-      "pTime": 0,
-      "gTime": 0,
-      "jQuantity": 0,
-      "fQuantity": 38.84,
-      "pQuantity": 0,
-      "gQuantity": 0,
-      "jFee": 0,
-      "fFee": 34.1792,
-      "pFee": 0,
-      "gFee": 0,
-      "chargeMethodId": 3,
-      "chargeModeId": 4,
-      "chargePara": 0,
-      "allQuantity": 61473.6,
-      "gmtCreate": "2019-07-05 23:10:02",
-      "gmtModify": "2019-08-22 20:40:26",
-      "isDeleted": 0,
-      "jtime": 0,
-      "ftime": 4012,
-      "ptime": 0,
-      "gtime": 0,
-      "jquantity": 0,
-      "fquantity": 38.84,
-      "pquantity": 0,
-      "gquantity": 0,
-      "jfee": 0,
-      "ffee": 34.1792,
-      "pfee": 0,
-      "gfee": 0
-    }
-	   */
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -346,7 +315,8 @@ export default {
           operatorId: this.operatorId,
           telephone: this.phoneNumber,
           cardNum: this.cardNum,
-          userId: this.userId
+          userId: this.userId,
+          recordType: this.recordType,
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,

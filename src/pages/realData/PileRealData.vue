@@ -55,7 +55,6 @@
             class="left-space time-interal"
             v-model="cpType"
             @change="changeBtnAct"
-            clearable
             placeholder="充电桩类型"
             size="small"
           >
@@ -102,27 +101,41 @@
           <el-table-column prop="userId" label="用户ID" width="160">
             <template slot-scope="scope">{{scope.row.gunState === '3'?scope.row.userId:''}}</template>
           </el-table-column>
-          <el-table-column v-if="!cpType" prop="soc" label="SOC" width="100"></el-table-column>
+          <el-table-column v-if="!cpType" key="soc" prop="soc" label="SOC" width="100"></el-table-column>
           <el-table-column prop="chargeAmount" label="充电电量(kWh)" width="100"></el-table-column>
           <el-table-column prop="chargeMoney" label="充电金额(元)" width="100"></el-table-column>
-
           <el-table-column prop="chargeTimeSpan" label="已充时间(分)" width="100">
             <template slot-scope="scope">{{$common.formatSeconds(scope.row.chargeTimeSpan)}}</template>
           </el-table-column>
 
           <el-table-column prop="chargePower" label="功率(kw)"></el-table-column>
           <template v-if="cpType">
-            <el-table-column key="ua1" prop="ua1" label="A相电压(V)"></el-table-column>
-            <el-table-column key="ub1" prop="ub1" label="B相电压(V)"></el-table-column>
-            <el-table-column key="uc1" prop="uc1" label="C相电压(V)"></el-table-column>
-
-            <el-table-column key="ia1" prop="ia1" label="A相电流(A)"></el-table-column>
-            <el-table-column key="ib1" prop="ib1" label="B相电流(A)"></el-table-column>
-            <el-table-column key="ic1" prop="ic1" label="C相电流(A)"></el-table-column>
+            <el-table-column key="ua1" prop="ua1" label="A相电压(V)">
+              <template slot-scope="scope">{{scope.row.ua1?scope.row.ua1.toFixed(2): 0}}</template>
+            </el-table-column>
+            <el-table-column key="ub1" prop="ub1" label="B相电压(V)">
+              <template slot-scope="scope">{{scope.row.ub1?scope.row.ub1.toFixed(2): 0}}</template>
+            </el-table-column>
+            <el-table-column key="uc1" prop="uc1" label="C相电压(V)">
+              <template slot-scope="scope">{{scope.row.uc1?scope.row.uc1.toFixed(2): 0}}</template>
+            </el-table-column>
+            <el-table-column key="ia1" prop="ia1" label="A相电流(A)">
+              <template slot-scope="scope">{{scope.row.ia1?scope.row.ia1.toFixed(2): 0}}</template>
+            </el-table-column>
+            <el-table-column key="ib1" prop="ib1" label="B相电流(A)">
+              <template slot-scope="scope">{{scope.row.ib1?scope.row.ib1.toFixed(2): 0}}</template>
+            </el-table-column>
+            <el-table-column key="ic1" prop="ic1" label="C相电流(A)">
+              <template slot-scope="scope">{{scope.row.ic1?scope.row.ic1.toFixed(2): 0}}</template>
+            </el-table-column>
           </template>
           <template v-else>
-            <el-table-column key="ua1" prop="ua1" label="电压(V)"></el-table-column>
-            <el-table-column key="ia1" prop="ia1" label="电流(A)"></el-table-column>
+            <el-table-column key="ua1" prop="chargeVout" label="电压(V)">
+              <template slot-scope="scope">{{scope.row.chargeVout?scope.row.chargeVout.toFixed(2): 0}}</template>
+            </el-table-column>
+            <el-table-column key="ia1" prop="chargeAout" label="电流(A)">
+              <template slot-scope="scope">{{scope.row.chargeAout?scope.row.chargeAout.toFixed(2): 0}}</template>
+            </el-table-column>
           </template>
           <el-table-column prop="recordTime" label="记录时间" width="160"></el-table-column>
         </el-table>
