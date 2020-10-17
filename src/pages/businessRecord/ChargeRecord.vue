@@ -360,7 +360,8 @@ export default {
           deviceId: this.cpId,
           operatorId: this.operatorId,
           telephone: this.phoneNumber,
-          userName: this.userName
+          userName: this.userName,
+          recordType: this.recordType,
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,

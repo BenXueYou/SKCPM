@@ -349,7 +349,7 @@ export default {
           cardNum: this.cardNum,
           endTime: this.endTime,
           startTime: this.beginTime,
-          userName: this.userName
+          userName: this.userName,
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,

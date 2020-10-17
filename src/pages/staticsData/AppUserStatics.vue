@@ -36,6 +36,25 @@
 							></el-option>
 						</el-select>
 					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>记录类型：</span>
+						<el-select
+              class="left-space time-interal"
+              v-model="recordType"
+              placeholder="记录类型"
+              size="small"
+            >
+              <el-option
+                v-for="item in recordTypeOptions"
+                :key="item.typeStr"
+                :label="item.typeName"
+                :value="item.typeStr"
+              ></el-option>
+            </el-select>
+					</div>
+				</div>
+			</div>
+			<div class="topMenu" style="margin-bottom: 15px; display: flex; justify-content: flex-start">
 					<div class="dateBox">
 						<span class="topTitleTxt">支付时间：</span>
 						<el-date-picker
@@ -56,16 +75,7 @@
 							value-format="yyyy-MM-dd HH:mm:ss"
 						></el-date-picker>
 					</div>
-				</div>
-			</div>
-			<div class="topMenu" style="margin-bottom: 15px;">
-				<!-- <el-button
-					type="primary"
-					v-if="$store.state.home.AuthorizationID"
-					@click="deleteBtnAct"
-					style="margin:0 10px;"
-				>批量导出</el-button> -->
-				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
+				<el-button type="primary" size="small" @click="queryBtnAct" style="margin:0 30px;">查询</el-button>
 			</div>
 			<div class="tableBox">
 				<el-table :v-loading="mainScreenLoading" :data="tableData" stripe border style="width: 100%">
@@ -127,6 +137,11 @@ export default {
         { typeStr: 0, typeName: "微信充电" }
         // { typeStr: 4, typeName: "全部充电" }
       ],
+      recordTypeOptions: [
+        { typeStr: 0, typeName: "尚宽" },
+        { typeStr: 1, typeName: "快电" }
+      ],
+      recordType: 0,
       userName: null,
       userId: null,
       mainScreenLoading: false,
@@ -141,7 +156,8 @@ export default {
           endTime: this.endTime,
           startTime: this.beginTime,
           userId: null,
-          userName: this.userName
+          userName: this.userName,
+          recordType: this.recordType,
         },
         pageIndex: this.currentPage,
         pageSize: this.pageSize,
@@ -196,7 +212,7 @@ export default {
 } */
 .AppUserStatics .flex-sbw-item .el-input,
 .AppUserStatics .flex-sbw-item .el-input__inner {
-	width: 150px;
+	width: 160px;
 	height: 32px;
 }
 .AppUserStatics .el-date-editor.el-input,
@@ -213,7 +229,7 @@ export default {
 	}
 	.AppUserStatics .flex-sbw-item .el-input,
 	.AppUserStatics .flex-sbw-item .el-input__inner {
-		width: 120px;
+		width: 160px;
 		height: 32px;
 	}
 	.AppUserStatics .el-input--suffix .el-input__inner {
@@ -240,6 +256,9 @@ export default {
 			text-align: left;
 			.topTitleTxt {
 				color: #999999;
+			}
+			.dateBox{
+				display: inline-block;
 			}
 		}
 		.flex-sbw {
