@@ -31,7 +31,7 @@
 						<el-input style="width:auto" v-model="model" clearable></el-input>
 					</div>
 				</div>
-				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
+				<el-button size="small" type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
 			</div>
 			<div class="tableBox">
 				<el-table
@@ -223,6 +223,7 @@ export default {
 		border-radius: 5px;
 		.topMenu {
 			text-align: left;
+      margin-bottom: 15px;
 			.topTitleTxt {
 				color: #999999;
 			}
@@ -230,12 +231,6 @@ export default {
 		.flex-sbw {
 			display: flex;
 			justify-content: space-between;
-			padding-bottom: 15px;
-			.el-button {
-				color: #ffffff;
-				background-color: #5b9cf8;
-				border-color: #5b9cf8;
-			}
 		}
 		.tableBox {
 			min-height: calc(100% - 100px);

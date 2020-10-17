@@ -91,7 +91,6 @@
           :data="tableData"
           @selection-change="selectionChange"
           :row-class-name="tableRowClassName"
-        >
           stripe
           border
           style="width: 100%"

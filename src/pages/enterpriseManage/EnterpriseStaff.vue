@@ -337,7 +337,7 @@ export default {
 }
 .EnterpriseStaff .flex-sbw-item .el-input,
 .EnterpriseStaff .flex-sbw-item .el-input__inner {
-	width: 150px;
+	width: 160px;
 	height: 32px;
 }
 .EnterpriseStaff .el-date-editor.el-input,
@@ -354,7 +354,7 @@ export default {
 	}
 	.EnterpriseStaff .flex-sbw-item .el-input,
 	.EnterpriseStaff .flex-sbw-item .el-input__inner {
-		width: 120px;
+		width: 160px;
 		height: 32px;
 	}
 	.EnterpriseStaff .el-input--suffix .el-input__inner {

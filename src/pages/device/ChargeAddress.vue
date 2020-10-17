@@ -71,7 +71,7 @@
 						<el-input style="width:auto" v-model="address" clearable></el-input>
 					</div>
 				</div>
-				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;">查询</el-button>
+				<el-button size="small" type="primary" @click="queryBtnAct" style="margin-bottom:10px;">查询</el-button>
 			</div>
 			<div class="tableBox">
 			<el-table :data="tableData" stripe border  style="width: 100%">
@@ -272,6 +272,7 @@ export default {
 		border-radius: 5px;
 		.topMenu {
 			text-align: left;
+			margin-bottom: 15px;
 			.topTitleTxt {
 				color: #999999;
 			}
@@ -279,7 +280,6 @@ export default {
 		.flex-sbw {
 			display: flex;
 			justify-content: space-between;
-			padding-bottom: 15px;
 			.flex-sbw-div {
 				margin: 0 25px 0 15px;
 				.el-input {
