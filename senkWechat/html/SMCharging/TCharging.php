@@ -177,7 +177,7 @@
   <script src="../JS/TCONFIG.js" type="text/javascript" charset="utf-8"></script>
   <script src="../JS/Order.js" type="text/javascript" charset="utf-8"></script>
   <script src="../JS/Pile.js" type="text/javascript" charset="utf-8"></script>
-  <script src="../JS/User.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../JS/TUser.js" type="text/javascript" charset="utf-8"></script>
   <script type="text/javascript">
     mui.init();
     //获取参数
@@ -318,6 +318,9 @@
           document.getElementById("quantity").innerHTML = DataInfo.quantity;
           document.getElementById("price").innerHTML = DataInfo.price;
           document.getElementById("date").innerHTML = DataInfo.dateTime;
+          if (!cptype) {						
+						document.getElementById("MSG").innerHTML = 'SOC:'+(DataInfo.soc|| 0)+'%';
+					}
           if (!deviceId) {
             deviceId = DataInfo.deviceId;
             document.getElementById("cpid").innerHTML = "充电桩：" + deviceId;

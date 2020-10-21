@@ -271,7 +271,7 @@
 							//获取流水号
 							Pile.getSerialNo(CONFIGS.URLManage().getSerialNoApi, user.userId, function(res) {
 								if (res) {
-									location.href = "finishCharge.php?serialNo=" + res;
+									location.href = "TfinishCharge.php?serialNo=" + res;
 								} else {
 									WeixinJSBridge.call('closeWindow');
 								}
@@ -319,7 +319,7 @@
 					document.getElementById("price").innerHTML = DataInfo.price;
 					document.getElementById("date").innerHTML = DataInfo.dateTime;
 					if (!cptype) {						
-						document.getElementById("MSG").innerHTML = DataInfo.soc;
+						document.getElementById("MSG").innerHTML = 'SOC:'+(DataInfo.soc|| 0)+'%';
 					}
 					if (!deviceId) {
 						deviceId = DataInfo.deviceId;

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 	<link rel="stylesheet" type="text/css" href="../../CSS/mui.min.css" />
 	<link rel="stylesheet" type="text/css" href="../../CSS/chargeFinish.css" />
-	<script src="../JS/CONFIG.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../JS/TCONFIG.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<header class="mui-bar mui-bar-nav">
@@ -83,18 +83,13 @@
 				}
 			}
 			starIndex = index;
-			console.log("starIndex==" + index);
-			//				mui.alert(starIndex);
 		});
 
 		function plusReady() {
 			var user = User.userIsLogin();
 			var userid = user.userId;
-			console.log("++++++++" + serialNo);
 			User.getUserChargeData(CONFIGS.URLManage().getOrderBySerialNoApi, userid, serialNo, function(e) {
 				var dataInfo = e;
-				console.log(e);
-				console.log("-----------" + JSON.stringify(e));
 				serialNo = dataInfo.transationId;
 				document.getElementById("bill").innerHTML = serialNo || 0;
 				document.getElementById("money").innerHTML = dataInfo.totalfee || 0;

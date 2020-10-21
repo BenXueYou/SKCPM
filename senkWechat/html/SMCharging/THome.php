@@ -123,15 +123,7 @@
           alert("扫码错误" + JSON.stringify(res));
         });
       }
-      /**
-		   *    "cpId": "4101220000000002",
-				"location": "中牟县张家庄镇吕坡村",
-				"cpType": 0,
-				"cpPhase": 0,
-				"cpName": "2#双枪直流桩",
-				"rateId": 1,
-				"chargeFee": 2
-		   */
+
       function getPileBaseInfo(deviceId) {
         Pile.pileState(CONFIGS.URLManage().getCpileStateoApi, deviceId, function(data) {
 

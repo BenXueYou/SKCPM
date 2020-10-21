@@ -83,18 +83,13 @@
 				}
 			}
 			starIndex = index;
-			console.log("starIndex==" + index);
-			//				mui.alert(starIndex);
 		});
 
 		function plusReady() {
 			var user = User.userIsLogin();
 			var userid = user.userId;
-			console.log("++++++++" + serialNo);
 			User.getUserChargeData(CONFIGS.URLManage().getOrderBySerialNoApi, userid, serialNo, function(e) {
 				var dataInfo = e;
-				console.log(e);
-				console.log("-----------" + JSON.stringify(e));
 				serialNo = dataInfo.transationId;
 				document.getElementById("bill").innerHTML = serialNo || 0;
 				document.getElementById("money").innerHTML = dataInfo.totalfee || 0;
