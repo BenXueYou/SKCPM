@@ -9,78 +9,32 @@ $jsoninfo = json_decode($output, true);
 $access_token = $jsoninfo["access_token"];
 $jsonmenu = '{
       "button":[
-       {
-           "name":"我要充电",
-           "sub_button":[
-            {
+      {  
+         "type":"view",
+         "name":"地图找桩",
+         "url":"http://sksenk.cn/senkWechat/html/Map/webMap.html"
+      },
+      {
+
+         "type":"view",
+         "name":"扫码充电",
+         "url":"http://sksenk.cn/senkWechat/html/SMCharging/Home.php"
+      },
+      {
+         "name":"我的账户",
+         "sub_button":[
+           {
                "type":"view",
-               "name":"扫码充电",
-               "url":"http://sksenk.cn/senkWechat/html/SMCharging/Home.php"
-            },
-            {
-                "type":"view",
-                "name":"订单记录",
-                "url":"http://sksenk.cn/senkWechat/html/MY/recHome.php"
-            },
-            {
+               "name":"我的账户",
+               "url":"http://sksenk.cn/senkWechat/html/MY/myAccount.php"	
+           },
+           {
                "type":"view",
-               "name":"地图找桩",
-               "url":"http://sksenk.cn/senkWechat/html/Map/webMap.html"
-            },
-	    {
-		"type":"view",
-		"name":"我的账户",
-		"url":"http://sksenk.cn/senkWechat/html/MY/myAccount.php"	
-	    }
-           ]
-
-       },
-       {
-	      "name":"我要租车",
-              "sub_button":[
-               {
-                  "type":"view",
-  	              "name":"我的车型",
-  	              "url":"http://wx.senk.com.cn/senkWechat/senk-shop/rent_car/CarList.html"
-               },
-               {
-                 "type":"view",
-                  "name":"租车服务",
-                  "url":"http://wx.senk.com.cn/senkWechat/senk-shop/products/PileList.html"
-               }]
-
-       },
-       {
-              "name":"我的尚宽",
-              "sub_button":[
-               {
-                  "type":"view",
-                  "name":"走进尚宽",
-                  "url":"http://wx.senk.com.cn/senkWechat/senk-shop/about_us/index.html"
-               },
-               {
-                  "type":"view",
-                  "name":"优秀案例",
-                  "url":"http://wx.senk.com.cn/senkWechat/senk-shop/excllenct_case/excellent.html"
-               },
-               {
-                  "type":"view",
-                  "name":"优惠活动",
-                  "url":"http://wx.senk.com.cn/senkWechat/senk-shop/about_us/saleList.html"
-               },
-               {
-                  "type":"view",
-                  "name":"合作加盟",
-                  "url":"http://wx.senk.com.cn/senkWechat/senk-shop/JoinUs/join.html"
-               },
-                {
-                  "type":"click",
-                  "name":"联系我们",
-                  "key":"联系电话：0351-7111110"
-               }
-           ]
-
-        }]
+               "name":"充电记录",
+               "url":"http://sksenk.cn/senkWechat/html/MY/recHome.php"
+            }
+         ]
+      }]
     }';
 
 
