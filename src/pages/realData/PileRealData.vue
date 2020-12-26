@@ -233,6 +233,7 @@ export default {
           if (res.data.success && res.data.model) {
             let num = [];
             res.data.model.forEach((element) => {
+              element.chargePower = element.chargePower * 10;
               num.push(element);
             });
             this.tableData = num;
