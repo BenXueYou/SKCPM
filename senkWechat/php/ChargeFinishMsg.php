@@ -10,6 +10,7 @@ $total_fee = $_GET["total_fee"];
 $time = $_GET["dateTime"];
 $telephone = $_GET['telephone'];
 $balance = $_GET['balance'];
+$balanceNum = round($balance, 2);
 $jsonmenu = '{
         "touser":"' . $openId . '",
         "template_id":"iNKUMAz6aeLpnD4k1WA9jPp9-muAapffhuE4XdbR1j0",
@@ -33,7 +34,7 @@ $jsonmenu = '{
                         "color":"#173177"
                     },
                    "accountbalance": {
-                       "value":"' . $balance . '",
+                       "value":"' . $balanceNum . '",
                        "color":"#173177"
                     },
                    "remark":{
