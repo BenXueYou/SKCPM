@@ -190,7 +190,7 @@
 			mui(".card-title")[0].innerText = "充电桩：" + objData.cpName;
 			mui(".mui-card-content-left")[0].innerText = "桩类型：" + (objData.cpPhase == 1 ? '三相' : '单相') + (objData.cpType == 1 ? '交流' : '直流');
 			
-			if (objData.cptype == "直流桩") {
+			if (objData.cpType == 0) {
 				mui(".dc-box")[0].classList.remove("hidden");
 				cptype = 1;
 			} else {
