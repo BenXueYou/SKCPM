@@ -158,11 +158,9 @@ export default {
   },
   mounted: function () {
     this.operatorOptions = this.$store.state.home.operatorArr;
-    this.csOptions = this.$store.state.home.chargeStationArr;
     this.beginTime = this.$common.getSpaceDate(-30) + " 00:00:00";
     this.endTime = this.$common.getCurrentTime();
     // this.operator = this.operatorOptions[0].operatorId;
-    this.csId = this.csOptions[0].csId;
     this.chargeWay = this.chargeWayOptions[0].typeStr;
     this.initData();
   },
@@ -204,7 +202,6 @@ export default {
           endTime: this.endTime,
           operatorId: this.operator,
           startTime: this.beginTime,
-          csId: this.csId,
           chargeMethodId: this.chargeWay,
           recordType: this.recordType,
         },

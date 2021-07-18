@@ -1,151 +1,285 @@
 var list = [
   {
     value: 'CDB',
-    text: '国家开发银行'
+    text: '国家开发银行',
+    code: ''
   },
   {
     value: 'ICBC',
-    text: '中国工商银行'
+    text: '中国工商银行',
+    code: '1002'
   },
   {
     value: 'ABC',
-    text: '中国农业银行'
+    text: '中国农业银行',
+    code: '1005'
   },
   {
     value: 'BOC',
-    text: '中国银行'
+    text: '中国银行',
+    code: '1026'
   },
   {
     value: 'CCB',
-    text: '中国建设银行'
+    text: '中国建设银行',
+    code: '1003'
   },
   {
     value: 'PSBC',
-    text: '中国邮政储蓄银行'
+    text: '中国邮政储蓄银行',
+    code: '1066'
   },
   {
     value: 'COMM',
-    text: '交通银行'
+    text: '交通银行',
+    code: '1020',
   },
   {
     value: 'CMB',
-    text: '招商银行'
+    text: '招商银行',
+    code: '1001',
   },
   {
     value: 'SPDB',
-    text: '上海浦东发展银行'
+    text: '上海浦东发展银行',
+    code: '1004',
   },
   {
     value: 'CIB',
-    text: '兴业银行'
+    text: '兴业银行',
+    code: '1009',
   },
   {
     value: 'HXBANK',
-    text: '华夏银行'
+    text: '华夏银行',
+    code: '1025',
   },
   {
     value: 'GDB',
-    text: '广东发展银行'
+    text: '广东发展银行',
+    code: '1027',
   },
   {
     value: 'CMBC',
-    text: '中国民生银行'
+    text: '中国民生银行',
+    code: '1006',
   },
   {
     value: 'CITIC',
-    text: '中信银行'
+    text: '中信银行',
+    code: '1021',
   },
   {
     value: 'CEB',
-    text: '中国光大银行'
-  },
-  {
-    value: 'EGBANK',
-    text: '恒丰银行'
-  },
-  {
-    value: 'CZBANK',
-    text: '浙商银行'
-  },
-  {
-    value: 'BOHAIB',
-    text: '渤海银行'
+    text: '中国光大银行',
+    code: '1022',
   },
   {
     value: 'SPABANK',
-    text: '平安银行'
-  },
-  {
-    value: 'SHRCB',
-    text: '上海农村商业银行'
-  },
-  {
-    value: 'YXCCB',
-    text: '玉溪市商业银行'
-  },
-  {
-    value: 'YDRCB',
-    text: '尧都农商行'
+    text: '平安银行',
+    code: '1010'
   },
   {
     value: 'BJBANK',
-    text: '北京银行'
+    text: '北京银行',
+    code: '4836',
   },
   {
     value: 'SHBANK',
-    text: '上海银行'
+    text: '上海银行',
+    code: '1024',
   },
-  {
-    value: 'JSBANK',
-    text: '江苏银行'
-  },
-  {
-    value: 'HZCB',
-    text: '杭州银行'
-  },
+
   {
     value: 'NJCB',
-    text: '南京银行'
+    text: '南京银行',
+    code: '1054',
   },
   {
     value: 'NBBANK',
-    text: '宁波银行'
-  },
-  {
-    value: 'HSBANK',
-    text: '徽商银行'
+    text: '宁波银行',
+    code: '1056',
   },
   {
     value: 'CSCB',
-    text: '长沙银行'
+    text: '长沙银行',
+    code: '4216',
+  },
+  {
+    text: '长子县融汇村镇银行',
+    code: '4755'
+  },
+  {
+    text: '浙江泰隆商业银行',
+    code: '4051'
+  },
+  {
+    value: 'SDEB',
+    text: '顺德农商银行',
+    code: '4036'
+  },
+  {
+    text: '中原银行',
+    code: '4753'
+  },
+  {
+    text: '企业银行（中国）',
+    code: '4761'
+  },
+  {
+    text: '衡水银行',
+    code: '4752'
+  },
+  {
+    text: '长治银行',
+    code: '4756'
+  },
+  {
+    text: '大同银行',
+    code: '4767'
+  },
+  {
+    text: '河南省农村信用社',
+    code: '4115'
+  },
+  {
+    text: '宁夏黄河农村商业银行',
+    code: '4150'
+  },
+  {
+    text: '山西省农村信用社',
+    code: '4156'
+  },
+  {
+    text: '安徽省农村信用社',
+    code: '4166'
+  },
+  {
+    text: '甘肃省农村信用社',
+    code: '4157'
+  },
+  {
+    text: '天津农村商业银行',
+    code: '4153'
+  },
+  {
+    text: '广西壮族自治区农村信用社',
+    code: '4113'
+  },
+  {
+    text: '陕西省农村信用社',
+    code: '4108'
+  },
+  {
+    text: '深圳农村商业银行',
+    code: '4076'
+  },
+  {
+    text: '宁波鄞州农村商业银行',
+    code: '4052'
+  },
+  {
+    text: '浙江省农村信用社联合社',
+    code: '4764'
+  },
+  {
+    text: '江苏省农村信用社联合社',
+    code: '4217'
+  },
+  {
+    text: '江苏紫金农村商业银行股份有限公司',
+    code: '4072'
+  },
+  {
+    text: '北京中关村银行股份有限公司',
+    code: '4769'
+  },
+  {
+    text: '星展银行（中国）有限公司',
+    code: '4778'
+  },
+  {
+    text: '枣庄银行股份有限公司',
+    code: '4766'
+  },
+  {
+    text: '海口联合农村商业银行股份有限公司',
+    code: '4758'
+  },
+  {
+    text: '南洋商业银行（中国）有限公司',
+    code: '4763'
+  },
+  {
+    value: 'JSBANK',
+    text: '江苏银行',
+  },
+  {
+    value: 'HZCB',
+    text: '杭州银行',
+  },
+  {
+    value: 'HSBANK',
+    text: '徽商银行',
   },
   {
     value: 'CDCB',
-    text: '成都银行'
+    text: '成都银行',
+    // code: '1020',
   },
   {
     value: 'CQBANK',
-    text: '重庆银行'
+    text: '重庆银行',
+    // code: '1020',
   },
   {
     value: 'DLB',
-    text: '大连银行'
+    text: '大连银行',
+    // code: '1020',
+  },
+  {
+    value: 'SHRCB',
+    text: '上海农村商业银行',
+  },
+  {
+    value: 'YXCCB',
+    text: '玉溪市商业银行',
+  },
+  {
+    value: 'YDRCB',
+    text: '尧都农商行',
+  },
+  {
+    value: 'EGBANK',
+    text: '恒丰银行',
+  },
+  {
+    value: 'CZBANK',
+    text: '浙商银行',
+  },
+  {
+    value: 'BOHAIB',
+    text: '渤海银行',
   },
   {
     value: 'NCB',
-    text: '南昌银行'
+    text: '南昌银行',
+    // code: '1020',
   },
   {
     value: 'FJHXBC',
-    text: '福建海峡银行'
+    text: '福建海峡银行',
+    code: ''
   },
   {
     value: 'HKB',
-    text: '汉口银行'
+    text: '汉口银行',
+    code: ''
   },
   {
     value: 'WZCB',
-    text: '温州银行'
+    text: '温州银行',
+    code: ''
   },
   {
     value: 'QDCCB',
@@ -178,10 +312,6 @@ var list = [
   {
     value: 'SXCB',
     text: '绍兴银行'
-  },
-  {
-    value: 'SDEB',
-    text: '顺德农商银行'
   },
   {
     value: 'WJRCB',

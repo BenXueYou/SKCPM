@@ -198,7 +198,7 @@ class WxPayApi
       !$inputObj->IsAmountSet() &&
       !$inputObj->IsBank_codeSet()
     ) {
-      throw new WxPayException("退款查询接口中，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
+      throw new WxPayException("企业付款到银行卡，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
     }
     $inputObj->SetMch_id(WxPayConfig::MCHID); //商户号
     $inputObj->SetNonce_str(self::getNonceStr()); //随机字符串

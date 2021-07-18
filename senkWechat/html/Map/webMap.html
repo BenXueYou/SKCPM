@@ -213,11 +213,11 @@
       lng = data.position.getLng();
       lat = data.position.getLat();
       getFindSMPByMap(lng, lat);
-      console.log("经度：" + lng + "纬度：" + lat);
     }
     //解析定位错误信息
     function onError(data) {
       alert('定位失败');
+      getFindSMPByMap(lng, lat);
     }
 
     //点击跳转列表页
@@ -237,8 +237,8 @@
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify({
-          latitude: la,
-          longitude: lg
+          latitude: la || "30.675593,",
+          longitude: lg || "120.856804"
         }),
         success: function (data) {
           console.log(data)

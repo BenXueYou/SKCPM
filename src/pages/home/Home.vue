@@ -249,7 +249,7 @@ export default {
         window.innerHeight ||
         document.documentElement.clientHeight ||
         document.body.clientHeight;
-      this.$refs.canvsWidth.$el.style.width = w - 500 + "px";
+      this.$refs.canvsWidth.$el.style.width = w - 350 + "px";
       this.$refs.canvsWidth.$el.style.height = h / 2 + "px";
       console.log(w, this.$refs.canvsWidth.$el.style.width);
       if (!dom) {
