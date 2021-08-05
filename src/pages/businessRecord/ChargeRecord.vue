@@ -214,7 +214,8 @@ export default {
       ],
       recordTypeOptions: [
         { typeStr: 0, typeName: "尚宽" },
-        { typeStr: 1, typeName: "快电" }
+        { typeStr: 1, typeName: "快电" },
+        { typeStr: 2, typeName: "小桔" }
       ],
       recordType: 0,
       station: null,
@@ -249,7 +250,7 @@ export default {
           sums[index] = "合计";
           return;
         }
-        if (index > 10 && index < 14) {
+        if (index > 11 && index < 15) {
           const values = data.map(item => Number(item[column.property]));
           // 验证每个value值是否是数字，如果是执行if
           if (!values.every(value => isNaN(value))) {
@@ -257,10 +258,10 @@ export default {
               return prev + curr;
             }, 0);
             switch (index) {
-              case 11:
+              case 12:
                 sums[index] = this.$common.formatSeconds(sums[index]);
                 break;
-              case 12:
+              case 13:
                 sums[index] = sums[index].toFixed(2);
                 sums[index] += "度";
                 break;

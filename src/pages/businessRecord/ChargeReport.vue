@@ -229,7 +229,8 @@ export default {
       tableData: [],
       recordTypeOptions: [
         { typeStr: 0, typeName: "尚宽" },
-        { typeStr: 1, typeName: "快电" }
+        { typeStr: 1, typeName: "快电" },
+        { typeStr: 2, typeName: "小桔" },
       ],
       recordType: 0,
     };
@@ -253,14 +254,14 @@ export default {
               return prev + curr;
             }, 0);
             switch (index) {
-              case 3:
+              case 4:
                 sums[index] += "次";
                 break;
-              case 4:
-              case 8:
-              case 10:
-              case 12:
-              case 14:
+              case 5:
+              case 9:
+              case 11:
+              case 13:
+              case 15:
                 sums[index] = sums[index].toFixed(2);
                 sums[index] += "度";
                 break;

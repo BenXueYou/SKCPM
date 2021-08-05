@@ -139,7 +139,8 @@ export default {
       ],
       recordTypeOptions: [
         { typeStr: 0, typeName: "尚宽" },
-        { typeStr: 1, typeName: "快电" }
+        { typeStr: 1, typeName: "快电" },
+        { typeStr: 2, typeName: "小桔" },
       ],
       recordType: 0,
       userName: null,
