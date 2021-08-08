@@ -11,8 +11,8 @@ $jsonmenu = '{
       "button":[
       {  
          "type":"view",
-         "name":"地图找桩",
-         "url":"http://sksenk.cn/senkWechat/html/Map/webMap.html"
+         "name":"我的账户",
+         "url":"http://sksenk.cn/senkWechat/html/MY/myAccount.php"
       },
       {
 
@@ -21,19 +21,10 @@ $jsonmenu = '{
          "url":"http://sksenk.cn/senkWechat/html/SMCharging/Home.php"
       },
       {
-         "name":"我的账户",
-         "sub_button":[
-           {
-               "type":"view",
-               "name":"我的账户",
-               "url":"http://sksenk.cn/senkWechat/html/MY/myAccount.php"	
-           },
-           {
-               "type":"view",
-               "name":"充电记录",
-               "url":"http://sksenk.cn/senkWechat/html/MY/recHome.php"
-            }
-         ]
+
+         "type":"view",
+         "name":"充电记录",
+         "url":"http://sksenk.cn/senkWechat/html/MY/recHome.php"
       }]
     }';
 
