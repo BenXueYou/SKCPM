@@ -251,20 +251,13 @@ export default {
   methods: {
     httpRequest() {
       let data = {
-        addressId: 0,
-        area: "string",
         areaId: 0,
-        city: "string",
         cityId: 0,
-        csId: 0,
         csName: "string",
         endTime: "string",
         addressName: "string",
-        openTime: "string",
         operatorId: 0,
         parkFee: 0,
-        property: 0,
-        province: "string",
         provinceId: 0,
         startTime: "string",
         validFlag: 0

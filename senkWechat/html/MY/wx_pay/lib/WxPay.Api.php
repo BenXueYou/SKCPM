@@ -198,7 +198,7 @@ class WxPayApi
       !$inputObj->IsAmountSet() &&
       !$inputObj->IsBank_codeSet()
     ) {
-      throw new WxPayException("退款查询接口中，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
+      throw new WxPayException("企业付款到银行卡，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
     }
     $inputObj->SetMch_id(WxPayConfig::MCHID); //商户号
     $inputObj->SetNonce_str(self::getNonceStr()); //随机字符串
@@ -630,9 +630,9 @@ class WxPayApi
     if ($useCert == true) {
       //使用证书：cert 与 key 分别属于两个.pem文件
       curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
-      curl_setopt($ch, CURLOPT_SSLCERT, dirname(dirname(__FILE__)) . "/cert-2/apiclient_cert.pem");
+      curl_setopt($ch, CURLOPT_SSLCERT, dirname(dirname(__FILE__)) . "/cert/apiclient_cert.pem");
       curl_setopt($ch, CURLOPT_SSLKEYTYPE, 'PEM');
-      curl_setopt($ch, CURLOPT_SSLKEY, dirname(dirname(__FILE__)) . "/cert-2/apiclient_key.pem");
+      curl_setopt($ch, CURLOPT_SSLKEY, dirname(dirname(__FILE__)) . "/cert/apiclient_key.pem");
       //echo "设置证书";
     }
     //post提交方式
