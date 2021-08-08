@@ -170,7 +170,6 @@ class WxPayApi
     $response = self::postXmlCurl($xml, $url, true, $timeOut);
     $result = WxPayResults::Init($response);
     self::reportCostTime($url, $startTimeStamp, $result); //上报请求花费时间
-    //var_dump($result); 
     return $result;
   }
 
@@ -205,7 +204,7 @@ class WxPayApi
     $inputObj->SetSign(); //签名
     $xml = $inputObj->ToXml();
     $startTimeStamp = self::getMillisecond(); //请求开始时间
-    $response = self::postXmlCurl($xml, $url, true, $timeOut);
+    $response = self::postXmlCurl($xml, $url, true, $timeOut=6);
     $result = WxPayResults::Init($response);
     self::reportCostTime($url, $startTimeStamp, $result); //上报请求花费时间
     return $result;
@@ -345,7 +344,7 @@ class WxPayApi
     $xml = $inputObj->ToXml();
 
     $startTimeStamp = self::getMillisecond(); //请求开始时间
-    $response = self::postXmlCurl($xml, $url, false, $timeOut);
+    $response = self::postXmlCurl($xml, $url, false, $timeOut=12);
     $result = WxPayResults::Init($response);
     self::reportCostTime($url, $startTimeStamp, $result); //上报请求花费时间
 

@@ -224,7 +224,7 @@ export default {
           plateNumbers: null
         };
       }
-      //   this.formLabelAlign.operatorLoginId = this.$store.state.home.OperatorId;
+      this.formLabelAlign.operatorLoginId = this.$store.state.home.OperatorId;
     }
   },
   destroyed() {}
