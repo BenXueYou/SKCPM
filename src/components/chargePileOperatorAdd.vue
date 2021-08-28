@@ -96,7 +96,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="space-between">
+        <el-row v-if="!$store.state.home.AuthRoleId" type="flex" justify="space-between">
           <el-col :span="12">
             <el-form-item label="开户名称：" prop="contactName">
               <el-input
@@ -126,7 +126,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="space-between">
+        <el-row v-if="!$store.state.home.AuthRoleId" type="flex" justify="space-between">
           <el-col :span="24">
             <el-form-item label="银行卡号：" prop="bankCard">
               <el-input
@@ -139,7 +139,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" justify="space-between">
+        <el-row v-if="!$store.state.home.AuthRoleId" type="flex" justify="space-between">
           <el-col :span="24">
             <el-form-item label="是否定时转账:">
               <el-switch v-model="formLabelAlign.enableTransfer"></el-switch>
