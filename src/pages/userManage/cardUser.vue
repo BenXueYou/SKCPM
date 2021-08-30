@@ -87,6 +87,9 @@
           <el-table-column prop="balance"
                            label="余额"
                            width="100"></el-table-column>
+          <!-- <el-table-column prop="openCardUser"
+                           label="运营商"
+                           width="120"></el-table-column> -->
           <el-table-column prop="openCardUser"
                            label="开卡人"
                            width="120"></el-table-column>

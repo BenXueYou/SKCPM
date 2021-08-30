@@ -133,6 +133,11 @@
             prop="totalFee"
             label="充电总费用(元)"
           ></el-table-column>
+          <el-table-column  v-if="$store.state.home.AuthorizationID" label="操作">
+						<template slot-scope="scope">
+							<el-button @click="handleClick(scope.row)" type="text" size="small">分账</el-button>
+						</template>
+					</el-table-column>
         </el-table>
       </div>
       <div class="footer">
@@ -147,14 +152,14 @@
         ></el-pagination>
       </div>
     </div>
-    <!-- <app-user-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" /> -->
+    <OperatoreTransfer :isShow="isShowAddDialog" :rowData="rowData" @onCancel="close()" />
   </el-row>
 </template>
 <script>
-// import appUserAdd from "@/components/appUserAdd";
+import OperatoreTransfer from "@/components/OperatoreTransfer";
 export default {
   components: {
-    // appUserAdd
+    OperatoreTransfer
   },
   mounted: function () {
     this.operatorOptions = this.$store.state.home.operatorArr;
@@ -168,6 +173,7 @@ export default {
   },
   data: function () {
     return {
+      rowData: null,
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 10,
@@ -185,10 +191,8 @@ export default {
       tableData: window.config.tableData,
       chargeWay: null,
       chargeWayOptions: [
-        // { typeStr: 0, typeName: "APP充电" },
         { typeStr: 1, typeName: "刷卡充电" },
         { typeStr: 0, typeName: "微信充电" },
-        // { typeStr: 4, typeName: "全部充电" }
       ],
       recordTypeOptions: [
         { typeStr: 0, typeName: "尚宽" },
@@ -238,8 +242,17 @@ export default {
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {
-      console.log(row);
-      this.isShowAddDialog = !this.isShowAddDialog;
+      this.$userAjax
+        .editOperatorOptions({ operatorId: row.operatorId })
+        .then(res => {
+          if (res.data.success) {
+            this.rowData = res.data.model;
+            this.isShowAddDialog = !this.isShowAddDialog;
+          } else {
+            this.$message.wraning("请求数据失败");
+          }
+        })
+        .catch(() => {});
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
