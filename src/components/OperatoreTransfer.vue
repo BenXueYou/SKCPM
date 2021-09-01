@@ -42,33 +42,20 @@
         </el-row>
         <el-row type="flex" justify="space-between">
           <el-col :span="12">
-            <el-form-item label="电话：" prop="telephone">
+            <el-form-item label="可转金额：" prop="totalFee">
               <el-input
                 class="time-interal"
-                v-model="formLabelAlign.telephone"
+                v-model="formLabelAlign.totalFee"
                 size="small"
                 clearable
               ></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="邮箱：" prop="email">
+            <el-form-item label="转账金额：" prop="transferMoney">
               <el-input
+                v-model="formLabelAlign.transferMoney"
                 class="time-interal"
-                v-model="formLabelAlign.email"
-                size="small"
-                clearable
-              ></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" justify="space-between">
-          <el-col :span="24">
-            <el-form-item label="地址：" prop="address">
-              <el-input
-                style="width: 96.5%"
-                class="time-interal"
-                v-model="formLabelAlign.address"
                 size="small"
                 clearable
               ></el-input>
@@ -157,20 +144,15 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        address: "",
-        bankCard: "",
-        bankCode: "",
+        bankCard: null,
+        bankCode: null,
         bossId: 0,
-        cardUser: "",
-        contactName: "",
-        email: "",
+        contactName: null,
+        transferMoney: null,
         operatorId: 0,
         operatorLoginId: 0,
-        operatorName: "",
-        telephone: "",
-        validFlag: 0,
-        powerCompensation: 0,
-        enableTransfer: false,
+        operatorName: null,
+        totalFee: null,
       },
       rules: {
         operatorName: [
@@ -182,13 +164,7 @@ export default {
             message: "长度在 1 到 32 个字符",
             trigger: "blur",
           },
-        ],
-        contactName: [
-          { required: true, message: "联系人不能为空", trigger: "change" },
-        ],
-        telephone: [
-          { required: true, message: "电话不能为空", trigger: "change" },
-        ],
+        ]
       },
     };
   },
@@ -210,33 +186,21 @@ export default {
     onClickConfirm() {
       this.$refs.addHouseForm.validate((valid) => {
         if (valid) {
-          if (this.formLabelAlign.operatorId) {
-            this.updateOperator(this.formLabelAlign);
-          } else {
-            this.addOperator(this.formLabelAlign);
-          }
+          this.transferMoney({
+            operatorId: this.formLabelAlign.operatorId,
+            transferMoney: this.formLabelAlign.transferMoney || 0
+          });
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
     },
-    addOperator(data) {
-      this.$userAjax
-        .addOperator(data)
+    transferMoney(data) {
+      this.$staticsAjax
+        .transferApi(data)
         .then((res) => {
           if (res.data.success) {
-            this.$message.success("添加成功！");
-            this.$emit("onCancel", true);
-          }
-        })
-        .catch(() => {});
-    },
-    updateOperator(data) {
-      this.$userAjax
-        .updateOperator(data)
-        .then((res) => {
-          if (res.data.success) {
-            this.$message.success("修改成功");
+            this.$message.success("转款成功！");
             this.$emit("onCancel", true);
           }
         })
@@ -246,25 +210,20 @@ export default {
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
-      debugger;
       if (val && this.rowData.operatorId) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
         console.log(this.formLabelAlign);
       } else {
         this.formLabelAlign = {
-          address: "",
-          bankCard: "",
-          bankCode: "",
-          bossId: 0,
-          cardUser: "",
-          contactName: "",
-          email: "",
-          operatorId: "",
+          address: null,
+          bankCard: null,
+          bankCode: null,
+          contactName: null,
+          transferMoney: null,
+          operatorId: null,
           operatorLoginId: this.$store.state.home.OperatorId,
-          operatorName: "",
-          telephone: "",
-          validFlag: 0,
-          enableTransfer: false,
+          operatorName: null,
+          totalFee: null,
         };
       }
       this.formLabelAlign.operatorLoginId = this.$store.state.home.OperatorId;

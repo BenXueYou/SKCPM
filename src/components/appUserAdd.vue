@@ -76,12 +76,7 @@
 </template>
 
 <script>
-// import PopoverTreeForBottom from "@/pages/buildingsHouse/components/PopoverTreeForBottom";
-
 export default {
-  components: {
-    // PopoverTreeForBottom,
-  },
   props: {
     isAdd: {
       type: Boolean,
@@ -90,10 +85,6 @@ export default {
     isShow: {
       type: Boolean,
       default: false
-    },
-    initTreeRootData: {
-      type: Object,
-      default: () => {}
     }
   },
   data() {

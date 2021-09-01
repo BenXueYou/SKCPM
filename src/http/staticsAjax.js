@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version: 1.0.0
+ * @Author: pengxueyou@hikvision.com.cn
+ * @Date: 2020-12-18 09:54:54
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-01 16:12:26
+ */
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
 export var staticsAjax = {
@@ -33,6 +41,14 @@ export var staticsAjax = {
       data: xhr
     });
   },
+  transferApi (data) {
+    let url = `${RestApi.api.StaticsAjax.transferApi}`;
+    return axios({
+      method: "post",
+      url,
+      params: data
+    });
+  }
 };
 
 function install(Vue) {

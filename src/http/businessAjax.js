@@ -1,6 +1,6 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-export var businessAjax = {
+export const businessAjax = {
   // 充电记录
   getChargeRecordTotal(xhr) {
     let url = `${RestApi.api.BusinessAjax.getChargeRecordTotal}`;

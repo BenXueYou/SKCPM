@@ -86,19 +86,12 @@
         </div>
       </div>
       <div class="topMenu" style="margin-bottom: 15px">
-        <!-- <el-button
-					v-if="$store.state.home.AuthorizationID"
-					type="primary"
-					@click="exportBtnAct"
-					style="margin:0 10px;"
-				>批量导出</el-button> -->
         <el-button type="primary" @click="queryBtnAct" style="margin: 0 10px"
           >查询</el-button
         >
       </div>
       <div class="tableBox">
         <el-table :data="tableData" stripe border style="width: 100%">
-          <!-- <el-table-column type="selection" width="55"></el-table-column> -->
           <el-table-column
             type="index"
             width="55"
@@ -236,23 +229,21 @@ export default {
       this.currentPage = 1;
       this.initData();
     },
-    addBtnAct() {
-      this.isShowAddDialog = !this.isShowAddDialog;
-    },
-    deleteBtnAct() {},
-    exportBtnAct() {},
     handleClick(row) {
       this.$userAjax
         .editOperatorOptions({ operatorId: row.operatorId })
         .then(res => {
           if (res.data.success) {
-            this.rowData = res.data.model;
-            this.isShowAddDialog = !this.isShowAddDialog;
+            this.rowData = Object.assign(row, res.data.model);
+            console.log(this.rowData);
+            this.isShowAddDialog = true;
           } else {
             this.$message.wraning("请求数据失败");
           }
         })
-        .catch(() => {});
+        .catch((err) => {
+          console.log(err);
+        });
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

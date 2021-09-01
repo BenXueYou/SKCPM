@@ -89,19 +89,15 @@ export default {
       updateChargeRecord: `${httpUrlHeader}/charge/record/update`,
       getChargeRecordList: `${httpUrlHeader}/charge/record/list-by-page`,
       deductRecordList: `${httpUrlHeader}/deduct/record/list`,
-
       getRechargeRecord: `${httpUrlHeader}/weChat/deposit/record`,
       exportRechargeRecord: `${httpUrlHeader}/weChat/export/deposit-record`,
-
       getRefrundRecord: `${httpUrlHeader}/weChat/withdraw-list-by-page`,
 
       // 充电报表
       getChargeReport: `${httpUrlHeader}/charge/record/charge/reports`,
-
       // 卡充值管理
       getCardDepositList: `${httpUrlHeader}/card/deposit/list-by-page`,
       saveCardUserDeposit: `${httpUrlHeader}/card/deposit/save`,
-
       // 根据卡号查询卡充电记录
       getCardChargeRecordByCardNum: `${httpUrlHeader}/card/record-by-cardNum`,
       // 根据用户名查询卡充电记录
@@ -139,6 +135,8 @@ export default {
       getOperator: `${httpUrlHeader}/statistics/operator`,
       getChargeStation: `${httpUrlHeader}/statistics/chargeStation`,
       getChargePile: `${httpUrlHeader}/statistics/chargePile`,
+      // 转账
+      transferApi: `${httpUrlHeader}/operator/transferMoney`
     },
 
     /**
@@ -217,8 +215,6 @@ export default {
       deleteEnterPriseStaffApi: `${httpUrlHeader}/employee/delete`,
       checkEnterPriseStaffApi: `${httpUrlHeader}/employee/check`,
 
-    },
-    // 测试APP登陆接口
-    appLogin: `http://139.129.194.195:8080/SuperBackManage/userManager/loginUser`
+    }
   }
 };

@@ -1,6 +1,14 @@
+/*
+ * @Descripttion:
+ * @version: 1.0.0
+ * @Author: pengxueyou@hikvision.com.cn
+ * @Date: 2020-12-18 09:54:54
+ * @LastEditors:
+ * @LastEditTime: 2021-09-01 15:48:21
+ */
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-export var priceAjax = {
+export const priceAjax = {
   getChargePrice(xhr) {
     let url = `${RestApi.api.ChargePriceAjax.getChargePrice}`;
     return axios({

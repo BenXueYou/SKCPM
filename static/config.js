@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: pengxueyou@hikvision.com.cn
+ * @Date: 2021-08-08 12:23:07
+ * @LastEditors: 
+ * @LastEditTime: 2021-09-01 15:35:42
+ */
 let httpUrlHeader = '/apis';
 const DEBUG = 'PO';
 if (DEBUG === 'PRO') {
@@ -19,106 +27,8 @@ window.config = {
     initialFrameWidth: '100%',
     // 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
     serverUrl: 'http://35.201.165.105:8000/controller.php'
-    // serverUrl: 'http://47.104.204.250/images'
-    // UEditor 资源文件的存放路径，如果你使用的是 vue-cli 生成的项目，通常不需要设置该选项，vue-ueditor-wrap 会自动处理常见的情况，如果需要特殊配置，参考下方的常见问题2
-    // UEDITOR_HOME_URL: '/static/UEditor/'
-    // 配合最新编译的资源文件，你可以实现添加自定义Request Headers,详情https://github.com/HaoChuan9421/ueditor/commits/dev-1.4.3.3
-    // headers: {
-    //   access_token: '37e7c9e3fda54cca94b8c88a4b5ddbf3'
-    // }
   },
-  tableData: [
-    {
-      date: "2016-05-02",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1518 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-04",
-      name: "王小虎",
-      province: "上海",
-      id: '1401050000000139',
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1517 弄",
-      zip: 200333
-    },
-    {
-      date: "2016-05-01",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1519 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    },
-    {
-      date: "2016-05-03",
-      name: "王小虎",
-      province: "上海",
-      city: "普陀区",
-      address: "上海市普陀区金沙江路 1516 弄",
-      zip: 200333,
-      id: '1401050000000139'
-    }
-  ],
+  tableData: [],
   alinkArr: [
     {
       strName: "关于尚宽",
