@@ -289,7 +289,7 @@ export default {
           cardUser: null,
           contactName: null,
           email: null,
-          operatorId: null,
+          operatorId: this.$store.state.home.OperatorId,
           operatorLoginId: this.$store.state.home.OperatorId,
           operatorName: null,
           telephone: null,
