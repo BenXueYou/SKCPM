@@ -253,7 +253,10 @@ export default {
     },
     addOperator(data) {
       this.$userAjax
-        .addOperator(data)
+        .addOperator({
+          ...data,
+          enableTransfer: Number(data.enableTransfer)
+        })
         .then((res) => {
           if (res.data.success) {
             this.$message.success("添加成功！");
@@ -264,7 +267,10 @@ export default {
     },
     updateOperator(data) {
       this.$userAjax
-        .updateOperator(data)
+        .updateOperator({
+          ...data,
+          enableTransfer: Number(data.enableTransfer)
+        })
         .then((res) => {
           if (res.data.success) {
             this.$message.success("修改成功");
@@ -289,7 +295,7 @@ export default {
           cardUser: null,
           contactName: null,
           email: null,
-          operatorId: this.$store.state.home.OperatorId,
+          operatorId: 0,
           operatorLoginId: this.$store.state.home.OperatorId,
           operatorName: null,
           telephone: null,
