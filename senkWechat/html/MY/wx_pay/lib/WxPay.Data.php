@@ -75,11 +75,6 @@ class WxPayDataBase
 		return $xml;
 	}
 
-
-
-
-
-
 	/**
 	 * 将xml转为array
 	 * @param string $xml
@@ -208,7 +203,7 @@ class WxPayResults extends WxPayDataBase
 	 * @param string $xml
 	 * @throws WxPayException
 	 */
-	public static function Init($xml)
+	public static function Init($xml, $isSign=true)
 	{
 		$obj = new self();
 		$obj->FromXml($xml);		
@@ -216,7 +211,9 @@ class WxPayResults extends WxPayDataBase
 		if ($obj->values['return_code'] != 'SUCCESS') {
 			return $obj->GetValues();
 		}
-		$obj->CheckSign();
+		if($isSign) {
+			$obj->CheckSign();
+		}
 		return $obj->GetValues();
 	}
 }
@@ -1217,6 +1214,169 @@ class WxPayTransferOrder extends WxPayDataBase
 	}
 }
 
+class WxPublicKey extends WxPayDataBase {
+	/**
+	 * 商户号
+	 */
+	public function SetMch_id($value)
+	{
+		$this->values['mch_id'] = $value;
+	}
+	public function GetMch_id()
+	{
+		return $this->values['mch_id'];
+	}
+	public function IsMch_idSet()
+	{
+		return array_key_exists('mch_id', $this->values);
+	}
+
+	/**
+	 * 设置随机字符串，不长于32位。推荐随机数生成算法
+	 * @param string $value 
+	 **/
+	public function SetNonce_str($value)
+	{
+		$this->values['nonce_str'] = $value;
+	}
+	/**
+	 * 获取随机字符串，不长于32位。推荐随机数生成算法的值
+	 * @return 值
+	 **/
+	public function GetNonce_str()
+	{
+		return $this->values['nonce_str'];
+	}
+	/**
+	 * 判断随机字符串，不长于32位。推荐随机数生成算法是否存在
+	 * @return true 或 false
+	 **/
+	public function IsNonce_strSet()
+	{
+		return array_key_exists('nonce_str', $this->values);
+	}
+
+	/** sign_type */
+	public function SetSign_type($value)
+	{
+		$this->values['sign_type'] = $value;
+	}
+	public function GetSign_type()
+	{
+		return $this->values['sign_type'];
+	}
+	public function IsSign_typeSet()
+	{
+		return array_key_exists('sign_type', $this->values);
+	}
+
+}
+
+
+// 添加分账请求
+class WxProfitsharing extends WxPayDataBase
+{
+	/** 商户号 */
+	public function SetMch_id($value)
+	{
+		$this->values['mch_id'] = $value;
+	}
+	public function GetMch_id()
+	{
+		return $this->values['mch_id'];
+	}
+	public function IsMch_idSet()
+	{
+		return array_key_exists('mch_id', $this->values);
+	}
+	/** 公众账号ID */
+	public function SetAppid($value)
+	{
+		$this->values['appid'] = $value;
+	}
+	/**
+	 * 获取微信分配的公众账号ID的值
+	 * @return 值
+	 **/
+	public function GetAppid()
+	{
+		return $this->values['appid'];
+	}
+	/**
+	 * 判断微信分配的公众账号ID是否存在
+	 * @return true 或 false
+	 **/
+	public function IsAppidSet()
+	{
+		return array_key_exists('appid', $this->values);
+	}
+
+	/**
+	 * 设置随机字符串，不长于32位。推荐随机数生成算法
+	 * @param string $value 
+	 **/
+	public function SetNonce_str($value)
+	{
+		$this->values['nonce_str'] = $value;
+	}
+	/**
+	 * 获取随机字符串，不长于32位。推荐随机数生成算法的值
+	 * @return 值
+	 **/
+	public function GetNonce_str()
+	{
+		return $this->values['nonce_str'];
+	}
+	/**
+	 * 判断随机字符串，不长于32位。推荐随机数生成算法是否存在
+	 * @return true 或 false
+	 **/
+	public function IsNonce_strSet()
+	{
+		return array_key_exists('nonce_str', $this->values);
+	}
+
+	/** sign_type */
+	public function SetSign_type($value)
+	{
+		$this->values['sign_type'] = $value;
+	}
+	public function GetSign_type()
+	{
+		return $this->values['sign_type'];
+	}
+	public function IsSign_typeSet()
+	{
+		return array_key_exists('sign_type', $this->values);
+	}
+	/** transaction_id */
+	public function SetTransaction_id($value)
+	{
+		$this->values['transaction_id'] = $value;
+	}
+	public function GetTransaction_id()
+	{
+		return $this->values['transaction_id'];
+	}
+	public function IsTransaction_id()
+	{
+		return array_key_exists('transaction_id', $this->values);
+	}
+	/** out_order_no */
+	public function SetOut_order_no($value)
+	{
+		$this->values['out_order_no'] = $value;
+	}
+	public function GetOut_order_no()
+	{
+		return $this->values['out_order_no'];
+	}
+	public function IsOut_order_no()
+	{
+		return array_key_exists('out_order_no', $this->values);
+	}
+
+}
 
 /**
  * 

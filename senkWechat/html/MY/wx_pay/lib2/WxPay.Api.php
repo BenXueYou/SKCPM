@@ -1,11 +1,7 @@
 <?php
-
-
 require_once "WxPay.Exception.php";
 require_once "WxPay.Config.php";
 require_once "WxPay.Data.php";
-
-
 /**
  * 
  * 接口访问类，包含所有微信支付API列表的封装，类中方法为static方法，
@@ -65,9 +61,6 @@ class WxPayApi
     $response = self::postXmlCurl($xml, $url, false, $timeOut);
     $result = WxPayResults::Init($response);
     self::reportCostTime($url, $startTimeStamp, $result); //上报请求花费时间
-
-    //var_dump($result);
-
     return $result;
   }
 
@@ -204,9 +197,8 @@ class WxPayApi
     $inputObj->SetSign(); //签名
     $xml = $inputObj->ToXml();
     $startTimeStamp = self::getMillisecond(); //请求开始时间
-    print_r($xml);
     $response = self::postXmlCurl($xml, $url, true, $timeOut=60);
-    $result = WxPayResults::Init($response);
+    $result = WxPayResults::Init($response, false);
     self::reportCostTime($url, $startTimeStamp, $result); //上报请求花费时间
     return $result;
   }
@@ -224,11 +216,6 @@ class WxPayApi
   {
     # code...
     $url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
-
-    //异步通知url未设置，则使用配置文件中的url
-    //if(!$inputObj->IsNotify_urlSet()){
-    //	$inputObj->SetNotify_url(WxPayConfig::NOTIFY_URL);//异步通知url
-    //}
     $inputObj->SetMch_appid(WxPayConfig::APPID); //公众账号ID
     $inputObj->SetMch_id(WxPayConfig::MCHID); //商户号
     //$inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip	  

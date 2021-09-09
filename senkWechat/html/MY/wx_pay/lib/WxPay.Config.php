@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: pengxueyou@hikvision.com.cn
+ * @Date: 2021-09-06 15:57:10
+ * @LastEditors: 
+ * @LastEditTime: 2021-09-09 14:33:36
+ */
 /**
 * 	配置账号信息
 */
@@ -36,6 +44,8 @@ class WxPayConfig
 	 */
 	const SSLCERT_PATH = '../cert-2/apiclient_cert.pem';
 	const SSLKEY_PATH = '../cert-2/apiclient_key.pem';
+	const NOTIFY_URL = 'http://sksenk.cn/senkWechat/html/MY/wx_pay/WechatPay/notify.php';
+
 	
 	//=======【curl代理设置】===================================
 	/**

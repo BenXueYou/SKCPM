@@ -203,7 +203,7 @@ class WxPayResults extends WxPayDataBase
 	 * @param string $xml
 	 * @throws WxPayException
 	 */
-	public static function Init($xml)
+	public static function Init($xml, $isSign=true)
 	{
 		$obj = new self();
 		$obj->FromXml($xml);		
@@ -211,7 +211,9 @@ class WxPayResults extends WxPayDataBase
 		if ($obj->values['return_code'] != 'SUCCESS') {
 			return $obj->GetValues();
 		}
-		$obj->CheckSign();
+		if($isSign) {
+			$obj->CheckSign();
+		}
 		return $obj->GetValues();
 	}
 }
@@ -1375,10 +1377,6 @@ class WxProfitsharing extends WxPayDataBase
 	}
 
 }
-
-
-
-
 
 /**
  * 

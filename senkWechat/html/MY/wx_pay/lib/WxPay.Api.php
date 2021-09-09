@@ -1,11 +1,7 @@
 <?php
-
-
 require_once "WxPay.Exception.php";
 require_once "WxPay.Config.php";
 require_once "WxPay.Data.php";
-
-
 /**
  * 
  * 接口访问类，包含所有微信支付API列表的封装，类中方法为static方法，
@@ -193,16 +189,17 @@ class WxPayApi
 			!$inputObj->IsEnc_bank_noSet() &&
 			!$inputObj->IsEnc_true_nameSet() &&
 			!$inputObj->IsAmountSet() &&
-			!$inputObj->IsBank_codeSet()) {
-			throw new WxPayException("退款查询接口中，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
+			!$inputObj->IsBank_codeSet()
+		) {
+				throw new WxPayException("企业付款到银行卡，out_refund_no、out_trade_no、transaction_id、refund_id四个参数必填一个！");
 		}
 		$inputObj->SetMch_id(WxPayConfig::MCHID);//商户号
 		$inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 		$inputObj->SetSign();//签名
 		$xml = $inputObj->ToXml();
 		$startTimeStamp = self::getMillisecond();//请求开始时间
-		$response = self::postXmlCurl($xml, $url, false, $timeOut);
-		$result = WxPayResults::Init($response);
+		$response = self::postXmlCurl($xml, $url, false, $timeOut=60);
+		$result = WxPayResults::Init($response, false);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 		return $result;
 	}
@@ -233,12 +230,10 @@ class WxPayApi
 		//签名
 		$inputObj->SetSign();
 		$xml = $inputObj->ToXml();
-		$response = self::postTestXmlCurl($xml, $url, true, $timeOut=6);
-		
-var_dump($response);
-
-		//$result = WxPayResults::Init($response);
-		//return $result;
+		$response = self::postTestXmlCurl($xml, $url, true, $timeOut=6);	
+// var_dump($response);
+		$result = WxPayResults::Init($response);
+		return $result;
 	}
 
 

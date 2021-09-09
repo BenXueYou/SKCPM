@@ -1,5 +1,8 @@
 <?php
 require_once "../lib/WxPay.Api.php";
+require_once "../lib/WxPay.Exception.php";
+require_once "../lib/WxPay.Config.php";
+require_once "../lib/WxPay.Data.php";
 /**
  * 
  * JSAPI支付实现类
@@ -13,6 +16,91 @@ require_once "../lib/WxPay.Api.php";
  */
 class JsApiPay
 {
+
+		/**
+	 * 获取RSA公钥key
+	 */
+	public function getPublicKey() {
+		$url = "https://fraud.mch.weixin.qq.com/risk/getpublickey";
+		$publicKeyReq =  new WxPublicKey();
+		$publicKeyReq->SetMch_id(WxPayConfig::MCHID);
+		$publicKeyReq->SetNonce_str(self::getNonceStr());
+		$publicKeyReq->SetSign_type("MD5"); //签名
+		$publicKeyReq->SetSign(); //签名
+		$xml = $publicKeyReq->ToXml();
+    $response = self::postXmlCurl($xml, $url, true, $timeOut=30);
+    $result = json_decode(json_encode(simplexml_load_string($response, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+    return $result;
+
+	}
+
+	public static function getNonceStr($length = 32)
+  {
+    $chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+    $str = "";
+    for ($i = 0; $i < $length; $i++) {
+      $str .= substr($chars, mt_rand(0, strlen($chars) - 1), 1);
+    }
+    return $str;
+  }
+
+
+	  /**
+   * 以post方式提交xml到对应的接口url
+   * 
+   * @param string $xml  需要post的xml数据
+   * @param string $url  url
+   * @param bool $useCert 是否需要证书，默认不需要
+   * @param int $second   url执行超时时间，默认30s
+   * @throws WxPayException
+   */
+  private static function postXmlCurl($xml, $url, $useCert = false, $second = 30)
+  {
+    $ch = curl_init();
+    //设置超时
+    curl_setopt($ch, CURLOPT_TIMEOUT, $second);
+
+    //如果有配置代理这里就设置代理
+    if (
+      WxPayConfig::CURL_PROXY_HOST != "0.0.0.0"
+      && WxPayConfig::CURL_PROXY_PORT != 0
+    ) {
+      curl_setopt($ch, CURLOPT_PROXY, WxPayConfig::CURL_PROXY_HOST);
+      curl_setopt($ch, CURLOPT_PROXYPORT, WxPayConfig::CURL_PROXY_PORT);
+    }
+    //var_dump("设置代理");
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); //严格校验
+    //设置header
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    //要求结果为字符串且输出到屏幕上
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    if ($useCert == true) {
+      //使用证书：cert 与 key 分别属于两个.pem文件
+      curl_setopt($ch, CURLOPT_SSLCERTTYPE, 'PEM');
+      curl_setopt($ch, CURLOPT_SSLCERT, dirname(dirname(__FILE__)) . "/cert/apiclient_cert.pem");
+      curl_setopt($ch, CURLOPT_SSLKEYTYPE, 'PEM');
+      curl_setopt($ch, CURLOPT_SSLKEY, dirname(dirname(__FILE__)) . "/cert/apiclient_key.pem");
+      //echo "设置证书";
+    }
+    //post提交方式
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+    //运行curl
+    $data = curl_exec($ch);
+    //返回结果
+    if ($data) {
+      curl_close($ch);
+      return $data;
+    } else {
+      $error = curl_errno($ch);
+      curl_close($ch);
+      // echo "错误码".$error;
+      throw new WxPayException("curl出错，错误码:$error");
+    }
+  }
+
 	/**
 	 * 
 	 * 网页授权接口微信服务器返回的数据，返回样例如下
