@@ -1,17 +1,16 @@
-# wechat 转账接口
-/*
-* @Descripttion:
-* @version:
-* @Author: congsir
-* @Date: 2021-08-08 12:33:31
- * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-09 16:15:40
-*/
-
 <?php
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: pengxueyou@hikvision.com.cn
+ * @Date: 2021-09-06 15:57:10
+ * @LastEditors: 
+ * @LastEditTime: 2021-09-06 16:01:42
+ */
 require_once "../lib2/WxPay.Api.php";
 require_once "../lib2/WxPay.Data.php";
 require_once "WxPay.JsApiPay2.php";
+
 $bank_no = $_GET["enc_bank_no"];
 $total_fee = $_GET["total_fee"];
 $true_name = $_GET['enc_true_name'];
@@ -19,6 +18,52 @@ $enc_bank_code = $_GET["bank_code"];
 $partner_trade_no = $_GET["partner_trade_no"];
 $total_fee = $total_fee * 100;
 //参数；
+
+//②、获取公钥
+getPubKey();
+
+// 加密用户名以及银行卡号
+$enc_true_name = openSslPubKey($true_name);
+$enc_bank_no = openSslPubKey($bank_no);
+// 下单发请求    
+$input = new WxpayBankOrder();
+$input->SetDesc("山西尚宽电气集团有限公司-企业转账");
+$input->SetPartner_trade_no($partner_trade_no);
+$input->SetAmount($total_fee);
+$input->SetEnc_bank_no($enc_bank_no);
+$input->SetEnc_true_name($enc_true_name);
+$input->SetBank_code($enc_bank_code);
+//下单并获取返回的结果
+$order = WxPayApi::mmpaysptrans_pay_bank($input);
+//将数组打包成JSON格式
+$obj = json_encode($arr);
+echo $obj;
+
+
+// 调用接口，通知服务做出支付记录
+function postNotifyToServer($data_string)
+{
+	$url = 'http://47.104.204.250:8080/weChat/deposit/save';
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+	curl_setopt($ch, CURLOPT_POST, TRUE);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+	//设置头信息
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Content-Type: application/json; charset=utf-8',
+		'Content-Length: ' . strlen($data_string)
+	));
+	$res = curl_exec($ch);
+	curl_close($ch);
+	error_log("wechat pay notify:-------" . $res, 0);
+	$res = json_decode($res);
+	error_log("wechat pay notify:-------" . $res->success, 0);
+	return $res->success;
+}
+
 function getPubKey()
 {
 	$pub_key_file = './pub_key.pem';
@@ -49,44 +94,4 @@ function openSslPubKey($dec_str)
 	}
 }
 
-// 调用接口，通知服务做出支付记录
-function postNotifyToServer($data_string)
-{
-	$url = 'http://47.104.204.250:8080/weChat/deposit/save';
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-	curl_setopt($ch, CURLOPT_POST, TRUE);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-	//设置头信息
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-		'Content-Type: application/json; charset=utf-8',
-		'Content-Length: ' . strlen($data_string)
-	));
-	$res = curl_exec($ch);
-	curl_close($ch);
-	error_log("wechat pay notify:-------" . $res, 0);
-	$res = json_decode($res);
-	error_log("wechat pay notify:-------" . $res->success, 0);
-	return $res->success;
-}
-//②、获取公钥
-getPubKey();
-$enc_true_name = openSslPubKey($true_name);
-$enc_bank_no = openSslPubKey($bank_no);
-// 下单发请求    
-$input = new WxpayBankOrder();
-$input->SetDesc("山西尚宽电气集团有限公司-企业转账");
-$input->SetPartner_trade_no($partner_trade_no);
-$input->SetAmount($total_fee);
-$input->SetEnc_bank_no($enc_bank_no);
-$input->SetEnc_true_name($enc_true_name);
-$input->SetBank_code($enc_bank_code);
-//下单并获取返回的结果
-$order = WxPayApi::mmpaysptrans_pay_bank($input);
-//将数组打包成JSON格式
-$obj = json_encode($arr);
-echo $obj;
 ?>
