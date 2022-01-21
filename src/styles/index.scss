@@ -1,0 +1,30 @@
+*, body {
+  padding: 0;
+  margin: 0;
+}
+
+$--color-primary: rgb(91,156,248);
+
+$--color-left-menu:rgb(53,64,84);
+
+$--color-left-submenu:rgb(35,44,61);
+
+$--color-cover-bgc:rgb(49,61,84);
+
+$--color-title-txt:#363636;
+
+$add-text-color: #26D39D;
+$delete-text-color:#FF5F5F;
+// 权限相关页面的css变量配置
+$rightContentMargin:1.5% 2%;
+$rightContentPadding:20px 30px;
+$rigthContentBackgroundColor:#212325;
+
+$dash-line-color: rgb(55, 57, 59);
+
+$timePanelBackgroundColor:rgb(43, 47, 51);
+
+$fontFamily:"PingFangSC-Regular";
+$fontColor:#DDDDDD;
+
+$white15: rgba(255, 255, 255, 0.15);

@@ -1,15 +1,27 @@
+<!--
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: pengxueyou@hikvision.com.cn
+ * @Date: 2021-09-09 17:20:17
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-09 17:45:51
+-->
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <keep-alive>
+    <div id="app">
+      <router-view v-slot="{ Component }">
+        <component :is="Component" />
+      </router-view>
+    </div>
+  </keep-alive>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
   }
 }
 </script>
@@ -21,6 +33,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
